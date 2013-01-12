@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Acerca de...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Jesús Torres">
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .tag-1 {
+        font-size: 13pt;
+      }
+      .tag-2 {
+        font-size: 10pt;
+      }
+      .tag-2 {
+        font-size: 8pt;
+      }
+      .tag-4 {
+        font-size: 6pt;
+     }
+    </style>
+    <link href="../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="../theme/css/font-awesome.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="../theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../theme/images/apple-touch-icon-114x114.png">
+
+    <link href="../feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Sistema de Videovigilancia from Scratch ATOM Feed" />
+        <link href="../feeds/rss.xml" type="application/atom+xml" rel="alternate" title="Sistema de Videovigilancia from Scratch RSS Feed" />
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="../index.html">Sistema de Videovigilancia from Scratch </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                                                          <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                                        <li class="divider-vertical"></li>
+                                              <li >
+                    <a href="../category/overviews.html">
+						<i class="icon-folder-open icon-large"></i>Overviews
+					</a>
+                  </li>
+              
+                          <ul class="nav pull-right">
+                                <li><a href="../archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                          </ul>
+
+            </ul>
+            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="span9" id="content">
+            <section id="content" class="body">
+        <h1 class="entry-title">Acerca de...</h1>
+                <h1>Sistema de videovigilancia <em>from scratch</em></h1>
+<p>Esta
+Propuesta de práctica para la asignatura de Sistemas Operativos Avanzados</p>
+<h2>Arquitectura del sistema</h2>
+<p>Básicamente el sistema consta de 3 elementos:</p>
+<ul>
+<li>Una o más cámaras de videovigilancia inteligentes, encargadas de la captura de las imágenes, procesamiento y envío de las mismas al servidor de videovigilancia.</li>
+<li>Un servidor de videovigilancia, donde se recogen y clasifican las imágenes capturadas por las cámaras.</li>
+<li>Un frontal para la configuración y monitorización del sistema, así como para consultar los datos almacenados en el mismo.</li>
+</ul>
+<p>En la siguiente figura la interconexión de estos elementos se ilustra en un esquema general:</p>
+<h1>TODO: Imagen</h1>
+<p>Como se puede observar, en principio el frontal puede ir tanto integrado en el servidor de videovigilancia como correr en un equipo a parte.</p>
+<h2>Cámaras inteligentes</h2>
+<p>Una cámara inteligente es un sistema de visión que posee, a parte de la electrónica de captura de la imagen, un procesador para tratar los datos capturados y, generalmente, algún tipo de conexión externa: puerto ethernet o serie, E/S digital, líneas de control, etc. La idea es poder realizar pequeñas tareas de procesamiento dentro del propio dispositivo y/o facilitar el acceso a los datos a través de algún tipo red.</p>
+<p>Las cámaras inteligentes son dispositivos relativamente baratos si las comparamos con un sistema basado en PC al que se conectan cámaras convencionales. Sin embargo su potencia y flexibilidad, en cuanto a las tareas que podemos realizar con ellas, son bastante limitadas en relación a su precio.</p>
+<p>Por eso diseñaremos nuestra propia cámara inteligente de bajo coste. Cada cámara está compuesta por:</p>
+<h1>TODO: Artículos</h1>
+<ul>
+<li>Una placa computadora <a href="">Raspberry PI</a>. Esta placa ofrece más recursos hardware que la mayor parte de las cámaras inteligentes disponibles en el mercado. Además dispone de un puerto [GPIO] a través del que se exponen al exterior diversos buses de interconexión y recursos de la placa (E/S digital, [I2C], [SPI], RS232, etc).</li>
+<li>Una cámara CF7670C-V2 (OV7670+AL422).</li>
+<li>Una pantalla LCD de 1.8” [SPI] (ST7735).</li>
+</ul>
+<p>A continuación se muestra un esquema de los diferentes componentes de la cámara y su interconexión:</p>
+<h1>TODO: Imagen</h1>
+<h2>Servidor de videovigilancia</h2>
+<p>En un buen sistema de videovigilancia las imágenes recogidas desde las diferentes cámaras deben archivarse en un servidor centralizado (que se ejecutará en un PC) donde puedan ser revisadas, tanto en el momento actual como en uno posterior.</p>
+<h1>TODO: Artículos</h1>
+<p>En este sentido lo primero será diseñar un protocolo de comunicación, adecuado a la tarea que se va a realizar, entre las cámaras y el servidor. Aunque no está completamente definido, con el objetivo de aprovechar el trabajo que otros ya han hecho, una buena elección para la implementación de este protocolo podría ser combinar <a href="">Protocol Buffer</a>, para la serialización y formateo de las estructuras de datos de los mensajes, con <a href="">0MQ</a>, para la capa de transporte.</p>
+<h2>Frontal de monitorización y consulta</h2>
+<p>Para que las imágenes archivadas puedan tener alguna utilidad es necesario disponer de un frontal desde el que poder hacer consultas para recuperarlas y para monitorizar el estado de todo el sistema.</p>
+<p>Este es el aspecto menos definido, ya que se pueden adoptar diversas soluciones, todas ellas muy interesantes:</p>
+<dl>
+  <dt>Aplicación de escritorio<dt>
+  <dd>Se puede extender el protocolo de comunicación entre las cámaras y el servidor para incluir consultas e información de estado. Este protocolo se utilizaría para comunicar el servidor con una aplicación de escritorio que se ejecutaría en el puesto de mando. Lo más interesante de esta solución es poder desarrollar de una aplicación de escritorio real.</dd>
+  <dt>Aplicación web en servidor convencional</dt>
+  <dd>Se puede desplegar en el servidor de videoconferencia un servidor web o servidor de aplicaciones, según el caso, para el que desarrollar una aplicación capaz de consultar las imágenes archivadas y sus metadatos. Al tratarse de procesos diferentes, sería necesario controlar el acceso a los archivos compartidos mediante el uso de bloqueos. Además el desarrollo se pude realizar en un lenguaje de programación diferente a C++.</dd>
+  <dt>Aplicación web en servidor empotrado</dt>
+  <dd>Se puede empotrar un servidor web, como [Mongoose](http://code.google.com/p/mongoose/), en el propio proceso del servidor de videovigilancia. Esta sería la solución más compacta, aunque tal vez también la menos interesante.</dd>
+<dl>
+
+Sea cual sea la solución finalmente elegida el frontal debe soportar que el usuario pueda realizar las siguientes acciones:
+
+ * Consultar el estado de las cámaras. Por ejemplo, si están en funcionamiento, fecha y hora de la última captura, etc.
+ * Localizar secuencias de imágenes por fecha, hora y cámara y reproducirlas.
+
+## Metodología de trabajo
+
+A parte del trabajo concreto a realizar, es necesario destacar algunos aspectos de la metodología de trabajo que son fundamentales para complementar la formación de los estudiantes:
+
+ * Los equipos de trabajo se organizarán en grupos de 2 personas, 3 como máximo.
+ * Todo el desarrollo se realizará en abierto en GitHub, dentro de una organización creada al efecto, con los equipos correspondientes.
+ * Se promoverá el uso de todos los recursos propios de la plataforma: elaboración de un README, uso de las incidencias y tareas, fork del proyecto base de la práctica, branching, uso del Wiki para documentar y creación de una página para el proyecto.
+ * Para el protocolo de comunicación entre las cámaras y el servidor de videovigilancia se acordará una estructura# y después cada equipo implementará el suyo para su cámara como considere más conveniente. A la hora de implementar el servidor, cada equipo tendrá que hacerlo funcionar con 1 o 2 cámaras a parte de la suya. Eso significa que tendrán que dar soporte a otros protocolos y/o proponer parches a otros equipos, según el caso.
+ * El trabajo realizado y el resultado final deberá ser presentado y defendido ante la clase para su evaluación.
+
+## Antecedentes
+
+Las competencias específicas de la asignatura, tal y como aparecen en la
+memoria de grado, son las siguientes:
+
+ * E11. Capacidad de diseñar Software de Sistemas Operativos.
+ * E12. Capacidad para verificar y analizar sistemas de tiempo real sencillos.
+ * E13. Comprender las ventajas e inconvenientes de distintos planificadores
+para Sistemas Operativos.
+ * E14. Capacidad para evaluar requerimientos de tiempo real en aplicaciones.
+
+La cuestión era desarrollar contenidos y actividades que permitiera cubrir
+estas competencias, manteniendo al mismo tiempo la idea original de que la
+asignatura fuera eminentemente práctica, recurriendo a las clases magistrales
+sólo para introducir conceptos y líneas de trabajo y dejando de lado la
+realización de exámenes para la evaluación.
+
+Tomando en consideración las actividades prácticas, esta podría ser una lista
+de deseos a considerar para su diseño:
+
+ * Cubrir todas las competencias.
+ * Motivar la creatividad, la innovación, el desarrollo de espíritu
+emprendedor, etc.
+ * Enfrentar a los estudiantes a problemas de diseño y desarrollo reales.
+ * Tener una dificultad controlada, aunque al mismo tiempo deben permitir que
+aquellos estudiantes que quieran esforzarse más puedan hacerlo.
+ * Ser pocas en cantidad, porque lo contrario difícilmente sería compatible
+con plantear problemas de diseño reales.
+ * Se debe evitar en lo posible los cambios tecnológicos para intentar
+maximizar el aprovechamiento de los conocimientos adquiridos en actividades
+prácticas o asignaturas previas.
+
+Con idea de cubrir algunos de los puntos anteriores, una primera aproximación
+fue plantear el desarrollo de un servidor de juegos. Es decir, tomar algún
+videojuego libre multijugador y desarrollar desde cero un servidor de juego
+online. En este sentido tengo que dar las gracias a [Noel Diaz](https://plus.google.com/u/0/107625531464190540689/)
+por prestarse a dejarme su versión de **PACMAN**. Creo que hacer una versión
+multijugador hubiera sido de lo más interesante.
+
+Lamentablemente esta opción hubiera obligado a preparar al menos una segunda
+práctica, ya que por sí misma no cubría el desarrollo de un tipo de software
+de sistema muy concreto, los controladores de dispositivo.
+
+Al pensar en esta segunda práctica surgió la idea de desarrollar un sistema de
+videovigilancia, como práctica única de la asignatura de Sistemas Operativos
+Avanzados. Esta solución permite cubrir todas las competencias, al tiempo que
+parece encajar perfectamente con nuestra lista de deseos.
+
+[GPIO]: http://en.wikipedia.org/wiki/General_Purpose_Input/Output "General-Purpose Input/Output"
+</section>
+        </div><!--/span-->
+
+                <div class="span3 well sidebar-nav" id="sidebar">
+            <ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
+<li><a href="../feeds/atom.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="../feeds/rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
+    <li><a href="https://github.com/ull-etsii-sistemas-operativos/"><i class="icon-github-sign icon-large"></i>github</a></li>
+    <li><a href="http://goo.gl/5hufC"><i class="icon-google+-sign icon-large"></i>google+</a></li>
+
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="../category/overviews.html">
+    <i class="icon-folder-open icon-large"></i>Overviews
+</a>
+</li>
+
+<li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
+<li class="tag-4">
+    <a href="../tag/linux.html">
+        <i class="icon-tag icon-large"></i>linux
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/poky.html">
+        <i class="icon-tag icon-large"></i>poky
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/bitbake.html">
+        <i class="icon-tag icon-large"></i>bitbake
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/openembedded.html">
+        <i class="icon-tag icon-large"></i>openembedded
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/yocto.html">
+        <i class="icon-tag icon-large"></i>yocto
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/empotrado.html">
+        <i class="icon-tag icon-large"></i>empotrado
+    </a>
+</li>
+
+
+</ul>        </div><!--/.well -->
+
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <address id="about">
+                <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es"><img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />Este obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es">Licencia Creative Commons Atribución 3.0 Unported</a>.
+                The theme is from <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a>,
+                   and <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a>, thanks!
+        </address><!-- /#about -->
+
+        <!--<p>The theme is from <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a>,
+                   and <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a>, thanks!</p>-->
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+
+            
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../theme/js/bootstrap.min.js"></script>
+  </body>
+</html>

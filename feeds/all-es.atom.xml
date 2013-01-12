@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-01-10T00:00:00+00:00</updated><entry><title>Yocto, Poky y BitBake</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" rel="alternate"></link><updated>2013-01-10T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-10:yocto-poky-y-bitbake.html</id><summary type="html">&lt;p&gt;El proyecto &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; proporciona a los desarrolladores de sistemas empotrados
+Linux un punto de partida para generar distribuciones personalizadas para
+sus productos. Una de las piezas clave del proyecto es el sistema de
+construcción &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt;, que a su vez se apoya en &lt;a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake"&gt;BitBake&lt;/a&gt;, una herramienta de
+construcción de paquetes al estilo de
+&lt;a href="http://es.wikipedia.org/wiki/Portage_(software)"&gt;Portage&lt;/a&gt; de
+&lt;a href="http://www.gentoo.org/"&gt;Gentoo&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;El proyecto Yocto&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; está financiado por la &lt;a href="http://www.linuxfoundation.org/"&gt;Linux Foundation&lt;/a&gt;.
+Su principal objetivo es desarrollar herramientas que ayuden a los desarrolladores
+a crear sus propias distribuciones de Linux, sea cual sea el hardware sobre el que
+van a correr. Entre los proyectos desarrollados en el seno de &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; están:
+el sistema de construcción &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt;, el sistema de
+&lt;a href="http://es.wikipedia.org/wiki/Integraci%C3%B3n_continua"&gt;integración continua&lt;/a&gt;
+&lt;a href="http://autobuilder.yoctoproject.org/"&gt;Autobuiler&lt;/a&gt; y la librería de sistema
+&lt;a href="http://www.eglibc.org/"&gt;Embedded GLIBC (EGLIBC)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Además, cuando se crea una distribución con &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt;, la herramienta de construcción
+crea un SDK de desarrollo de aplicaciones adaptado a dicha distribución. Este
+SDK puede conectarse al IDE &lt;a href="http://www.eclipse.org/" title="Eclipse IDE"&gt;Eclipse&lt;/a&gt; o puede usarse desde la línea de comandos.&lt;/p&gt;
+&lt;h2&gt;El sistema de construcción Poky&lt;/h2&gt;
+&lt;p&gt;Uno de los componentes centrales de &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; es el sistema de construcción &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt;.
+Su responsabilidad fundamental es la construcción de imágenes de sistemas de
+archivos de sistemas Linux. Estos pueden incluir diferentes productos de software:
+Linux, X11, Matchbox, GTK+, Pimlico, Clutter, D-BUS, etc.&lt;/p&gt;
+&lt;p&gt;Aunque se pueden generar diferentes tipos de imágenes según el dispositivo donde
+va a ser almacenada, el proyecto ejemplo estándar lo hace para el emulador &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt;
+y para placas de referencia reales de los fabricantes, para cada una de las
+arquitecturas soportadas. Esta habilidad de &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt; lo hace especialmente
+apropiado como plataforma de pruebas y de desarrollo de software para empotrados.&lt;/p&gt;
+&lt;p&gt;Un proyecto similar a &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt; es &lt;a href="http://www.openembedded.org/" title="OpenEmbedded"&gt;OpenEmbedded&lt;/a&gt;, que también es un sistema de construcción
+para sistemas Linux empotrados. &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt; deriva de un proyecto para crear
+una rama estabilizada de &lt;a href="http://www.openembedded.org/" title="OpenEmbedded"&gt;OpenEmbedded&lt;/a&gt;, limitando el software disponible a unos
+pocos paquetes, de entre los miles de los que dispone &lt;a href="http://www.openembedded.org/" title="OpenEmbedded"&gt;OpenEmbedded&lt;/a&gt;, así como el número
+de arquitecturas soportadas. Con el tiempo esta rama evolucionó añadiendo
+el componente de &lt;a href="http://www.eclipse.org/" title="Eclipse IDE"&gt;Eclipse&lt;/a&gt; y la generación de imágenes para &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt;, entre otras cosas.
+Esto dio origen a &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;El núcleo central de &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt; es la herramienta de construcción &lt;a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake"&gt;BitBake&lt;/a&gt; junto
+con una colección de archivos de configuración de diversos tipos que definen
+todo lo necesario para construir la imagen del sistema Linux.&lt;/p&gt;
+&lt;h2&gt;La herramienta de construcción BitBake&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake"&gt;BitBake&lt;/a&gt; es básicamente un ejecutor de tareas. Su función es leer los archivos
+de configuración que definen el proyecto; establecer que tareas deben ser realizadas
+y en que orden, obviamente en función de las dependencias y para maximizar la eficiencia
+(por ejemplo primero se intentan ejecutar las que son dependencias comunes a otras tareas)
+y finalmente ejecutarlas.&lt;/p&gt;
+&lt;p&gt;Los tipos de archivos de configuración que maneja &lt;a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake"&gt;BitBake&lt;/a&gt; son:&lt;/p&gt;
+&lt;dl&gt;
+ &lt;dt&gt;Recetas (.bb)&lt;/dt&gt;
+ &lt;dd&gt;Contienen información acerca de un componente de software concreto. Entre
+ dicha información, por ejemplo, podemos destacar: desde donde descargar los
+ parches para las fuentes, que configuraciones deben ser aplicadas antes de
+ la compilación, como se compila el componente y como se empaqueta el resultado.&lt;/dd&gt;
+ &lt;dt&gt;Clases (.bbclass)&lt;/dt&gt;
+ &lt;dd&gt;Contienen información que es interesante compartir entre distintas recetas.
+ Por ejemplo la clase **autotools**, que contiene configuraciones comunes para
+ cualquier aplicación que utiliza la herramienta **autotools**.&lt;/dd&gt;
+ &lt;dt&gt;Configuraciones (.conf)&lt;/dt&gt;
+ &lt;dd&gt;Define diversas variables de configuración que controlan lo que Poky va
+ a hacer. Esto incluye configuraciones específicas de la maquina, opciones de
+ configuración de la distribución, ajustes del compilador, configuraciones de
+ usuario, etc.&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;&lt;a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake"&gt;BitBake&lt;/a&gt; puede combinar varios de estos archivos en los se denomina como &lt;strong&gt;capas&lt;/strong&gt;.
+Una capa es un agrupamiento de recetas que proporciona algún tipo de funcionalidad
+adicional. Pueden ser un &lt;a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package"&gt;BSP&lt;/a&gt; para un nuevo dispositivo, tipos de imágenes
+adicionales o software no incluido en Poky.&lt;/p&gt;
+&lt;p&gt;Los mismos metadatos principales del proyecto &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt;, &lt;strong&gt;meta-yocto&lt;/strong&gt;, son por si
+mismos una capa aplicada sobre la capa de metadatos OE-Core que añade software
+adicional y tipos de imágenes a esta última.&lt;/p&gt;
+&lt;p&gt;Un ejemplo de como funciona esto se puede ver al crear un dispositivo &lt;a href="http://es.wikipedia.org/wiki/Network-attached_storage" title="Network-attached storage"&gt;NAS&lt;/a&gt;
+(Network-attached Storage) para la CPU Intel E660
+(&lt;a href="http://www.intel.com/p/es_XL/embedded/hwsw/hardware/atom-e6xx/overview"&gt;Crown Bay&lt;/a&gt;)
+usando x32, el nuevo &lt;a href="http://en.wikipedia.org/wiki/Application_binary_interface" title="Application binary interface"&gt;ABI&lt;/a&gt; nativo de 32 bits para procesadores x86-64:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;En el nivel más bajo colocaríamos una capa &lt;a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package"&gt;BSP&lt;/a&gt; para Crown Bay que activaría
+ funcionalidades específicas del hardware de estos procesadores.
+ Esta capa, por ejemplo, incluiría los drivers de vídeo.&lt;/li&gt;
+&lt;li&gt;Como queremos utilizar x32, añadiríamos posteriormente la capa &lt;strong&gt;meta-x32&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;La funcionalidad de &lt;a href="http://es.wikipedia.org/wiki/Network-attached_storage" title="Network-attached storage"&gt;NAS&lt;/a&gt; se incorporaría añadiendo la capa &lt;strong&gt;meta-bayron&lt;/strong&gt;,
+ que el mismo proyecto &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; nos ofrece como ejemplo.&lt;/li&gt;
+&lt;li&gt;Finalmente incorporaríamos una capa, que imaginariamente llamaremos
+ &lt;strong&gt;meta-myproject&lt;/strong&gt;, para proveer el software y la configuraciones necesarias
+ para crear una interfaz gráfica de usuario de configuración del &lt;a href="http://es.wikipedia.org/wiki/Network-attached_storage" title="Network-attached storage"&gt;NAS&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Como hemos comentado, cada una de estas capas estaría formada por uno o más
+archivos de configuración de los tipos indicados anteriormente.&lt;/p&gt;
+&lt;h2&gt;Referencias&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://www.aosabook.org/en/yocto.html"&gt;The Yocto Proyect&lt;/a&gt;.
+ &lt;a href="http://www.aosabook.org/"&gt;The Architecture of Open Source Applications&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://wiki.yoctoproject.org/wiki/FAQ"&gt;Yocto Proyect FAQ&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.yoctoproject.org/docs/1.0/poky-ref-manual/poky-ref-manual.html"&gt;Poky HandBook&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="yocto"></category><category term="poky"></category><category term="bitbake"></category><category term="empotrado"></category><category term="linux"></category><category term="openembedded"></category></entry></feed>
