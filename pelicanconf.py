@@ -10,7 +10,7 @@ TIMEZONE = 'Atlantic/Canary'
 DEFAULT_LANG = u'es'
 
 FILENAME_METADATA = '(?P<date>\d{4}-\d{2}-\d{2})_(?P<slug>.*)'
-SUMMARY_MAX_LENGTH = 200
+SUMMARY_MAX_LENGTH = 100
 
 # Feeds
 FEED_DOMAIN = SITEURL
@@ -24,7 +24,7 @@ LINKS =  ()
 SOCIAL = (('github', 'https://github.com/ull-etsii-sistemas-operativos/'),
           ('google+', 'http://goo.gl/5hufC'),)
 
-DEFAULT_PAGINATION = 10
+DEFAULT_PAGINATION = 5
 
 # Theme
 THEME = u'themes/bootstrap2'
