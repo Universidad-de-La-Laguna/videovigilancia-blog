@@ -121,7 +121,42 @@
 	<a href="./tag/ov7670.html"><i class="icon-tag"></i>ov7670</a>
 	<a href="./tag/al422.html"><i class="icon-tag"></i>al422</a>
 </footer><!-- /.post-info -->                </div>
-                
+                <p>Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>
+con una memoria FIFO <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg" title="FIFO Averlogic AL422">Averlogic AL422</a> de 3Mb.</p>
+<p><img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0px 10px 0"></p>
+<p>La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
+dando tiempo a la CPU externa a recuperarlas al ritmo que le sea posible.</p>
+<p>Las principales características del sensor <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a> son:</p>
+<ul>
+<li>Resolución de 640x480 pixels (VGA).</li>
+<li>Hasta 30 fps para resolución VGA.</li>
+<li>Formatos de salida (8 bits):<ul>
+<li><a href="http://es.wikipedia.org/wiki/YUV" title="YUV">YUV</a>/<a href="http://es.wikipedia.org/wiki/YCbCr" title="YCbCr">YCbCr</a> 4:2:2</li>
+<li>RGB 565/555/444</li>
+<li>GRB 4:2:2</li>
+<li>Raw RGB Data</li>
+</ul>
+</li>
+<li>Modo de <a href="http://es.wikipedia.org/wiki/Escaneo_progresivo">escaneo progresivo</a>.</li>
+<li>Interfaz de control mediante <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM" title="Serial Camera Control Bus">SCCB</a>.</li>
+</ul>
+<p>Tal y como se puede observar en el <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc" title="CF7670C-V2 Camera Module Schematic">esquemático</a> del módulo, tanto el bus
+<a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM" title="Serial Camera Control Bus">SCCB</a> (que prácticamente es un <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>) como las líneas del OV7670 que informan
+del barrido vertical (VSYNC) y horizontal (HREF) están disponibles para que
+sean accesibles a una CPU externa.</p>
+<p>Por el contrario, las líneas de datos del OV7670 están conectadas al AL422
+para almacenar en el la imagen capturada. Es la salida de esta memoria FIFO,
+así como las líneas necesarias para controlar la lectura de la misma, las que
+son  accesibles desde el conector del módulo.</p>
+<h2>Referencias adicionales</h2>
+<ol>
+<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>.</li>
+<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg" title="FIFO Averlogic AL422">Averlogic AL422</a>.</li>
+<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc">Esquemático del módulo CF7670C-V2</a>.</li>
+<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ">Pines del módulo CF7670C-V2</a>.</li>
+<li><a href="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fS3c4VTRTNHJvMEU">Controlador de ejemplo para el módulo CF7670C-V2</a>.</li>
+<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk">OV7670 Implementation Guide</a>.</li>
+</ol>
                 </div><!-- /.entry-content -->
                         </article>
 </section>
@@ -154,8 +189,8 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/poky.html">
-        <i class="icon-tag icon-large"></i>poky
+    <a href="./tag/gpio.html">
+        <i class="icon-tag icon-large"></i>gpio
     </a>
 </li>
 <li class="tag-4">
@@ -164,18 +199,13 @@
     </a>
 </li>
 <li class="tag-4">
+    <a href="./tag/poky.html">
+        <i class="icon-tag icon-large"></i>poky
+    </a>
+</li>
+<li class="tag-4">
     <a href="./tag/yocto.html">
         <i class="icon-tag icon-large"></i>yocto
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/cf7670c.html">
-        <i class="icon-tag icon-large"></i>cf7670c
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/st7735.html">
-        <i class="icon-tag icon-large"></i>st7735
     </a>
 </li>
 <li class="tag-4">
@@ -189,8 +219,8 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/gpio.html">
-        <i class="icon-tag icon-large"></i>gpio
+    <a href="./tag/linux.html">
+        <i class="icon-tag icon-large"></i>linux
     </a>
 </li>
 <li class="tag-4">
@@ -199,23 +229,8 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/spi.html">
-        <i class="icon-tag icon-large"></i>spi
-    </a>
-</li>
-<li class="tag-4">
     <a href="./tag/ov7670.html">
         <i class="icon-tag icon-large"></i>ov7670
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/i2c.html">
-        <i class="icon-tag icon-large"></i>i2c
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/linux.html">
-        <i class="icon-tag icon-large"></i>linux
     </a>
 </li>
 <li class="tag-4">
@@ -224,8 +239,8 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/lcd.html">
-        <i class="icon-tag icon-large"></i>lcd
+    <a href="./tag/spi.html">
+        <i class="icon-tag icon-large"></i>spi
     </a>
 </li>
 <li class="tag-4">
@@ -234,13 +249,33 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/rpi.html">
-        <i class="icon-tag icon-large"></i>rpi
+    <a href="./tag/lcd.html">
+        <i class="icon-tag icon-large"></i>lcd
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/st7735.html">
+        <i class="icon-tag icon-large"></i>st7735
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/i2c.html">
+        <i class="icon-tag icon-large"></i>i2c
     </a>
 </li>
 <li class="tag-4">
     <a href="./tag/broadcom.html">
         <i class="icon-tag icon-large"></i>broadcom
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/rpi.html">
+        <i class="icon-tag icon-large"></i>rpi
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/cf7670c.html">
+        <i class="icon-tag icon-large"></i>cf7670c
     </a>
 </li>
 
