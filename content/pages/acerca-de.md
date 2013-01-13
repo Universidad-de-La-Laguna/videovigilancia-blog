@@ -67,8 +67,7 @@ placa ofrece más recursos hardware que la mayor parte de las cámaras
 inteligentes disponibles en el mercado. Además dispone de un puerto [GPIO] a
 través del que se exponen al exterior diversos buses de interconexión y
 recursos de la placa (E/S digital, [I2C], [SPI], RS232, etc).
- * Una cámara [CF7670C-V2](|filename|/Hardware/camara-cf7670c.md) controlable
-por [I2C].
+ * Una cámara [CF7670C-V2] controlable por [I2C].
  * Una [pantalla LCD de 1.8"](|filename|/Hardware/lcd-1.8spi.md) [SPI].
 
 A continuación se muestra un esquema de los diferentes componentes de la
@@ -76,6 +75,29 @@ cámara y su interconexión:
 
 <img
 src="https://docs.google.com/drawings/d/1FJZdS7dX56nrNA55Y1fnkK1ZlUFSoE24Mr4Qxrkfapk/pub?w=624&amp;h=366">
+
+### Tareas previstas
+
+Obviamente las primeras tareas en el desarrollo de nuestro sistema de
+videovigilancia estarán relacionadas con la puesta en marcha de las cámaras inteligentes:
+
+ * Hacer uso del proyecto [Yocto] para desarrollar una distribución empotrada
+de Linux para las cámaras.
+ * Familiarizarse con el entorno de desarrollo de aplicaciones de [Yocto] y
+las herramientas que provee y con conceptos tales como la compilación cruzada,
+la depuración cruzada y la emulación del hardware mediante [QEMU].
+ * Desarrollar un controlador para el núcleo que exponga al espacio de usuario
+una interfaz de acceso a las funcionalidades de la cámara [CF7670C-V2]. En lo
+posible la interfaz expuesta al espacio de usuario debe ser compatible con [V4L],
+como cualquier otro dispositivo de vídeo; aunque cualquier tipo de interfaz
+básica a medida también serviría.
+ * Incluir en la distribución el controlador necesario para hacer accesible
+la pantalla LCD SPI de forma transparente como un [framebuffer].
+ * Desarrollar una aplicación multihilo que capture las imágenes de la cámara
+y las muestre en la pantalla LCD, así como otra información relevante, como por
+ejemplo la dirección IP del dispositivo. Para el desarrollo de esta aplicación
+se utilizaría [Qt for Embedded Linux] como framework ya que puede funcionar sobre
+el dispositivo [framebuffer] de la pantalla LCD.
 
 ## Servidor de videovigilancia
 En un buen sistema de videovigilancia las imágenes recogidas desde las
@@ -87,9 +109,9 @@ En este sentido lo primero será diseñar un protocolo de comunicación entre la
 cámaras y el servidor adecuado a la tarea que se va a realizar. Con el
 objeto de aprovechar el trabajo que otros ya han hecho, los mensajes de dicho
 protocolo se serializarán y formatearan para su transmisión con
-[Protocol Buffers]. Mientras que en la capaz de transporte, para la
-comunicación propiamente dicha de los mensajes, se utilizará
-[0MQ](|filename|/Overviews/zeromq.md).
+[Protocol Buffers]. Mientras que en la capa de transporte, para la
+transmisión de los mensajes propiamente dicha, se utilizará TCP através de la
+interfaz que sobre la del sistema operativo provee [Boost.Asio].
 
 Obviamente no nos olvidamos de otras alternativas a la solución propuesta, como:
 [Apache Thrift](http://en.wikipedia.org/wiki/Apache_Thrift) o
@@ -97,6 +119,39 @@ Obviamente no nos olvidamos de otras alternativas a la solución propuesta, como
 parece ser una librería más sencilla, robusta, mejor documentada y eficiente
 en el tamaño de los mensajes serializados. Además de permitirnos escoger la
 tecnología de transporte que más nos interese.
+
+En concreto las tareas a realizar serán las siguientes:
+
+### Tareas previstas en las cámaras inteligentes
+
+ * Añadir a la aplicación de captura soporte para procesar las imágenes y
+detectar cambios en las mismas.
+ * Implementar el protocolo de comunicación comentado anteriormente para
+transferir dichas imágenes, y otros datos que puedan ser relevantes, al servidor
+de videovigilancia.
+ * Hacer algunas pruebas de rendimiento de la aplicación utilizando distintos criterios:
+    * Ajustando las prioridades y el tipo de planificación de los hilos y de la E/S.
+    * Probando prioridades de tiempo real y un núcleo Linux con el
+[parche de tiempo real](https://rt.wiki.kernel.org).
+    * Probando el bloqueo de páginas en memoria.
+
+### Tareas previstas en el servidor de videovigilancia
+
+ * Desarrollar un servicio o demonio capaz de escuchar el protocolo
+comentado anteriormente, con las características comunes a este tipo de aplicaciones:
+    * Soporte para funcionar tanto en modo demonio como en primer plano.
+    * Script de arranque estándar en el inicio del sistema.
+    * Manejo adecuado de las señales.
+    * Salida mediante el uso del [gestor de registro](http://es.wikipedia.org/wiki/Syslog) del sistema.
+ * Implementar diversas soluciones para manejar la concurrencia en las comunicaciones
+y comparar sus ventajas e inconvenientes: multiproceso con memoria compartida,
+comunicación asíncrona y/o multihilo.
+ * Implementar el almacenamiento de las imágenes recibidas:
+   * Empleando archivos mapeados en memoria para el almacenamiento de las
+imágenes en disco, de los metadatos asociados y de los índices para las búsquedas.
+   * Utilizando bloqueos para manejar la concurrencia en el acceso a los
+archivos cuando sea necesario.
+ * **(Opcional)** Implementar la capa de transporte con [0MQ](http://www.zeromq.org/).
 
 ## Frontal del operador
 
@@ -218,3 +273,11 @@ cuestión no dudes en ponerse en contacto [conmigo](jmtorres@ull.es).
 [I2C]: http://es.wikipedia.org/wiki/I2C "I²C (Inter-Integrated Circuit)"
 [SPI]: http://es.wikipedia.org/wiki/SPI "Serial Peripheral Interface"
 [Protocol Buffers]: |filename|/Overviews/protobufs.md "Google Protocol Buffers"
+[Yocto]: |filename|/Overviews/yocto-poky-y-bitbake.md "Yocto, Poky y BitBake"
+[Raspberry PI]: |filename|/Hardware/sbc-rpi.md "Raspberry PI"
+[QEMU]: http://wiki.qemu.org/ "QEMU"
+[CF7670C-V2]: |filename|/Hardware/camara-cf7670c.md "CF7670C-V2 (OV7670+AL422)"
+[V4L]: http://en.wikipedia.org/wiki/Video4Linux "Video for Linux"
+[Qt for Embedded Linux]: http://doc.qt.digia.com/qt/qt-embedded-linux.html "Qt for Embedded Linux"
+[framebuffer]: http://es.wikipedia.org/wiki/Framebuffer "Framebuffer"
+[Boost.Asio]: http://www.boost.org/doc/libs/1_52_0/doc/html/boost_asio/overview.html "Boost.Asio"

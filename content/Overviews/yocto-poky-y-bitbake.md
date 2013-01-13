@@ -1,6 +1,7 @@
 Title: Yocto, Poky y BitBake
 Tags: yocto, poky, bitbake, empotrado, linux, openembedded
 Author: Jesús Torres
+Date: 2013-01-10
 
 El proyecto [Yocto] proporciona a los desarrolladores de sistemas empotrados
 Linux un punto de partida para generar distribuciones personalizadas para
