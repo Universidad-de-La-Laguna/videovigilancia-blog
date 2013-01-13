@@ -12,18 +12,14 @@ Como su propio nombre indica, la idea es desarrollar un sistema de
 videoconferencia completo, incluyendo una serie de cámaras inteligentes, un
 servidor de almacenamiento para las imágenes y un frontal para el puesto del
 operador del sistema. El objetivo es que los estudiantes, al enfrentarse a los
-retos de esta
-práctica, adquieran todas las [competencias](#antecedentes) recogidas en la
-memoria académica del grado para la asignatura de Sistemas Operativos
+retos de esta práctica, adquieran todas las [competencias](#antecedentes) recogidas
+en la memoria académica del grado para la asignatura de Sistemas Operativos
 Avanzados.
 
 Este sitio recoge, a modo de blog, todo el material que consideramos
-interesante
-desde el punto de vista del desarrollo de la práctica. Sin embargo es muy
-posible que
-sea también una referencia a tener en cuenta para quienes tienen pensado
-desarrollar
-proyectos similares.
+interesante desde el punto de vista del desarrollo de la práctica. Sin embargo es muy
+posible que sea también una referencia a tener en cuenta para quienes tienen pensado
+desarrollar proyectos similares.
 
 ## Arquitectura del sistema
 Básicamente el sistema consta de 3 elementos:
@@ -79,7 +75,8 @@ src="https://docs.google.com/drawings/d/1FJZdS7dX56nrNA55Y1fnkK1ZlUFSoE24Mr4Qxrk
 ### Tareas previstas
 
 Obviamente las primeras tareas en el desarrollo de nuestro sistema de
-videovigilancia estarán relacionadas con la puesta en marcha de las cámaras inteligentes:
+videovigilancia estarán relacionadas con la puesta en marcha de las cámaras
+inteligentes:
 
  * Hacer uso del proyecto [Yocto] para desarrollar una distribución empotrada
 de Linux para las cámaras.
