@@ -10,13 +10,13 @@ Una Raspberry Pi es una placa computadora ([SBC]) de bajo coste que incluye:
 una GPU [VideoCore] IV.
  * 512 MB de memoria RAM (en la versión B de Raspberry Pi, 256 MB en la versión A)
 instalada sobre la CPU.
- * Una ranura de tarjetas SD/MMC/SDIO para el almacenamiento no volatil.
+ * Una ranura de tarjetas SD/MMC/SDIO para el almacenamiento no volátil.
  * 1 puerto Ethernet de 10/100Mb.
  * 2 puertos USB 2.0.
  * 1 puerto micro USB de alimentación.
  * 1 puerto tipo A de salida HDMI 1.3.a
- * 1 conector RCA de salida de video compuesto.
- * 1 conector jack esterio de 3.5mm para la salida de audio.
+ * 1 conector RCA de salida de vídeo compuesto.
+ * 1 conector jack estéreo de 3.5mm para la salida de audio.
  * 1 conector de expansión de 26 pines con:
     * 8 puertos [GPIO] a 3.3v.
     * 2 puertos seriales ([UART]) a 3.3v TTL o 2 puertos [GPIO] a 3.3v.
@@ -38,7 +38,7 @@ en la actualidad provee [productos](https://www.adafruit.com/raspberrypi) relaci
 distribución [Adafruit Raspberry Pi Educational Linux Distro](http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro),
 que tiene algunas ventajas respecto a las oficiales, y el
 entorno de desarrollo [Raspberry Pi WebIDE](http://learn.adafruit.com/webide/)
-basado en web para crear facilmente aplicaciones en [Python], Ruby o JavaScript.
+basado en web para crear fácilmente aplicaciones en [Python], Ruby o JavaScript.
 
 ## Referencias adicionales
 
