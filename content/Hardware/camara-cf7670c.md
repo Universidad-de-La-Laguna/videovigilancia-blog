@@ -36,15 +36,15 @@ son  accesibles desde el conector del módulo.
 
  1. [OmniVision OV7670].
  1. [Averlogic AL422].
- 1. [Esquemático del módulo CF7670C-V2](https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc).
- 1. [Pines del módulo CF7670C-V2](https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ).
+ 1. [Esquemático del módulo CF7670C-V2](https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit).
+ 1. [Pines del módulo CF7670C-V2](https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ/edit).
  1. [Controlador de ejemplo para el módulo CF7670C-V2](https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS3c4VTRTNHJvMEU).
- 1. [OV7670 Implementation Guide](https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk).
+ 1. [OV7670 Implementation Guide](https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk/edit).
 
-[OmniVision OV7670]: https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg "Sensor CMOS OmniVision OV7670"
-[Averlogic AL422]: https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg "FIFO Averlogic AL422"
-[SCCB]: https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM "Serial Camera Control Bus"
+[OmniVision OV7670]: https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit "Sensor CMOS OmniVision OV7670"
+[Averlogic AL422]: https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit "FIFO Averlogic AL422"
+[SCCB]: https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit "Serial Camera Control Bus"
 [YUV]: http://es.wikipedia.org/wiki/YUV "YUV"
 [YCbCr]: http://es.wikipedia.org/wiki/YCbCr "YCbCr"
-[esquemático]: https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc "CF7670C-V2 Camera Module Schematic"
+[esquemático]: https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit "CF7670C-V2 Camera Module Schematic"
 [I2C]: http://es.wikipedia.org/wiki/I2C "I²C (Inter-Integrated Circuit)"
