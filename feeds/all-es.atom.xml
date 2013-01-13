@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-01-13T00:00:00+00:00</updated><entry><title>Raspberry Pi</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/raspberry-pi.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:raspberry-pi.html</id><summary type="html">&lt;p&gt;Una Raspberry Pi es una placa computadora (&lt;a href="http://en.wikipedia.org/wiki/Single-board_computer" title="Single-board Computer"&gt;SBC&lt;/a&gt;) de bajo coste que incluye:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-01-13T00:00:00+00:00</updated><entry><title>Cámara CF7670C-V2</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/camara-cf7670c-v2.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:camara-cf7670c-v2.html</id><summary type="html"></summary><category term="cf7670c"></category><category term="i2c"></category><category term="ov7670"></category><category term="al422"></category></entry><entry><title>LCD 1.8" SPI (ST7735)</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/lcd-18-spi-st7735.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:lcd-18-spi-st7735.html</id><summary type="html">&lt;p&gt;El módulo en cuestión tiene las siguientes características:&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fUmF1d0YzNzMwNG8" style="float:right;margin:0 0px 10px 0"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Resolución de 128x160 puntos.&lt;/li&gt;
+&lt;li&gt;262K colores.&lt;/li&gt;
+&lt;li&gt;Retro-iluminación LED.&lt;/li&gt;
+&lt;li&gt;Interfaz &lt;a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface"&gt;SPI&lt;/a&gt; a través del chip controlador ST7735R.&lt;/li&gt;
+&lt;li&gt;Compatible con lógica TTL de 3.3 y 5v.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;El corazón del módulo es el chip controlador ST7735. Este se conecta por un lado
+a la LCD propiamente dicha y por el otro ofrece una interfaz &lt;a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface"&gt;SPI&lt;/a&gt; a la que
+se puede conectar una CPU externa. Los datos a mostrar se pueden almacenar
+en una RAM interna con capacidad para 132x162x18 bits.&lt;/p&gt;
+&lt;p&gt;Las aplicaciones pueden acceder directamente al módulo a través de la
+interfaz de programación &lt;a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface"&gt;SPI&lt;/a&gt; que el núcleo puede hacer pública al espacio de
+usuario. Sin embargo una de las características más interesantes de este
+módulo es la existencia de un &lt;a href="http://es.wikipedia.org/wiki/Framebuffer" title="Framebuffer"&gt;controlador de vídeo&lt;/a&gt; para sistemas
+Linux. Haciendo uso del mismo las aplicaciones pueden utilizar la pantalla LCD
+como si de una tarjeta gráfica convencional se trata, ignorando la interfaz &lt;a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface"&gt;SPI&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Referencias adicionales&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Hoja de datos &lt;a href="https://docs.google.com/file/d/0B4Cklvu_Zw9fMmM3U0I2NU53Y3c"&gt;Sitronix ST7735 262K Color Single-Chip TFT Controller/Driver&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://drive.google.com/uc?export=download&amp;amp;confirm=&amp;amp;id=0B4Cklvu_Zw9fT2hjVmpIQ2x0NVU"&gt;Librería para Arduino y programas de ejemplo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/ohporter/linux-am33x/blob/st7735fb/drivers/video/st7735fb.c"&gt;FB driver for ST7735 LCD controller&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="lcd"></category><category term="spi"></category><category term="st7735"></category></entry><entry><title>Raspberry Pi</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/raspberry-pi.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:raspberry-pi.html</id><summary type="html">&lt;p&gt;Una Raspberry Pi es una placa computadora (&lt;a href="http://en.wikipedia.org/wiki/Single-board_computer" title="Single-board Computer"&gt;SBC&lt;/a&gt;) de bajo coste que incluye:&lt;/p&gt;
 &lt;p&gt;&lt;img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/RaspberryPi.jpg/320px-RaspberryPi.jpg" style="float:right;margin:0 0px 10px 0"&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Un &lt;a href="http://es.wikipedia.org/wiki/System_on_a_chip" title="System on a Chip"&gt;SOC&lt;/a&gt; Broadcom BCM2835, que contiene una CPU &lt;a href="http://en.wikipedia.org/wiki/ARM11" title="ARM11"&gt;ARM11&lt;/a&gt;76JZF-S a 700 MHz y

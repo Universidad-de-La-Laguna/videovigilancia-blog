@@ -147,8 +147,8 @@ placa ofrece más recursos hardware que la mayor parte de las cámaras
 inteligentes disponibles en el mercado. Además dispone de un puerto <a href="http://en.wikipedia.org/wiki/General_Purpose_Input/Output" title="General-Purpose Input/Output">GPIO</a> a
 través del que se exponen al exterior diversos buses de interconexión y
 recursos de la placa (E/S digital, <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>, <a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface">SPI</a>, RS232, etc).</li>
-<li>Una cámara <a href="|filename|/Hardware/camara-cf7670c.md" title="CF7670C-V2 (OV7670+AL422)">CF7670C-V2</a> controlable por <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>.</li>
-<li>Una <a href="|filename|/Hardware/lcd-1.8spi.md">pantalla LCD de 1.8"</a> <a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface">SPI</a>.</li>
+<li>Una cámara <a href="../camara-cf7670c-v2.html" title="CF7670C-V2 (OV7670+AL422)">CF7670C-V2</a> controlable por <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>.</li>
+<li>Una <a href="../lcd-18-spi-st7735.html">pantalla LCD de 1.8"</a> <a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface">SPI</a>.</li>
 </ul>
 <p>A continuación se muestra un esquema de los diferentes componentes de la
 cámara y su interconexión:</p>
@@ -165,7 +165,7 @@ de Linux para las cámaras.</li>
 las herramientas que provee y con conceptos tales como la compilación cruzada,
 la depuración cruzada y la emulación del hardware mediante <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a>.</li>
 <li>Desarrollar un controlador para el núcleo que exponga al espacio de usuario
-una interfaz de acceso a las funcionalidades de la cámara <a href="|filename|/Hardware/camara-cf7670c.md" title="CF7670C-V2 (OV7670+AL422)">CF7670C-V2</a>. En lo
+una interfaz de acceso a las funcionalidades de la cámara <a href="../camara-cf7670c-v2.html" title="CF7670C-V2 (OV7670+AL422)">CF7670C-V2</a>. En lo
 posible la interfaz expuesta al espacio de usuario debe ser compatible con <a href="http://en.wikipedia.org/wiki/Video4Linux" title="Video for Linux">V4L</a>,
 como cualquier otro dispositivo de vídeo; aunque cualquier tipo de interfaz
 básica a medida también serviría.</li>
@@ -361,8 +361,13 @@ cuestión no dudes en ponerse en contacto <a href="jmtorres@ull.es">conmigo</a>.
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="../tag/bitbake.html">
-        <i class="icon-tag icon-large"></i>bitbake
+    <a href="../tag/empotrado.html">
+        <i class="icon-tag icon-large"></i>empotrado
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/poky.html">
+        <i class="icon-tag icon-large"></i>poky
     </a>
 </li>
 <li class="tag-4">
@@ -371,28 +376,23 @@ cuestión no dudes en ponerse en contacto <a href="jmtorres@ull.es">conmigo</a>.
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/empotrado.html">
-        <i class="icon-tag icon-large"></i>empotrado
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/gpio.html">
-        <i class="icon-tag icon-large"></i>gpio
-    </a>
-</li>
-<li class="tag-4">
     <a href="../tag/yocto.html">
         <i class="icon-tag icon-large"></i>yocto
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/linux.html">
-        <i class="icon-tag icon-large"></i>linux
+    <a href="../tag/cf7670c.html">
+        <i class="icon-tag icon-large"></i>cf7670c
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/rpi.html">
-        <i class="icon-tag icon-large"></i>rpi
+    <a href="../tag/st7735.html">
+        <i class="icon-tag icon-large"></i>st7735
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/bitbake.html">
+        <i class="icon-tag icon-large"></i>bitbake
     </a>
 </li>
 <li class="tag-4">
@@ -401,8 +401,33 @@ cuestión no dudes en ponerse en contacto <a href="jmtorres@ull.es">conmigo</a>.
     </a>
 </li>
 <li class="tag-4">
+    <a href="../tag/gpio.html">
+        <i class="icon-tag icon-large"></i>gpio
+    </a>
+</li>
+<li class="tag-4">
     <a href="../tag/raspberry-pi.html">
         <i class="icon-tag icon-large"></i>raspberry pi
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/spi.html">
+        <i class="icon-tag icon-large"></i>spi
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/ov7670.html">
+        <i class="icon-tag icon-large"></i>ov7670
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/i2c.html">
+        <i class="icon-tag icon-large"></i>i2c
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/linux.html">
+        <i class="icon-tag icon-large"></i>linux
     </a>
 </li>
 <li class="tag-4">
@@ -411,8 +436,18 @@ cuestión no dudes en ponerse en contacto <a href="jmtorres@ull.es">conmigo</a>.
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/poky.html">
-        <i class="icon-tag icon-large"></i>poky
+    <a href="../tag/lcd.html">
+        <i class="icon-tag icon-large"></i>lcd
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/al422.html">
+        <i class="icon-tag icon-large"></i>al422
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/rpi.html">
+        <i class="icon-tag icon-large"></i>rpi
     </a>
 </li>
 <li class="tag-4">
