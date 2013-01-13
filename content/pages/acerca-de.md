@@ -58,7 +58,7 @@ precio.
 Por eso diseñaremos nuestra propia cámara inteligente de bajo coste. Cada
 cámara está compuesta por:
 
- * Una placa computadora [Raspberry PI](|filename|/Hardware/sbc-rpi.md). Esta
+ * Una placa computadora [Raspberry Pi](|filename|/Hardware/sbc-rpi.md). Esta
 placa ofrece más recursos hardware que la mayor parte de las cámaras
 inteligentes disponibles en el mercado. Además dispone de un puerto [GPIO] a
 través del que se exponen al exterior diversos buses de interconexión y
@@ -271,7 +271,7 @@ cuestión no dudes en ponerse en contacto [conmigo](jmtorres@ull.es).
 [SPI]: http://es.wikipedia.org/wiki/SPI "Serial Peripheral Interface"
 [Protocol Buffers]: |filename|/Overviews/protobufs.md "Google Protocol Buffers"
 [Yocto]: |filename|/Overviews/yocto-poky-y-bitbake.md "Yocto, Poky y BitBake"
-[Raspberry PI]: |filename|/Hardware/sbc-rpi.md "Raspberry PI"
+[Raspberry Pi]: |filename|/Hardware/sbc-rpi.md "Raspberry Pi"
 [QEMU]: http://wiki.qemu.org/ "QEMU"
 [CF7670C-V2]: |filename|/Hardware/camara-cf7670c.md "CF7670C-V2 (OV7670+AL422)"
 [V4L]: http://en.wikipedia.org/wiki/Video4Linux "Video for Linux"
