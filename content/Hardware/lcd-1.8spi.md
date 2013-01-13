@@ -6,7 +6,7 @@ El módulo en cuestión tiene las siguientes características:
 
 <img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fUmF1d0YzNzMwNG8" style="float:right;margin:0 0px 10px 0">
 
- * Resolución de 128x160 puntos.
+ * Resolución de 128x160 pixels.
  * 262K colores.
  * Retro-iluminación LED.
  * Interfaz [SPI] a través del chip controlador ST7735R.
@@ -26,7 +26,7 @@ como si de una tarjeta gráfica convencional se trata, ignorando la interfaz [SP
 
 ## Referencias adicionales
 
- 1. Hoja de datos [Sitronix ST7735 262K Color Single-Chip TFT Controller/Driver](https://docs.google.com/file/d/0B4Cklvu_Zw9fMmM3U0I2NU53Y3c).
+ 1. [Hoja de datos Sitronix ST7735 262K Color Single-Chip TFT Controller/Driver](https://docs.google.com/file/d/0B4Cklvu_Zw9fMmM3U0I2NU53Y3c).
  1. [Librería para Arduino y programas de ejemplo](https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fT2hjVmpIQ2x0NVU)
  1. [FB driver for ST7735 LCD controller](https://github.com/ohporter/linux-am33x/blob/st7735fb/drivers/video/st7735fb.c)
 
