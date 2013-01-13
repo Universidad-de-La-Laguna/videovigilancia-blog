@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-01-13T00:00:00+00:00</updated><entry><title>Cámara CF7670C-V2</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/camara-cf7670c-v2.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:camara-cf7670c-v2.html</id><summary type="html">&lt;p&gt;Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt;
-con una memoria FIFO &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg" title="FIFO Averlogic AL422"&gt;Averlogic AL422&lt;/a&gt; de 3Mb.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-01-13T00:00:00+00:00</updated><entry><title>Cámara CF7670C-V2</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/camara-cf7670c-v2.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:camara-cf7670c-v2.html</id><summary type="html">&lt;p&gt;Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt;
+con una memoria FIFO &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422"&gt;Averlogic AL422&lt;/a&gt; de 3Mb.&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0px 10px 0"&gt;&lt;/p&gt;
 &lt;p&gt;La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
 dando tiempo a la CPU externa a recuperarlas al ritmo que le sea posible.&lt;/p&gt;
-&lt;p&gt;Las principales características del sensor &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt; son:&lt;/p&gt;
+&lt;p&gt;Las principales características del sensor &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt; son:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Resolución de 640x480 pixels (VGA).&lt;/li&gt;
 &lt;li&gt;Hasta 30 fps para resolución VGA.&lt;/li&gt;
@@ -16,10 +16,10 @@ dando tiempo a la CPU externa a recuperarlas al ritmo que le sea posible.&lt;/p&
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Modo de &lt;a href="http://es.wikipedia.org/wiki/Escaneo_progresivo"&gt;escaneo progresivo&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Interfaz de control mediante &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM" title="Serial Camera Control Bus"&gt;SCCB&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Interfaz de control mediante &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit" title="Serial Camera Control Bus"&gt;SCCB&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Tal y como se puede observar en el &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc" title="CF7670C-V2 Camera Module Schematic"&gt;esquemático&lt;/a&gt; del módulo, tanto el bus
-&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM" title="Serial Camera Control Bus"&gt;SCCB&lt;/a&gt; (que prácticamente es un &lt;a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)"&gt;I2C&lt;/a&gt;) como las líneas del OV7670 que informan
+&lt;p&gt;Tal y como se puede observar en el &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit" title="CF7670C-V2 Camera Module Schematic"&gt;esquemático&lt;/a&gt; del módulo, tanto el bus
+&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit" title="Serial Camera Control Bus"&gt;SCCB&lt;/a&gt; (que prácticamente es un &lt;a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)"&gt;I2C&lt;/a&gt;) como las líneas del OV7670 que informan
 del barrido vertical (VSYNC) y horizontal (HREF) están disponibles para que
 sean accesibles a una CPU externa.&lt;/p&gt;
 &lt;p&gt;Por el contrario, las líneas de datos del OV7670 están conectadas al AL422
@@ -28,12 +28,12 @@ así como las líneas necesarias para controlar la lectura de la misma, las que
 son  accesibles desde el conector del módulo.&lt;/p&gt;
 &lt;h2&gt;Referencias adicionales&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg" title="FIFO Averlogic AL422"&gt;Averlogic AL422&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc"&gt;Esquemático del módulo CF7670C-V2&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ"&gt;Pines del módulo CF7670C-V2&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422"&gt;Averlogic AL422&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit"&gt;Esquemático del módulo CF7670C-V2&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ/edit"&gt;Pines del módulo CF7670C-V2&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://drive.google.com/uc?export=download&amp;amp;confirm=&amp;amp;id=0B4Cklvu_Zw9fS3c4VTRTNHJvMEU"&gt;Controlador de ejemplo para el módulo CF7670C-V2&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk"&gt;OV7670 Implementation Guide&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk/edit"&gt;OV7670 Implementation Guide&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;</summary><category term="cf7670c"></category><category term="i2c"></category><category term="ov7670"></category><category term="al422"></category></entry><entry><title>LCD 1.8" SPI (ST7735)</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/lcd-18-spi-st7735.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:lcd-18-spi-st7735.html</id><summary type="html">&lt;p&gt;El módulo en cuestión tiene las siguientes características:&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fUmF1d0YzNzMwNG8" style="float:right;margin:0 0px 10px 0"&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -55,7 +55,7 @@ Linux. Haciendo uso del mismo las aplicaciones pueden utilizar la pantalla LCD
 como si de una tarjeta gráfica convencional se trata, ignorando la interfaz &lt;a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface"&gt;SPI&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Referencias adicionales&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="https://docs.google.com/file/d/0B4Cklvu_Zw9fMmM3U0I2NU53Y3c"&gt;Hoja de datos Sitronix ST7735 262K Color Single-Chip TFT Controller/Driver&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.google.com/file/d/0B4Cklvu_Zw9fMmM3U0I2NU53Y3c/edit"&gt;Hoja de datos Sitronix ST7735 262K Color Single-Chip TFT Controller/Driver&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://drive.google.com/uc?export=download&amp;amp;confirm=&amp;amp;id=0B4Cklvu_Zw9fT2hjVmpIQ2x0NVU"&gt;Librería para Arduino y programas de ejemplo&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/ohporter/linux-am33x/blob/st7735fb/drivers/video/st7735fb.c"&gt;FB driver for ST7735 LCD controller&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;</summary><category term="lcd"></category><category term="spi"></category><category term="st7735"></category></entry><entry><title>Raspberry Pi</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/raspberry-pi.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:raspberry-pi.html</id><summary type="html">&lt;p&gt;Una Raspberry Pi es una placa computadora (&lt;a href="http://en.wikipedia.org/wiki/Single-board_computer" title="Single-board Computer"&gt;SBC&lt;/a&gt;) de bajo coste que incluye:&lt;/p&gt;
