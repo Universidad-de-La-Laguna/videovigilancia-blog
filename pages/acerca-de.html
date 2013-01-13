@@ -146,14 +146,35 @@ placa ofrece más recursos hardware que la mayor parte de las cámaras
 inteligentes disponibles en el mercado. Además dispone de un puerto <a href="http://en.wikipedia.org/wiki/General_Purpose_Input/Output" title="General-Purpose Input/Output">GPIO</a> a
 través del que se exponen al exterior diversos buses de interconexión y
 recursos de la placa (E/S digital, <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>, <a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface">SPI</a>, RS232, etc).</li>
-<li>Una cámara <a href="|filename|/Hardware/camara-cf7670c.md">CF7670C-V2</a> controlable
-por <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>.</li>
+<li>Una cámara <a href="|filename|/Hardware/camara-cf7670c.md" title="CF7670C-V2 (OV7670+AL422)">CF7670C-V2</a> controlable por <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>.</li>
 <li>Una <a href="|filename|/Hardware/lcd-1.8spi.md">pantalla LCD de 1.8"</a> <a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface">SPI</a>.</li>
 </ul>
 <p>A continuación se muestra un esquema de los diferentes componentes de la
 cámara y su interconexión:</p>
 <p><img
 src="https://docs.google.com/drawings/d/1FJZdS7dX56nrNA55Y1fnkK1ZlUFSoE24Mr4Qxrkfapk/pub?w=624&amp;h=366"></p>
+<h3>Tareas previstas</h3>
+<p>Obviamente las primeras tareas en el desarrollo de nuestro sistema de
+videovigilancia estarán relacionadas con la puesta en marcha de las cámaras inteligentes:</p>
+<ul>
+<li>Hacer uso del proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> para desarrollar una distribución empotrada
+de Linux para las cámaras.</li>
+<li>Familiarizarse con el entorno de desarrollo de aplicaciones de <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> y
+las herramientas que provee y con conceptos tales como la compilación cruzada,
+la depuración cruzada y la emulación del hardware mediante <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a>.</li>
+<li>Desarrollar un controlador para el núcleo que exponga al espacio de usuario
+una interfaz de acceso a las funcionalidades de la cámara <a href="|filename|/Hardware/camara-cf7670c.md" title="CF7670C-V2 (OV7670+AL422)">CF7670C-V2</a>. En lo
+posible la interfaz expuesta al espacio de usuario debe ser compatible con <a href="http://en.wikipedia.org/wiki/Video4Linux" title="Video for Linux">V4L</a>,
+como cualquier otro dispositivo de vídeo; aunque cualquier tipo de interfaz
+básica a medida también serviría.</li>
+<li>Incluir en la distribución el controlador necesario para hacer accesible
+la pantalla LCD SPI de forma transparente como un <a href="http://es.wikipedia.org/wiki/Framebuffer" title="Framebuffer">framebuffer</a>.</li>
+<li>Desarrollar una aplicación multihilo que capture las imágenes de la cámara
+y las muestre en la pantalla LCD, así como otra información relevante, como por
+ejemplo la dirección IP del dispositivo. Para el desarrollo de esta aplicación
+se utilizaría <a href="http://doc.qt.digia.com/qt/qt-embedded-linux.html" title="Qt for Embedded Linux">Qt for Embedded Linux</a> como framework ya que puede funcionar sobre
+el dispositivo <a href="http://es.wikipedia.org/wiki/Framebuffer" title="Framebuffer">framebuffer</a> de la pantalla LCD.</li>
+</ul>
 <h2>Servidor de videovigilancia</h2>
 <p>En un buen sistema de videovigilancia las imágenes recogidas desde las
 diferentes cámaras deben archivarse en un servidor centralizado (que se
@@ -163,15 +184,51 @@ como en uno posterior.</p>
 cámaras y el servidor adecuado a la tarea que se va a realizar. Con el
 objeto de aprovechar el trabajo que otros ya han hecho, los mensajes de dicho
 protocolo se serializarán y formatearan para su transmisión con
-<a href="|filename|/Overviews/protobufs.md" title="Google Protocol Buffers">Protocol Buffers</a>. Mientras que en la capaz de transporte, para la
-comunicación propiamente dicha de los mensajes, se utilizará
-<a href="|filename|/Overviews/zeromq.md">0MQ</a>.</p>
+<a href="|filename|/Overviews/protobufs.md" title="Google Protocol Buffers">Protocol Buffers</a>. Mientras que en la capa de transporte, para la
+transmisión de los mensajes propiamente dicha, se utilizará TCP através de la
+interfaz que sobre la del sistema operativo provee <a href="http://www.boost.org/doc/libs/1_52_0/doc/html/boost_asio/overview.html" title="Boost.Asio">Boost.Asio</a>.</p>
 <p>Obviamente no nos olvidamos de otras alternativas a la solución propuesta, como:
 <a href="http://en.wikipedia.org/wiki/Apache_Thrift">Apache Thrift</a> o
 <a href="http://en.wikipedia.org/wiki/Apache_Avro">Apache Avro</a>. Sin embargo <a href="|filename|/Overviews/protobufs.md" title="Google Protocol Buffers">Protocol Buffers</a>
 parece ser una librería más sencilla, robusta, mejor documentada y eficiente
 en el tamaño de los mensajes serializados. Además de permitirnos escoger la
 tecnología de transporte que más nos interese.</p>
+<p>En concreto las tareas a realizar serán las siguientes:</p>
+<h3>Tareas previstas en las cámaras inteligentes</h3>
+<ul>
+<li>Añadir a la aplicación de captura soporte para procesar las imágenes y
+detectar cambios en las mismas.</li>
+<li>Implementar el protocolo de comunicación comentado anteriormente para
+transferir dichas imágenes, y otros datos que puedan ser relevantes, al servidor
+de videovigilancia.</li>
+<li>Hacer algunas pruebas de rendimiento de la aplicación utilizando distintos criterios:<ul>
+<li>Ajustando las prioridades y el tipo de planificación de los hilos y de la E/S.</li>
+<li>Probando prioridades de tiempo real y un núcleo Linux con el
+<a href="https://rt.wiki.kernel.org">parche de tiempo real</a>.</li>
+<li>Probando el bloqueo de páginas en memoria.</li>
+</ul>
+</li>
+</ul>
+<h3>Tareas previstas en el servidor de videovigilancia</h3>
+<ul>
+<li>Desarrollar un servicio o demonio capaz de escuchar el protocolo
+comentado anteriormente, con las características comunes a este tipo de aplicaciones:<ul>
+<li>Soporte para funcionar tanto en modo demonio como en primer plano.</li>
+<li>Script de arranque estándar en el inicio del sistema.</li>
+<li>Manejo adecuado de las señales.</li>
+<li>Salida mediante el uso del <a href="http://es.wikipedia.org/wiki/Syslog">gestor de registro</a> del sistema.</li>
+</ul>
+</li>
+<li>Implementar diversas soluciones para manejar la concurrencia en las comunicaciones
+y comparar sus ventajas e inconvenientes: multiproceso con memoria compartida,
+comunicación asíncrona y/o multihilo.</li>
+<li>Implementar el almacenamiento de las imágenes recibidas:</li>
+<li>Empleando archivos mapeados en memoria para el almacenamiento de las
+imágenes en disco, de los metadatos asociados y de los índices para las búsquedas.</li>
+<li>Utilizando bloqueos para manejar la concurrencia en el acceso a los
+archivos cuando sea necesario.</li>
+<li><strong>(Opcional)</strong> Implementar la capa de transporte con <a href="http://www.zeromq.org/">0MQ</a>.</li>
+</ul>
 <h2>Frontal del operador</h2>
 <p>Para que las imágenes archivadas puedan tener alguna utilidad es necesario
 disponer de un frontal desde el que poder hacer consultas para recuperarlas y
@@ -297,11 +354,6 @@ cuestión no dudes en ponerse en contacto <a href="jmtorres@ull.es">conmigo</a>.
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="../tag/openembedded.html">
-        <i class="icon-tag icon-large"></i>openembedded
-    </a>
-</li>
-<li class="tag-4">
     <a href="../tag/bitbake.html">
         <i class="icon-tag icon-large"></i>bitbake
     </a>
@@ -317,13 +369,18 @@ cuestión no dudes en ponerse en contacto <a href="jmtorres@ull.es">conmigo</a>.
     </a>
 </li>
 <li class="tag-4">
+    <a href="../tag/empotrado.html">
+        <i class="icon-tag icon-large"></i>empotrado
+    </a>
+</li>
+<li class="tag-4">
     <a href="../tag/poky.html">
         <i class="icon-tag icon-large"></i>poky
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/empotrado.html">
-        <i class="icon-tag icon-large"></i>empotrado
+    <a href="../tag/openembedded.html">
+        <i class="icon-tag icon-large"></i>openembedded
     </a>
 </li>
 
