@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Sistema de Videovigilancia from Scratch - linux</title>
+    <title>Sistema de Videovigilancia from Scratch - Desarrollo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
@@ -66,7 +66,7 @@
             <ul class="nav">
                                                           <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
                                         <li class="divider-vertical"></li>
-                                              <li >
+                                              <li class="active">
                     <a href="../category/desarrollo.html">
 						<i class="icon-folder-open icon-large"></i>Desarrollo
 					</a>
@@ -97,39 +97,39 @@
       <div class="row">
         <div class="span9" id="content">
                             <div class="article">
-                <h1><a href="../yocto-poky-y-bitbake.html">Yocto, Poky y BitBake</a></h1>
+                <h1><a href="../crea-tu-propia-distro-de-linux-con-yocto.html">Crea tu propia distro de Linux con Yocto</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2013-01-10T00:00:00">
-        <i class="icon-calendar"></i>jue 10 enero 2013
+<abbr class="published" title="2013-01-22T00:00:00">
+        <i class="icon-calendar"></i>mar 22 enero 2013
 </abbr>
 <span class="label">By</span>
 <a href="../author/jesus-torres.html"><i class="icon-user"></i>Jesús Torres</a>
 <span class="label">Category</span>
-<a href="../category/overviews.html"><i class="icon-folder-open"></i>Overviews</a>.
+<a href="../category/desarrollo.html"><i class="icon-folder-open"></i>Desarrollo</a>.
 
 
 <span class="label">Tags</span>
 	<a href="../tag/yocto.html"><i class="icon-tag"></i>yocto</a>
 	<a href="../tag/poky.html"><i class="icon-tag"></i>poky</a>
-	<a href="../tag/bitbake.html"><i class="icon-tag"></i>bitbake</a>
-	<a href="../tag/empotrado.html"><i class="icon-tag"></i>empotrado</a>
-	<a href="../tag/linux.html"><i class="icon-tag"></i>linux</a>
-	<a href="../tag/openembedded.html"><i class="icon-tag"></i>openembedded</a>
+	<a href="../tag/distribucion.html"><i class="icon-tag"></i>distribución</a>
 </footer><!-- /.post-info --></div>
-                <div class="summary"><p>El proyecto <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> proporciona a los desarrolladores de sistemas empotrados
-Linux un punto de partida para generar distribuciones personalizadas para
-sus productos. Una de las piezas clave del proyecto es el sistema de
-construcción <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a>, que a su vez se apoya en <a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake">BitBake</a>, una herramienta de
-construcción de paquetes al estilo de
-<a href="http://es.wikipedia.org/wiki/Portage_(software)">Portage</a> de
-<a href="http://www.gentoo.org/">Gentoo</a>.</p>
-<h2>El proyecto Yocto</h2>
-<p><a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> está financiado por la <a href="http://www.linuxfoundation.org/">Linux Foundation</a>.
-Su principal objetivo es desarrollar herramientas que ayuden a los desarrolladores
-a crear sus propias distribuciones de Linux, sea cual sea el hardware sobre el que
-van a correr. Entre los proyectos desarrollados en el ...</p>
-                        <a class="btn primary xsmall" href="../yocto-poky-y-bitbake.html">more ...</a>
+                <div class="summary"><p>El objetivo de este artículo es explicar paso a paso como se puede utilizar
+el proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> para crear nuestra propia distribución de Linux. Primero
+construiremos una para ejecutarla en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> y después otra para nuestra
+Raspberry Pi.</p>
+<h2>Inicio rápido</h2>
+<p>El inicio rápido con el proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> está perfectamente documentado en
+<a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html" title="Yocto Project Quick Start">Yocto Project Quick Start</a>. En cualquier caso aquí resumiremos los pasos
+deteniéndonos en los de mayor importancia.</p>
+<h3>Requisitos</h3>
+<ul>
+<li><strong>Una distribución de Linux.</strong> En nuestro caso, por simplicidad, cualquiera
+de las basadas en Debian.</li>
+<li>
+<p><strong>Paquetes de desarrollo.</strong> En el sistema deben estar instalados una serie
+de paquetes utilizados habitualmente en ...</p></li></ul>
+                        <a class="btn primary xsmall" href="../crea-tu-propia-distro-de-linux-con-yocto.html">more ...</a>
                 </div>
         </div>
         <hr />

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Crea tu propia distro de Linux con Yocto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Jesús Torres">
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .tag-1 {
+        font-size: 13pt;
+      }
+      .tag-2 {
+        font-size: 10pt;
+      }
+      .tag-2 {
+        font-size: 8pt;
+      }
+      .tag-4 {
+        font-size: 6pt;
+     }
+    </style>
+    <link href="./theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="./theme/css/font-awesome.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="./theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="./theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./theme/images/apple-touch-icon-114x114.png">
+
+    <link href="./feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Sistema de Videovigilancia from Scratch ATOM Feed" />
+        <link href="./feeds/rss.xml" type="application/atom+xml" rel="alternate" title="Sistema de Videovigilancia from Scratch RSS Feed" />
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="./index.html">Sistema de Videovigilancia from Scratch </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                                                          <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
+                                        <li class="divider-vertical"></li>
+                                              <li class="active">
+                    <a href="./category/desarrollo.html">
+						<i class="icon-folder-open icon-large"></i>Desarrollo
+					</a>
+                  </li>
+                                <li >
+                    <a href="./category/hardware.html">
+						<i class="icon-folder-open icon-large"></i>Hardware
+					</a>
+                  </li>
+                                <li >
+                    <a href="./category/overviews.html">
+						<i class="icon-folder-open icon-large"></i>Overviews
+					</a>
+                  </li>
+              
+                          <ul class="nav pull-right">
+                                <li><a href="./archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                          </ul>
+
+            </ul>
+            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="span9" id="content">
+            <section id="content">
+        <article>
+                <header>
+                        <h1>
+                                <a href=""
+                                        rel="bookmark"
+                                        title="Permalink to Crea tu propia distro de Linux con Yocto">
+                                        Crea tu propia distro de Linux con Yocto
+                                </a>
+                                                        </h1>
+                </header>
+                <div class="entry-content">
+                <div class="well">
+                        <footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2013-01-22T00:00:00">
+        <i class="icon-calendar"></i>mar 22 enero 2013
+</abbr>
+<span class="label">By</span>
+<a href="./author/jesus-torres.html"><i class="icon-user"></i>Jesús Torres</a>
+<span class="label">Category</span>
+<a href="./category/desarrollo.html"><i class="icon-folder-open"></i>Desarrollo</a>.
+
+
+<span class="label">Tags</span>
+	<a href="./tag/yocto.html"><i class="icon-tag"></i>yocto</a>
+	<a href="./tag/poky.html"><i class="icon-tag"></i>poky</a>
+	<a href="./tag/distribucion.html"><i class="icon-tag"></i>distribución</a>
+</footer><!-- /.post-info -->                </div>
+                <p>El objetivo de este artículo es explicar paso a paso como se puede utilizar
+el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> para crear nuestra propia distribución de Linux. Primero
+construiremos una para ejecutarla en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> y después otra para nuestra
+Raspberry Pi.</p>
+<h2>Inicio rápido</h2>
+<p>El inicio rápido con el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> está perfectamente documentado en
+<a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html" title="Yocto Project Quick Start">Yocto Project Quick Start</a>. En cualquier caso aquí resumiremos los pasos
+deteniéndonos en los de mayor importancia.</p>
+<h3>Requisitos</h3>
+<ul>
+<li><strong>Una distribución de Linux.</strong> En nuestro caso, por simplicidad, cualquiera
+de las basadas en Debian.</li>
+<li>
+<p><strong>Paquetes de desarrollo.</strong> En el sistema deben estar instalados una serie
+de paquetes utilizados habitualmente en tareas de desarrollo. En un sistema
+basado en Debian deberían poder instalarse con el siguiente comando:</p>
+<div class="codehilite"><pre>$ <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">sed</span> <span class="n">wget</span> <span class="n">cvs</span> <span class="n">subversion</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span> <span class="n">coreutils</span> <span class="o">\</span>
+<span class="n">unzip</span> <span class="n">texi2html</span> <span class="n">texinfo</span> <span class="n">libsdl1</span><span class="p">.</span>2<span class="o">-</span><span class="n">dev</span> <span class="n">docbook</span><span class="o">-</span><span class="n">utils</span> <span class="n">gawk</span> <span class="o">\</span>
+<span class="n">python</span><span class="o">-</span><span class="n">pysqlite2</span> <span class="n">diffstat</span> <span class="n">help2man</span> <span class="n">make</span> <span class="n">gcc</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="o">\</span>
+<span class="n">g</span><span class="o">++</span> <span class="n">desktop</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">utils</span> <span class="n">chrpath</span> <span class="n">libgl1</span><span class="o">-</span><span class="n">mesa</span><span class="o">-</span><span class="n">dev</span> <span class="n">libglu1</span><span class="o">-</span><span class="n">mesa</span><span class="o">-</span><span class="n">dev</span> <span class="o">\</span>
+<span class="n">mercurial</span> <span class="n">autoconf</span> <span class="n">automake</span> <span class="n">groff</span>
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>Una versión del proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a>.</strong> Las distintas versiones pueden
+descargarse desde la dirección:</p>
+<p><a href="">http://downloads.yoctoproject.org/releases/yocto/</a></p>
+</li>
+</ul>
+<h3>Construir una imagen de sistema Linux</h3>
+<p>El proceso de construir una imagen genera una distribución de Linux completa,
+incluyendo las herramienta de desarrollo para la misma:</p>
+<ol>
+<li>
+<p>Descargar el sistema de construcción <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Poky</a> de la última versión del
+proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> y descomprimirla:</p>
+<div class="codehilite"><pre>$ <span class="n">wget</span> <span class="p">[</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="p">.</span><span class="n">yoctoproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">yocto</span><span class="o">/</span><span class="n">yocto</span><span class="o">-</span>1<span class="p">.</span>3<span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span><span class="p">]()</span>
+$ <span class="n">tar</span> <span class="n">jxf</span> <span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Crear el directorio <code>raspberry-pi-build</code> donde construir la imagen y
+configurar las variables de entorno necesarias:</p>
+<div class="codehilite"><pre>$ <span class="n">source</span> <span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">oe</span><span class="o">-</span><span class="n">init</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">env</span> <span class="n">raspberry</span><span class="o">-</span><span class="nb">pi</span><span class="o">-</span><span class="n">build</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Construir la imagen:</p>
+<div class="codehilite"><pre>$ <span class="n">bitbake</span> <span class="n">core</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">minimal</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p>La imagen construida puede ejecutarse en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> de la siguiente manera:</p>
+<div class="codehilite"><pre>$ <span class="n">runqemu</span> <span class="n">qemux86</span>
+</pre></div>
+
+
+<p>Y en unos segundos tendremos acceso a la consola de nuestra nueva distribución.</p>
+<h3>Optimizando la construcción</h3>
+<p>En el archivo <code>conf/local.conf</code> del directorio <code>raspberry-pi-build</code> se pueden
+definir algunos parámetros que pueden reducir el tiempo necesario para
+construir la imagen si se dispone de un sistema multi-núcleo.</p>
+<p>Si se tienen <code>N</code> núcleos, es conveniente descomentar las variables <code>BB_NUMBER_THREADS</code>
+y <code>PARALLEL_MAKE</code> y asignarle <code>N + 1</code>. Por ejemplo, con 8 núcleos el valor
+debería ser 9:</p>
+<div class="codehilite"><pre><span class="n">BB_NUMBER_THREADS</span> <span class="p">=</span> &quot;9&quot;
+<span class="n">PARALLEL_MAKE</span> <span class="p">=</span> &quot;<span class="o">-</span><span class="nb">j</span> 9&quot;
+</pre></div>
+
+
+<h2>Crear una distribución para Raspberry Pi</h2>
+<p>El ejemplo estándar del proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> se construye por defecto para la arquitectura
+<strong>qemux86</strong>. En el caso de querer compilar para otro sistema sólo es necesario añadir
+una capa que incorpore los archivos de configuración necesarios.</p>
+<p>En nuestro caso dicha capa es <strong>meta-raspberrypi</strong>, una capa <a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package">BSP</a> que agrupa todos los
+metadatos necesarios para construir para dispositivos Raspberry Pi. Fundamentalmente
+contiene configuraciones para el núcleo y opciones para la arquitectura.</p>
+<p>Estos son los pasos para incorporarla a nuestro proyecto:</p>
+<ol>
+<li>
+<p>Clonar localmente el repositorio <strong>meta-raspberrypi</strong> fuera del directorio
+<code>raspberry-pi-build</code>.</p>
+<div class="codehilite"><pre>$ <span class="n">git</span> <span class="n">clone</span> <span class="p">[</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">djwillis</span><span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">raspberrypi</span><span class="p">.</span><span class="n">git</span><span class="p">]()</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Cambiar a la rama <strong>danny</strong> que es la de la versión de <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Poky</a> que estamos usando:</p>
+<div class="codehilite"><pre>$ <span class="n">cd</span> <span class="n">meta</span><span class="o">-</span><span class="n">raspberrypi</span>
+$ <span class="n">git</span> <span class="n">checkout</span> <span class="n">danny</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Buscar la variable <code>BBLAYERS</code> en <code>raspberry-pi-build/conf/bblayers.conf</code> y añadir
+al final la ruta hasta el repositorio de la capa <strong>meta-raspberrypi</strong> para incluirla
+en el proceso de construcción. Por ejemplo:</p>
+<div class="codehilite"><pre><span class="n">BBLAYERS</span> ?<span class="p">=</span> &quot; <span class="o">\</span>
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span> <span class="o">\</span>
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">yocto</span> <span class="o">\</span>
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">yocto</span><span class="o">-</span><span class="n">bsp</span> <span class="o">\</span>
+  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">raspberry</span><span class="o">-</span><span class="nb">pi</span> <span class="o">\</span>
+&quot;
+</pre></div>
+
+
+</li>
+<li>
+<p>Buscar la variable <code>MACHINE</code> en <code>raspberry-pi-build/conf/local.conf</code> e indicar que
+la máquina de destino de la imagen es <code>raspberrypi</code></p>
+<div class="codehilite"><pre><span class="n">MACHINE</span> ?<span class="p">=</span> &quot;<span class="n">raspberrypi</span>&quot;
+</pre></div>
+
+
+</li>
+<li>
+<p>Construir la imagen:</p>
+<div class="codehilite"><pre>$ <span class="n">cd</span> <span class="n">raspberry</span><span class="o">-</span><span class="nb">pi</span><span class="o">-</span><span class="n">build</span>
+$ <span class="n">bitbake</span> <span class="n">rpi</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">image</span>
+</pre></div>
+
+
+<p>Esta imagen incluye un servidor <strong>SSH</strong> y un <em>splash</em> de Raspberry Pi durante el arranque.
+Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ninguna de las dos cosas.</p>
+</li>
+<li>
+<p>Transferir la imagen construida a la tarjeta SD.</p>
+<div class="codehilite"><pre>$ <span class="n">sudo</span> <span class="n">dd</span> <span class="k">if</span><span class="p">=</span><span class="n">tmp</span><span class="o">/</span><span class="n">deploy</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">rpi</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">raspberrypi</span><span class="p">.</span><span class="n">rpi</span><span class="o">-</span><span class="n">sdimg</span> <span class="n">of</span><span class="p">=</span><span class="o">/</span><span class="n">ruta</span><span class="o">/</span><span class="n">a</span><span class="o">/</span><span class="n">la</span><span class="o">/</span><span class="n">sd</span>
+</pre></div>
+
+
+<p>y probarla en el dispositivo.</p>
+</li>
+</ol>
+<h2>Referencias</h2>
+<ol>
+<li><a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html">Yocto Project Quick Start</a>.</li>
+<li><a href="http://pokylinux.org/doc/poky-handbook.html">Poky HandBook</a>.</li>
+<li><a href="http://www.pimpmypi.com/blog/blogPost.php?blogPostID=7">Build a Custom Raspberry Pi Distro with OpenEmbedded &amp; Yocto</a>.</li>
+</ol>
+                </div><!-- /.entry-content -->
+                        </article>
+</section>
+        </div><!--/span-->
+
+                <div class="span3 well sidebar-nav" id="sidebar">
+            <ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
+<li><a href="./feeds/atom.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="./feeds/rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
+    <li><a href="https://github.com/ull-etsii-sistemas-operativos/"><i class="icon-github-sign icon-large"></i>github</a></li>
+    <li><a href="http://goo.gl/5hufC"><i class="icon-google+-sign icon-large"></i>google+</a></li>
+
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="./category/desarrollo.html">
+    <i class="icon-folder-open icon-large"></i>Desarrollo
+</a>
+</li>
+<li>
+<a href="./category/hardware.html">
+    <i class="icon-folder-open icon-large"></i>Hardware
+</a>
+</li>
+<li>
+<a href="./category/overviews.html">
+    <i class="icon-folder-open icon-large"></i>Overviews
+</a>
+</li>
+
+<li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
+<li class="tag-4">
+    <a href="./tag/distribucion.html">
+        <i class="icon-tag icon-large"></i>distribución
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/linux.html">
+        <i class="icon-tag icon-large"></i>linux
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/al422.html">
+        <i class="icon-tag icon-large"></i>al422
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/openembedded.html">
+        <i class="icon-tag icon-large"></i>openembedded
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/st7735.html">
+        <i class="icon-tag icon-large"></i>st7735
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/raspberry-pi.html">
+        <i class="icon-tag icon-large"></i>raspberry pi
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/gpio.html">
+        <i class="icon-tag icon-large"></i>gpio
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/videocore.html">
+        <i class="icon-tag icon-large"></i>videocore
+    </a>
+</li>
+<li class="tag-1">
+    <a href="./tag/yocto.html">
+        <i class="icon-tag icon-large"></i>yocto
+    </a>
+</li>
+<li class="tag-1">
+    <a href="./tag/poky.html">
+        <i class="icon-tag icon-large"></i>poky
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/broadcom.html">
+        <i class="icon-tag icon-large"></i>broadcom
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/ov7670.html">
+        <i class="icon-tag icon-large"></i>ov7670
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/empotrado.html">
+        <i class="icon-tag icon-large"></i>empotrado
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/arm.html">
+        <i class="icon-tag icon-large"></i>arm
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/lcd.html">
+        <i class="icon-tag icon-large"></i>lcd
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/bitbake.html">
+        <i class="icon-tag icon-large"></i>bitbake
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/cf7670c.html">
+        <i class="icon-tag icon-large"></i>cf7670c
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/i2c.html">
+        <i class="icon-tag icon-large"></i>i2c
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/spi.html">
+        <i class="icon-tag icon-large"></i>spi
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/rpi.html">
+        <i class="icon-tag icon-large"></i>rpi
+    </a>
+</li>
+
+
+</ul>        </div><!--/.well -->
+
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <address id="about">
+                <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es"><img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />Este obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es">Licencia Creative Commons Atribución 3.0 Unported</a>.
+                The theme is from <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a>,
+                   and <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a>, thanks!
+        </address><!-- /#about -->
+
+        <!--<p>The theme is from <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a>,
+                   and <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a>, thanks!</p>-->
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+
+            
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./theme/js/jquery-1.7.2.min.js"></script>
+    <script src="./theme/js/bootstrap.min.js"></script>
+  </body>
+</html>
