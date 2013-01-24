@@ -269,86 +269,14 @@ Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ningu
 <p>y probarla en el dispositivo.</p>
 </li>
 </ol>
-<h2>Instalación del Kit de Herramientas de Desarrollo de Aplicaciones (ADT)</h2>
-<p>El proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> también ofrece un kit de herramientas para facilitar el
-desarrollo de aplicaciones para nuestro dispositivo. A este kit se lo
-denomina <a href="[http://www.yoctoproject.org/docs/1.3/adt-manual/adt-manual.html]">ADT</a> y ofrece:</p>
-<ul>
-<li>
-<p>Un conjunto de herramientas de desarrollo (compilador, enlazado, depurador, etc.)
-que permiten usar nuestro PC para desarrollar aplicaciones de forma cruzada para
-nuestro dispositivo. Estas herramientas se pueden obtener a partir del instalador
-de <a href="[http://www.yoctoproject.org/docs/1.3/adt-manual/adt-manual.html]">ADT</a> o usando las compiladas durante el proceso de construcción de la
-imagen que hemos detallado anteriormente.</p>
-</li>
-<li>
-<p>Cuando se compila de forma cruzada un programa con multiples dependencias
-se hace respecto a un directorio específico, llamado <strong>sysroot</strong>, que intenta
-imitar la estructura del sistema para el que se compila. En este directorio
-deben estar las cabeceras y librerías necesarias para la compilación. También
-se genera durante la construcción de la imagen.</p>
-</li>
-<li>
-<p>Un plugin del IDE Eclipse que permite la compilación cruzada, el despliegue
-y la ejecución en una sesión emulada en QEMU. También permite la depuración y
-el análisis cruzado del rendimiento, entre muchas otras cosas.</p>
-</li>
-<li>
-<p>El emulador <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a>.</p>
-</li>
-<li>
-<p>Otras herramientas, como <strong>LatencyTOP</strong>, <strong>PowerTOP</strong>, <strong>OProfile</strong>,
-<strong>Perf</strong>, <strong>SystemTap</strong> y <strong>Lttng-ust</strong>.</p>
-</li>
-</ul>
-<h3>Usando el instalador de ADT</h3>
-<p>Usar el instalador de <a href="[http://www.yoctoproject.org/docs/1.3/adt-manual/adt-manual.html]">ADT</a> es el método recomendado para conseguir los elementos
-del kit.</p>
-<p>Lo más sencillo es generar el instalador con <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">BitBake</a> llamándolo desde dentro
-del directorio donde se construyó la imagen (por ejemplo <code>raspberry-pi-build</code>)
-despues de haberlo hecho:</p>
-<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">bitbake</span> <span class="n">adt</span><span class="o">-</span><span class="n">installer</span>
-</pre></div>
-
-
-<p>Lo siguiente es descomprimir el <strong>tar</strong> en, por ejemplo, el directorio personal
-del usuario:</p>
-<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">cp</span> <span class="n">build</span><span class="sr">/tmp/</span><span class="n">deploy</span><span class="sr">/sdk/</span><span class="n">adt_installer</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">bz2</span> <span class="o">~/</span>
-<span class="nv">$</span> <span class="nv">cd</span> <span class="o">~</span>
-<span class="nv">$</span> <span class="nv">tar</span> <span class="n">xjf</span> <span class="n">adt_installer</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">bz2</span>
-</pre></div>
-
-
-<p>Esto crea el directorio <code>adt-installer</code> que contiene el instalador de <a href="[http://www.yoctoproject.org/docs/1.3/adt-manual/adt-manual.html]">ADT</a>
-(<code>adt_installer</code>) y su archivo de configuración (<code>adt_installer.conf</code>).</p>
-<p>Before you run the script, however, you should examine the ADT Installer configuration file and be sure you are going to get what you want. Your configurations determine which kernel and filesystem image are downloaded.</p>
-<p>The following list describes the configurations you can define for the ADT Installer. For configuration values and restrictions, see the comments in the adt-installer.conf file:</p>
-<p>YOCTOADT_REPO: This area includes the IPKG-based packages and the root filesystem upon which the installation is based. If you want to set up your own IPKG repository pointed to by YOCTOADT_REPO, you need to be sure that the directory structure follows the same layout as the reference directory set up at http://adtrepo.yoctoproject.org. Also, your repository needs to be accessible through HTTP.</p>
-<p>YOCTOADT_TARGETS: The machine target architectures for which you want to set up cross-development environments.</p>
-<p>YOCTOADT_QEMU: Indicates whether or not to install the emulator QEMU.</p>
-<p>YOCTOADT_NFS_UTIL: Indicates whether or not to install user-mode NFS. If you plan to use the Eclipse IDE Yocto plug-in against QEMU, you should install NFS.</p>
-<p>Note
-To boot QEMU images using our userspace NFS server, you need to be running portmap or rpcbind. If you are running rpcbind, you will also need to add the -i option when rpcbind starts up. Please make sure you understand the security implications of doing this. You might also have to modify your firewall settings to allow NFS booting to work.
-YOCTOADT_ROOTFS_<arch>: The root filesystem images you want to download from the YOCTOADT_IPKG_REPO repository.</p>
-<p>YOCTOADT_TARGET_SYSROOT_IMAGE_<arch>: The particular root filesystem used to extract and create the target sysroot. The value of this variable must have been specified with YOCTOADT_ROOTFS_<arch>. For example, if you downloaded both minimal and sato-sdk images by setting YOCTOADT_ROOTFS_<arch> to "minimal sato-sdk", then YOCTOADT_ROOTFS_<arch> must be set to either minimal or sato-sdk.</p>
-<p>YOCTOADT_TARGET_SYSROOT_LOC_<arch>: The location on the development host where the target sysroot is created.</p>
-<p>After you have configured the adt_installer.conf file, run the installer using the following command. Be sure that you are not trying to use cross-compilation tools. When you run the installer, the environment must use a host gcc:</p>
-<div class="codehilite"><pre> <span class="nv">$</span> <span class="nv">cd</span> <span class="o">~/</span><span class="n">adt</span><span class="o">-</span><span class="n">installer</span>
- <span class="nv">$</span> <span class="err">./</span><span class="nv">adt_installer</span>
-</pre></div>
-
-
-<p>Note
-The ADT Installer requires the libtool package to complete. If you install the recommended packages as described in "The Packages" section of the Yocto Project Quick Start, then you will have libtool installed.
-Once the installer begins to run, you are asked to enter the location for cross-toolchain installation. The default location is /opt/poky/<release>. After selecting the location, you are prompted to run in interactive or silent mode. If you want to closely monitor the installation, choose “I” for interactive mode rather than “S” for silent mode. Follow the prompts from the script to complete the installation.</p>
-<p>Once the installation completes, the ADT, which includes the cross-toolchain, is installed. You will notice environment setup files for the cross-toolchain in /opt/poky/1.3, and image tarballs in the adt-installer directory according to your installer configurations, and the target sysroot located according to the YOCTOADT_TARGET_SYSROOT_LOC_<arch> variable also in your configuration file.</p>
 <h2>Referencias</h2>
 <ol>
 <li><a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html">Yocto Project Quick Start</a>.</li>
 <li><a href="http://pokylinux.org/doc/poky-handbook.html">Poky HandBook</a>.</li>
 <li><a href="http://www.pimpmypi.com/blog/blogPost.php?blogPostID=7">Build a Custom Raspberry Pi Distro with OpenEmbedded &amp; Yocto</a>.</li>
-<li><a href="http://www.yoctoproject.org/docs/1.3/adt-manual/adt-manual.html">Yocto Proyecto Applications Developer's Guide</a></li>
 </ol>
+<h3>Comentarios</h3>
+<p><div class="g-comments-for z13agjmr0tazhfwft22egliyvmyrubrkf"></div></p>
                 </div><!-- /.entry-content -->
                         </article>
 </section>
@@ -380,39 +308,14 @@ Once the installer begins to run, you are asked to enter the location for cross-
 </li>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
-<li class="tag-1">
-    <a href="./tag/poky.html">
-        <i class="icon-tag icon-large"></i>poky
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/ov7670.html">
-        <i class="icon-tag icon-large"></i>ov7670
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/cf7670c.html">
-        <i class="icon-tag icon-large"></i>cf7670c
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/distribucion.html">
-        <i class="icon-tag icon-large"></i>distribución
-    </a>
-</li>
 <li class="tag-4">
     <a href="./tag/al422.html">
         <i class="icon-tag icon-large"></i>al422
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/lcd.html">
-        <i class="icon-tag icon-large"></i>lcd
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/openembedded.html">
-        <i class="icon-tag icon-large"></i>openembedded
+    <a href="./tag/rpi.html">
+        <i class="icon-tag icon-large"></i>rpi
     </a>
 </li>
 <li class="tag-4">
@@ -426,13 +329,63 @@ Once the installer begins to run, you are asked to enter the location for cross-
     </a>
 </li>
 <li class="tag-4">
+    <a href="./tag/gpio.html">
+        <i class="icon-tag icon-large"></i>gpio
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/videocore.html">
+        <i class="icon-tag icon-large"></i>videocore
+    </a>
+</li>
+<li class="tag-1">
+    <a href="./tag/yocto.html">
+        <i class="icon-tag icon-large"></i>yocto
+    </a>
+</li>
+<li class="tag-4">
     <a href="./tag/spi.html">
         <i class="icon-tag icon-large"></i>spi
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/gpio.html">
-        <i class="icon-tag icon-large"></i>gpio
+    <a href="./tag/arm.html">
+        <i class="icon-tag icon-large"></i>arm
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/ov7670.html">
+        <i class="icon-tag icon-large"></i>ov7670
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/distribucion.html">
+        <i class="icon-tag icon-large"></i>distribución
+    </a>
+</li>
+<li class="tag-1">
+    <a href="./tag/poky.html">
+        <i class="icon-tag icon-large"></i>poky
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/openembedded.html">
+        <i class="icon-tag icon-large"></i>openembedded
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/lcd.html">
+        <i class="icon-tag icon-large"></i>lcd
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/bitbake.html">
+        <i class="icon-tag icon-large"></i>bitbake
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/broadcom.html">
+        <i class="icon-tag icon-large"></i>broadcom
     </a>
 </li>
 <li class="tag-4">
@@ -446,38 +399,13 @@ Once the installer begins to run, you are asked to enter the location for cross-
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/bitbake.html">
-        <i class="icon-tag icon-large"></i>bitbake
-    </a>
-</li>
-<li class="tag-1">
-    <a href="./tag/yocto.html">
-        <i class="icon-tag icon-large"></i>yocto
-    </a>
-</li>
-<li class="tag-4">
     <a href="./tag/raspberry-pi.html">
         <i class="icon-tag icon-large"></i>raspberry pi
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/broadcom.html">
-        <i class="icon-tag icon-large"></i>broadcom
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/rpi.html">
-        <i class="icon-tag icon-large"></i>rpi
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/arm.html">
-        <i class="icon-tag icon-large"></i>arm
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/videocore.html">
-        <i class="icon-tag icon-large"></i>videocore
+    <a href="./tag/cf7670c.html">
+        <i class="icon-tag icon-large"></i>cf7670c
     </a>
 </li>
 
@@ -520,7 +448,7 @@ Once the installer begins to run, you are asked to enter the location for cross-
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="./theme/js/jquery-1.7.2.min.js"></script>
     <script src="./theme/js/bootstrap.min.js"></script>
-    <script src="pluscomments.js"></script>
+    <script src="./theme/js/pluscomments.js"></script>
     <script src="https://apis.google.com/js/client.js?onload=commentrLoad"></script>
   </body>
 </html>
