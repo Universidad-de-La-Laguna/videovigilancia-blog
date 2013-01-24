@@ -25,6 +25,8 @@ commentr.fetchComments = function(activityId) {
 }
 
 commentr.parseComments = function(responseJson) {
+  if (responseJson.items.length < 1) return;
+
   var activity = responseJson.items[0].inReplyTo[0];
   var comments = responseJson.items;
 
