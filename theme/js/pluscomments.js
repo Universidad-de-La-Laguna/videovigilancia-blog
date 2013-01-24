@@ -48,7 +48,7 @@ commentr.parseComments = function(responseJson) {
 
   }
   insertionElement.innerHTML = "<dl>" + newContents + "</dl> " +
-      "<p class='g-commentlink'>Por favor comenta a través del <a href='" +
+      "<p class='g-commentlink'>Por favor, comenta a través del <a href='" +
       activity.url + "'>artículo en Google+</a>.</p>";
 }
 
