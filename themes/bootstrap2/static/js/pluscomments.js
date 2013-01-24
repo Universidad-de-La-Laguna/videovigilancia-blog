@@ -25,7 +25,7 @@ commentr.fetchComments = function(activityId) {
 }
 
 commentr.parseComments = function(responseJson) {
-  if (responseJson.items.length < 1) return;
+  if (typeof(responseJson.items) == "undefined") return;
 
   var activity = responseJson.items[0].inReplyTo[0];
   var comments = responseJson.items;
@@ -47,8 +47,8 @@ commentr.parseComments = function(responseJson) {
         actor.displayName + "</a>: " + commentBody + "</dd>";
 
   }
-  insertionElement.innerHTML = "<dl>" + newContents +
-      "</dl> <p class='g-commentlink'>Please comment on the <a href='" +
-      activity.url + "'>Google+ activity</a></p>";
+  insertionElement.innerHTML = "<dl>" + newContents + "</dl> " +
+      "<p class='g-commentlink'>Por favor, comenta a través del <a href='" +
+      activity.url + "'>artículo en Google+</a>.</p>";
 }
 
