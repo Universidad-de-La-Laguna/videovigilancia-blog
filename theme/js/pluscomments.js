@@ -25,30 +25,32 @@ commentr.fetchComments = function(activityId) {
 }
 
 commentr.parseComments = function(responseJson) {
-  if (typeof(responseJson.items) == "undefined") return;
+  if (typeof(responseJson.items) != "undefined") {
 
-  var activity = responseJson.items[0].inReplyTo[0];
-  var comments = responseJson.items;
+    var activity = responseJson.items[0].inReplyTo[0];
+    var comments = responseJson.items;
 
-  //find element to insert into
-  var insertionElements =
-      document.getElementsByClassName('g-comments-for ' + activity.id);
-  var insertionElement = insertionElements[0];
+    //find element to insert into
+    var insertionElements =
+        document.getElementsByClassName('g-comments-for ' + activity.id);
+    var insertionElement = insertionElements[0];
 
-  var newContents = "";
-  for (i = 0; i < comments.length; i++) {
-    var actor = comments[i].actor;
+    var newContents = "";
+    for (i = 0; i < comments.length; i++) {
+      var actor = comments[i].actor;
 
-    var commentBody = comments[i].object.content;
+      var commentBody = comments[i].object.content;
 
-    //do the insertion
-    newContents += "<dt><a href='" + actor.url + "'><img src='" +
-        actor.image.url + "'></a></dt>" + "<dd><a href='" + actor.url + "'>" +
-        actor.displayName + "</a>: " + commentBody + "</dd>";
+      //do the insertion
+      newContents += "<dt><a href='" + actor.url + "'><img src='" +
+          actor.image.url + "'></a></dt>" + "<dd><a href='" + actor.url + "'>" +
+          actor.displayName + "</a>: " + commentBody + "</dd>";
 
+    }
+    insertionElement.innerHTML = "<dl>" + newContents + "</dl>";
   }
-  insertionElement.innerHTML = "<dl>" + newContents +
-      "</dl> <p class='g-commentlink'>Please comment on the <a href='" +
-      activity.url + "'>Google+ activity</a></p>";
+  insertionElement.innerHTML = "<p class='g-commentlink'>" +
+      "Por favor comenta a través del <a href='" + activity.url +
+      "'>artículo en Google+</a>.</p>";
 }
 
