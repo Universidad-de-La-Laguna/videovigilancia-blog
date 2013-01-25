@@ -1,6 +1,7 @@
 Title: Crea tu propia distro de Linux con Yocto
 Tags: yocto, poky, distribución
-Date: 2013-01-22 
+Date: 2013-01-22
+PlusActivityId: z13agjmr0tazhfwft22egliyvmyrubrkf
 
 El objetivo de este artículo es explicar paso a paso como se puede utilizar
 el proyecto [Yocto] para crear nuestra propia distribución de Linux. Primero
@@ -128,7 +129,7 @@ Mientras que la imagen alternativa `rpi-hwup-image` no contiene ninguna de las d
  1. [Yocto Project Quick Start](http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html).
  1. [Poky HandBook](http://pokylinux.org/doc/poky-handbook.html).
  1. [Build a Custom Raspberry Pi Distro with OpenEmbedded & Yocto](http://www.pimpmypi.com/blog/blogPost.php?blogPostID=7).
-    
+
 [Yocto]: |filename|/Overviews/yocto-poky-y-bitbake.md "Yocto, Poky y BitBake"
 [Poky]: |filename|/Overviews/yocto-poky-y-bitbake.md "Yocto, Poky y BitBake"
 [Yocto Project Quick Start]: http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html "Yocto Project Quick Start"
