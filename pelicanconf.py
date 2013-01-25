@@ -29,5 +29,6 @@ DEFAULT_PAGINATION = 5
 # Theme
 THEME = u'themes/bootstrap2'
 
-# Google Search
+# Google
 GOOGLE_CUSTOM_SEARCH_SIDEBAR = '013894742475483232300:q2-5a1zlira'
+GOOGLE_API_KEY = 'AIzaSyClPfZd7RRcX9e3eYiOLV__FyRO9RmJzmg'
