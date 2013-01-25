@@ -15,8 +15,8 @@ de las basadas en Debian.&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;Paquetes de desarrollo.&lt;/strong&gt; En el sistema deben estar instalados una serie
 de paquetes utilizados habitualmente en tareas de desarrollo. En un sistema
 basado en Debian deberían poder instalarse con el siguiente comando:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;cvs&lt;/span&gt; &lt;span class="n"&gt;subversion&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt; &lt;span class="n"&gt;coreutils&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
-&lt;span class="n"&gt;unzip&lt;/span&gt; &lt;span class="n"&gt;texi2html&lt;/span&gt; &lt;span class="n"&gt;texinfo&lt;/span&gt; &lt;span class="n"&gt;libsdl1&lt;/span&gt;&lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;docbook&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;gawk&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;cvs&lt;/span&gt; &lt;span class="n"&gt;subversion&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt; &lt;span class="n"&gt;coreutils&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+&lt;span class="n"&gt;unzip&lt;/span&gt; &lt;span class="n"&gt;texi2html&lt;/span&gt; &lt;span class="n"&gt;texinfo&lt;/span&gt; &lt;span class="n"&gt;libsdl1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;2&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;docbook&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;gawk&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
 &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pysqlite2&lt;/span&gt; &lt;span class="n"&gt;diffstat&lt;/span&gt; &lt;span class="n"&gt;help2man&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;essential&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
 &lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="n"&gt;desktop&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;chrpath&lt;/span&gt; &lt;span class="n"&gt;libgl1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libglu1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
 &lt;span class="n"&gt;mercurial&lt;/span&gt; &lt;span class="n"&gt;autoconf&lt;/span&gt; &lt;span class="n"&gt;automake&lt;/span&gt; &lt;span class="n"&gt;groff&lt;/span&gt;
@@ -37,8 +37,8 @@ incluyendo las herramienta de desarrollo para la misma:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Descargar el sistema de construcción &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; de la última versión del
 proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; y descomprimirla:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;wget&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="n"&gt;downloads&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;yoctoproject&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="sr"&gt;/releases/&lt;/span&gt;&lt;span class="n"&gt;yocto&lt;/span&gt;&lt;span class="sr"&gt;/yocto-1.3/&lt;/span&gt;&lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;&lt;span class="p"&gt;]()&lt;/span&gt;
-&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;jxf&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;downloads&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;yoctoproject&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;releases&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;yocto&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;yocto&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;1&lt;span class="p"&gt;.&lt;/span&gt;3&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;8&lt;span class="p"&gt;.&lt;/span&gt;0&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;&lt;span class="p"&gt;]()&lt;/span&gt;
+$ &lt;span class="n"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;jxf&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;8&lt;span class="p"&gt;.&lt;/span&gt;0&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -46,21 +46,21 @@ proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigila
 &lt;li&gt;
 &lt;p&gt;Crear el directorio &lt;code&gt;raspberry-pi-build&lt;/code&gt; donde construir la imagen y
 configurar las variables de entorno necesarias:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;source&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;oe&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;8&lt;span class="p"&gt;.&lt;/span&gt;0&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;oe&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nb"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;minimal&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;minimal&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;La imagen construida puede ejecutarse en &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt; de la siguiente manera:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;runqemu&lt;/span&gt; &lt;span class="n"&gt;qemux86&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;runqemu&lt;/span&gt; &lt;span class="n"&gt;qemux86&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -72,8 +72,8 @@ construir la imagen si se dispone de un sistema multi-núcleo.&lt;/p&gt;
 &lt;p&gt;Si se tienen &lt;code&gt;N&lt;/code&gt; núcleos, es conveniente descomentar las variables &lt;code&gt;BB_NUMBER_THREADS&lt;/code&gt;
 y &lt;code&gt;PARALLEL_MAKE&lt;/code&gt; y asignarle &lt;code&gt;N + 1&lt;/code&gt;. Por ejemplo, con 8 núcleos el valor
 debería ser 9:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BB_NUMBER_THREADS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;9&amp;quot;&lt;/span&gt;
-&lt;span class="n"&gt;PARALLEL_MAKE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;-j 9&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BB_NUMBER_THREADS&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &amp;quot;9&amp;quot;
+&lt;span class="n"&gt;PARALLEL_MAKE&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &amp;quot;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nb"&gt;j&lt;/span&gt; 9&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -89,15 +89,15 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;li&gt;
 &lt;p&gt;Clonar localmente el repositorio &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; fuera del directorio
 &lt;code&gt;raspberry-pi-build&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;https:&lt;/span&gt;&lt;span class="sr"&gt;//gi&lt;/span&gt;&lt;span class="n"&gt;thub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="sr"&gt;/djwillis/m&lt;/span&gt;&lt;span class="n"&gt;eta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="p"&gt;]()&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;djwillis&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="p"&gt;]()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Cambiar a la rama &lt;strong&gt;danny&lt;/strong&gt; que es la de la versión de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; que estamos usando:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;
-&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="n"&gt;danny&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;
+$ &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="n"&gt;danny&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -106,12 +106,12 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;p&gt;Buscar la variable &lt;code&gt;BBLAYERS&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/bblayers.conf&lt;/code&gt; y añadir
 al final la ruta hasta el repositorio de la capa &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; para incluirla
 en el proceso de construcción. Por ejemplo:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
-&lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta \&lt;/span&gt;
-&lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto \&lt;/span&gt;
-&lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto-bsp \&lt;/span&gt;
-&lt;span class="s"&gt;  /home/usuario/meta-raspberry-pi \&lt;/span&gt;
-&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; ?&lt;span class="p"&gt;=&lt;/span&gt; &amp;quot; &lt;span class="o"&gt;\&lt;/span&gt;
+  &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usuario&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;8&lt;span class="p"&gt;.&lt;/span&gt;0&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meta&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+  &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usuario&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;8&lt;span class="p"&gt;.&lt;/span&gt;0&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;yocto&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+  &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usuario&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;8&lt;span class="p"&gt;.&lt;/span&gt;0&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;yocto&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bsp&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+  &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usuario&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nb"&gt;pi&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -119,15 +119,15 @@ en el proceso de construcción. Por ejemplo:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Buscar la variable &lt;code&gt;MACHINE&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/local.conf&lt;/code&gt; e indicar que
 la máquina de destino de la imagen es &lt;code&gt;raspberrypi&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; ?&lt;span class="p"&gt;=&lt;/span&gt; &amp;quot;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
-&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nb"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
+$ &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -136,7 +136,7 @@ Mientras que la imagen alternativa &lt;code&gt;rpi-hwup-image&lt;/code&gt; no co
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Transferir la imagen construida a la tarjeta SD.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="sr"&gt;/deploy/im&lt;/span&gt;&lt;span class="n"&gt;ages&lt;/span&gt;&lt;span class="sr"&gt;/rpi-basic-image-raspberrypi.rpi-sdimg of=/&lt;/span&gt;&lt;span class="n"&gt;ruta&lt;/span&gt;&lt;span class="sr"&gt;/a/&lt;/span&gt;&lt;span class="n"&gt;la&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sd&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;deploy&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;images&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sdimg&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ruta&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;la&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sd&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -148,9 +148,7 @@ Mientras que la imagen alternativa &lt;code&gt;rpi-hwup-image&lt;/code&gt; no co
 &lt;li&gt;&lt;a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html"&gt;Yocto Project Quick Start&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://pokylinux.org/doc/poky-handbook.html"&gt;Poky HandBook&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.pimpmypi.com/blog/blogPost.php?blogPostID=7"&gt;Build a Custom Raspberry Pi Distro with OpenEmbedded &amp;amp; Yocto&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;Comentarios&lt;/h3&gt;
-&lt;p&gt;&lt;div class="g-comments-for z13agjmr0tazhfwft22egliyvmyrubrkf"&gt;&lt;/div&gt;&lt;/p&gt;</summary><category term="yocto"></category><category term="poky"></category><category term="distribución"></category></entry><entry><title>Cámara CF7670C-V2</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/camara-cf7670c-v2.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:camara-cf7670c-v2.html</id><summary type="html">&lt;p&gt;Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt;
+&lt;/ol&gt;</summary><category term="yocto"></category><category term="poky"></category><category term="distribución"></category></entry><entry><title>Cámara CF7670C-V2</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/camara-cf7670c-v2.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:camara-cf7670c-v2.html</id><summary type="html">&lt;p&gt;Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt;
 con una memoria FIFO &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422"&gt;Averlogic AL422&lt;/a&gt; de 3Mb.&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0px 10px 0"&gt;&lt;/p&gt;
 &lt;p&gt;La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
