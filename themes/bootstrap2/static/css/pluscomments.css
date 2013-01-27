@@ -1,0 +1,15 @@
+.comments dt {
+    float: left;
+    clear: both;
+    width: 60px;
+}
+
+.comment-date {
+    padding-left: 10px;
+    font-size: 11px;
+    color: #666;
+}
+
+.comment-body {
+    padding-top: 2px;
+}

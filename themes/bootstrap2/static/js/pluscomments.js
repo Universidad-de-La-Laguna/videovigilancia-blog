@@ -49,11 +49,13 @@ pluscomments.parseComments = function(responseJson) {
       var actor = comments[i].actor;
 
       var commentBody = comments[i].object.content;
+      var commentDate = moment(comments[i].published).format('DD/MM/YYYY HH:mm');
 
       //do the insertion
-      newContents += "<dt><a href='" + actor.url + "'><img src='" +
-          actor.image.url + "'></a></dt>" + "<dd><a href='" + actor.url + "'>" +
-          actor.displayName + "</a>: " + commentBody + "</dd>";
+      newContents += "<dt><a href='" + actor.url + "'><img src='" + actor.image.url +
+          "'></a></dt>" + "<dd><span><a class='comment-author' href='" +
+          actor.url + "'>" + actor.displayName + "</a><span class='comment-date'>" +
+          commentDate + "</span><div class='comment-body'>" + commentBody + "</div></dd>";
     }
     innerHTML = "<dl>" + newContents + "</dl> ";
   }
