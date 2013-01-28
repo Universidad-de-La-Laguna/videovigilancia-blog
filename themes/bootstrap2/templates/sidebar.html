@@ -7,16 +7,16 @@
 {% endif %}
 {% if SOCIAL %}
 <li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
-<li><a href="{{ SITEURL }}/{{ FEED }}" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="{{ SITEURL }}/{{ FEED }}" rel="alternate"><i class="icon-bookmark icon-large"></i>feed atom</a></li>
 {% if FEED_RSS %}
-<li><a href="{{ SITEURL }}/{{ FEED_RSS }}" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
+<li><a href="{{ SITEURL }}/{{ FEED_RSS }}" rel="alternate"><i class="icon-bookmark icon-large"></i>feed rss</a></li>
 {% endif %}
 {% for name, link in SOCIAL %}
     <li><a href="{{ link }}"><i class="icon-{{ name }}-sign icon-large"></i>{{ name }}</a></li>
 {% endfor %}
 {% endif %}
 
-<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categorías</h4></li>
 {% for cat, null in categories %}
 <li>
 <a href="{{ SITEURL }}/{{ cat.url }}">
@@ -25,7 +25,7 @@
 </li>
 {% endfor %}
 
-<li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
+<li class="nav-header"><h4><i class="icon-tags icon-large"></i>Etiquetas</h4></li>
 {% for tag in tag_cloud %}
 <li class="tag-{{ tag.1 }}">
     <a href="{{ SITEURL }}/{{ tag.0.url }}">
