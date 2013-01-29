@@ -50,12 +50,10 @@ configurar las variables de entorno necesarias:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;Como las variables de entorno configuradas por este comando se pierden al
+ cerrar la shell, en caso de que eso ocurra o de abandonar la sesión sería
+ necesario volver a ejecutar este comando antes de continuar.&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Como las variables de entorno se pierden al cerrar la shell actual, en caso
- de que eso ocurre o de abandonar la sesión es necesario volver a ejecutarla
- este comando antes de continuar.&lt;/p&gt;
-&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;$ &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;minimal&lt;/span&gt;
