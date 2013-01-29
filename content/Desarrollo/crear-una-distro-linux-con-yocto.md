@@ -49,9 +49,9 @@ configurar las variables de entorno necesarias:
 
         $ source poky-danny-8.0/oe-init-build-env raspberry-pi-build
 
- Como las variables de entorno se pierden al cerrar la shell actual, en caso
- de que eso ocurre o de abandonar la sesión es necesario volver a ejecutarla
- este comando antes de continuar.
+     Como las variables de entorno configuradas por este comando se pierden al
+     cerrar la shell, en caso de que eso ocurra o de abandonar la sesión sería
+     necesario volver a ejecutar este comando antes de continuar.
 
  3. Construir la imagen:
 
