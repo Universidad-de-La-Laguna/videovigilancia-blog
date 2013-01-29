@@ -31,7 +31,7 @@ basado en Debian deberían poder instalarse con el siguiente comando:
  * **Una versión del proyecto [Yocto].** Las distintas versiones pueden
 descargarse desde la dirección:
 
-    [http://downloads.yoctoproject.org/releases/yocto/]()
+    [http://downloads.yoctoproject.org/releases/yocto/](http://downloads.yoctoproject.org/releases/yocto/)
 
 ### Construir una imagen de sistema Linux
 
@@ -41,13 +41,17 @@ incluyendo las herramienta de desarrollo para la misma:
  1. Descargar el sistema de construcción [Poky] de la última versión del
 proyecto [Yocto] y descomprimirla:
 
-        $ wget [http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2]()
+        $ wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2
         $ tar jxf poky-danny-8.0.tar.bz2
 
  2. Crear el directorio `raspberry-pi-build` donde construir la imagen y
 configurar las variables de entorno necesarias:
 
         $ source poky-danny-8.0/oe-init-build-env raspberry-pi-build
+
+ Como las variables de entorno se pierden al cerrar la shell actual, en caso
+ de que eso ocurre o de abandonar la sesión es necesario volver a ejecutarla
+ este comando antes de continuar.
 
  3. Construir la imagen:
 
@@ -87,7 +91,7 @@ Estos son los pasos para incorporarla a nuestro proyecto:
  1. Clonar localmente el repositorio **meta-raspberrypi** fuera del directorio
 `raspberry-pi-build`.
 
-        $ git clone [https://github.com/djwillis/meta-raspberrypi.git]()
+        $ git clone https://github.com/djwillis/meta-raspberrypi.git
 
  2. Cambiar a la rama **danny** que es la de la versión de [Poky] que estamos usando:
 
