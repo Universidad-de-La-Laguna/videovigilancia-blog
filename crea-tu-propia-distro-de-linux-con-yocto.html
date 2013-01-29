@@ -164,7 +164,7 @@ incluyendo las herramienta de desarrollo para la misma:</p>
 <li>
 <p>Descargar el sistema de construcción <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Poky</a> de la última versión del
 proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> y descomprimirla:</p>
-<div class="codehilite"><pre>$ <span class="n">wget</span> <span class="p">[</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="p">.</span><span class="n">yoctoproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">yocto</span><span class="o">/</span><span class="n">yocto</span><span class="o">-</span>1<span class="p">.</span>3<span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span><span class="p">](</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="p">.</span><span class="n">yoctoproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">yocto</span><span class="o">/</span><span class="n">yocto</span><span class="o">-</span>1<span class="p">.</span>3<span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span><span class="p">)</span>
+<div class="codehilite"><pre>$ <span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="p">.</span><span class="n">yoctoproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">yocto</span><span class="o">/</span><span class="n">yocto</span><span class="o">-</span>1<span class="p">.</span>3<span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span>
 $ <span class="n">tar</span> <span class="n">jxf</span> <span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span>
 </pre></div>
 
@@ -178,6 +178,11 @@ configurar las variables de entorno necesarias:</p>
 
 
 </li>
+</ol>
+<p>Como las variables de entorno se pierden al cerrar la shell actual, en caso
+ de que eso ocurre o de abandonar la sesión es necesario volver a ejecutarla
+ este comando antes de continuar.</p>
+<ol>
 <li>
 <p>Construir la imagen:</p>
 <div class="codehilite"><pre>$ <span class="n">bitbake</span> <span class="n">core</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">minimal</span>
@@ -312,6 +317,26 @@ Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ningu
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Etiquetas</h4></li>
 <li class="tag-4">
+    <a href="./tag/linux.html">
+        <i class="icon-tag icon-large"></i>linux
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/lcd.html">
+        <i class="icon-tag icon-large"></i>lcd
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/broadcom.html">
+        <i class="icon-tag icon-large"></i>broadcom
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/gpio.html">
+        <i class="icon-tag icon-large"></i>gpio
+    </a>
+</li>
+<li class="tag-4">
     <a href="./tag/rpi.html">
         <i class="icon-tag icon-large"></i>rpi
     </a>
@@ -322,28 +347,28 @@ Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ningu
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/empotrado.html">
-        <i class="icon-tag icon-large"></i>empotrado
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/st7735.html">
-        <i class="icon-tag icon-large"></i>st7735
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/videocore.html">
-        <i class="icon-tag icon-large"></i>videocore
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/gpio.html">
-        <i class="icon-tag icon-large"></i>gpio
+    <a href="./tag/openembedded.html">
+        <i class="icon-tag icon-large"></i>openembedded
     </a>
 </li>
 <li class="tag-4">
     <a href="./tag/ov7670.html">
         <i class="icon-tag icon-large"></i>ov7670
+    </a>
+</li>
+<li class="tag-1">
+    <a href="./tag/poky.html">
+        <i class="icon-tag icon-large"></i>poky
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/bitbake.html">
+        <i class="icon-tag icon-large"></i>bitbake
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/cf7670c.html">
+        <i class="icon-tag icon-large"></i>cf7670c
     </a>
 </li>
 <li class="tag-4">
@@ -352,23 +377,18 @@ Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ningu
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/raspberry-pi.html">
-        <i class="icon-tag icon-large"></i>raspberry pi
-    </a>
-</li>
-<li class="tag-4">
     <a href="./tag/arm.html">
         <i class="icon-tag icon-large"></i>arm
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/broadcom.html">
-        <i class="icon-tag icon-large"></i>broadcom
+    <a href="./tag/raspberry-pi.html">
+        <i class="icon-tag icon-large"></i>raspberry pi
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/cf7670c.html">
-        <i class="icon-tag icon-large"></i>cf7670c
+    <a href="./tag/i2c.html">
+        <i class="icon-tag icon-large"></i>i2c
     </a>
 </li>
 <li class="tag-4">
@@ -382,33 +402,18 @@ Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ningu
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/i2c.html">
-        <i class="icon-tag icon-large"></i>i2c
-    </a>
-</li>
-<li class="tag-1">
-    <a href="./tag/poky.html">
-        <i class="icon-tag icon-large"></i>poky
+    <a href="./tag/st7735.html">
+        <i class="icon-tag icon-large"></i>st7735
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/openembedded.html">
-        <i class="icon-tag icon-large"></i>openembedded
+    <a href="./tag/videocore.html">
+        <i class="icon-tag icon-large"></i>videocore
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/bitbake.html">
-        <i class="icon-tag icon-large"></i>bitbake
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/linux.html">
-        <i class="icon-tag icon-large"></i>linux
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/lcd.html">
-        <i class="icon-tag icon-large"></i>lcd
+    <a href="./tag/empotrado.html">
+        <i class="icon-tag icon-large"></i>empotrado
     </a>
 </li>
 
