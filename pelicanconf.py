@@ -20,6 +20,10 @@ FEED_RSS='feeds/rss.xml'
 # Blogroll
 LINKS =  ()
 
+# Author profiles
+PROFILES = {u'Jesús Torres': (
+            ('google+', 'http://plus.google.com/u/0/113130190517682041034'),)}
+
 # Social widget
 SOCIAL = (('github', 'http://github.com/ull-etsii-sistemas-operativos/'),
           ('google+', 'http://plus.google.com/u/0/communities/112085352199958768374'),
