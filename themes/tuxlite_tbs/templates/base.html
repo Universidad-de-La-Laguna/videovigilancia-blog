@@ -65,14 +65,14 @@
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
-                Site
+                Sitio
                 </li>
             
-                <li><a href="{{ SITEURL }}/archives.html">Archives</a>
-                <li><a href="{{ SITEURL }}/tags.html">Tags</a>
-                <li><a href="{{ FEED_DOMAIN }}/{{ FEED_ATOM }}" rel="alternate">Atom feed</a></li>
+                <li><a href="{{ SITEURL }}/archives.html">Archivos</a>
+                <li><a href="{{ SITEURL }}/tags.html">Etiquetas</a>
+                <li><a href="{{ FEED_DOMAIN }}/{{ FEED_ATOM }}" rel="alternate">Fuente Atom</a></li>
                 {% if FEED_RSS %}
-                <li><a href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}" rel="alternate">RSS feed</a></li>
+                <li><a href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}" rel="alternate">Fuente RSS</a></li>
                 {% endif %}
             </ul>
             </div>
@@ -82,7 +82,7 @@
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
-                Categories
+                Categorias
                 </li>
                 
                 {% for cat, null in categories %}
@@ -97,7 +97,7 @@
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
-                Links
+                Enlaces
                 </li>
             
             {% for name, link in LINKS %}
