@@ -10,7 +10,7 @@ TIMEZONE = 'Atlantic/Canary'
 DEFAULT_LANG = u'es'
 
 FILENAME_METADATA = '(?P<date>\d{4}-\d{2}-\d{2})_(?P<slug>.*)'
-SUMMARY_MAX_LENGTH = 100
+SUMMARY_MAX_LENGTH = 50
 
 # Feeds
 FEED_DOMAIN = SITEURL
@@ -26,7 +26,7 @@ SOCIAL = (('github', 'http://github.com/ull-etsii-sistemas-operativos/'),
           ('atom', FEED_DOMAIN + '/' + FEED_ATOM),
           ('rss', FEED_DOMAIN + '/' + FEED_RSS),)
 
-DEFAULT_PAGINATION = 5
+DEFAULT_PAGINATION = 3
 
 # Theme
 THEME = u'themes/tuxlite_tbs'
