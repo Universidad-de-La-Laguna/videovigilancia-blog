@@ -27,7 +27,7 @@ SOCIAL = (('github', 'https://github.com/ull-etsii-sistemas-operativos/'),
 DEFAULT_PAGINATION = 5
 
 # Theme
-THEME = u'themes/bootstrap2'
+THEME = u'themes/tuxlite_tbs'
 
 # Google
 GOOGLE_CUSTOM_SEARCH_SIDEBAR = '013894742475483232300:q2-5a1zlira'
