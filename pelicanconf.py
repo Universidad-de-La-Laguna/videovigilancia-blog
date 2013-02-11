@@ -5,6 +5,8 @@ AUTHOR = u'Jesús Torres'
 SITENAME = u'Sistema de Videovigilancia from Scratch'
 SITEURL = 'http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog'
 
+RELATIVE_URLS = True
+
 TIMEZONE = 'Atlantic/Canary'
 
 DEFAULT_LANG = u'es'
