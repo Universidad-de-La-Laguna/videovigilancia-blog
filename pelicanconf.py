@@ -14,15 +14,17 @@ SUMMARY_MAX_LENGTH = 100
 
 # Feeds
 FEED_DOMAIN = SITEURL
-FEED='feeds/atom.xml'
+FEED_ATOM='feeds/atom.xml'
 FEED_RSS='feeds/rss.xml'
 
 # Blogroll
 LINKS =  ()
 
 # Social widget
-SOCIAL = (('github', 'https://github.com/ull-etsii-sistemas-operativos/'),
-          ('google+', 'http://goo.gl/5hufC'),)
+SOCIAL = (('github', 'http://github.com/ull-etsii-sistemas-operativos/'),
+          ('google+', 'http://plus.google.com/u/0/communities/112085352199958768374'),
+          ('atom', FEED_DOMAIN + '/' + FEED_ATOM),
+          ('rss', FEED_DOMAIN + '/' + FEED_RSS),)
 
 DEFAULT_PAGINATION = 5
 
