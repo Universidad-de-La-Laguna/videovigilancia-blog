@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block title %}{{ SITENAME }} <small>{{ author }}</small>{% endblock %}
+{% block sidebar %}
+    <div class="social">
+    <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+    <ul class="nav nav-list">
+        <li class="nav-header">
+        {{ author }}
+        </li>
+
+        {% for name, link in PROFILES[author] %}
+            <li><a href="{{ link }}" rel="me">{{ name }}</a></li>
+        {% endfor %}
+    </ul>
+    </div>
+    </div>
+{% endblock %}
