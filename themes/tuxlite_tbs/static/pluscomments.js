@@ -44,7 +44,7 @@ pluscomments.parseComments = function(responseJson) {
 
   var innerHTML = "";
   if (typeof(comments) != "undefined") {
-    var newContents = "";
+    var commentsHTML = "";
     for (i = 0; i < comments.length; i++) {
       var actor = comments[i].actor;
 
@@ -52,12 +52,16 @@ pluscomments.parseComments = function(responseJson) {
       var commentDate = moment(comments[i].published).format('DD/MM/YYYY HH:mm');
 
       //do the insertion
-      newContents += "<dt><a href='" + actor.url + "'><img src='" + actor.image.url +
-          "'></a></dt>" + "<dd><span><a class='comment-author' href='" +
-          actor.url + "'>" + actor.displayName + "</a><span class='comment-date'>" +
-          commentDate + "</span><div class='comment-body'>" + commentBody + "</div></dd>";
+      newComment =  "<div class='comment-avatar'><a href='" + actor.url +
+                    "'><img src='" + actor.image.url + "'></a></div>";
+      newComment += "<div class='comment-content'><article>" +
+                    "<a class='comment-author' href='" + actor.url + "'>" +
+                    actor.displayName + "</a><span class='comment-date'>" +
+                    commentDate + "</span><div class='comment-body'>" +
+                    commentBody + "</div></article></div>";
+      commentsHTML += "<div class='comment'>" + newComment + "</div>";
     }
-    innerHTML = "<dl>" + newContents + "</dl> ";
+    innerHTML = "<div>" + commentsHTML + "</div> ";
   }
   insertionElement.innerHTML = innerHTML +
       "<p class='g-commentlink'>Por favor, comenta a través del <a href='" +

@@ -75,3 +75,23 @@ h3 { margin-top: 2.5em; }
 .social a[href*='rss.xml']:before {content: url('./images/icons/rss.png'); margin-right: 2px; vertical-align: -3px;}
 .social a[href*='stackoverflow.com']:before {content: url('./images/icons/stackoverflow.png'); margin-right: 2px; vertical-align: -3px;}
 .social a[href*='twitter.com']:before {content: url('./images/icons/twitter.png'); margin-right: 2px; vertical-align: -3px;}
+
+/* Google plus comments */
+.comment { margin: 10px 0 30px 0; }
+.comment:last-child { margin-bottom: 20px; }
+.comment-avatar {
+    float: left;
+    padding: 0 10px 0 3px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.comment-avatar, .comment-avatar img {
+    border: 0px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.comment-content { display: block; vertical-align: top; overflow: hidden;}
+.comment-date { padding-left: 10px; font-size: 11px; color: #666; }
+.comment-body { padding-top: 2px; line-height: 1.6em; }
