@@ -159,27 +159,26 @@ para monitorizar el estado de todo el sistema.
 Este es el aspecto menos definido del proyecto, ya que se pueden adoptar diversas
 soluciones, todas ellas muy interesantes:
 
-<dl>
-  <dt>Aplicación de escritorio</dt>
-  <dd>Se puede extender el protocolo de comunicación entre las cámaras y el
+Aplicación de escritorio
+: Se puede extender el protocolo de comunicación entre las cámaras y el
 servidor para incluir consultas e información de estado. Este protocolo se
 utilizaría para comunicar el servidor con una aplicación de escritorio que se
 ejecutaría en el puesto de mando. Lo más interesante de esta solución es poder
-tener la experiencia de desarrollar una aplicación de escritorio real.</dd>
-  <dt>Aplicación web en servidor convencional</dt>
-  <dd>Se puede desplegar en el servidor de videoconferencia un servidor web o
+tener la experiencia de desarrollar una aplicación de escritorio real.
+
+Aplicación web en servidor convencional
+: Se puede desplegar en el servidor de videoconferencia un servidor web o
 servidor de aplicaciones, según el caso, para el que desarrollar una
 aplicación capaz de consultar las imágenes archivadas y sus metadatos. Al
 estar la apliación web y el servidor de videovigilancia en procesos diferentes,
 sería necesario controlar el acceso a los archivos compartidos mediante el uso
 de bloqueos. Además el desarrollo se pude realizar en un lenguaje de programación
-diferente a C++.</dd>
-  <dt>Aplicación web en servidor empotrado</dt>
-  <dd>Se puede empotrar un servidor web, como
-[Mongoose](http://code.google.com/p/mongoose/), en el propio proceso del
-servidor de videovigilancia. Esta sería la solución más compacta, aunque tal
-vez también la menos interesante al incorporar menos novedades.</dd>
-</dl>
+diferente a C++.
+
+Aplicación web en servidor empotrado
+: Se puede empotrar un servidor web, como [Mongoose](http://code.google.com/p/mongoose/),
+en el propio proceso del servidor de videovigilancia. Esta sería la solución más
+compacta, aunque tal vez también la menos interesante al incorporar menos novedades.
 
 Sea cual sea la solución finalmente elegida el frontal debe soportar que el
 usuario pueda realizar las siguientes acciones:
