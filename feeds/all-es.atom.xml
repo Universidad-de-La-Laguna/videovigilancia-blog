@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-01-22T00:00:00+00:00</updated><entry><title>Crea tu propia distro de Linux con Yocto</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/crea-tu-propia-distro-de-linux-con-yocto.html" rel="alternate"></link><updated>2013-01-22T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-22:crea-tu-propia-distro-de-linux-con-yocto.html</id><summary type="html">&lt;p&gt;El objetivo de este artículo es explicar paso a paso como se puede utilizar
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-01-29T00:00:00+00:00</updated><entry><title>Proyecto Qt. Framework de desarrollo de aplicaciones</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" rel="alternate"></link><updated>2013-01-29T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-29:proyecto-qt-framework-de-desarrollo-de-aplicaciones.html</id><summary type="html">&lt;p&gt;&lt;a href="http://qt-project.org/" title="Qt Proyect"&gt;Qt&lt;/a&gt; es una &lt;em&gt;framework&lt;/em&gt; multiplataforma en C++ de desarrollo de aplicaciones. Se
+utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
+gracias al conjunto de controles independientes de la plataforma que ofrece,
+aunque también es usado para crear herramientas de linea de comando o consolas
+de gestión para servicios.&lt;/p&gt;
+&lt;p&gt;Esto último es debido a que el API de la librería cuenta con clases para:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Acceso a bases de datos mediante SQL.&lt;/li&gt;
+&lt;li&gt;Procesamiento de XML.&lt;/li&gt;
+&lt;li&gt;Gestión de hilos.&lt;/li&gt;
+&lt;li&gt;Comunicaciones por red.&lt;/li&gt;
+&lt;li&gt;Manejo de archivos.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;a parte de las clases ya mencionadas para el desarrollo de aplicaciones con
+interfaz gráfica. Todo esto convierte a &lt;a href="http://qt-project.org/" title="Qt Proyect"&gt;Qt&lt;/a&gt; en un &lt;em&gt;framework&lt;/em&gt; muy valorado a la
+hora de desarrollar aplicaciones multiplataforma en C++.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://qt-project.org/" title="Qt Proyect"&gt;Qt&lt;/a&gt; está disponible para sistemas tipo UNIX (Linux, BSD, UNIX, etc.) con
+servidor gráfico X Window System, Apple Mac OS X, Microsoft Windows y sistemas
+Linux embebidos. Además se puede hacer uso de la librería desde lenguajes
+diferentes a C++ gracias al empleo de &lt;a href="http://es.wikipedia.org/wiki/Bindings"&gt;bindings&lt;/a&gt;:
+Python, Java, Ruby, Ada, Pascal, Perl, PHP, Haskell, Lua, D, .NET, etc.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://qt-project.org/" title="Qt Proyect"&gt;Qt&lt;/a&gt; está disponible bajo licencias GPLv3, LGPLv2 y privativa comercial.&lt;/p&gt;
+&lt;h2&gt;Referencias&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/"&gt;Qt Proyect&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Qt_(framework)"&gt;Wikipedia&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="qt"></category><category term="gui"></category></entry><entry><title>Crea tu propia distro de Linux con Yocto</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/crea-tu-propia-distro-de-linux-con-yocto.html" rel="alternate"></link><updated>2013-01-22T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-22:crea-tu-propia-distro-de-linux-con-yocto.html</id><summary type="html">&lt;p&gt;El objetivo de este artículo es explicar paso a paso como se puede utilizar
 el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; para crear nuestra propia distribución de Linux. Primero
 construiremos una para ejecutarla en &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt; y después otra para nuestra
 Raspberry Pi.&lt;/p&gt;

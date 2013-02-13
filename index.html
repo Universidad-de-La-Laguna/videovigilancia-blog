@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./crea-tu-propia-distro-de-linux-con-yocto.html"><h1>Crea tu propia distro de Linux con Yocto</h1></a>
-            mar 22 enero 2013
+            <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html"><h1>Proyecto Qt. Framework de desarrollo de aplicaciones</h1></a>
+            mar 29 enero 2013
 
 by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,162 +67,59 @@ by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torre
  
         </div>
         
-        <div><p>El objetivo de este artículo es explicar paso a paso como se puede utilizar
-el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> para crear nuestra propia distribución de Linux. Primero
-construiremos una para ejecutarla en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> y después otra para nuestra
-Raspberry Pi.</p>
-<h2>Inicio rápido</h2>
-<p>El inicio rápido con el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> está perfectamente documentado en
-<a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html" title="Yocto Project Quick Start">Yocto Project Quick Start</a>. En cualquier caso aquí resumiremos los pasos
-deteniéndonos en los de mayor importancia.</p>
-<h3>Requisitos</h3>
+        <div><p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> es una <em>framework</em> multiplataforma en C++ de desarrollo de aplicaciones. Se
+utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
+gracias al conjunto de controles independientes de la plataforma que ofrece,
+aunque también es usado para crear herramientas de linea de comando o consolas
+de gestión para servicios.</p>
+<p>Esto último es debido a que el API de la librería cuenta con clases para:</p>
 <ul>
-<li><strong>Una distribución de Linux.</strong> En nuestro caso, por simplicidad, cualquiera
-de las basadas en Debian.</li>
-<li>
-<p><strong>Paquetes de desarrollo.</strong> En el sistema deben estar instalados una serie
-de paquetes utilizados habitualmente en tareas de desarrollo. En un sistema
-basado en Debian deberían poder instalarse con el siguiente comando:</p>
-<div class="codehilite"><pre>$ <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">sed</span> <span class="n">wget</span> <span class="n">cvs</span> <span class="n">subversion</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span> <span class="n">coreutils</span> <span class="o">\</span>
-<span class="n">unzip</span> <span class="n">texi2html</span> <span class="n">texinfo</span> <span class="n">libsdl1</span><span class="p">.</span>2<span class="o">-</span><span class="n">dev</span> <span class="n">docbook</span><span class="o">-</span><span class="n">utils</span> <span class="n">gawk</span> <span class="o">\</span>
-<span class="n">python</span><span class="o">-</span><span class="n">pysqlite2</span> <span class="n">diffstat</span> <span class="n">help2man</span> <span class="n">make</span> <span class="n">gcc</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="o">\</span>
-<span class="n">g</span><span class="o">++</span> <span class="n">desktop</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">utils</span> <span class="n">chrpath</span> <span class="n">libgl1</span><span class="o">-</span><span class="n">mesa</span><span class="o">-</span><span class="n">dev</span> <span class="n">libglu1</span><span class="o">-</span><span class="n">mesa</span><span class="o">-</span><span class="n">dev</span> <span class="o">\</span>
-<span class="n">mercurial</span> <span class="n">autoconf</span> <span class="n">automake</span> <span class="n">groff</span>
-</pre></div>
-
-
-</li>
-<li>
-<p><strong>Una versión del proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a>.</strong> Las distintas versiones pueden
-descargarse desde la dirección:</p>
-<p><a href="http://downloads.yoctoproject.org/releases/yocto/">http://downloads.yoctoproject.org/releases/yocto/</a></p>
-</li>
+<li>Acceso a bases de datos mediante SQL.</li>
+<li>Procesamiento de XML.</li>
+<li>Gestión de hilos.</li>
+<li>Comunicaciones por red.</li>
+<li>Manejo de archivos.</li>
 </ul>
-<h3>Construir una imagen de sistema Linux</h3>
-<p>El proceso de construir una imagen genera una distribución de Linux completa,
-incluyendo las herramienta de desarrollo para la misma:</p>
-<ol>
-<li>
-<p>Descargar el sistema de construcción <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Poky</a> de la última versión del
-proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> y descomprimirla:</p>
-<div class="codehilite"><pre>$ <span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="p">.</span><span class="n">yoctoproject</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">yocto</span><span class="o">/</span><span class="n">yocto</span><span class="o">-</span>1<span class="p">.</span>3<span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span>
-$ <span class="n">tar</span> <span class="n">jxf</span> <span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Crear el directorio <code>raspberry-pi-build</code> donde construir la imagen y
-configurar las variables de entorno necesarias:</p>
-<div class="codehilite"><pre>$ <span class="n">source</span> <span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">oe</span><span class="o">-</span><span class="n">init</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">env</span> <span class="n">raspberry</span><span class="o">-</span><span class="nb">pi</span><span class="o">-</span><span class="n">build</span>
-</pre></div>
-
-
-<p>Como las variables de entorno configuradas por este comando se pierden al
- cerrar la shell, en caso de que eso ocurra o de abandonar la sesión sería
- necesario volver a ejecutar este comando antes de continuar.</p>
-</li>
-<li>
-<p>Construir la imagen:</p>
-<div class="codehilite"><pre>$ <span class="n">bitbake</span> <span class="n">core</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">minimal</span>
-</pre></div>
-
-
-</li>
-</ol>
-<p>La imagen construida puede ejecutarse en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> de la siguiente manera:</p>
-<div class="codehilite"><pre>$ <span class="n">runqemu</span> <span class="n">qemux86</span>
-</pre></div>
-
-
-<p>Y en unos segundos tendremos acceso a la consola de nuestra nueva distribución.</p>
-<h3>Optimizando la construcción</h3>
-<p>En el archivo <code>conf/local.conf</code> del directorio <code>raspberry-pi-build</code> se pueden
-definir algunos parámetros que pueden reducir el tiempo necesario para
-construir la imagen si se dispone de un sistema multi-núcleo.</p>
-<p>Si se tienen <code>N</code> núcleos, es conveniente descomentar las variables <code>BB_NUMBER_THREADS</code>
-y <code>PARALLEL_MAKE</code> y asignarle <code>N + 1</code>. Por ejemplo, con 8 núcleos el valor
-debería ser 9:</p>
-<div class="codehilite"><pre><span class="n">BB_NUMBER_THREADS</span> <span class="p">=</span> &quot;9&quot;
-<span class="n">PARALLEL_MAKE</span> <span class="p">=</span> &quot;<span class="o">-</span><span class="nb">j</span> 9&quot;
-</pre></div>
-
-
-<h2>Crear una distribución para Raspberry Pi</h2>
-<p>El ejemplo estándar del proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> se construye por defecto para la arquitectura
-<strong>qemux86</strong>. En el caso de querer compilar para otro sistema sólo es necesario añadir
-una capa que incorpore los archivos de configuración necesarios.</p>
-<p>En nuestro caso dicha capa es <strong>meta-raspberrypi</strong>, una capa <a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package">BSP</a> que agrupa todos los
-metadatos necesarios para construir para dispositivos Raspberry Pi. Fundamentalmente
-contiene configuraciones para el núcleo y opciones para la arquitectura.</p>
-<p>Estos son los pasos para incorporarla a nuestro proyecto:</p>
-<ol>
-<li>
-<p>Clonar localmente el repositorio <strong>meta-raspberrypi</strong> fuera del directorio
-<code>raspberry-pi-build</code>.</p>
-<div class="codehilite"><pre>$ <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">djwillis</span><span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">raspberrypi</span><span class="p">.</span><span class="n">git</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Cambiar a la rama <strong>danny</strong> que es la de la versión de <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Poky</a> que estamos usando:</p>
-<div class="codehilite"><pre>$ <span class="n">cd</span> <span class="n">meta</span><span class="o">-</span><span class="n">raspberrypi</span>
-$ <span class="n">git</span> <span class="n">checkout</span> <span class="n">danny</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Buscar la variable <code>BBLAYERS</code> en <code>raspberry-pi-build/conf/bblayers.conf</code> y añadir
-al final la ruta hasta el repositorio de la capa <strong>meta-raspberrypi</strong> para incluirla
-en el proceso de construcción. Por ejemplo:</p>
-<div class="codehilite"><pre><span class="n">BBLAYERS</span> ?<span class="p">=</span> &quot; <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span> <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">yocto</span> <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">yocto</span><span class="o">-</span><span class="n">bsp</span> <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">raspberry</span><span class="o">-</span><span class="nb">pi</span> <span class="o">\</span>
-&quot;
-</pre></div>
-
-
-</li>
-<li>
-<p>Buscar la variable <code>MACHINE</code> en <code>raspberry-pi-build/conf/local.conf</code> e indicar que
-la máquina de destino de la imagen es <code>raspberrypi</code></p>
-<div class="codehilite"><pre><span class="n">MACHINE</span> ?<span class="p">=</span> &quot;<span class="n">raspberrypi</span>&quot;
-</pre></div>
-
-
-</li>
-<li>
-<p>Construir la imagen:</p>
-<div class="codehilite"><pre>$ <span class="n">cd</span> <span class="n">raspberry</span><span class="o">-</span><span class="nb">pi</span><span class="o">-</span><span class="n">build</span>
-$ <span class="n">bitbake</span> <span class="n">rpi</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">image</span>
-</pre></div>
-
-
-<p>Esta imagen incluye un servidor <strong>SSH</strong> y un <em>splash</em> de Raspberry Pi durante el arranque.
-Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ninguna de las dos cosas.</p>
-</li>
-<li>
-<p>Transferir la imagen construida a la tarjeta SD.</p>
-<div class="codehilite"><pre>$ <span class="n">sudo</span> <span class="n">dd</span> <span class="k">if</span><span class="p">=</span><span class="n">tmp</span><span class="o">/</span><span class="n">deploy</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">rpi</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">raspberrypi</span><span class="p">.</span><span class="n">rpi</span><span class="o">-</span><span class="n">sdimg</span> <span class="n">of</span><span class="p">=</span><span class="o">/</span><span class="n">ruta</span><span class="o">/</span><span class="n">a</span><span class="o">/</span><span class="n">la</span><span class="o">/</span><span class="n">sd</span>
-</pre></div>
-
-
-<p>y probarla en el dispositivo.</p>
-</li>
-</ol>
+<p>a parte de las clases ya mencionadas para el desarrollo de aplicaciones con
+interfaz gráfica. Todo esto convierte a <a href="http://qt-project.org/" title="Qt Proyect">Qt</a> en un <em>framework</em> muy valorado a la
+hora de desarrollar aplicaciones multiplataforma en C++.</p>
+<p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> está disponible para sistemas tipo UNIX (Linux, BSD, UNIX, etc.) con
+servidor gráfico X Window System, Apple Mac OS X, Microsoft Windows y sistemas
+Linux embebidos. Además se puede hacer uso de la librería desde lenguajes
+diferentes a C++ gracias al empleo de <a href="http://es.wikipedia.org/wiki/Bindings">bindings</a>:
+Python, Java, Ruby, Ada, Pascal, Perl, PHP, Haskell, Lua, D, .NET, etc.</p>
+<p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> está disponible bajo licencias GPLv3, LGPLv2 y privativa comercial.</p>
 <h2>Referencias</h2>
 <ol>
-<li><a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html">Yocto Project Quick Start</a>.</li>
-<li><a href="http://pokylinux.org/doc/poky-handbook.html">Poky HandBook</a>.</li>
-<li><a href="http://www.pimpmypi.com/blog/blogPost.php?blogPostID=7">Build a Custom Raspberry Pi Distro with OpenEmbedded &amp; Yocto</a>.</li>
+<li><a href="http://qt-project.org/">Qt Proyect</a>.</li>
+<li><a href="http://en.wikipedia.org/wiki/Qt_(framework)">Wikipedia</a>.</li>
 </ol></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="./crea-tu-propia-distro-de-linux-con-yocto.html"><h2>Crea tu propia distro de Linux con Yocto</h2></a>
+        <div class= "well small"> mar 22 enero 2013
+
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>El objetivo de este artículo es explicar paso a paso como se puede utilizar
+el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> para crear nuestra propia distribución de Linux. Primero
+construiremos una para ejecutarla en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> y después otra para nuestra
+Raspberry Pi.</p>
+<h2>Inicio rápido</h2>
+<p>El inicio rápido con el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> está perfectamente documentado ...</p> <a class="btn btn-info xsmall" href="./crea-tu-propia-distro-de-linux-con-yocto.html">read more</a></div>
+    </div>	
+				
     
  
         
@@ -243,34 +140,6 @@ con una memoria FIFO <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4
 <p><img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0px 10px 0"></p>
 <p>La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
 dando tiempo a la CPU externa a recuperarlas al ritmo que le sea ...</p> <a class="btn btn-info xsmall" href="./camara-cf7670c-v2.html">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./lcd-18-spi-st7735.html"><h2>LCD 1.8" SPI (ST7735)</h2></a>
-        <div class= "well small"> dom 13 enero 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>El módulo en cuestión tiene las siguientes características:</p>
-<p><img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fUmF1d0YzNzMwNG8" style="float:right;margin:0 0px 10px 0"></p>
-<ul>
-<li>Resolución de 128x160 pixels.</li>
-<li>262K colores.</li>
-<li>Retro-iluminación LED.</li>
-<li>Interfaz <a href="http://es.wikipedia.org/wiki/SPI" title="Serial Peripheral Interface">SPI</a> a través del chip controlador ST7735R.</li>
-<li>Compatible con lógica TTL de 3.3 y 5v.</li>
-</ul>
-<p>El corazón del módulo es el chip controlador ST7735. Este se conecta por un lado
-a la ...</p> <a class="btn btn-info xsmall" href="./lcd-18-spi-st7735.html">read more</a></div>
     </div>	
 				
             <div class="pagination">

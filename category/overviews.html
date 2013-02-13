@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../yocto-poky-y-bitbake.html"><h1>Yocto, Poky y BitBake</h1></a>
-            jue 10 enero 2013
+            <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html"><h1>Proyecto Qt. Framework de desarrollo de aplicaciones</h1></a>
+            mar 29 enero 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,103 +67,58 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p>El proyecto <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> proporciona a los desarrolladores de sistemas empotrados
-Linux un punto de partida para generar distribuciones personalizadas para
-sus productos. Una de las piezas clave del proyecto es el sistema de
-construcción <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a>, que a su vez se apoya en <a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake">BitBake</a>, una herramienta de
-construcción de paquetes al estilo de
-<a href="http://es.wikipedia.org/wiki/Portage_(software)">Portage</a> de
-<a href="http://www.gentoo.org/">Gentoo</a>.</p>
-<h2>El proyecto Yocto</h2>
-<p><a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> está financiado por la <a href="http://www.linuxfoundation.org/">Linux Foundation</a>.
-Su principal objetivo es desarrollar herramientas que ayuden a los desarrolladores
-a crear sus propias distribuciones de Linux, sea cual sea el hardware sobre el que
-van a correr. Entre los proyectos desarrollados en el seno de <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> están:
-el sistema de construcción <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a>, el sistema de
-<a href="http://es.wikipedia.org/wiki/Integraci%C3%B3n_continua">integración continua</a>
-<a href="http://autobuilder.yoctoproject.org/">Autobuiler</a> y la librería de sistema
-<a href="http://www.eglibc.org/">Embedded GLIBC (EGLIBC)</a>.</p>
-<p>Además, cuando se crea una distribución con <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a>, la herramienta de construcción
-crea un SDK de desarrollo de aplicaciones adaptado a dicha distribución. Este
-SDK puede conectarse al IDE <a href="http://www.eclipse.org/" title="Eclipse IDE">Eclipse</a> o puede usarse desde la línea de comandos.</p>
-<h2>El sistema de construcción Poky</h2>
-<p>Uno de los componentes centrales de <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> es el sistema de construcción <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a>.
-Su responsabilidad fundamental es la construcción de imágenes de sistemas de
-archivos de sistemas Linux. Estos pueden incluir diferentes productos de software:
-Linux, X11, Matchbox, GTK+, Pimlico, Clutter, D-BUS, etc.</p>
-<p>Aunque se pueden generar diferentes tipos de imágenes según el dispositivo donde
-va a ser almacenada, el proyecto ejemplo estándar lo hace para el emulador <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a>
-y para placas de referencia reales de los fabricantes, para cada una de las
-arquitecturas soportadas. Esta habilidad de <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a> lo hace especialmente
-apropiado como plataforma de pruebas y de desarrollo de software para empotrados.</p>
-<p>Un proyecto similar a <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a> es <a href="http://www.openembedded.org/" title="OpenEmbedded">OpenEmbedded</a>, que también es un sistema de construcción
-para sistemas Linux empotrados. <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a> deriva de un proyecto para crear
-una rama estabilizada de <a href="http://www.openembedded.org/" title="OpenEmbedded">OpenEmbedded</a>, limitando el software disponible a unos
-pocos paquetes, de entre los miles de los que dispone <a href="http://www.openembedded.org/" title="OpenEmbedded">OpenEmbedded</a>, así como el número
-de arquitecturas soportadas. Con el tiempo esta rama evolucionó añadiendo
-el componente de <a href="http://www.eclipse.org/" title="Eclipse IDE">Eclipse</a> y la generación de imágenes para <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a>, entre otras cosas.
-Esto dio origen a <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a>.</p>
-<p>El núcleo central de <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a> es la herramienta de construcción <a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake">BitBake</a> junto
-con una colección de archivos de configuración de diversos tipos que definen
-todo lo necesario para construir la imagen del sistema Linux.</p>
-<h2>La herramienta de construcción BitBake</h2>
-<p><a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake">BitBake</a> es básicamente un ejecutor de tareas. Su función es leer los archivos
-de configuración que definen el proyecto; establecer que tareas deben ser realizadas
-y en que orden, obviamente en función de las dependencias y para maximizar la eficiencia
-(por ejemplo primero se intentan ejecutar las que son dependencias comunes a otras tareas)
-y finalmente ejecutarlas.</p>
-<p>Los tipos de archivos de configuración que maneja <a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake">BitBake</a> son:</p>
-<dl>
- <dt>Recetas (.bb)</dt>
- <dd>Contienen información acerca de un componente de software concreto. Entre
- dicha información, por ejemplo, podemos destacar: desde donde descargar los
- parches para las fuentes, que configuraciones deben ser aplicadas antes de
- la compilación, como se compila el componente y como se empaqueta el resultado.</dd>
- <dt>Clases (.bbclass)</dt>
- <dd>Contienen información que es interesante compartir entre distintas recetas.
- Por ejemplo la clase **autotools**, que contiene configuraciones comunes para
- cualquier aplicación que utiliza la herramienta **autotools**.</dd>
- <dt>Configuraciones (.conf)</dt>
- <dd>Define diversas variables de configuración que controlan lo que Poky va
- a hacer. Esto incluye configuraciones específicas de la maquina, opciones de
- configuración de la distribución, ajustes del compilador, configuraciones de
- usuario, etc.</dd>
-</dl>
-
-<p><a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake">BitBake</a> puede combinar varios de estos archivos en los se denomina como <strong>capas</strong>.
-Una capa es un agrupamiento de recetas que proporciona algún tipo de funcionalidad
-adicional. Pueden ser un <a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package">BSP</a> para un nuevo dispositivo, tipos de imágenes
-adicionales o software no incluido en Poky.</p>
-<p>Los mismos metadatos principales del proyecto <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a>, <strong>meta-yocto</strong>, son por si
-mismos una capa aplicada sobre la capa de metadatos OE-Core que añade software
-adicional y tipos de imágenes a esta última.</p>
-<p>Un ejemplo de como funciona esto se puede ver al crear un dispositivo <a href="http://es.wikipedia.org/wiki/Network-attached_storage" title="Network-attached storage">NAS</a>
-(Network-attached Storage) para la CPU Intel E660
-(<a href="http://www.intel.com/p/es_XL/embedded/hwsw/hardware/atom-e6xx/overview">Crown Bay</a>)
-usando x32, el nuevo <a href="http://en.wikipedia.org/wiki/Application_binary_interface" title="Application binary interface">ABI</a> nativo de 32 bits para procesadores x86-64:</p>
-<ol>
-<li>En el nivel más bajo colocaríamos una capa <a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package">BSP</a> para Crown Bay que activaría
- funcionalidades específicas del hardware de estos procesadores.
- Esta capa, por ejemplo, incluiría los drivers de vídeo.</li>
-<li>Como queremos utilizar x32, añadiríamos posteriormente la capa <strong>meta-x32</strong>.</li>
-<li>La funcionalidad de <a href="http://es.wikipedia.org/wiki/Network-attached_storage" title="Network-attached storage">NAS</a> se incorporaría añadiendo la capa <strong>meta-bayron</strong>,
- que el mismo proyecto <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> nos ofrece como ejemplo.</li>
-<li>Finalmente incorporaríamos una capa, que imaginariamente llamaremos
- <strong>meta-myproject</strong>, para proveer el software y la configuraciones necesarias
- para crear una interfaz gráfica de usuario de configuración del <a href="http://es.wikipedia.org/wiki/Network-attached_storage" title="Network-attached storage">NAS</a>.</li>
-</ol>
-<p>Como hemos comentado, cada una de estas capas estaría formada por uno o más
-archivos de configuración de los tipos indicados anteriormente.</p>
+        <div><p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> es una <em>framework</em> multiplataforma en C++ de desarrollo de aplicaciones. Se
+utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
+gracias al conjunto de controles independientes de la plataforma que ofrece,
+aunque también es usado para crear herramientas de linea de comando o consolas
+de gestión para servicios.</p>
+<p>Esto último es debido a que el API de la librería cuenta con clases para:</p>
+<ul>
+<li>Acceso a bases de datos mediante SQL.</li>
+<li>Procesamiento de XML.</li>
+<li>Gestión de hilos.</li>
+<li>Comunicaciones por red.</li>
+<li>Manejo de archivos.</li>
+</ul>
+<p>a parte de las clases ya mencionadas para el desarrollo de aplicaciones con
+interfaz gráfica. Todo esto convierte a <a href="http://qt-project.org/" title="Qt Proyect">Qt</a> en un <em>framework</em> muy valorado a la
+hora de desarrollar aplicaciones multiplataforma en C++.</p>
+<p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> está disponible para sistemas tipo UNIX (Linux, BSD, UNIX, etc.) con
+servidor gráfico X Window System, Apple Mac OS X, Microsoft Windows y sistemas
+Linux embebidos. Además se puede hacer uso de la librería desde lenguajes
+diferentes a C++ gracias al empleo de <a href="http://es.wikipedia.org/wiki/Bindings">bindings</a>:
+Python, Java, Ruby, Ada, Pascal, Perl, PHP, Haskell, Lua, D, .NET, etc.</p>
+<p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> está disponible bajo licencias GPLv3, LGPLv2 y privativa comercial.</p>
 <h2>Referencias</h2>
 <ol>
-<li><a href="http://www.aosabook.org/en/yocto.html">The Yocto Proyect</a>.
- <a href="http://www.aosabook.org/">The Architecture of Open Source Applications</a>.</li>
-<li><a href="https://wiki.yoctoproject.org/wiki/FAQ">Yocto Proyect FAQ</a>.</li>
-<li><a href="http://www.yoctoproject.org/docs/1.0/poky-ref-manual/poky-ref-manual.html">Poky HandBook</a></li>
+<li><a href="http://qt-project.org/">Qt Proyect</a>.</li>
+<li><a href="http://en.wikipedia.org/wiki/Qt_(framework)">Wikipedia</a>.</li>
 </ol></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../yocto-poky-y-bitbake.html"><h2>Yocto, Poky y BitBake</h2></a>
+        <div class= "well small"> jue 10 enero 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>El proyecto <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> proporciona a los desarrolladores de sistemas empotrados
+Linux un punto de partida para generar distribuciones personalizadas para
+sus productos. Una de las piezas clave del proyecto es el sistema de
+construcción <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a>, que a su vez se apoya en <a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake">BitBake</a>, una herramienta de
+construcción de paquetes al ...</p> <a class="btn btn-info xsmall" href="../yocto-poky-y-bitbake.html">read more</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
