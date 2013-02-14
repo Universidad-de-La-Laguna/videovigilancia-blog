@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html"><h1>Proyecto Qt. Framework de desarrollo de aplicaciones</h1></a>
-            mar 29 enero 2013
+            <a href="./como-usar-qmovie-en-qt.html"><h1>Como usar QMovie en Qt</h1></a>
+            mié 13 febrero 2013
 
 by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,36 +67,51 @@ by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torre
  
         </div>
         
-        <div><p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> es una <em>framework</em> multiplataforma en C++ de desarrollo de aplicaciones. Se
+        <div><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> trae una clase denominada <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que facilita mostrar pequeñas
+animaciones sin mucho esfuerzo.</p>
+<p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
+internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
+última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="">supportedFormats</a>()). Esto incluye GIF
+animados, archivos MNG y MJPEG. Para mostrar vídeo y otros contenidos
+multimedia, es mejor utilizar el <em>framework</em> <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/multimediaoverview.html" title="Qt Multimedia">Qt Multimedia</a>.</p>
+<h2>Primero pasos</h2>
+<p>La forma más sencilla de usar <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> es asignar un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> a un
+control <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> usando el método <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="">setMovie</a>():</p>
+<div class="codehilite"><pre><span class="n">QMovie</span> <span class="o">*</span><span class="n">movie</span> <span class="p">=</span> <span class="n">new</span> <span class="n">QMovie</span><span class="p">(</span>&quot;<span class="n">video</span><span class="p">.</span><span class="n">mjpeg</span>&quot;<span class="p">);</span>
+<span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie</span><span class="p">);</span>
+</pre></div>
+
+
+<p>donde estamos suponiendo .........</p>
+<h2>Archivo especificado por el usuario</h2>
+<h2>Redimensionado de QLabel</h2>
+<h2>Mostrando la imagen frame a frame</h2></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html"><h2>Proyecto Qt. Framework de desarrollo de aplicaciones</h2></a>
+        <div class= "well small"> mar 29 enero 2013
+
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> es una <em>framework</em> multiplataforma en C++ de desarrollo de aplicaciones. Se
 utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
 gracias al conjunto de controles independientes de la plataforma que ofrece,
 aunque también es usado para crear herramientas de linea de comando o consolas
 de gestión para servicios.</p>
-<p>Esto último es debido a que el API de la librería cuenta con clases para:</p>
-<ul>
-<li>Acceso a bases de datos mediante SQL.</li>
-<li>Procesamiento de XML.</li>
-<li>Gestión de hilos.</li>
-<li>Comunicaciones por red.</li>
-<li>Manejo de archivos.</li>
-</ul>
-<p>a parte de las clases ya mencionadas para el desarrollo de aplicaciones con
-interfaz gráfica. Todo esto convierte a <a href="http://qt-project.org/" title="Qt Proyect">Qt</a> en un <em>framework</em> muy valorado a la
-hora de desarrollar aplicaciones multiplataforma en C++.</p>
-<p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> está disponible para sistemas tipo UNIX (Linux, BSD, UNIX, etc.) con
-servidor gráfico X Window System, Apple Mac OS X, Microsoft Windows y sistemas
-Linux embebidos. Además se puede hacer uso de la librería desde lenguajes
-diferentes a C++ gracias al empleo de <a href="http://es.wikipedia.org/wiki/Bindings">bindings</a>:
-Python, Java, Ruby, Ada, Pascal, Perl, PHP, Haskell, Lua, D, .NET, etc.</p>
-<p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> está disponible bajo licencias GPLv3, LGPLv2 y privativa comercial.</p>
-<h2>Referencias</h2>
-<ol>
-<li><a href="http://qt-project.org/">Qt Proyect</a>.</li>
-<li><a href="http://en.wikipedia.org/wiki/Qt_(framework)">Wikipedia</a>.</li>
-</ol></div>
-        <hr />
-    </div>
-		
+<p>Esto último ...</p> <a class="btn btn-info xsmall" href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -117,29 +132,7 @@ el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">
 construiremos una para ejecutarla en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> y después otra para nuestra
 Raspberry Pi.</p>
 <h2>Inicio rápido</h2>
-<p>El inicio rápido con el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> está perfectamente documentado ...</p> <a class="btn btn-info xsmall" href="./crea-tu-propia-distro-de-linux-con-yocto.html">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./camara-cf7670c-v2.html"><h2>Cámara CF7670C-V2</h2></a>
-        <div class= "well small"> dom 13 enero 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>
-con una memoria FIFO <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422">Averlogic AL422</a> de 3Mb.</p>
-<p><img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0px 10px 0"></p>
-<p>La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
-dando tiempo a la CPU externa a recuperarlas al ritmo que le sea ...</p> <a class="btn btn-info xsmall" href="./camara-cf7670c-v2.html">read more</a></div>
+<p>El inicio rápido con el proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> está perfectamente documentado ...</p> <a class="btn btn-info xsmall" href="./crea-tu-propia-distro-de-linux-con-yocto.html">leer más</a></div>
     </div>	
 				
             <div class="pagination">
@@ -148,6 +141,7 @@ dando tiempo a la CPU externa a recuperarlas al ritmo que le sea ...</p> <a clas
 
     <li class="active"><a href="./index.html">1</a></li>
     <li class=""><a href="./index2.html">2</a></li>
+    <li class=""><a href="./index3.html">3</a></li>
 
     <li class="next"><a href="./index2.html">Next &rarr;</a></li>
 
@@ -180,9 +174,10 @@ dando tiempo a la CPU externa a recuperarlas al ritmo que le sea ...</p> <a clas
                 Categorias
                 </li>
                 
-                                <li><a href="./category/desarrollo.html">Desarrollo</a></li>
                                 <li><a href="./category/hardware.html">Hardware</a></li>
+                                <li><a href="./category/linux.html">Linux</a></li>
                                 <li><a href="./category/overviews.html">Overviews</a></li>
+                                <li><a href="./category/qt.html">Qt</a></li>
                                    
             </ul>
             </div>

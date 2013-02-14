@@ -50,43 +50,41 @@
     <div class="row">
 
         <div class="span9">
-        
-<h1>Archivos</h1>
+            <div class='article'>
+        <div class="content-title">
+            <h1>Como usar QMovie en Qt</h1>
+            mié 13 febrero 2013
 
-<table class="table">
-    <tbody>
-            <tr>
-        <td>mié 13 febrero 2013</td>
-        <td><a href='como-usar-qmovie-en-qt.html'>Como usar QMovie en Qt</a></td>
-        </tr>
-            <tr>
-        <td>mar 29 enero 2013</td>
-        <td><a href='proyecto-qt-framework-de-desarrollo-de-aplicaciones.html'>Proyecto Qt. Framework de desarrollo de aplicaciones</a></td>
-        </tr>
-            <tr>
-        <td>mar 22 enero 2013</td>
-        <td><a href='crea-tu-propia-distro-de-linux-con-yocto.html'>Crea tu propia distro de Linux con Yocto</a></td>
-        </tr>
-            <tr>
-        <td>dom 13 enero 2013</td>
-        <td><a href='camara-cf7670c-v2.html'>Cámara CF7670C-V2</a></td>
-        </tr>
-            <tr>
-        <td>dom 13 enero 2013</td>
-        <td><a href='lcd-18-spi-st7735.html'>LCD 1.8" SPI (ST7735)</a></td>
-        </tr>
-            <tr>
-        <td>dom 13 enero 2013</td>
-        <td><a href='raspberry-pi.html'>Raspberry Pi</a></td>
-        </tr>
-            <tr>
-        <td>jue 10 enero 2013</td>
-        <td><a href='yocto-poky-y-bitbake.html'>Yocto, Poky y BitBake</a></td>
-        </tr>
-        </tbody>
-</table>
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
 
 
+        </div>
+	
+        <div><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> trae una clase denominada <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que facilita mostrar pequeñas
+animaciones sin mucho esfuerzo.</p>
+<p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
+internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
+última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="">supportedFormats</a>()). Esto incluye GIF
+animados, archivos MNG y MJPEG. Para mostrar vídeo y otros contenidos
+multimedia, es mejor utilizar el <em>framework</em> <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/multimediaoverview.html" title="Qt Multimedia">Qt Multimedia</a>.</p>
+<h2>Primero pasos</h2>
+<p>La forma más sencilla de usar <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> es asignar un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> a un
+control <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> usando el método <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="">setMovie</a>():</p>
+<div class="codehilite"><pre><span class="n">QMovie</span> <span class="o">*</span><span class="n">movie</span> <span class="p">=</span> <span class="n">new</span> <span class="n">QMovie</span><span class="p">(</span>&quot;<span class="n">video</span><span class="p">.</span><span class="n">mjpeg</span>&quot;<span class="p">);</span>
+<span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie</span><span class="p">);</span>
+</pre></div>
+
+
+<p>donde estamos suponiendo .........</p>
+<h2>Archivo especificado por el usuario</h2>
+<h2>Redimensionado de QLabel</h2>
+<h2>Mostrando la imagen frame a frame</h2></div>
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+			    </div>
         </div>
         
         <div class="span3">

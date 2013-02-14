@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/Qt.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-02-13T00:00:00+00:00</updated><entry><title>Como usar QMovie en Qt</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/como-usar-qmovie-en-qt.html" rel="alternate"></link><updated>2013-02-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-13:como-usar-qmovie-en-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; trae una clase denominada &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; que facilita mostrar pequeñas
+animaciones sin mucho esfuerzo.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; está diseñada para ser independiente del formato de archivo pero como
+internamente depende de &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader"&gt;QImageReader&lt;/a&gt;, sólo puede utilizarse con los que esta
+última soporta (véase &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href=""&gt;supportedFormats&lt;/a&gt;()). Esto incluye GIF
+animados, archivos MNG y MJPEG. Para mostrar vídeo y otros contenidos
+multimedia, es mejor utilizar el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/multimediaoverview.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Primero pasos&lt;/h2&gt;
+&lt;p&gt;La forma más sencilla de usar &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; es asignar un objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; a un
+control &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt; usando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;::&lt;a href=""&gt;setMovie&lt;/a&gt;():&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QMovie&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;movie&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&amp;quot;&lt;span class="n"&gt;video&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mjpeg&lt;/span&gt;&amp;quot;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;donde estamos suponiendo .........&lt;/p&gt;
+&lt;h2&gt;Archivo especificado por el usuario&lt;/h2&gt;
+&lt;h2&gt;Redimensionado de QLabel&lt;/h2&gt;
+&lt;h2&gt;Mostrando la imagen frame a frame&lt;/h2&gt;</summary><category term="qt"></category><category term="gui"></category><category term="qmovie"></category></entry></feed>
