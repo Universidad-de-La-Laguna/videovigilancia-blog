@@ -101,7 +101,7 @@ se quedan a la espera de que la animación se reproduzca o esperan a que termine
 Este es un detalle importante porque al _slot_ `on_actionOpen_triggered()` de
 nuestro ejemplo se llega a través del bucle de mensajes, cuando el sistema de
 ventanas notifica a la aplicación un _click_ sobre la acción correspondiente. Si
-en el _slot_ introduciesemos tareas de larga duración, la ejecución tardaría en
+en el _slot_ introduciésemos tareas de larga duración, la ejecución tardaría en
 volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
 procesar nuevos eventos de los usuarios. Es decir, que si
 [QMovie]::[start][]() se quedara a la espera y añadiéramos un botón para detener
@@ -164,7 +164,13 @@ objeto [QLabel] no sepa nada de nuestra animación, y conectamos la señal
 
 Ahora podríamos introducir en el _slot_ todo aquello que nos interese hacer
 sobre los _frames_ antes de mostrarlos.
-        
+
+## Referencias
+
+ 1. [QMovie] Class Reference.
+ 2. [Moviel Example](http://qt-project.org/doc/qt-5.0/qtwidgets/widgets-movie.html)
+ 3. [Image Viewer Example](http://qt-project.org/doc/qt-5.0/qtwidgets/widgets-imageviewer.html)
+
 [Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
 [QMovie]: http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html "QMovie"
 [QImageReader]: http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html "QImageReader"
