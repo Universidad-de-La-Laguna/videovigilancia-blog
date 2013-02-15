@@ -82,7 +82,7 @@ de QPA respecto a su predecesor.</p>
 <ol>
 <li>
 <p>Clonar localmente el repositorio <strong>meta-qt5</strong> fuera del directorio <code>raspberry-pi-build</code>.</p>
-<div class="codehilite"><pre>$ <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">qt5</span><span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">qt5</span><span class="p">.</span><span class="n">git</span>
+<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">git</span> <span class="n">clone</span> <span class="n">https:</span><span class="sr">//gi</span><span class="n">thub</span><span class="o">.</span><span class="n">com</span><span class="sr">/meta-qt5/m</span><span class="n">eta</span><span class="o">-</span><span class="n">qt5</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 
 
@@ -91,21 +91,21 @@ de QPA respecto a su predecesor.</p>
 <p>Buscar la variable <code>BBLAYERS</code> en <code>raspberry-pi-build/conf/bblayers.conf</code> y añadir
 al final la ruta hasta el repositorio de la capa <strong>meta-qt5</strong> para incluirla
 en el proceso de construcción. Por ejemplo:</p>
-<div class="codehilite"><pre><span class="n">BBLAYERS</span> ?<span class="p">=</span> &quot; <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span> <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">yocto</span> <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">poky</span><span class="o">-</span><span class="n">danny</span><span class="o">-</span>8<span class="p">.</span>0<span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">yocto</span><span class="o">-</span><span class="n">bsp</span> <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">raspberry</span><span class="o">-</span><span class="nb">pi</span> <span class="o">\</span>
-  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="n">meta</span><span class="o">-</span><span class="n">qt5</span> <span class="o">\</span>
-&quot;
+<div class="codehilite"><pre><span class="n">BBLAYERS</span> <span class="p">?</span><span class="o">=</span> <span class="s">&quot; \</span>
+<span class="s">  /home/usuario/poky-danny-8.0/meta \</span>
+<span class="s">  /home/usuario/poky-danny-8.0/meta-yocto \</span>
+<span class="s">  /home/usuario/poky-danny-8.0/meta-yocto-bsp \</span>
+<span class="s">  /home/usuario/meta-raspberry-pi \</span>
+<span class="s">  /home/usuario/meta-qt5 \</span>
+<span class="s">&quot;</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Construir la imagen:</p>
-<div class="codehilite"><pre>$ <span class="n">cd</span> <span class="n">raspberry</span><span class="o">-</span><span class="nb">pi</span><span class="o">-</span><span class="n">build</span>
-$ <span class="n">bitbake</span> <span class="n">rpi</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">image</span>
+<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">cd</span> <span class="n">raspberry</span><span class="o">-</span><span class="n">pi</span><span class="o">-</span><span class="n">build</span>
+<span class="nv">$</span> <span class="nv">bitbake</span> <span class="n">rpi</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">image</span>
 </pre></div>
 
 
@@ -114,7 +114,7 @@ Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ningu
 </li>
 <li>
 <p>Transferir la imagen construida a la tarjeta SD.</p>
-<div class="codehilite"><pre>$ <span class="n">sudo</span> <span class="n">dd</span> <span class="k">if</span><span class="p">=</span><span class="n">tmp</span><span class="o">/</span><span class="n">deploy</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">rpi</span><span class="o">-</span><span class="n">basic</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">raspberrypi</span><span class="p">.</span><span class="n">rpi</span><span class="o">-</span><span class="n">sdimg</span> <span class="n">of</span><span class="p">=</span><span class="o">/</span><span class="n">ruta</span><span class="o">/</span><span class="n">a</span><span class="o">/</span><span class="n">la</span><span class="o">/</span><span class="n">sd</span>
+<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">sudo</span> <span class="n">dd</span> <span class="k">if</span><span class="o">=</span><span class="n">tmp</span><span class="sr">/deploy/im</span><span class="n">ages</span><span class="sr">/rpi-basic-image-raspberrypi.rpi-sdimg of=/</span><span class="n">ruta</span><span class="sr">/a/</span><span class="n">la</span><span class="o">/</span><span class="n">sd</span>
 </pre></div>
 
 
