@@ -1,6 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{{ SITENAME }} <small>[tgs]</small>{% endblock %}
+{% block windowtitle %}Etiquetas - {{ SITENAME }}{% endblock %}
 {% block content %}
+
+<h1>Etiquetas</h1>
+
 <ul>
 {% for tag, articles in tags %}
     <li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a></li>

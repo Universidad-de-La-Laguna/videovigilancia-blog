@@ -1,6 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{{ SITENAME }} <small>[categories]</small>{% endblock %}
+{% block windowtitle %}Categorías - {{ SITENAME }}{% endblock %}
 {% block content %}
+
+<h1>Categorías</h1>
+
 <ul>
 {% for category, articles in categories %}
 	<li><a href="{{ SITEURL }}/{{ category.url }}">{{ category }}</li>
