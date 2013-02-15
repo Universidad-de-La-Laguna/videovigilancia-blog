@@ -163,7 +163,7 @@ se quedan a la espera de que la animación se reproduzca o esperan a que termine
 <p>Este es un detalle importante porque al <em>slot</em> <code>on_actionOpen_triggered()</code> de
 nuestro ejemplo se llega a través del bucle de mensajes, cuando el sistema de
 ventanas notifica a la aplicación un <em>click</em> sobre la acción correspondiente. Si
-en el <em>slot</em> introduciesemos tareas de larga duración, la ejecución tardaría en
+en el <em>slot</em> introduciésemos tareas de larga duración, la ejecución tardaría en
 volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
 procesar nuevos eventos de los usuarios. Es decir, que si
 <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>() se quedara a la espera y añadiéramos un botón para detener

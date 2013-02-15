@@ -95,7 +95,7 @@ se quedan a la espera de que la animación se reproduzca o esperan a que termine
 &lt;p&gt;Este es un detalle importante porque al &lt;em&gt;slot&lt;/em&gt; &lt;code&gt;on_actionOpen_triggered()&lt;/code&gt; de
 nuestro ejemplo se llega a través del bucle de mensajes, cuando el sistema de
 ventanas notifica a la aplicación un &lt;em&gt;click&lt;/em&gt; sobre la acción correspondiente. Si
-en el &lt;em&gt;slot&lt;/em&gt; introduciesemos tareas de larga duración, la ejecución tardaría en
+en el &lt;em&gt;slot&lt;/em&gt; introduciésemos tareas de larga duración, la ejecución tardaría en
 volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
 procesar nuevos eventos de los usuarios. Es decir, que si
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()"&gt;start&lt;/a&gt;() se quedara a la espera y añadiéramos un botón para detener
