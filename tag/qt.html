@@ -71,21 +71,96 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
 animaciones sin mucho esfuerzo.</p>
 <p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
 internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
-última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="">supportedFormats</a>()). Esto incluye GIF
+última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#supportedFormats" title="QMovie::supportedFormats()">supportedFormats</a>()). Esto incluye GIF
 animados, archivos MNG y MJPEG. Para mostrar vídeo y otros contenidos
 multimedia, es mejor utilizar el <em>framework</em> <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/multimediaoverview.html" title="Qt Multimedia">Qt Multimedia</a>.</p>
-<h2>Primero pasos</h2>
+<h2>Primeros pasos</h2>
 <p>La forma más sencilla de usar <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> es asignar un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> a un
-control <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> usando el método <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="">setMovie</a>():</p>
-<div class="codehilite"><pre><span class="n">QMovie</span> <span class="o">*</span><span class="n">movie</span> <span class="p">=</span> <span class="n">new</span> <span class="n">QMovie</span><span class="p">(</span>&quot;<span class="n">video</span><span class="p">.</span><span class="n">mjpeg</span>&quot;<span class="p">);</span>
+control <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> usando el método <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()">setMovie</a>():</p>
+<div class="codehilite"><pre><span class="n">QMovie</span> <span class="o">*</span><span class="n">movie</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QMovie</span><span class="p">(</span><span class="s">&quot;video.mjpeg&quot;</span><span class="p">);</span>
 <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie</span><span class="p">);</span>
 </pre></div>
 
 
-<p>donde estamos suponiendo .........</p>
-<h2>Archivo especificado por el usuario</h2>
+<p>donde <code>ui</code> es el miembro de la clase que tiene asignada la instancia de la
+ventana creada previamente con Qt Creator.</p>
+<h2>Nombre de archivo especificado por el usuario</h2>
+<p>No siempre ocurre que el nombre del archivo a reproducir se conozca de antemano
+al desarrollar el programar. Si por ejemplo se pretende que el usuario lo
+escoja de entre los disponibles en su disco duro podemos:</p>
+<ol>
+<li>
+<p>Crear un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>, guardarlo en un miembro de la clase (manteniendo
+ así un puntero al mismo que nos permita referenciarlo más adelante<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>) y asignar
+ dicho objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> a <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>:</p>
+<div class="codehilite"><pre><span class="nn">MovieViewerWindow::</span><span class="n">MovieViewerWindow</span><span class="p">(</span><span class="n">QWidget</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span>
+    <span class="p">:</span> <span class="n">QMainWindow</span><span class="p">(</span><span class="n">parent</span><span class="p">),</span>
+      <span class="n">ui</span><span class="p">(</span><span class="k">new</span> <span class="nn">Ui::</span><span class="n">MovieViewerWindow</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="sr">//</span> <span class="n">Aqu</span><span class="err">í</span> <span class="n">otro</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">de</span> <span class="n">inicializaci</span><span class="err">ó</span><span class="n">n</span> <span class="n">de</span> <span class="n">la</span> <span class="n">instancia</span><span class="o">...</span>
+
+    <span class="n">movie_</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QMovie</span><span class="p">(</span><span class="s">&quot;video.mjpeg&quot;</span><span class="p">);</span>
+    <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie_</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>En el slot de la acción que abre el cuadro de diálogo <em>abrir archivo</em>,
+ asignar al objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> el nombre escogido por el usuario mediante el
+ método <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#setFileName" title="QMovie::setFileName()">setFileName</a>():</p>
+<div class="codehilite"><pre><span class="n">void</span> <span class="nn">MovieViewerWindow::</span><span class="n">on_actionOpen_triggered</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="sr">//</span> <span class="n">Aqu</span><span class="err">í</span> <span class="n">el</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">que</span> <span class="n">abre</span> <span class="n">el</span> <span class="n">cuadro</span> <span class="n">de</span> <span class="n">di</span><span class="err">á</span><span class="n">logo</span> <span class="n">y</span> <span class="n">comprueba</span> <span class="n">si</span>
+    <span class="sr">//</span> <span class="n">el</span> <span class="n">usuario</span> <span class="n">seleccion</span><span class="err">ó</span> <span class="n">alg</span><span class="err">ú</span><span class="n">n</span> <span class="n">archivo</span><span class="o">...</span>
+    <span class="sr">//</span>
+    <span class="sr">//</span> <span class="n">QString</span> <span class="n">fileName</span> <span class="o">=</span> <span class="nn">QFileDialog::</span><span class="n">getFileName</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+    <span class="sr">//</span>
+    <span class="sr">//</span> <span class="o">...</span>
+    <span class="sr">//</span>
+
+    <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">setFileName</span><span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">movie_</span><span class="o">-&gt;</span><span class="n">isValid</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nn">QMessageBox::</span><span class="n">critical</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="nb">tr</span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">),</span>
+            <span class="nb">tr</span><span class="p">(</span><span class="s">&quot;No se pudo abrir el archivo o el formato es inválido&quot;</span><span class="p">));</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>    <span class="sr">//</span> <span class="n">Iniciar</span> <span class="n">la</span> <span class="n">reproducci</span><span class="err">ó</span><span class="n">n</span> <span class="n">del</span> <span class="n">v</span><span class="err">í</span><span class="n">deo</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Como se puede observar es conveniente utilizar el método <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#isValid" title="QMovie::isValid()">isValid</a>()
+para comprobar si el archivo pudo ser abierto y tiene uno de los formatos soportados.</p>
+<p>Una alternativa a lo anterior, que nos permite distinguir entre ambos tipos
+de error para mostrar al usuario un mensaje diferente según el caso, la tendríamos
+usando objetos <a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html" title="QFile">QFile</a>. Bastaría con crear dicho objeto usando el nombre del
+archivo, abrirlo mediante el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html" title="QFile">QFile</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html#open" title="QFile::open()">open</a>() (esto permite comprobar
+si existe y el usuario tiene permisos para abrirlo, pudiendo mostrar un mensaje
+de error en caso contrario) y asignarlo al objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> mediante el método
+<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#setDevice" title="QMovie::setDevice()">setDevice</a>()<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>. Entonces podríamos comprobar con el método
+<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#isValid" title="QMovie::isValid()">isValid</a>() si el formato del archivo está entre los soportados.</p>
+</li>
+</ol>
 <h2>Redimensionado de QLabel</h2>
-<h2>Mostrando la imagen frame a frame</h2></div>
+<h2>Mostrando la imagen frame a frame</h2>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Sin olvidarnos de que es necesario para liberar la memoria en el destructor de la clase <code>MovieViewerWindow</code>.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Este método permite asignar a una instancia de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> un objeto <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>,
+que es la clase base de todos los dispositivos de E/S, incluidos los archivos. Su
+misión es proporcionar una interfaz común; mediante métodos como <a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html#open" title="QFile::open()">open</a>(),
+<code>close()</code>, <code>read()</code>, <code>write()</code>, <code>seek()</code>, etc.; con la que acceder a cualquier
+dispositivo. De <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> heredan clases como <code>QBuffer</code>, <a href="http://qt-project.org/doc/qt-5.0/qtcore/qprocess.html" title="QProcess">QProcess</a> o <a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html" title="QFile">QFile</a> que
+proporcionan implementaciones concretas para cada tipo de dispositivo en particular.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
         <hr />
     </div>
 		
