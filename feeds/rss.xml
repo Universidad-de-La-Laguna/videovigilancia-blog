@@ -1,5 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 13 Feb 2013 00:00:00 +0000</lastBuildDate><item><title>Como usar QMovie en Qt</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/como-usar-qmovie-en-qt.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; trae una clase denominada &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; que facilita mostrar pequeñas
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 15 Feb 2013 00:00:00 +0000</lastBuildDate><item><title>Layouts en Qt. Organización de controles</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html</link><description>&lt;p&gt;El sistema de &lt;em&gt;layouts&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporcionar una manera sencilla de organizar
+los controles dentro de otros controles o ventanas, asegurando el mejor
+aprovechamiento del espacio disponible.&lt;/p&gt;
+&lt;p&gt;La idea es describir como deben organizarse los controles, dejando que después
+sean posicionados automáticamente por &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; en función del espacio disponible,
+incluso cuando este cambia por el redimensionado de la ventana o control que
+los contiene.&lt;/p&gt;
+&lt;h2&gt;Introducción&lt;/h2&gt;
+&lt;p&gt;Dentro de &lt;em&gt;Qt Creator&lt;/em&gt;, en cualquier control, incluidas las ventanas
+principales y cuadros de diálogo, se puede seleccionar la organización de los
+controles que contiene mediante la opción &lt;em&gt;Lay Out&lt;/em&gt; del menú contexual que
+se despliega al pulsar con el botón derecho del ratón.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Menú Lay Out en Qt Creator" src="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/static/images/menu-lay-out.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Las opciones disponibles permiten organizar los controles en disposiciones tales
+como:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Columnas en horizontal.&lt;/li&gt;
+&lt;li&gt;Filas en vertical.&lt;/li&gt;
+&lt;li&gt;En una rejilla bidimensional, permitiendo que un mismo control ocupe varias
+celdas.&lt;/li&gt;
+&lt;li&gt;Como un formulario, con dos colunmas donde a la izquierda se sitúan las
+etiquetas descriptivas de los campos de la derecha.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Todas están comentadas en la documentación del proyecto sobre el
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management"&gt;Layout Management&lt;/a&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, donde además se muestran algunos ejemplos.&lt;/p&gt;
+&lt;h2&gt;Anidamiento de layouts&lt;/h2&gt;
+&lt;p&gt;Una organización de controles se puede anidar dentro de otra. Para eso existen
+unos controles especiales (uno por cada uno de los tipos de organización comentados
+anteriormente) cuya única función es contener otros controles para organizarlos
+de una manera concreta:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;code&gt;QHBoxLayout&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Organiza los controles que contiene en columnas en horizontal.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QVBoxLayout&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Organiza los controles que contiene en filas en vertical.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QGridLayout&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Organiza los controles que contiene en una rejilla bidimensional.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QFormLayout&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Organiza los controles que contienen como un formulario, con dos columnas.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;Estos controles se pueden crear dentro de otro, de tal forma que su ubicación
+final dependerá de la organización configurada en el padre.&lt;/p&gt;
+&lt;h2&gt;Espaciadores&lt;/h2&gt;
+&lt;p&gt;Otro elemento clave en la organización de los controles son los &lt;em&gt;espaciadores&lt;/em&gt;.
+Estos controles funcionan como muelles que separan los controles en horizontal
+o en vertical, según su orientación.&lt;/p&gt;
+&lt;p&gt;Por ejemplo, permiten mantener los controles lo más separados posible entre
+sí o pegarlos a los extremos de las ventanas, incluso aunque estas sean
+redimensionadas.&lt;/p&gt;
+&lt;h2&gt;Tamaño de los controles&lt;/h2&gt;
+&lt;p&gt;Cuando se añaden controles a un &lt;em&gt;layout&lt;/em&gt; este procede de la siguiente manera:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A todos los controles se les asigna una cantidad de espacio de acuerdo
+ con su &lt;code&gt;QWidget::sizePolicy()&lt;/code&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; y su &lt;code&gt;QWidget::sizeHint()&lt;/code&gt;&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+&lt;li&gt;Si alguno de los controles tiene un &lt;em&gt;factor de estiramiento&lt;/em&gt;&lt;sup id="fnref:3"&gt;&lt;a class="footnote-ref" href="#fn:3" rel="footnote"&gt;3&lt;/a&gt;&lt;/sup&gt; con valor
+ mayor  que cero, entonces se les asigna espacio en proporción a dicho factor.&lt;/li&gt;
+&lt;li&gt;Si alguno de los controles tiene un &lt;em&gt;factor de estiramiento&lt;/em&gt; igual a cero,
+ entonces sólo recibirá más espacio si ningún otro control lo reclama. De todos
+ estos primero se asigna el espacio a los que tienen una propiedad
+ &lt;code&gt;QWidget::sizePolicy()&lt;/code&gt; configurada como &lt;em&gt;Expanding&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;A cualquier control al que se le ha asignado menos espacio que su tamaño mínimo
+ (o el tamaño mínimo aconsejado&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt;, si no se ha especificado un tamaño mínimo concreto)
+ se le asigna ese espacio que necesita.&lt;/li&gt;
+&lt;li&gt;A cualquier control al que se le ha asignado más espacio que su tamaño máximo
+ se le asigna ese espacio máximo.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;El &lt;em&gt;factor de estiramiento&lt;/em&gt;, que por lo general es cero, es un mecanismo para
+dar a unos controles más espacio en relación a otros. Si por ejemplo tenemos
+tres controles iguales en organización horizontal y sin &lt;em&gt;factor de estiramiento&lt;/em&gt;,
+todos obtendrá el mismo espacio. Pero si aplicamos un &lt;em&gt;factor de estiramiento&lt;/em&gt;
+su tamaño cambiará en proporción a la relación de dicho factor entre los distintos
+controles.&lt;/p&gt;
+&lt;p&gt;Otro elemento clave en la asignación del espacio es la política fijada en la
+propiedad &lt;code&gt;QWidget::sizePolicy()&lt;/code&gt;. Los valores posibles son:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;Fixed&lt;/dt&gt;
+&lt;dd&gt;El tamaño del control viene determinado por &lt;code&gt;QWidget::sizeHint()&lt;/code&gt; y no puede cambiarse.&lt;/dd&gt;
+&lt;dt&gt;Minimum&lt;/dt&gt;
+&lt;dd&gt;El tamaño del control indicado en &lt;code&gt;QWidget::sizeHint()&lt;/code&gt; es el mínimo posible.
+No puede encogerse pero si hacerse más grande, según sea necesario.&lt;/dd&gt;
+&lt;dt&gt;Maximum&lt;/dt&gt;
+&lt;dd&gt;El tamaño del control indicado en &lt;code&gt;QWidget::sizeHint()&lt;/code&gt; es el máximo posible.
+No puede agrandarse pero si encogerse, según sea necesario.&lt;/dd&gt;
+&lt;dt&gt;Preferred&lt;/dt&gt;
+&lt;dd&gt;El mejor tamaño posible es el indicado por &lt;code&gt;QWidget::sizeHint()&lt;/code&gt;, pero el
+control puede tanto agrandarse como encogerse, según sea necesario.&lt;/dd&gt;
+&lt;dt&gt;Expanding&lt;/dt&gt;
+&lt;dd&gt;El mejor tamaño posible es el indicado por &lt;code&gt;QWidget::sizeHint()&lt;/code&gt; pero el
+control, de encogerse, seguiría siendo útil. Si sobra espacio, el control
+debe hacerse todo lo grande que sea posible.&lt;/dd&gt;
+&lt;dt&gt;MinimumExpanding&lt;/dt&gt;
+&lt;dd&gt;El tamaño del control indicado en &lt;code&gt;QWidget::sizeHint()&lt;/code&gt; es el mínimo posible.
+No puede agrandarse pero si sobra espacio, el control debe hacerse todo lo
+grande que sea posible.&lt;/dd&gt;
+&lt;dt&gt;Ignored&lt;/dt&gt;
+&lt;dd&gt;El tamaño indicado en &lt;code&gt;QWidget::sizeHint()&lt;/code&gt; debe ignorarse y el control
+debe hacerse todo lo grande que sea posible.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h2&gt;Referencias&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management"&gt;Layout Management&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;&lt;code&gt;QWidget::sizePolicy()&lt;/code&gt; es una propiedad de cada control donde
+se fija la política que desea que se siga para asignarle espacio.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:2"&gt;
+&lt;p&gt;&lt;code&gt;QWidget::sizeHint()&lt;/code&gt; es una propiedad de cada control donde se indica
+el espacio recomendado que debe ocupar.&amp;#160;&lt;a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:3"&gt;
+&lt;p&gt;El &lt;em&gt;factor de estiramiento del control&lt;/em&gt; se indica a través de su
+propiedad &lt;code&gt;QWidget::sizePolicy()&lt;/code&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Fri, 15 Feb 2013 00:00:00 +0000</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-15:layouts-en-qt-organizacion-de-controles.html</guid><category>qt</category><category>gui</category><category>layouts</category></item><item><title>Como usar QMovie en Qt</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/como-usar-qmovie-en-qt.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; trae una clase denominada &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; que facilita mostrar pequeñas
 animaciones sin mucho esfuerzo.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; está diseñada para ser independiente del formato de archivo pero como
 internamente depende de &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader"&gt;QImageReader&lt;/a&gt;, sólo puede utilizarse con los que esta

@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Qt - Sistema de Videovigilancia from Scratch</title>
+    <title>Layouts en Qt. Organización de controles - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="../theme/html5.js"></script>
+    <script src="./theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../theme/bootstrap.min.css" rel="stylesheet">
-    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="../theme/local.css" rel="stylesheet">
-    <link href="../theme/pygments.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="./theme/local.css" rel="stylesheet">
+    <link href="./theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,12 +32,12 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
                         </ul>
         </div>
         
@@ -50,28 +50,22 @@
     <div class="row">
 
         <div class="span9">
-                
-
-        
-
-
-    <div class='article'>
+            <div class='article'>
         <div class="content-title">
-            <a href="../layouts-en-qt-organizacion-de-controles.html"><h1>Layouts en Qt. Organización de controles</h1></a>
+            <h1>Layouts en Qt. Organización de controles</h1>
             vie 15 febrero 2013
 
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- 
         </div>
-        
-        <div><p>El sistema de <em>layouts</em> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporcionar una manera sencilla de organizar
+	
+        <div><p>El sistema de <em>layouts</em> de <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporcionar una manera sencilla de organizar
 los controles dentro de otros controles o ventanas, asegurando el mejor
 aprovechamiento del espacio disponible.</p>
 <p>La idea es describir como deben organizarse los controles, dejando que después
-sean posicionados automáticamente por <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> en función del espacio disponible,
+sean posicionados automáticamente por <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> en función del espacio disponible,
 incluso cuando este cambia por el redimensionado de la ventana o control que
 los contiene.</p>
 <h2>Introducción</h2>
@@ -79,7 +73,7 @@ los contiene.</p>
 principales y cuadros de diálogo, se puede seleccionar la organización de los
 controles que contiene mediante la opción <em>Lay Out</em> del menú contexual que
 se despliega al pulsar con el botón derecho del ratón.</p>
-<p><img alt="Menú Lay Out en Qt Creator" src="../static/images/menu-lay-out.png" /></p>
+<p><img alt="Menú Lay Out en Qt Creator" src="./static/images/menu-lay-out.png" /></p>
 <p>Las opciones disponibles permiten organizar los controles en disposiciones tales
 como:</p>
 <ul>
@@ -91,7 +85,7 @@ celdas.</li>
 etiquetas descriptivas de los campos de la derecha.</li>
 </ul>
 <p>Todas están comentadas en la documentación del proyecto sobre el
-<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management">Layout Management</a> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, donde además se muestran algunos ejemplos.</p>
+<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management">Layout Management</a> de <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, donde además se muestran algunos ejemplos.</p>
 <h2>Anidamiento de layouts</h2>
 <p>Una organización de controles se puede anidar dentro de otra. Para eso existen
 unos controles especiales (uno por cada uno de los tipos de organización comentados
@@ -186,44 +180,11 @@ propiedad <code>QWidget::sizePolicy()</code>.&#160;<a class="footnote-backref" h
 </li>
 </ol>
 </div></div>
-        <hr />
-    </div>
-		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../como-usar-qmovie-en-qt.html"><h2>Como usar QMovie en Qt</h2></a>
-        <div class= "well small"> mié 13 febrero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> trae una clase denominada <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que facilita mostrar pequeñas
-animaciones sin mucho esfuerzo.</p>
-<p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
-internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
-última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#supportedFormats" title="QMovie::supportedFormats()">supportedFormats</a>()). Esto incluye GIF
-animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="../como-usar-qmovie-en-qt.html">leer más</a></div>
-    </div>	
-				
-            <div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
-
-    <li class="active"><a href="../category/qt.html">1</a></li>
-
-    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
-
-</ul>
-</div>    
- 
-  
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+			    </div>
         </div>
         
         <div class="span3">
@@ -235,8 +196,8 @@ animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="../c
                 Sitio
                 </li>
             
-                <li><a href="../archives.html">Archivos</a>
-                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="./archives.html">Archivos</a>
+                <li><a href="./tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -249,10 +210,10 @@ animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="../c
                 Categorias
                 </li>
                 
-                                <li><a href="../category/hardware.html">Hardware</a></li>
-                                <li><a href="../category/linux.html">Linux</a></li>
-                                <li><a href="../category/overviews.html">Overviews</a></li>
-                                <li><a href="../category/qt.html">Qt</a></li>
+                                <li><a href="./category/hardware.html">Hardware</a></li>
+                                <li><a href="./category/linux.html">Linux</a></li>
+                                <li><a href="./category/overviews.html">Overviews</a></li>
+                                <li><a href="./category/qt.html">Qt</a></li>
                                    
             </ul>
             </div>

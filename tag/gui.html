@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../como-usar-qmovie-en-qt.html"><h1>Como usar QMovie en Qt</h1></a>
-            mié 13 febrero 2013
+            <a href="../layouts-en-qt-organizacion-de-controles.html"><h1>Layouts en Qt. Organización de controles</h1></a>
+            vie 15 febrero 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,196 +67,151 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> trae una clase denominada <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que facilita mostrar pequeñas
-animaciones sin mucho esfuerzo.</p>
-<p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
-internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
-última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#supportedFormats" title="QMovie::supportedFormats()">supportedFormats</a>()). Esto incluye GIF
-animados, archivos MNG y MJPEG. Para mostrar vídeo y otros contenidos
-multimedia, es mejor utilizar el <em>framework</em> <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/multimediaoverview.html" title="Qt Multimedia">Qt Multimedia</a>.</p>
-<h2>Primeros pasos</h2>
-<p>La forma más sencilla de usar <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> es asignar un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> a un
-control <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> usando el método <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()">setMovie</a>():</p>
-<div class="codehilite"><pre><span class="n">QMovie</span> <span class="o">*</span><span class="n">movie</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QMovie</span><span class="p">(</span><span class="s">&quot;video.mjpeg&quot;</span><span class="p">);</span>
-<span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie</span><span class="p">);</span>
-</pre></div>
-
-
-<p>donde <code>ui</code> es el miembro de la clase que tiene asignada la instancia de la
-ventana creada previamente con Qt Creator.</p>
-<h2>Nombre de archivo especificado por el usuario</h2>
-<p>No siempre ocurre que el nombre del archivo a reproducir se conozca de antemano
-al desarrollar el programar. Si por ejemplo se pretende que el usuario lo
-escoja de entre los disponibles en su disco duro podemos:</p>
+        <div><p>El sistema de <em>layouts</em> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporcionar una manera sencilla de organizar
+los controles dentro de otros controles o ventanas, asegurando el mejor
+aprovechamiento del espacio disponible.</p>
+<p>La idea es describir como deben organizarse los controles, dejando que después
+sean posicionados automáticamente por <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> en función del espacio disponible,
+incluso cuando este cambia por el redimensionado de la ventana o control que
+los contiene.</p>
+<h2>Introducción</h2>
+<p>Dentro de <em>Qt Creator</em>, en cualquier control, incluidas las ventanas
+principales y cuadros de diálogo, se puede seleccionar la organización de los
+controles que contiene mediante la opción <em>Lay Out</em> del menú contexual que
+se despliega al pulsar con el botón derecho del ratón.</p>
+<p><img alt="Menú Lay Out en Qt Creator" src="../static/images/menu-lay-out.png" /></p>
+<p>Las opciones disponibles permiten organizar los controles en disposiciones tales
+como:</p>
+<ul>
+<li>Columnas en horizontal.</li>
+<li>Filas en vertical.</li>
+<li>En una rejilla bidimensional, permitiendo que un mismo control ocupe varias
+celdas.</li>
+<li>Como un formulario, con dos colunmas donde a la izquierda se sitúan las
+etiquetas descriptivas de los campos de la derecha.</li>
+</ul>
+<p>Todas están comentadas en la documentación del proyecto sobre el
+<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management">Layout Management</a> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, donde además se muestran algunos ejemplos.</p>
+<h2>Anidamiento de layouts</h2>
+<p>Una organización de controles se puede anidar dentro de otra. Para eso existen
+unos controles especiales (uno por cada uno de los tipos de organización comentados
+anteriormente) cuya única función es contener otros controles para organizarlos
+de una manera concreta:</p>
+<dl>
+<dt><code>QHBoxLayout</code></dt>
+<dd>Organiza los controles que contiene en columnas en horizontal.</dd>
+<dt><code>QVBoxLayout</code></dt>
+<dd>Organiza los controles que contiene en filas en vertical.</dd>
+<dt><code>QGridLayout</code></dt>
+<dd>Organiza los controles que contiene en una rejilla bidimensional.</dd>
+<dt><code>QFormLayout</code></dt>
+<dd>Organiza los controles que contienen como un formulario, con dos columnas.</dd>
+</dl>
+<p>Estos controles se pueden crear dentro de otro, de tal forma que su ubicación
+final dependerá de la organización configurada en el padre.</p>
+<h2>Espaciadores</h2>
+<p>Otro elemento clave en la organización de los controles son los <em>espaciadores</em>.
+Estos controles funcionan como muelles que separan los controles en horizontal
+o en vertical, según su orientación.</p>
+<p>Por ejemplo, permiten mantener los controles lo más separados posible entre
+sí o pegarlos a los extremos de las ventanas, incluso aunque estas sean
+redimensionadas.</p>
+<h2>Tamaño de los controles</h2>
+<p>Cuando se añaden controles a un <em>layout</em> este procede de la siguiente manera:</p>
 <ol>
-<li>
-<p>Crear un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>, guardarlo en un miembro de la clase (manteniendo
- así un puntero al mismo que nos permita referenciarlo más adelante<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>) y asignar
- dicho objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> a <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>:</p>
-<div class="codehilite"><pre><span class="nn">MovieViewerWindow::</span><span class="n">MovieViewerWindow</span><span class="p">(</span><span class="n">QWidget</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span>
-    <span class="p">:</span> <span class="n">QMainWindow</span><span class="p">(</span><span class="n">parent</span><span class="p">),</span>
-      <span class="n">ui</span><span class="p">(</span><span class="k">new</span> <span class="nn">Ui::</span><span class="n">MovieViewerWindow</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="sr">//</span> <span class="n">Aqu</span><span class="err">í</span> <span class="n">otro</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">de</span> <span class="n">inicializaci</span><span class="err">ó</span><span class="n">n</span> <span class="n">de</span> <span class="n">la</span> <span class="n">instancia</span><span class="o">...</span>
-
-    <span class="n">movie_</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QMovie</span><span class="p">();</span>
-    <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie_</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>En el slot de la acción que abre el cuadro de diálogo <em>abrir archivo</em>,
- asignar al objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> el nombre escogido por el usuario mediante el
- método <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#setFileName" title="QMovie::setFileName()">setFileName</a>():</p>
-<div class="codehilite"><pre><span class="n">void</span> <span class="nn">MovieViewerWindow::</span><span class="n">on_actionOpen_triggered</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="sr">//</span> <span class="n">Aqu</span><span class="err">í</span> <span class="n">el</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">que</span> <span class="n">abre</span> <span class="n">el</span> <span class="n">cuadro</span> <span class="n">de</span> <span class="n">di</span><span class="err">á</span><span class="n">logo</span> <span class="n">y</span> <span class="n">comprueba</span> <span class="n">si</span>
-    <span class="sr">//</span> <span class="n">el</span> <span class="n">usuario</span> <span class="n">seleccion</span><span class="err">ó</span> <span class="n">alg</span><span class="err">ú</span><span class="n">n</span> <span class="n">archivo</span><span class="o">...</span>
-    <span class="sr">//</span>
-    <span class="sr">//</span> <span class="n">QString</span> <span class="n">fileName</span> <span class="o">=</span> <span class="nn">QFileDialog::</span><span class="n">getFileName</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-    <span class="sr">//</span>
-    <span class="sr">//</span> <span class="o">...</span>
-    <span class="sr">//</span>
-
-    <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">setFileName</span><span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">movie_</span><span class="o">-&gt;</span><span class="n">isValid</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nn">QMessageBox::</span><span class="n">critical</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="nb">tr</span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">),</span>
-            <span class="nb">tr</span><span class="p">(</span><span class="s">&quot;No se pudo abrir el archivo o el formato es inválido&quot;</span><span class="p">));</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>    <span class="sr">//</span> <span class="n">Iniciar</span> <span class="n">la</span> <span class="n">reproducci</span><span class="err">ó</span><span class="n">n</span> <span class="n">de</span> <span class="n">la</span> <span class="n">animaci</span><span class="err">ó</span><span class="n">n</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Como se puede observar es conveniente utilizar el método <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#isValid" title="QMovie::isValid()">isValid</a>()
-para comprobar si el archivo pudo ser abierto y tiene uno de los formatos soportados.</p>
-<p>Para distinguir entre ambos tipos de error, con el objeto de mostrar al usuario
-un mensaje diferente según el caso, podemos emplear el método <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#device" title="QMovie::device()">device</a>().
-Este devuelve el objeto <a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html" title="QFile">QFile</a> (realmente una instancia de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a><sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> que es la clase
-base de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html" title="QFile">QFile</a> y de todas clases que representan dispositivos de E/S) vinculado con
-la instancia de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>. Así podemos comprobar mediante el método
-<a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html#isOpen" title="QFile::isOpen()">isOpen</a>() si el archivo se pudo abrir con éxito o no.</p>
-</li>
+<li>A todos los controles se les asigna una cantidad de espacio de acuerdo
+ con su <code>QWidget::sizePolicy()</code><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> y su <code>QWidget::sizeHint()</code><sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>.</li>
+<li>Si alguno de los controles tiene un <em>factor de estiramiento</em><sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup> con valor
+ mayor  que cero, entonces se les asigna espacio en proporción a dicho factor.</li>
+<li>Si alguno de los controles tiene un <em>factor de estiramiento</em> igual a cero,
+ entonces sólo recibirá más espacio si ningún otro control lo reclama. De todos
+ estos primero se asigna el espacio a los que tienen una propiedad
+ <code>QWidget::sizePolicy()</code> configurada como <em>Expanding</em>.</li>
+<li>A cualquier control al que se le ha asignado menos espacio que su tamaño mínimo
+ (o el tamaño mínimo aconsejado<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>, si no se ha especificado un tamaño mínimo concreto)
+ se le asigna ese espacio que necesita.</li>
+<li>A cualquier control al que se le ha asignado más espacio que su tamaño máximo
+ se le asigna ese espacio máximo.</li>
 </ol>
-<h2>Control de la reproducción</h2>
-<p>El control de la reproducción se puede hacer mediante los <em>slots</em>
-<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>() y <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#stop" title="QMovie::stop()">stop</a>().</p>
-<p>En el ejemplo anterior se puede observar como el <em>slot</em> <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>()
-es invocado exactamente de la misma manera que un método convencional para
-iniciar la reproducción de la animación. Sin embargo el hecho de que los
-desarrolladores de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> lo hayan declarado como un <em>slot</em> y no como un
-método nos permitiría conectarlo a una señal emitida desde otro control.</p>
-<p>Por ejemplo, si tuvieramos un botón de <em>play</em> podríamos conectar su señal
-<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qabstractbutton.html#clicked" title="QAbstractButton::clicked">clicked</a>() al slot <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>() de la siguiente manera:</p>
-<div class="codehilite"><pre><span class="nb">connect</span><span class="p">(</span><span class="n">ui</span><span class="o">-&gt;</span><span class="n">playButton</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">clicked</span><span class="p">()),</span> <span class="n">movie_</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">start</span><span class="p">()));</span>
-</pre></div>
-
-
-<p>de forma que al pulsar dicho botón se inicie automáticamente la reproducción.</p>
-<p>Otro detalle a tener en cuenta es que los <em>slots</em> <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>()
-y <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#stop" title="QMovie::stop()">stop</a>() indican a la instancia de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que inicie o detengan
-la reproducción pero, una vez hecho, vuelven inmediatamente. Es decir, que no
-se quedan a la espera de que la animación se reproduzca o esperan a que termine.</p>
-<p>Este es un detalle importante porque al <em>slot</em> <code>on_actionOpen_triggered()</code> de
-nuestro ejemplo se llega a través del bucle de mensajes, cuando el sistema de
-ventanas notifica a la aplicación un <em>click</em> sobre la acción correspondiente. Si
-en el <em>slot</em> introduciésemos tareas de larga duración, la ejecución tardaría en
-volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
-procesar nuevos eventos de los usuarios. Es decir, que si
-<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>() se quedara a la espera y añadiéramos un botón para detener
-la reproducción, este nunca funcionaría porque la aplicación no volvería al bucle
-de mensajes hasta que la reproducción no hubiera terminado.</p>
-<p>Podemos comprobar esto añadiendo una espera justo después de invocar el
-<em>slot</em> <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>():</p>
-<div class="codehilite"><pre><span class="n">QWaitCondition</span> <span class="nb">sleep</span><span class="p">;</span>
-<span class="n">QMutex</span> <span class="n">mutex</span><span class="p">;</span>
-<span class="nb">sleep</span><span class="o">.</span><span class="nb">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span>    <span class="sr">//</span> <span class="n">Espera</span> <span class="n">de</span> <span class="mi">2</span> <span class="n">segundos</span>
-</pre></div>
-
-
-<p>Debido a los efectos desastrosos que este tipo de esperas tienen en las aplicaciones
-dirigidas por eventos, <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> no incluye funciones del tipo de <code>sleep()</code>, <code>delay()</code>,
-<code>usleep()</code> y <code>nanosleep()</code>, que muchos sistemas operativos sí soportan.</p>
-<h2>Procesando la imagen frame a frame</h2>
-<p>Aunque <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> se hace cargo de mostrar la animación sin que tengamos que intervenir
-de ninguna otra manera, en ocasiones puede ser interesante tener acceso a los
-<em>frames</em> de manera individualizada para poder procesarlos antes de que sean mostrados.
-Por ese motivo <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> emite una señal <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()">updated</a>() cada vez que el <em>frame</em>
-actual cambia.</p>
-<p>Para aprovechar eso:</p>
-<ol>
-<li>
-<p>Declaramos un <em>slot</em> para que reciba la señal <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()">updated</a>():</p>
-<div class="codehilite"><pre><span class="n">private</span> <span class="n">slots:</span>
-    <span class="sr">//</span> <span class="n">Otros</span> <span class="n">slots</span><span class="o">...</span>
-    <span class="sr">//</span>
-    <span class="sr">//</span> <span class="n">void</span> <span class="n">on_actionOpen_triggered</span><span class="p">();</span>
-    <span class="sr">//</span>
-    <span class="sr">//</span> <span class="o">...</span>
-    <span class="sr">//</span>
-    <span class="n">void</span> <span class="n">on_movie_updated</span><span class="p">(</span><span class="n">const</span> <span class="n">QRect</span><span class="o">&amp;</span> <span class="n">rect</span><span class="p">);</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Definimos el código del <em>slot</em> para que al ser invocado actualice la
-imagen mostrada por el control <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>. En ese sentido el método
-<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setPixmap" title="QLabel::setPixmap()">setPixmap</a>() permite indicar al objeto <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> que imagen queremos
-mostrar. Mientras que <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#currentPixmap" title="QMovie::currentPixmap()">currentPixmap</a>() nos permite obtener el último
-<em>frame</em> del objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> en formato <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a>:</p>
-<div class="codehilite"><pre><span class="n">void</span> <span class="nn">MovieViewerWindow::</span><span class="n">on_movie_updated</span><span class="p">(</span><span class="n">const</span> <span class="n">QRect</span><span class="o">&amp;</span> <span class="n">rect</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">QPixmap</span> <span class="n">pixmap</span> <span class="o">=</span> <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">currentPixmap</span><span class="p">();</span>
-    <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">pixmap</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Suprimimos el uso del método <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()">setMovie</a>(), para que el
-objeto <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> no sepa nada de nuestra animación, y conectamos la señal
-<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()">updated</a>() con nuestro nuevo slot:</p>
-<div class="codehilite"><pre>    <span class="n">movie_</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QMovie</span><span class="p">();</span>
-    <span class="sr">//</span> <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie_</span><span class="p">);</span>
-    <span class="nb">connect</span><span class="p">(</span><span class="n">movie_</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">updated</span><span class="p">(</span><span class="n">const</span> <span class="n">QRect</span><span class="o">&amp;</span><span class="p">)),</span>
-            <span class="n">this</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">on_movie_updated</span><span class="p">(</span><span class="n">const</span> <span class="n">QRect</span><span class="o">&amp;</span><span class="p">)));</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-</ol>
-<p>Ahora podríamos introducir en el <em>slot</em> todo aquello que nos interese hacer
-sobre los <em>frames</em> antes de mostrarlos.</p>
+<p>El <em>factor de estiramiento</em>, que por lo general es cero, es un mecanismo para
+dar a unos controles más espacio en relación a otros. Si por ejemplo tenemos
+tres controles iguales en organización horizontal y sin <em>factor de estiramiento</em>,
+todos obtendrá el mismo espacio. Pero si aplicamos un <em>factor de estiramiento</em>
+su tamaño cambiará en proporción a la relación de dicho factor entre los distintos
+controles.</p>
+<p>Otro elemento clave en la asignación del espacio es la política fijada en la
+propiedad <code>QWidget::sizePolicy()</code>. Los valores posibles son:</p>
+<dl>
+<dt>Fixed</dt>
+<dd>El tamaño del control viene determinado por <code>QWidget::sizeHint()</code> y no puede cambiarse.</dd>
+<dt>Minimum</dt>
+<dd>El tamaño del control indicado en <code>QWidget::sizeHint()</code> es el mínimo posible.
+No puede encogerse pero si hacerse más grande, según sea necesario.</dd>
+<dt>Maximum</dt>
+<dd>El tamaño del control indicado en <code>QWidget::sizeHint()</code> es el máximo posible.
+No puede agrandarse pero si encogerse, según sea necesario.</dd>
+<dt>Preferred</dt>
+<dd>El mejor tamaño posible es el indicado por <code>QWidget::sizeHint()</code>, pero el
+control puede tanto agrandarse como encogerse, según sea necesario.</dd>
+<dt>Expanding</dt>
+<dd>El mejor tamaño posible es el indicado por <code>QWidget::sizeHint()</code> pero el
+control, de encogerse, seguiría siendo útil. Si sobra espacio, el control
+debe hacerse todo lo grande que sea posible.</dd>
+<dt>MinimumExpanding</dt>
+<dd>El tamaño del control indicado en <code>QWidget::sizeHint()</code> es el mínimo posible.
+No puede agrandarse pero si sobra espacio, el control debe hacerse todo lo
+grande que sea posible.</dd>
+<dt>Ignored</dt>
+<dd>El tamaño indicado en <code>QWidget::sizeHint()</code> debe ignorarse y el control
+debe hacerse todo lo grande que sea posible.</dd>
+</dl>
 <h2>Referencias</h2>
 <ol>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> Class Reference.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtwidgets/widgets-movie.html">Moviel Example</a></li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtwidgets/widgets-imageviewer.html">Image Viewer Example</a></li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management">Layout Management</a></li>
 </ol>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>Sin olvidarnos de que es necesario para liberar la memoria en el destructor de la clase <code>MovieViewerWindow</code>.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p><code>QWidget::sizePolicy()</code> es una propiedad de cada control donde
+se fija la política que desea que se siga para asignarle espacio.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
-<p>Esta clase es la base de todos los dispositivos de E/S, incluidos los archivos. Su
-misión es proporcionar una interfaz común; mediante métodos como <a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html#open" title="QFile::open()">open</a>(),
-<code>close()</code>, <code>read()</code>, <code>write()</code>, <code>seek()</code>, etc.; con la que acceder a cualquier
-dispositivo. De <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> heredan clases como <code>QBuffer</code>, <a href="http://qt-project.org/doc/qt-5.0/qtcore/qprocess.html" title="QProcess">QProcess</a> o <a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html" title="QFile">QFile</a> que
-proporcionan implementaciones concretas para cada tipo de dispositivo en particular.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p><code>QWidget::sizeHint()</code> es una propiedad de cada control donde se indica
+el espacio recomendado que debe ocupar.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>El <em>factor de estiramiento del control</em> se indica a través de su
+propiedad <code>QWidget::sizePolicy()</code>.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../como-usar-qmovie-en-qt.html"><h2>Como usar QMovie en Qt</h2></a>
+        <div class= "well small"> mié 13 febrero 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> trae una clase denominada <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que facilita mostrar pequeñas
+animaciones sin mucho esfuerzo.</p>
+<p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
+internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
+última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#supportedFormats" title="QMovie::supportedFormats()">supportedFormats</a>()). Esto incluye GIF
+animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="../como-usar-qmovie-en-qt.html">leer más</a></div>
+    </div>	
+				
     
  
         
