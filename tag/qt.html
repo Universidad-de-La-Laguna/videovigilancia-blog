@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../layouts-en-qt-organizacion-de-controles.html"><h1>Layouts en Qt. Organización de controles</h1></a>
-            vie 15 febrero 2013
+            <a href="../hilos-de-trabajo-usando-senales-y-slots.html"><h1>Hilos de trabajo usando señales y slots</h1></a>
+            lun 18 febrero 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,128 +67,192 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p>El sistema de <em>layouts</em> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporcionar una manera sencilla de organizar
-los controles dentro de otros controles o ventanas, asegurando el mejor
-aprovechamiento del espacio disponible.</p>
-<p>La idea es describir como deben organizarse los controles, dejando que después
-sean posicionados automáticamente por <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> en función del espacio disponible,
-incluso cuando este cambia por el redimensionado de la ventana o control que
-los contiene.</p>
-<h2>Introducción</h2>
-<p>Dentro de <em>Qt Creator</em>, en cualquier control, incluidas las ventanas
-principales y cuadros de diálogo, se puede seleccionar la organización de los
-controles que contiene mediante la opción <em>Lay Out</em> del menú contexual que
-se despliega al pulsar con el botón derecho del ratón.</p>
-<p><img alt="Menú Lay Out en Qt Creator" src="../static/images/menu-lay-out.png" /></p>
-<p>Las opciones disponibles permiten organizar los controles en disposiciones tales
-como:</p>
-<ul>
-<li>Columnas en horizontal.</li>
-<li>Filas en vertical.</li>
-<li>En una rejilla bidimensional, permitiendo que un mismo control ocupe varias
-celdas.</li>
-<li>Como un formulario, con dos colunmas donde a la izquierda se sitúan las
-etiquetas descriptivas de los campos de la derecha.</li>
-</ul>
-<p>Todas están comentadas en la documentación del proyecto sobre el
-<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management">Layout Management</a> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, donde además se muestran algunos ejemplos.</p>
-<h2>Anidamiento de layouts</h2>
-<p>Una organización de controles se puede anidar dentro de otra. Para eso existen
-unos controles especiales (uno por cada uno de los tipos de organización comentados
-anteriormente) cuya única función es contener otros controles para organizarlos
-de una manera concreta:</p>
-<dl>
-<dt><code>QHBoxLayout</code></dt>
-<dd>Organiza los controles que contiene en columnas en horizontal.</dd>
-<dt><code>QVBoxLayout</code></dt>
-<dd>Organiza los controles que contiene en filas en vertical.</dd>
-<dt><code>QGridLayout</code></dt>
-<dd>Organiza los controles que contiene en una rejilla bidimensional.</dd>
-<dt><code>QFormLayout</code></dt>
-<dd>Organiza los controles que contienen como un formulario, con dos columnas.</dd>
-</dl>
-<p>Estos controles se pueden crear dentro de otro, de tal forma que su ubicación
-final dependerá de la organización configurada en el padre.</p>
-<h2>Espaciadores</h2>
-<p>Otro elemento clave en la organización de los controles son los <em>espaciadores</em>.
-Estos controles funcionan como muelles que separan los controles en horizontal
-o en vertical, según su orientación.</p>
-<p>Por ejemplo, permiten mantener los controles lo más separados posible entre
-sí o pegarlos a los extremos de las ventanas, incluso aunque estas sean
-redimensionadas.</p>
-<h2>Tamaño de los controles</h2>
-<p>Cuando se añaden controles a un <em>layout</em> este procede de la siguiente manera:</p>
-<ol>
-<li>A todos los controles se les asigna una cantidad de espacio de acuerdo
- con su <code>QWidget::sizePolicy()</code><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> y su <code>QWidget::sizeHint()</code><sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>.</li>
-<li>Si alguno de los controles tiene un <em>factor de estiramiento</em><sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup> con valor
- mayor  que cero, entonces se les asigna espacio en proporción a dicho factor.</li>
-<li>Si alguno de los controles tiene un <em>factor de estiramiento</em> igual a cero,
- entonces sólo recibirá más espacio si ningún otro control lo reclama. De todos
- estos primero se asigna el espacio a los que tienen una propiedad
- <code>QWidget::sizePolicy()</code> configurada como <em>Expanding</em>.</li>
-<li>A cualquier control al que se le ha asignado menos espacio que su tamaño mínimo
- (o el tamaño mínimo aconsejado<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>, si no se ha especificado un tamaño mínimo concreto)
- se le asigna ese espacio que necesita.</li>
-<li>A cualquier control al que se le ha asignado más espacio que su tamaño máximo
- se le asigna ese espacio máximo.</li>
-</ol>
-<p>El <em>factor de estiramiento</em>, que por lo general es cero, es un mecanismo para
-dar a unos controles más espacio en relación a otros. Si por ejemplo tenemos
-tres controles iguales en organización horizontal y sin <em>factor de estiramiento</em>,
-todos obtendrá el mismo espacio. Pero si aplicamos un <em>factor de estiramiento</em>
-su tamaño cambiará en proporción a la relación de dicho factor entre los distintos
-controles.</p>
-<p>Otro elemento clave en la asignación del espacio es la política fijada en la
-propiedad <code>QWidget::sizePolicy()</code>. Los valores posibles son:</p>
-<dl>
-<dt>Fixed</dt>
-<dd>El tamaño del control viene determinado por <code>QWidget::sizeHint()</code> y no puede cambiarse.</dd>
-<dt>Minimum</dt>
-<dd>El tamaño del control indicado en <code>QWidget::sizeHint()</code> es el mínimo posible.
-No puede encogerse pero si hacerse más grande, según sea necesario.</dd>
-<dt>Maximum</dt>
-<dd>El tamaño del control indicado en <code>QWidget::sizeHint()</code> es el máximo posible.
-No puede agrandarse pero si encogerse, según sea necesario.</dd>
-<dt>Preferred</dt>
-<dd>El mejor tamaño posible es el indicado por <code>QWidget::sizeHint()</code>, pero el
-control puede tanto agrandarse como encogerse, según sea necesario.</dd>
-<dt>Expanding</dt>
-<dd>El mejor tamaño posible es el indicado por <code>QWidget::sizeHint()</code> pero el
-control, de encogerse, seguiría siendo útil. Si sobra espacio, el control
-debe hacerse todo lo grande que sea posible.</dd>
-<dt>MinimumExpanding</dt>
-<dd>El tamaño del control indicado en <code>QWidget::sizeHint()</code> es el mínimo posible.
-No puede agrandarse pero si sobra espacio, el control debe hacerse todo lo
-grande que sea posible.</dd>
-<dt>Ignored</dt>
-<dd>El tamaño indicado en <code>QWidget::sizeHint()</code> debe ignorarse y el control
-debe hacerse todo lo grande que sea posible.</dd>
-</dl>
+        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona clases para hilos y mecanismos de sincronización que facilitan
+sacar las tareas de larga duración del hilo principal de la aplicación, lo que
+de lo contrario bloquearía la interfaz de usuario.</p>
+<p>Una forma práctica de hacerlo la hemos visto <a href="../introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a>
+utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> provee a cada hilo de una
+cola de mensajes, lo que permite enviar señales a <em>slots</em> en otros hilos. Esto
+nos proporciona una forma sencilla de pasar datos entre los hilos de la
+aplicación.</p>
+<p>Si no se indica lo contrario, las señales emitidas desde un hilo a un objeto
+en el mismo hilo son entregadas directamente. Es decir, que al emitir la señal
+se invoca el <em>slot</em> como si de un método convencional se tratara. Sin embargo
+si el emisor y el receptor residen en hilos diferentes, la señal es insertada
+en la cola de mensajes del hilo del objeto de destino. Así el <em>slot</em>
+correspondiente será invocado en el hilo receptor desde su bucle de mensajes.</p>
+<p>En la actualidad esta es la forma recomendada de usar hilos en <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> ya que
+permite evitar el uso de de mecanismos de sincronización como <a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex">QMutex</a>,
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition">QWaitCondition</a>, etc.</p>
+<h2>El ejemplo. Ordenar números enteros</h2>
+<p>El ejemplo que vamos a seguir básicamente consiste en ordenar
+un vector de enteros en un hilo de trabajo distinto al hilo principal.</p>
+<p>Como se puede observar en la figura utilizaremos dos objetos, uno vinculado
+al hilo principal (clase <code>Sorter</code>) y otro al hilo de trabajo
+(clase <code>SorterWorker</code>). En una aplicación gráfica convencional con <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> la
+clase <code>Sorter</code> podría ser una ventana o cualquier otro control que
+quiera ceder una tarea al hilo de trabajo. Aquí no lo haremos así para
+que el ejemplo sea lo más sencillo posible.</p>
+<p><img src="https://docs.google.com/drawings/d/1tZ0CMTNJoLsbHx3TjgecQuRXGEM5hf3pYwm9_s1R8bI/pub?w=960&amp;h=720"></p>
+<p>En <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> un objeto se dice que vive en el hilo en el que es creado. Esto se
+puede cambiar utilizando el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()">moveToThread</a>() que tienen todas las
+clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>.</p>
+<h2>La clase Sorter</h2>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Sorter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QObject</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
+
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">Sorter</span><span class="p">();</span>
+
+        <span class="c1">// Ordenar asíncronamente un vector en el hilo de trabajo</span>
+        <span class="kt">void</span> <span class="n">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
+
+    <span class="nl">signals:</span>
+        <span class="c1">// Señal para comunicarnos con el hilo de trabajo</span>
+        <span class="kt">void</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
+
+    <span class="k">private</span> <span class="nl">slots:</span>
+        <span class="c1">// Slot para saber cuando el vector ha sido ordenado</span>
+        <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
+
+    <span class="k">private</span><span class="o">:</span>
+        <span class="c1">// Clase del hilo de trabajo</span>
+        <span class="n">QThread</span> <span class="n">workingThread_</span><span class="p">;</span>
+        <span class="c1">// Clase que hace el ordenamiento</span>
+        <span class="n">SorterWorker</span> <span class="n">sorterWorker_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>La propia clase <code>Sorter</code> se hará cargo de crear el hilo de trabajo, que por
+defecto lo único que hace es iterar en su propio bucle de mensajes. Todos
+los detalles acerca de la creación de hilos ya los vimos
+<a href="[anteriormente](|filename|/Qt/hilos-en-qt.md)">anteriormente</a></p>
+<p>La clase <code>Sorter</code> provee un método <code>sortAsync()</code> que podrá ser llamado por
+los clientes para ordenar un vector de números enteros. Puesto que la operación
+es asíncrona, necesitamos definir un <em>slot</em> <code>vectorSorted()</code> para ser
+notificados cuando el ordenamiento haya finalizado con éxito.</p>
+<p>La implementación de esta clase sería la siguiente:</p>
+<div class="codehilite"><pre><span class="n">Sorter</span><span class="o">::</span><span class="n">Sorter</span><span class="p">()</span> <span class="o">:</span> <span class="n">QObject</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
+
+    <span class="c1">// Registrar los parámetros de la señales. Necesitamos registrar</span>
+    <span class="c1">// QList&lt;int&gt; porque no es un tipo conocido por el sistema de</span>
+    <span class="c1">// meta-objetos de Qt.</span>
+    <span class="n">qRegisterMetaType</span><span class="o">&lt;</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;QVector&lt;int&gt;&quot;</span><span class="p">);</span>
+
+    <span class="c1">// Pasar la petición de ordenar a la instancia de SorterWorker</span>
+    <span class="n">connect</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">sortingRequested</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)),</span>
+        <span class="o">&amp;</span><span class="n">sorterWorker_</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">doSort</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)));</span>
+    <span class="c1">// Ser notificado cuando el vector haya sido ordenado</span>
+    <span class="n">connect</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sorterWorker_</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">vectorSorted</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)),</span>
+        <span class="k">this</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">vectorSorted</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)));</span>
+
+    <span class="c1">// Migrar la instancia de SorterWorker al hilo de trabajo</span>
+    <span class="n">sorterWorker_</span><span class="p">.</span><span class="n">moveToThread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">workingThread_</span><span class="p">);</span>
+
+    <span class="c1">// Iniciar el hilo de trabajo</span>
+    <span class="n">workingThread_</span><span class="p">.</span><span class="n">start</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Sorter</span><span class="o">::</span><span class="n">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
+
+    <span class="n">emit</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Sorter</span><span class="o">::</span><span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">list</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Como se puede observar, en el constructor de <code>Sorter</code> se usa el método
+<code>qRegisterMetaType()</code>, antes de conectar las señales, para registrar el tipo
+<code>QVector&lt;int&gt;</code>. Esto debe hacerse porque cuando una señal es encolada sus
+parámetros deben ser de tipos conocidos para <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, de forma que pueda
+almacenar los argumentos en la cola.</p>
+<h2>La clase SorterWorker</h2>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">SorterWorker</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QObject</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
+
+    <span class="nl">signals:</span>
+        <span class="c1">// Señal emitida cuando el vector ha sido ordenado</span>
+        <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
+
+    <span class="k">public</span> <span class="nl">slots:</span>
+        <span class="c1">// Método encargado del ordenamiento</span>
+        <span class="kt">void</span> <span class="n">doSort</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
+
+            <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list_sorted</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
+            <span class="n">qSort</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
+            <span class="n">emit</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<h2>Como usar el ejemplo</h2>
+<p>Para usar el ejemplo sólo necesitamos crear una instancia de <code>Sorter</code> y
+llamar a su método <code>sortAsync()</code> para pedir que ordene el vector especificado.</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+
+    <span class="n">Sorter</span> <span class="n">sorter</span><span class="p">;</span>
+    <span class="n">sorter</span><span class="p">.</span><span class="n">sortAsync</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2>Referencias</h2>
 <ol>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management">Layout Management</a></li>
+<li><a href="../introduccion-al-uso-de-hilos-en-qt.html">Introducción al uso de hilos en Qt</a></li>
+<li><a href="http://cdumez.blogspot.com.es/2011/03/worker-thread-in-qt-using-signals-slots.html">Worker Thread in Qt using Signals &amp; Slots</a></li>
 </ol>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p><code>QWidget::sizePolicy()</code> es una propiedad de cada control donde
-se fija la política que desea que se siga para asignarle espacio.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:2">
-<p><code>QWidget::sizeHint()</code> es una propiedad de cada control donde se indica
-el espacio recomendado que debe ocupar.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-<li id="fn:3">
-<p>El <em>factor de estiramiento del control</em> se indica a través de su
-propiedad <code>QWidget::sizePolicy()</code>.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>Todas las clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> tienen como clase base <a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject">QObject</a> y en ella se
+implementan algunos métodos comunes como <a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject">QObject</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()">moveToThread</a>()&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../layouts-en-qt-organizacion-de-controles.html"><h2>Layouts en Qt. Organización de controles</h2></a>
+        <div class= "well small"> vie 15 febrero 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>El sistema de <em>layouts</em> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporcionar una manera sencilla de organizar
+los controles dentro de otros controles o ventanas, asegurando el mejor
+aprovechamiento del espacio disponible.</p>
+<p>La idea es describir como deben organizarse los controles, dejando que después
+sean posicionados automáticamente por <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> en función del espacio disponible,
+incluso ...</p> <a class="btn btn-info xsmall" href="../layouts-en-qt-organizacion-de-controles.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -212,36 +276,14 @@ internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagere
 animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="../como-usar-qmovie-en-qt.html">leer más</a></div>
     </div>	
 				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html"><h2>Proyecto Qt. Framework de desarrollo de aplicaciones</h2></a>
-        <div class= "well small"> mar 29 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> es una <em>framework</em> multiplataforma en C++ de desarrollo de aplicaciones. Se
-utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
-gracias al conjunto de controles independientes de la plataforma que ofrece,
-aunque también es usado para crear herramientas de linea de comando o consolas
-de gestión para servicios.</p>
-<p>Esto último ...</p> <a class="btn btn-info xsmall" href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
     <li class="active"><a href="../tag/qt.html">1</a></li>
+    <li class=""><a href="../tag/qt2.html">2</a></li>
 
-    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
+    <li class="next"><a href="../tag/qt2.html">Next &rarr;</a></li>
 
 </ul>
 </div>    

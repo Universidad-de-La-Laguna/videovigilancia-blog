@@ -1,5 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-02-15T00:00:00+00:00</updated><entry><title>Layouts en Qt. Organización de controles</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html" rel="alternate"></link><updated>2013-02-15T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-15:layouts-en-qt-organizacion-de-controles.html</id><summary type="html">&lt;p&gt;El sistema de &lt;em&gt;layouts&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporcionar una manera sencilla de organizar
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-02-18T00:00:00+00:00</updated><entry><title>Hilos de trabajo usando señales y slots</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html" rel="alternate"></link><updated>2013-02-18T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-18:hilos-de-trabajo-usando-senales-y-slots.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona clases para hilos y mecanismos de sincronización que facilitan
+sacar las tareas de larga duración del hilo principal de la aplicación, lo que
+de lo contrario bloquearía la interfaz de usuario.&lt;/p&gt;
+&lt;p&gt;Una forma práctica de hacerlo la hemos visto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;anteriormente&lt;/a&gt;
+utilizando un &lt;em&gt;buffer&lt;/em&gt; compartido. Sin embargo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; provee a cada hilo de una
+cola de mensajes, lo que permite enviar señales a &lt;em&gt;slots&lt;/em&gt; en otros hilos. Esto
+nos proporciona una forma sencilla de pasar datos entre los hilos de la
+aplicación.&lt;/p&gt;
+&lt;p&gt;Si no se indica lo contrario, las señales emitidas desde un hilo a un objeto
+en el mismo hilo son entregadas directamente. Es decir, que al emitir la señal
+se invoca el &lt;em&gt;slot&lt;/em&gt; como si de un método convencional se tratara. Sin embargo
+si el emisor y el receptor residen en hilos diferentes, la señal es insertada
+en la cola de mensajes del hilo del objeto de destino. Así el &lt;em&gt;slot&lt;/em&gt;
+correspondiente será invocado en el hilo receptor desde su bucle de mensajes.&lt;/p&gt;
+&lt;p&gt;En la actualidad esta es la forma recomendada de usar hilos en &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; ya que
+permite evitar el uso de de mecanismos de sincronización como &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex"&gt;QMutex&lt;/a&gt;,
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition"&gt;QWaitCondition&lt;/a&gt;, etc.&lt;/p&gt;
+&lt;h2&gt;El ejemplo. Ordenar números enteros&lt;/h2&gt;
+&lt;p&gt;El ejemplo que vamos a seguir básicamente consiste en ordenar
+un vector de enteros en un hilo de trabajo distinto al hilo principal.&lt;/p&gt;
+&lt;p&gt;Como se puede observar en la figura utilizaremos dos objetos, uno vinculado
+al hilo principal (clase &lt;code&gt;Sorter&lt;/code&gt;) y otro al hilo de trabajo
+(clase &lt;code&gt;SorterWorker&lt;/code&gt;). En una aplicación gráfica convencional con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; la
+clase &lt;code&gt;Sorter&lt;/code&gt; podría ser una ventana o cualquier otro control que
+quiera ceder una tarea al hilo de trabajo. Aquí no lo haremos así para
+que el ejemplo sea lo más sencillo posible.&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://docs.google.com/drawings/d/1tZ0CMTNJoLsbHx3TjgecQuRXGEM5hf3pYwm9_s1R8bI/pub?w=960&amp;amp;h=720"&gt;&lt;/p&gt;
+&lt;p&gt;En &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; un objeto se dice que vive en el hilo en el que es creado. Esto se
+puede cambiar utilizando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()"&gt;moveToThread&lt;/a&gt;() que tienen todas las
+clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h2&gt;La clase Sorter&lt;/h2&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Sorter&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
+
+    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Ordenar asíncronamente un vector en el hilo de trabajo&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;sortAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="nl"&gt;signals:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Señal para comunicarnos con el hilo de trabajo&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="nl"&gt;slots:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Slot para saber cuando el vector ha sido ordenado&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Clase del hilo de trabajo&lt;/span&gt;
+        &lt;span class="n"&gt;QThread&lt;/span&gt; &lt;span class="n"&gt;workingThread_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="c1"&gt;// Clase que hace el ordenamiento&lt;/span&gt;
+        &lt;span class="n"&gt;SorterWorker&lt;/span&gt; &lt;span class="n"&gt;sorterWorker_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;La propia clase &lt;code&gt;Sorter&lt;/code&gt; se hará cargo de crear el hilo de trabajo, que por
+defecto lo único que hace es iterar en su propio bucle de mensajes. Todos
+los detalles acerca de la creación de hilos ya los vimos
+&lt;a href="[anteriormente](|filename|/Qt/hilos-en-qt.md)"&gt;anteriormente&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;La clase &lt;code&gt;Sorter&lt;/code&gt; provee un método &lt;code&gt;sortAsync()&lt;/code&gt; que podrá ser llamado por
+los clientes para ordenar un vector de números enteros. Puesto que la operación
+es asíncrona, necesitamos definir un &lt;em&gt;slot&lt;/em&gt; &lt;code&gt;vectorSorted()&lt;/code&gt; para ser
+notificados cuando el ordenamiento haya finalizado con éxito.&lt;/p&gt;
+&lt;p&gt;La implementación de esta clase sería la siguiente:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;Q_FUNC_INFO&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;currentThreadId&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Registrar los parámetros de la señales. Necesitamos registrar&lt;/span&gt;
+    &lt;span class="c1"&gt;// QList&amp;lt;int&amp;gt; porque no es un tipo conocido por el sistema de&lt;/span&gt;
+    &lt;span class="c1"&gt;// meta-objetos de Qt.&lt;/span&gt;
+    &lt;span class="n"&gt;qRegisterMetaType&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;QVector&amp;lt;int&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Pasar la petición de ordenar a la instancia de SorterWorker&lt;/span&gt;
+    &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+        &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;sorterWorker_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;doSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+    &lt;span class="c1"&gt;// Ser notificado cuando el vector haya sido ordenado&lt;/span&gt;
+    &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;sorterWorker_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Migrar la instancia de SorterWorker al hilo de trabajo&lt;/span&gt;
+    &lt;span class="n"&gt;sorterWorker_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;moveToThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;workingThread_&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Iniciar el hilo de trabajo&lt;/span&gt;
+    &lt;span class="n"&gt;workingThread_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sortAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;Q_FUNC_INFO&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;currentThreadId&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="n"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Como se puede observar, en el constructor de &lt;code&gt;Sorter&lt;/code&gt; se usa el método
+&lt;code&gt;qRegisterMetaType()&lt;/code&gt;, antes de conectar las señales, para registrar el tipo
+&lt;code&gt;QVector&amp;lt;int&amp;gt;&lt;/code&gt;. Esto debe hacerse porque cuando una señal es encolada sus
+parámetros deben ser de tipos conocidos para &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, de forma que pueda
+almacenar los argumentos en la cola.&lt;/p&gt;
+&lt;h2&gt;La clase SorterWorker&lt;/h2&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;SorterWorker&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
+
+    &lt;span class="nl"&gt;signals:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Señal emitida cuando el vector ha sido ordenado&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nl"&gt;slots:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Método encargado del ordenamiento&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;doSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;Q_FUNC_INFO&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;currentThreadId&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+            &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;list_sorted&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="n"&gt;qSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list_sorted&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list_sorted&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Como usar el ejemplo&lt;/h2&gt;
+&lt;p&gt;Para usar el ejemplo sólo necesitamos crear una instancia de &lt;code&gt;Sorter&lt;/code&gt; y
+llamar a su método &lt;code&gt;sortAsync()&lt;/code&gt; para pedir que ordene el vector especificado.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;QCoreApplication&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;Sorter&lt;/span&gt; &lt;span class="n"&gt;sorter&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;sorter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sortAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Referencias&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;Introducción al uso de hilos en Qt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://cdumez.blogspot.com.es/2011/03/worker-thread-in-qt-using-signals-slots.html"&gt;Worker Thread in Qt using Signals &amp;amp; Slots&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;Todas las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; tienen como clase base &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject"&gt;QObject&lt;/a&gt; y en ella se
+implementan algunos métodos comunes como &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject"&gt;QObject&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()"&gt;moveToThread&lt;/a&gt;()&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</summary><category term="qt"></category><category term="hilos"></category><category term="señales"></category><category term="slots"></category></entry><entry><title>Layouts en Qt. Organización de controles</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html" rel="alternate"></link><updated>2013-02-15T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-15:layouts-en-qt-organizacion-de-controles.html</id><summary type="html">&lt;p&gt;El sistema de &lt;em&gt;layouts&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporcionar una manera sencilla de organizar
 los controles dentro de otros controles o ventanas, asegurando el mejor
 aprovechamiento del espacio disponible.&lt;/p&gt;
 &lt;p&gt;La idea es describir como deben organizarse los controles, dejando que después
