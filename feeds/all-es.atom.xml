@@ -154,7 +154,7 @@ llamar a su método &lt;code&gt;sortAsync()&lt;/code&gt; para pedir que ordene e
 &lt;hr /&gt;
 &lt;ol&gt;
 &lt;li id="fn:1"&gt;
-&lt;p&gt;Todas las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; tienen como clase base &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject"&gt;QObject&lt;/a&gt; y en ella se
+&lt;p&gt;Todas las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; tienen como clase base &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject"&gt;QObject&lt;/a&gt; donde se
 implementan algunos métodos comunes como &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject"&gt;QObject&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()"&gt;moveToThread&lt;/a&gt;()&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
