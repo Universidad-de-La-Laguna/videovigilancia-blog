@@ -123,7 +123,8 @@ escoja de entre los disponibles en su disco duro podemos:</p>
     <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">setFileName</span><span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">movie_</span><span class="o">-&gt;</span><span class="n">isValid</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">QMessageBox</span><span class="o">::</span><span class="n">critical</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">tr</span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">),</span>
-            <span class="n">tr</span><span class="p">(</span><span class="s">&quot;No se pudo abrir el archivo o el formato es inválido&quot;</span><span class="p">));</span>
+            <span class="n">tr</span><span class="p">(</span><span class="s">&quot;No se pudo abrir el archivo o el formato&quot;</span>
+               <span class="s">&quot; es inválido&quot;</span><span class="p">));</span>
         <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>    <span class="c1">// Iniciar la reproducción de la animación</span>
