@@ -36,6 +36,8 @@ clase `Sorter` podría ser una ventana o cualquier otro control que
 quiera ceder una tarea al hilo de trabajo. Aquí no lo haremos así para
 que el ejemplo sea lo más sencillo posible.
 
+<img src="https://docs.google.com/drawings/d/1tZ0CMTNJoLsbHx3TjgecQuRXGEM5hf3pYwm9_s1R8bI/pub?w=960&amp;h=720">
+
 En [Qt] un objeto se dice que vive en el hilo en el que es creado. Esto se
 puede cambiar utilizando el método [moveToThread][]() que tienen todas las
 clases de [Qt][^1].
