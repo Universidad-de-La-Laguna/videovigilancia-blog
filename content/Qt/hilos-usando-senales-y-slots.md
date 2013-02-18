@@ -1,22 +1,21 @@
 Title: Hilos de trabajo usando señales y slots
 Tags: qt, hilos, señales, slots
 Date: 2013-02-18
-Status: draft
 
-[Qt] proporciona clases para hilos y mecanimos de sincronización que facilitan
+[Qt] proporciona clases para hilos y mecanismos de sincronización que facilitan
 sacar las tareas de larga duración del hilo principal de la aplicación, lo que
-bloquearía la interfaz de usuario.
+de lo contrario bloquearía la interfaz de usuario.
 
-Una forma práctica de hacer esto la hemos visto [anteriormente](|filename|/Qt/hilos-en-qt.md)
+Una forma práctica de hacerlo la hemos visto [anteriormente](|filename|/Qt/hilos-en-qt.md)
 utilizando un _buffer_ compartido. Sin embargo [Qt] provee a cada hilo de una
-cola de mensajes, lo que permite enviar señales a slots en otros hilos. Esto
+cola de mensajes, lo que permite enviar señales a _slots_ en otros hilos. Esto
 nos proporciona una forma sencilla de pasar datos entre los hilos de la
 aplicación.
 
 Si no se indica lo contrario, las señales emitidas desde un hilo a un objeto
 en el mismo hilo son entregadas directamente. Es decir, que al emitir la señal
-se invoca el _slot_ como si de un método convencional se tratara. Sin embargo,
-si el emisor y el receptor reciden en hilos diferentes, la señal es insertada
+se invoca el _slot_ como si de un método convencional se tratara. Sin embargo
+si el emisor y el receptor residen en hilos diferentes, la señal es insertada
 en la cola de mensajes del hilo del objeto de destino. Así el _slot_
 correspondiente será invocado en el hilo receptor desde su bucle de mensajes.
 
@@ -30,7 +29,7 @@ El ejemplo que vamos a seguir básicamente consiste en ordenar
 un vector de enteros en un hilo de trabajo distinto al hilo principal.
 
 Como se puede observar en la figura utilizaremos dos objetos, uno vinculado
-al hilo principal (clase `Sorter`) y el otro al hilo de trabajo
+al hilo principal (clase `Sorter`) y otro al hilo de trabajo
 (clase `SorterWorker`). En una aplicación gráfica convencional con [Qt] la
 clase `Sorter` podría ser una ventana o cualquier otro control que
 quiera ceder una tarea al hilo de trabajo. Aquí no lo haremos así para
@@ -121,10 +120,10 @@ void Sorter::vectorSorted(const QVector<int>& list)
 ~~~~
 
 Como se puede observar, en el constructor de `Sorter` se usa el método
-`qRegisterMetaType()` antes de conectar las señales para registrar el tipo
-`QVector<int>`. Esto debe ser así porque cuando una señal es encolada sus
-parámetros deben ser de tipos conocidos para [Qt] para que pueda almacenar
-los argumentos en la cola.
+`qRegisterMetaType()`, antes de conectar las señales, para registrar el tipo
+`QVector<int>`. Esto debe hacerse porque cuando una señal es encolada sus
+parámetros deben ser de tipos conocidos para [Qt], de forma que pueda
+almacenar los argumentos en la cola.
 
 ## La clase SorterWorker
 
@@ -152,8 +151,7 @@ class SorterWorker : public QObject
 ## Como usar el ejemplo
 
 Para usar el ejemplo sólo necesitamos crear una instancia de `Sorter` y
-llamar a su método `sortAsync()` para pedir al hilo de trabajo que ordene el
-vector especificado.
+llamar a su método `sortAsync()` para pedir que ordene el vector especificado.
 
 ~~~~.cpp
 int main(int argc, char *argv[])
