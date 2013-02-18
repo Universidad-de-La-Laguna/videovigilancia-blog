@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sistema de Videovigilancia from Scratch</title>
+    <title>mutex - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="./theme/html5.js"></script>
+    <script src="../theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="./theme/bootstrap.min.css" rel="stylesheet">
-    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="./theme/local.css" rel="stylesheet">
-    <link href="./theme/pygments.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,12 +32,12 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
                         </ul>
         </div>
         
@@ -57,10 +57,10 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./introduccion-al-uso-de-hilos-en-qt.html"><h1>Introducción al uso de hilos en Qt</h1></a>
+            <a href="../introduccion-al-uso-de-hilos-en-qt.html"><h1>Introducción al uso de hilos en Qt</h1></a>
             sáb 16 febrero 2013
 
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
@@ -75,7 +75,7 @@ procesar nuevos eventos de los usuarios.</p>
 trabajo —o <em>worker thread</em>— de tal manera que se ejecuten mientras el hilo
 principal sigue procesando los eventos que llegen a la aplicación.</p>
 <h2>Crear hilos</h2>
-<p>Para usar hilos en <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> se utiliza la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread">QThread</a>, donde cada instancia de
+<p>Para usar hilos en <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> se utiliza la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread">QThread</a>, donde cada instancia de
 dicha clase representa a un hilo de la aplicación.</p>
 <p>Crear un hilo es tan sencillo como heredar la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread">QThread</a> y reimplementar
 el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#run" title="QThread::run()">run</a>() insertando el código que queremos que ejecute el hilo.
@@ -283,61 +283,13 @@ del consumidor.</p>
         <hr />
     </div>
 		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./layouts-en-qt-organizacion-de-controles.html"><h2>Layouts en Qt. Organización de controles</h2></a>
-        <div class= "well small"> vie 15 febrero 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>El sistema de <em>layouts</em> de <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporcionar una manera sencilla de organizar
-los controles dentro de otros controles o ventanas, asegurando el mejor
-aprovechamiento del espacio disponible.</p>
-<p>La idea es describir como deben organizarse los controles, dejando que después
-sean posicionados automáticamente por <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> en función del espacio disponible,
-incluso ...</p> <a class="btn btn-info xsmall" href="./layouts-en-qt-organizacion-de-controles.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./como-usar-qmovie-en-qt.html"><h2>Como usar QMovie en Qt</h2></a>
-        <div class= "well small"> mié 13 febrero 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> trae una clase denominada <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que facilita mostrar pequeñas
-animaciones sin mucho esfuerzo.</p>
-<p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
-internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
-última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#supportedFormats" title="QMovie::supportedFormats()">supportedFormats</a>()). Esto incluye GIF
-animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="./como-usar-qmovie-en-qt.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
-    <li class="active"><a href="./index.html">1</a></li>
-    <li class=""><a href="./index2.html">2</a></li>
-    <li class=""><a href="./index3.html">3</a></li>
+    <li class="active"><a href="../tag/mutex.html">1</a></li>
 
-    <li class="next"><a href="./index2.html">Next &rarr;</a></li>
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 
 </ul>
 </div>    
@@ -354,8 +306,8 @@ animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="./co
                 Sitio
                 </li>
             
-                <li><a href="./archives.html">Archivos</a>
-                <li><a href="./tags.html">Etiquetas</a>
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -368,10 +320,10 @@ animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="./co
                 Categorias
                 </li>
                 
-                                <li><a href="./category/hardware.html">Hardware</a></li>
-                                <li><a href="./category/linux.html">Linux</a></li>
-                                <li><a href="./category/overviews.html">Overviews</a></li>
-                                <li><a href="./category/qt.html">Qt</a></li>
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
                                    
             </ul>
             </div>
