@@ -180,5 +180,5 @@ int main(int argc, char *argv[])
 [QObject]: http://qt-project.org/doc/qt-5.0/qtcore/qobject.html "QObject"
 [run]: http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#run "QThread::run()"
 
-[^1]: Todas las clases de [Qt] tienen como clase base [QObject] y en ella se
+[^1]: Todas las clases de [Qt] tienen como clase base [QObject] donde se
 implementan algunos métodos comunes como [QObject]::[moveToThread][]()
