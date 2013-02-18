@@ -60,7 +60,8 @@ escoja de entre los disponibles en su disco duro podemos:
             movie_->setFileName(fileName);
             if (!movie_->isValid()) {
                 QMessageBox::critical(this, tr("Error"),
-                    tr("No se pudo abrir el archivo o el formato es inválido"));
+                    tr("No se pudo abrir el archivo o el formato"
+                       " es inválido"));
                 return;
             }
             movie_->start();    // Iniciar la reproducción de la animación
