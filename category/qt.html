@@ -102,21 +102,21 @@ clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" 
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="k">public</span><span class="o">:</span>
+    <span class="nl">public:</span>
         <span class="n">Sorter</span><span class="p">();</span>
 
         <span class="c1">// Ordenar asíncronamente un vector en el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="n">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
 
     <span class="nl">signals:</span>
         <span class="c1">// Señal para comunicarnos con el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">private</span> <span class="nl">slots:</span>
+    <span class="k">private</span> <span class="n">slots</span><span class="o">:</span>
         <span class="c1">// Slot para saber cuando el vector ha sido ordenado</span>
         <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">private</span><span class="o">:</span>
+    <span class="nl">private:</span>
         <span class="c1">// Clase del hilo de trabajo</span>
         <span class="n">QThread</span> <span class="n">workingThread_</span><span class="p">;</span>
         <span class="c1">// Clase que hace el ordenamiento</span>
@@ -161,7 +161,7 @@ notificados cuando el ordenamiento haya finalizado con éxito.</p>
 <span class="p">{</span>
     <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
 
-    <span class="n">emit</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+    <span class="n">emit</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">Sorter</span><span class="o">::</span><span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">)</span>
@@ -185,14 +185,14 @@ almacenar los argumentos en la cola.</p>
         <span class="c1">// Señal emitida cuando el vector ha sido ordenado</span>
         <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">public</span> <span class="nl">slots:</span>
+    <span class="k">public</span> <span class="n">slots</span><span class="o">:</span>
         <span class="c1">// Método encargado del ordenamiento</span>
         <span class="kt">void</span> <span class="n">doSort</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
 
             <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list_sorted</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
             <span class="n">qSort</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
-            <span class="n">emit</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
+            <span class="n">emit</span> <span class="nf">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
         <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -201,7 +201,7 @@ almacenar los argumentos en la cola.</p>
 <h2>Como usar el ejemplo</h2>
 <p>Para usar el ejemplo sólo necesitamos crear una instancia de <code>Sorter</code> y
 llamar a su método <code>sortAsync()</code> para pedir que ordene el vector especificado.</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 
@@ -237,6 +237,28 @@ implementan algunos métodos comunes como <a href="http://qt-project.org/doc/qt-
  
 
     <div class='article'>
+        <a href="../introduccion-al-uso-de-hilos-en-qt.html"><h2>Introducción al uso de hilos en Qt</h2></a>
+        <div class= "well small"> sáb 16 febrero 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
+larga duración en los <em>slots</em>. Si lo hiciéramos la ejecución tardaría en
+volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
+procesar nuevos eventos de los usuarios.</p>
+<p>Por eso lo habitual ...</p> <a class="btn btn-info xsmall" href="../introduccion-al-uso-de-hilos-en-qt.html">leer más</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
         <a href="../layouts-en-qt-organizacion-de-controles.html"><h2>Layouts en Qt. Organización de controles</h2></a>
         <div class= "well small"> vie 15 febrero 2013
 
@@ -253,36 +275,14 @@ sean posicionados automáticamente por <a href="../proyecto-qt-framework-de-desa
 incluso ...</p> <a class="btn btn-info xsmall" href="../layouts-en-qt-organizacion-de-controles.html">leer más</a></div>
     </div>	
 				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../como-usar-qmovie-en-qt.html"><h2>Como usar QMovie en Qt</h2></a>
-        <div class= "well small"> mié 13 febrero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> trae una clase denominada <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que facilita mostrar pequeñas
-animaciones sin mucho esfuerzo.</p>
-<p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
-internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
-última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#supportedFormats" title="QMovie::supportedFormats()">supportedFormats</a>()). Esto incluye GIF
-animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="../como-usar-qmovie-en-qt.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
     <li class="active"><a href="../category/qt.html">1</a></li>
+    <li class=""><a href="../category/qt2.html">2</a></li>
 
-    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
+    <li class="next"><a href="../category/qt2.html">Next &rarr;</a></li>
 
 </ul>
 </div>    

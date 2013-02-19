@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>condición de espera - Sistema de Videovigilancia from Scratch</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jesús Torres">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../introduccion-al-uso-de-hilos-en-qt.html"><h1>Introducción al uso de hilos en Qt</h1></a>
+            sáb 16 febrero 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
+larga duración en los <em>slots</em>. Si lo hiciéramos la ejecución tardaría en
+volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
+procesar nuevos eventos de los usuarios.</p>
+<p>Por eso lo habitual es que desde los <em>slots</em> se deleguen esas tareas a hilos de
+trabajo —o <em>worker thread</em>— de tal manera que se ejecuten mientras el hilo
+principal sigue procesando los eventos que llegen a la aplicación.</p>
+<h2>Crear hilos</h2>
+<p>Para usar hilos en <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> se utiliza la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread">QThread</a>, donde cada instancia de
+dicha clase representa a un hilo de la aplicación.</p>
+<p>Crear un hilo es tan sencillo como heredar la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread">QThread</a> y reimplementar
+el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#run" title="QThread::run()">run</a>() insertando el código que queremos que ejecute el hilo.
+En este sentido el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread">QThread</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#run" title="QThread::run()">run</a>() es para el hilo lo que la función
+<code>main()</code> es para la aplicación.</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">MyThread</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QThread</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
+
+    <span class="nl">protected:</span>
+        <span class="kt">void</span> <span class="n">run</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">MyThread</span><span class="o">::</span><span class="n">run</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// Aquí el código a ejecutar en el hilo...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Una vez instanciada la clase, iniciar el nuevo hilo es tan sencillo como
+invocar el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread">QThread</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#start" title="QThread::start()">start</a>().</p>
+<div class="codehilite"><pre><span class="n">MyThread</span> <span class="kr">thread</span><span class="p">;</span>
+<span class="kr">thread</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+
+
+<p>El hilo terminará cuando la ejecución retorne de su método MyThread::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#run" title="QThread::run()">run</a>()
+o si desde el código del hilo se invocan los métodos <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread">QThread</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#exit" title="QThread::exit()">exit</a>() o</p>
+<h2>Problema del buffer finito</h2>
+<p>Generalmente los hilos no se crean directamente en los <em>slots</em> en los que son
+necesarios, sino en la función <code>main()</code>, en el constructor de la clase de la
+ventana que los va a utilizar o en otros sitios similares. Eso se así por una
+cuestión de eficiencia, ya que crear y destruir hilos según cuando son
+necesarios tiene cierto coste.</p>
+<p>La única cuestión es que entonces un <em>slot</em> debe poder entregar la tarea
+al hilo correspondiente que ha sido creado previamente. Como todos los hilos
+comparten la memoria del proceso, esto no debe ser un problema, pero realmente
+entraña ciertas dificultades relacionadas con la concurrencia.</p>
+<p>Para ilustrarlo supongamos que hemos abierto un archivo de vídeo para procesarlo
+y que un <em>slot</em> de la clase de la ventana es invocado cada vez que se dispone
+de un nuevo <em>frame</em>. La función del <em>slot</em> sería la de transferir al hilo
+el <em>frame</em> para que se haga cargo de su procesamiento. Teniendo esto en cuenta,
+el problema al que nos enfrentamos podría ser descrito de la siguiente manera:</p>
+<ol>
+<li>
+<p>El <em>slot</em> obtiene los <em>frames</em> por lo que sería nuestro <em>productor</em>. Como
+ se ejecuta desde la bomba de mensajes sabemos que siempre lo hace dentro
+ del hilo principal del proceso.</p>
+</li>
+<li>
+<p>El hilo de trabajo encargado del procesamiento sería nuestro <em>consumidor</em>,
+ ya que toma los <em>frames</em> entregados por el productor.</p>
+</li>
+<li>
+<p>Ambos comparten un <em>buffer</em> de <em>frames</em> de tamaño fijo que se usa a modo
+ de cola. El <em>productor</em> insertaría los <em>frames</em> en la cola mientras el
+ <em>consumidor</em> los extraería.</p>
+</li>
+<li>
+<p>Para evitar que el <em>productor</em> añada más <em>frames</em> de los que caben en la
+ cola y que el <em>consumidor</em> intente extraer más cuando ya no queden,
+ ambos comparten un contador con el número de <em>frames</em> almacenados.</p>
+</li>
+</ol>
+<p>Para que todo esto funcione correctamente vamos a necesitar una serie de
+elementos de sincronización que ayuden a ambos hilos a coordinarse:</p>
+<ul>
+<li>
+<p>Un cerrojo —o <em>mutex</em>— de exclusión mutua <a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex">QMutex</a> que serialice la
+  ejecución del código en ambos hilos que manipulan la cola y su contador. La
+  idea es que mientras uno de los hilos esté manipulando la cola, el otro tenga
+  que esperar.</p>
+</li>
+<li>
+<p>Una condición de espera <a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition">QWaitCondition</a> para que el <em>productor</em> pueda
+  dormir —o descartar los nuevos <em>frames</em>— mientras la cola esté llena. La
+  siguiente vez que el consumidor extraiga un <em>frame</em> de la cola, utilizaría la
+  condición de espera para notificar al productor que puede volver a insertar
+  <em>frames</em>.</p>
+</li>
+<li>
+<p>Una condición de espera <a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition">QWaitCondition</a> para que el <em>consumidor</em> pueda
+  dormir mientras la cola esté vacía. La siguiente vez que el productor
+  inserte un <em>frame</em> en la cola, utilizaría la condición de espera para
+  notificar al consumidor que puede volver a extraerlos.</p>
+</li>
+</ul>
+<p>Teniendo todo esto presente, a continuación desarrollamos un posible solución.</p>
+<h3>Variables globales</h3>
+<p>Como ya hemos comentado, ambos hilos deben compartir la cola, el contador y
+una serie de elementos de sincronización:</p>
+<div class="codehilite"><pre><span class="k">const</span> <span class="kt">int</span> <span class="n">BufferSize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>       <span class="c1">// Tamaño de la cola</span>
+<span class="n">QImage</span> <span class="n">buffer</span><span class="p">[</span><span class="n">BufferSize</span><span class="p">];</span>       <span class="c1">// Cola de frames como array de C</span>
+<span class="kt">int</span> <span class="n">numUsedBufferItems</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>      <span class="c1">// Contador de frames en la cola</span>
+
+<span class="n">QWaitCondition</span> <span class="n">bufferNotEmpty</span><span class="p">;</span>
+<span class="n">QWaitCondition</span> <span class="n">bufferNotFull</span><span class="p">;</span>
+<span class="n">QMutex</span> <span class="n">mutex</span><span class="p">;</span>
+</pre></div>
+
+
+<h3>El productor</h3>
+<p>El código del <em>productor</em> en el <em>slot</em> podría tener el siguiente aspecto:</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">MyWindow</span><span class="o">::</span><span class="n">on_video_updated</span><span class="p">(</span><span class="k">const</span> <span class="n">QRect</span><span class="o">&amp;</span> <span class="n">rect</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>           <span class="c1">// Posición último frame insertado</span>
+
+    <span class="n">mutex</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>                <span class="c1">// Bloquear el cerrojo</span>
+    <span class="c1">// El código del productor a partir de este punto y hasta</span>
+    <span class="c1">// el unlock() no se ejecutará si el consumidor ha bloqueado el</span>
+    <span class="c1">// cerrojo primero.</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">numUsedBufferItems</span> <span class="o">==</span> <span class="n">BufferSize</span><span class="p">)</span>  <span class="c1">// ¿Cola llena?</span>
+        <span class="n">bufferNotFull</span><span class="p">.</span><span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>   <span class="c1">// Dormir hasta que haya sitio</span>
+                                        <span class="c1">// en la cola.</span>
+
+    <span class="n">mutex</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>              <span class="c1">// Liberar el cerrojo</span>
+
+    <span class="c1">// Insertar el frame en la cola</span>
+    <span class="n">buffer</span><span class="p">[</span><span class="o">++</span><span class="n">i</span> <span class="o">%</span> <span class="n">BufferSize</span><span class="p">]</span> <span class="o">=</span> <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">currentImage</span><span class="p">();</span>
+
+    <span class="n">mutex</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>                <span class="c1">// Bloquear el cerrojo</span>
+    <span class="c1">// El código del productor a partir de este punto y hasta</span>
+    <span class="c1">// el unlock() no se ejecutará si el consumidor ha bloqueado el</span>
+    <span class="c1">// cerrojo primero.</span>
+
+    <span class="o">++</span><span class="n">numUsedBufferItems</span><span class="p">;</span>
+    <span class="n">bufferNotEmpty</span><span class="p">.</span><span class="n">wakeAll</span><span class="p">();</span>     <span class="c1">// Despertar al consumidor si</span>
+                                    <span class="c1">// esperaba por más frames.</span>
+
+    <span class="n">mutex</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>               <span class="c1">// Liberar el cerrojo</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Donde la instancia <code>mutex</code> de la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex">QMutex</a> sirve para evitar que el
+<em>productor</em> y el <em>consumidor</em> accedan al contador compartido al mismo tiempo.
+Concretamente:</p>
+<ul>
+<li>
+<p>El primero en llegar al método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex">QMutex</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html#lock" title="QMutex::lock()">lock</a>() obtiene el cerrojo. Si
+un segundo hilo llega a ese método mientras el otro tiene el cerrojo,
+simplemente se duerme a la espera de que el cerrojo sea liberado por el primero.</p>
+</li>
+<li>
+<p>Con el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex">QMutex</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html#unlock" title="QMutex::unlock()">unlock</a>() se libera el cerrojo. En ese momento
+uno de los hilos que espera en <a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex">QMutex</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html#lock" title="QMutex::lock()">lock</a>() se despierta y obtiene
+el cerrojo.</p>
+</li>
+</ul>
+<p>Por otro lado las instancias de condiciones de espera <a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition">QWaitCondition</a> permiten
+dormir un hilo hasta que se de una condición determinada. En nuestro ejemplo el
+<em>productor</em> utiliza el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition">QWaitCondition</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html#wait" title="QWaitCondition::wait()">wait</a>() para dormir si la
+cola está llena. Antes de hacerlo libera temporalmente el cerrojo <code>mutex</code>,
+permitiendo que el <em>consumidor</em> se pueda ejecutar en el código que protege.</p>
+<p>Como se verá a continuación, el <em>consumidor</em> utiliza el método
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition">QWaitCondition</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html#weakAll" title="QWaitCondition::weakAll()">weakAll</a>() después de extraer un elemento con el objeto
+de despertar al productor. Obviamente este deberá bloquear el cerrojo <code>mutex</code>
+antes de volver del método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition">QWaitCondition</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html#wait" title="QWaitCondition::wait()">wait</a>().</p>
+<h3>El consumidor</h3>
+<p>El código del consumidor podría tener el siguiente aspecto, que es muy similar
+al del productor:</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">FrameProcessingThread</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QThread</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
+
+    <span class="nl">public:</span>
+
+        <span class="n">FrameProcessingThread</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">)</span>
+            <span class="o">:</span> <span class="n">QThread</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="p">{}</span>
+
+        <span class="kt">void</span> <span class="n">run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">static</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>     <span class="c1">// Posición último frame extraido</span>
+
+            <span class="n">mutex</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>          <span class="c1">// Bloqueamos el cerrojo</span>
+            <span class="c1">// El código del consumidor a partir de este punto y</span>
+            <span class="c1">// hasta el unlock() no se ejecutará si el productor ha</span>
+            <span class="c1">// bloqueado el cerrojo primero.</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">numUsedBufferItems</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>     <span class="c1">// ¿Cola vacía?...</span>
+                <span class="n">bufferNotEmpty</span><span class="p">.</span><span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span> <span class="c1">// Dormir si es así</span>
+
+            <span class="n">mutex</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>        <span class="c1">// Liberar el cerrojo</span>
+
+            <span class="n">QImage</span> <span class="n">image</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="o">++</span><span class="n">i</span> <span class="o">%</span> <span class="n">BufferSize</span><span class="p">];</span>
+
+            <span class="n">mutex</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>                    <span class="c1">// Bloquear el cerrojo</span>
+            <span class="c1">// El código del consumidor a partir de este punto y</span>
+            <span class="c1">// hasta el unlock() no se ejecutará si el productor ha</span>
+            <span class="c1">// bloqueado el cerrojo primero.</span>
+
+            <span class="o">--</span><span class="n">numUsedBufferItems</span><span class="p">;</span>
+            <span class="n">bufferNotFull</span><span class="p">.</span><span class="n">wakeAll</span><span class="p">();</span>  <span class="c1">// Despertar al productor si</span>
+                                        <span class="c1">// esperaba por un hueco.</span>
+
+            <span class="n">mutex</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>        <span class="c1">// Liberar el cerrojo</span>
+
+            <span class="c1">// Aquí va el código para procesar el frame...</span>
+        <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<h3>La función principal</h3>
+<p>Finalmente es en la función principal del programa <code>main()</code> donde debe crearse
+el hilo encargado del procesamiento de los <em>frames</em>. Es decir, nuestro
+consumidor.</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">QApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+    <span class="n">FrameProcessingThread</span> <span class="n">frameProcessingThread</span><span class="p">;</span>
+    <span class="n">frameProcessingThread</span><span class="p">.</span><span class="n">start</span><span class="p">();</span>
+
+    <span class="n">MyWindow</span> <span class="n">w</span><span class="p">;</span>
+    <span class="n">w</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h1>Referencias</h1>
+<ol>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/threads-starting.html">Starting Threads with QThread</a></li>
+<li><a href="http://qt-project.org/doc/qt-4.8/threads-waitconditions.html">Wait Conditions Example</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Producer-consumer_problem">Producer-consumer problem</a></li>
+</ol></div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
+
+    <li class="active"><a href="../tag/condicion-de-espera.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Sitio
+                </li>
+            
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categorias
+                </li>
+                
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://github.com/ull-etsii-sistemas-operativos/">github</a></li>
+                                <li><a href="http://plus.google.com/u/0/communities/112085352199958768374">google+</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml">atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml">rss</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+<ul class="nav nav-list">
+    <li class="nav-header">
+    Búsqueda de Google
+    </li>
+
+    <script type="text/javascript">
+    (function() {
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.es/cse/cse.js?cx=' + '013894742475483232300:q2-5a1zlira';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
+    <gcse:search>Cargando...</gcse:search>
+</ul>
+</div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es"><img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />Este obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es">Licencia Creative Commons Atribución 3.0 Unported</a>.</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

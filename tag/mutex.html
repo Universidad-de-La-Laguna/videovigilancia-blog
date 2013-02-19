@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Introducción al uso de hilos en Qt - Sistema de Videovigilancia from Scratch</title>
+    <title>mutex - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,17 +50,23 @@
     <div class="row">
 
         <div class="span9">
-            <div class='article'>
+                
+
+        
+
+
+    <div class='article'>
         <div class="content-title">
-            <h1>Introducción al uso de hilos en Qt</h1>
+            <a href="../introduccion-al-uso-de-hilos-en-qt.html"><h1>Introducción al uso de hilos en Qt</h1></a>
             sáb 16 febrero 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
+ 
         </div>
-	
+        
         <div><p>Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
 larga duración en los <em>slots</em>. Si lo hiciéramos la ejecución tardaría en
 volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
@@ -79,7 +85,7 @@ En este sentido el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthr
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="k">protected</span><span class="o">:</span>
+    <span class="nl">protected:</span>
         <span class="kt">void</span> <span class="n">run</span><span class="p">();</span>
 <span class="p">};</span>
 
@@ -237,7 +243,7 @@ al del productor:</p>
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="k">public</span><span class="o">:</span>
+    <span class="nl">public:</span>
 
         <span class="n">FrameProcessingThread</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">)</span>
             <span class="o">:</span> <span class="n">QThread</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
@@ -280,7 +286,7 @@ al del productor:</p>
 <p>Finalmente es en la función principal del programa <code>main()</code> donde debe crearse
 el hilo encargado del procesamiento de los <em>frames</em>. Es decir, nuestro
 consumidor.</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
     <span class="n">FrameProcessingThread</span> <span class="n">frameProcessingThread</span><span class="p">;</span>
@@ -300,11 +306,21 @@ consumidor.</p>
 <li><a href="http://qt-project.org/doc/qt-4.8/threads-waitconditions.html">Wait Conditions Example</a></li>
 <li><a href="http://en.wikipedia.org/wiki/Producer-consumer_problem">Producer-consumer problem</a></li>
 </ol></div>
-	
-        <hr>
-    	   
-        <h2>Comentarios</h2>
-			    </div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
+
+    <li class="active"><a href="../tag/mutex.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
+
+</ul>
+</div>    
+ 
+  
         </div>
         
         <div class="span3">
