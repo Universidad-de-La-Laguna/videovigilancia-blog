@@ -1,7 +1,6 @@
 Title: Introducción al uso de hilos en Qt
 Tags: qt, hilos, mutex, condición de espera, variables de condición, productor-consumidor, buffer finito
 Date: 2013-02-16
-Status: draft
 
 Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
 larga duración en los _slots_. Si lo hiciéramos la ejecución tardaría en
