@@ -51,6 +51,7 @@ class Sorter : public QObject
 
     public:
         Sorter();
+        ~Sorter();
 
         // Ordenar asíncronamente un vector en el hilo de trabajo
         void sortAsync(const QVector<int>& list);
@@ -107,6 +108,14 @@ Sorter::Sorter() : QObject()
     workingThread_.start();
 }
 
+Sorter::~Sorter()
+{
+    // Le decimos al bucle de mensajes del hilo que se detenga
+    workingThread_.quit();
+    // Ahora esperamos a que el hilo de trabajo termine
+    workingThread_.wait();
+}
+
 void Sorter::sortAsync(const QVector<int>& list)
 {
     qDebug() << Q_FUNC_INFO << QThread::currentThreadId();
@@ -125,6 +134,12 @@ Como se puede observar, en el constructor de `Sorter` se usa el método
 `QVector<int>`. Esto debe hacerse porque cuando una señal es encolada sus
 parámetros deben ser de tipos conocidos para [Qt], de forma que pueda
 almacenar los argumentos en la cola.
+
+Por otro lado en el destructor de `Sorter` tenemos cuidado de detener
+el hilo de trabajo en condiciones seguras cuando ya no va a ser necesario.
+Si no lo hacemos así, el hilo podría ser destruido por el sistema operativo
+en cualquier punto de la secuencia de instrucciones al termina la aplicación,
+lo que podría dejar los datos en uso en un estado indeterminado.
 
 ## La clase SorterWorker
 
