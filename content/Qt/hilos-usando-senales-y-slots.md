@@ -75,7 +75,7 @@ class Sorter : public QObject
 La propia clase `Sorter` se hará cargo de crear el hilo de trabajo, que por
 defecto lo único que hace es iterar en su propio bucle de mensajes. Todos
 los detalles acerca de la creación de hilos ya los vimos
-[anteriormente]([anteriormente](|filename|/Qt/hilos-en-qt.md))
+[anteriormente](|filename|/Qt/hilos-en-qt.md)
 
 La clase `Sorter` provee un método `sortAsync()` que podrá ser llamado por
 los clientes para ordenar un vector de números enteros. Puesto que la operación
