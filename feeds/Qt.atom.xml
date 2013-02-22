@@ -61,7 +61,7 @@ clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigil
 &lt;p&gt;La propia clase &lt;code&gt;Sorter&lt;/code&gt; se hará cargo de crear el hilo de trabajo, que por
 defecto lo único que hace es iterar en su propio bucle de mensajes. Todos
 los detalles acerca de la creación de hilos ya los vimos
-&lt;a href="[anteriormente](|filename|/Qt/hilos-en-qt.md)"&gt;anteriormente&lt;/a&gt;&lt;/p&gt;
+&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;anteriormente&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;La clase &lt;code&gt;Sorter&lt;/code&gt; provee un método &lt;code&gt;sortAsync()&lt;/code&gt; que podrá ser llamado por
 los clientes para ordenar un vector de números enteros. Puesto que la operación
 es asíncrona, necesitamos definir un &lt;em&gt;slot&lt;/em&gt; &lt;code&gt;vectorSorted()&lt;/code&gt; para ser
