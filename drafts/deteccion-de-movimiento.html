@@ -136,7 +136,7 @@ el proyecto <a href="https://github.com/dbzhang800/QtOpenCV" title="QtOpenCV">Qt
 </li>
 <li>
 <p>Abrir el archivo <code>.pro</code> del proyecto y añadir al final la línea:</p>
-<div class="codehilite"><pre><span class="n">include</span><span class="p">(</span><span class="n">QtOpenCV</span><span class="o">.</span><span class="n">pri</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="n">include</span><span class="p">(</span><span class="n">QtOpenCV</span><span class="p">.</span><span class="n">pri</span><span class="p">)</span>
 </pre></div>
 
 
@@ -155,7 +155,7 @@ se definen dos funciones:</p>
                       <span class="kt">int</span> <span class="n">channels</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
                       <span class="n">MatChannelOrder</span> <span class="n">rgbOrder</span> <span class="o">=</span> <span class="n">MCO_BGR</span><span class="p">);</span>
     <span class="c1">// format == QImage::Format_Invalid significa autodetección</span>
-    <span class="n">QImage</span> <span class="n">mat2Image</span><span class="p">(</span><span class="k">const</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="o">&amp;</span><span class="n">mat</span><span class="p">,</span>
+    <span class="n">QImage</span> <span class="nf">mat2Image</span><span class="p">(</span><span class="k">const</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="o">&amp;</span><span class="n">mat</span><span class="p">,</span>
                      <span class="n">QImage</span><span class="o">::</span><span class="n">Format</span> <span class="n">format</span> <span class="o">=</span> <span class="n">QImage</span><span class="o">::</span><span class="n">Format_Invalid</span><span class="p">,</span>
                      <span class="n">MatChannelOrder</span> <span class="n">rgbOrder</span> <span class="o">=</span> <span class="n">MCO_BGR</span><span class="p">);</span>
 <span class="p">}</span>
@@ -172,7 +172,7 @@ dicha:</p>
 <p>El archivo <a href="https://github.com/dbzhang800/QtOpenCV/blob/master/QtOpenCV.pri" title="QtOpenCV.pri">QtOpenCV.pri</a> incluido anteriormente a su vez incluye a
 <a href="https://github.com/dbzhang800/QtOpenCV/blob/master/opencv.pri" title="opencv.pri">opencv.pri</a>, cuya labor es facilitar el añadir <a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a> al proyecto. Lo único
 que tenemos que hacer es editar el archivo <code>.pro</code> e incorporar al final la línea:</p>
-<div class="codehilite"><pre><span class="n">add_opencv_modules</span><span class="p">(</span><span class="n">core</span> <span class="n">video</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="n">add_opencv_modules</span><span class="p">(</span><span class="n">core</span> <span class="n">video</span> <span class="n">imgproc</span><span class="p">)</span>
 </pre></div>
 
 
