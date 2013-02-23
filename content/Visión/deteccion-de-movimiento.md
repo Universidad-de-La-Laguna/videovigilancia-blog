@@ -6,9 +6,10 @@ PlusActivityId: z12mjdhzwsaftzum422egliyvmyrubrkf
 Detectar movimiento en una secuencia de vídeo es una tarea relativamente simple
 que puede abordarse en unos pocos pasos:
 
- 1. **Supresión del fondo**. Consiste en estimar un modelo del fondo y comparalo
+ 1. **Supresión del fondo**. Consiste en estimar un modelo del fondo y compararlo
 con el _frame_ actual para detectar cambios. El resultado es una imagen binaria
-donde los píxeles se clasifican entre si son del fondo o del primer plano.
+donde los píxeles se clasifican entre si forman parte del fondo o son del
+primer plano.
 
  2. **Operaciones morfológicas**. En la imagen resultado de la operación anterior
 suelen aparecer regiones de pequeño tamaño marcadas como de primer plano debido
@@ -31,7 +32,7 @@ están perfectamente documentados de manera muy comprensible en Internet:
 
  * **Operaciones morfológicas**
     * Wikipedia - [Morfología matemática](http://es.wikipedia.org/wiki/Morfolog%C3%ADa_matem%C3%A1tica)
-    * Universidad Carlos III de Madrid - [Operaciones Morfológicas](es/imagine/Curso_ProcesadoMorfologico/Contenido/Operaciones/OperacionesMorfologicas.html)
+    * Universidad Carlos III de Madrid - [Operaciones Morfológicas](http://www.tsc.uc3m.es/imagine/Curso_ProcesadoMorfologico/Contenido/Operaciones/OperacionesMorfologicas.html)
 
  * **Extracción de blobs**
     * Wikipedia - [Connected-component labeling](http://en.wikipedia.org/wiki/Blob_extraction)
