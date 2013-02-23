@@ -136,7 +136,7 @@ el proyecto <a href="https://github.com/dbzhang800/QtOpenCV" title="QtOpenCV">Qt
 </li>
 <li>
 <p>Abrir el archivo <code>.pro</code> del proyecto y añadir al final la línea:</p>
-<div class="codehilite"><pre><span class="n">include</span><span class="p">(</span><span class="n">QtOpenCV</span><span class="p">.</span><span class="n">pri</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="n">include</span><span class="p">(</span><span class="n">QtOpenCV</span><span class="o">.</span><span class="n">pri</span><span class="p">)</span>
 </pre></div>
 
 
@@ -155,7 +155,7 @@ se definen dos funciones:</p>
                       <span class="kt">int</span> <span class="n">channels</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
                       <span class="n">MatChannelOrder</span> <span class="n">rgbOrder</span> <span class="o">=</span> <span class="n">MCO_BGR</span><span class="p">);</span>
     <span class="c1">// format == QImage::Format_Invalid significa autodetección</span>
-    <span class="n">QImage</span> <span class="nf">mat2Image</span><span class="p">(</span><span class="k">const</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="o">&amp;</span><span class="n">mat</span><span class="p">,</span>
+    <span class="n">QImage</span> <span class="n">mat2Image</span><span class="p">(</span><span class="k">const</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="o">&amp;</span><span class="n">mat</span><span class="p">,</span>
                      <span class="n">QImage</span><span class="o">::</span><span class="n">Format</span> <span class="n">format</span> <span class="o">=</span> <span class="n">QImage</span><span class="o">::</span><span class="n">Format_Invalid</span><span class="p">,</span>
                      <span class="n">MatChannelOrder</span> <span class="n">rgbOrder</span> <span class="o">=</span> <span class="n">MCO_BGR</span><span class="p">);</span>
 <span class="p">}</span>
@@ -226,6 +226,64 @@ finalizada la incorporación de la librería.</p>
 </li>
 </ul>
 <h2>Detección de movimiento</h2>
+<p>Con acceso a las clases y funciones de <a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a> podemos pasar a resolver el
+problema que nos habíamos propuesto. Detectar movimiento en una secuencia de
+vídeo.</p>
+<p>Como ocurre con muchas otras tareas en el campo de la visión por computador,
+esta se puede resolver de múltiples maneras. Además es muy común que en cada
+técnica posible haya una decena de parámetros que den resultados diferentes
+según como los ajustemos.</p>
+<p>Nosotros nos centraremos en una concreta:</p>
+<div class="codehilite"><pre><span class="c1">// std::vector&lt;cv::Mat&gt; images = &lt;vector de imágenes en cv::Mat&gt;</span>
+
+<span class="c1">// Definimos algunos tipos para que el código se lea mejor</span>
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">&gt;</span> <span class="n">ImagesType</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Point</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">ContoursType</span><span class="p">;</span>
+
+<span class="c1">// Instancia de la clase del sustractor de fondo</span>
+<span class="n">cv</span><span class="o">::</span><span class="n">BackgroundSubtractorMOG2</span> <span class="n">backgroundSubtractor</span><span class="p">;</span>
+<span class="n">backgroundSubtractor</span><span class="p">.</span><span class="n">nmixtures</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="c1">// Desactivar la detección de sombras</span>
+<span class="n">backgroundSubtractor</span><span class="p">.</span><span class="n">bShadowDetection</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>  
+
+<span class="k">for</span> <span class="p">(</span><span class="n">ImagesTypes</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">images</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">images</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Sustracción del fondo:</span>
+    <span class="c1">//  1. El objeto sustractor compara la imagen en i con su</span>
+    <span class="c1">//     estimación del fondo y devuelve en foregroundMask una</span>
+    <span class="c1">//     máscara (imagen binaria) con un 1 en los píxeles de</span>
+    <span class="c1">//     primer plano.</span>
+    <span class="c1">//  2. El objeto sustractor actualiza su estimación del fondo</span>
+    <span class="c1">//     usando la imagen en i.</span>
+    <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="n">foregroundMask</span><span class="p">;</span>
+    <span class="n">backgroundSubtractor</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="n">foregroundMask</span><span class="p">);</span>
+
+    <span class="c1">// Operaciones morfolóficas para eliminar las regiones de</span>
+    <span class="c1">// pequeño tamaño. Erode() las encoge y dilate() las vuelve a</span>
+    <span class="c1">// agrandar.</span>
+    <span class="n">cv</span><span class="o">::</span><span class="n">erode</span><span class="p">(</span><span class="n">foregroundMask</span><span class="p">,</span> <span class="n">foregroundMask</span><span class="p">,</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="p">());</span>
+    <span class="n">cv</span><span class="o">::</span><span class="n">dilate</span><span class="p">(</span><span class="n">foregroundMask</span><span class="p">,</span> <span class="n">foregroundMask</span><span class="p">,</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="p">());</span>
+
+    <span class="c1">// Obtener los contornos que bordean las regiones externas</span>
+    <span class="c1">// (CV_RETR_EXTERNAL) encontradas. Cada contorno es un vector</span>
+    <span class="c1">// de puntos y se devuelve uno por región en la máscara.</span>
+    <span class="n">ContoursType</span> <span class="n">contours</span><span class="p">;</span>
+    <span class="n">cv</span><span class="o">::</span><span class="n">findContours</span><span class="p">(</span><span class="n">foregroundMask</span><span class="p">,</span> <span class="n">contours</span><span class="p">,</span> <span class="n">CV_RETR_EXTERNAL</span><span class="p">,</span>
+                     <span class="n">CV_CHAIN_APPROX_NONE</span><span class="p">);</span>
+
+    <span class="c1">// Código que usa los contornos encontrados. P. ej. usar</span>
+    <span class="c1">// cv::boundingRect() para obtener el cuadro delimitador</span>
+    <span class="c1">// de cada uno</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Donde suponemos que previamente hemos convertido todas las imágenes de
+<a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a> a cv::Mat y las hemos almacenado en un vector.</p>
+<p>Al final de cada iteración del bucle tenemos para cada imagen un vector de
+contornos, donde cada uno es un vector puntos. Con los contornos se pueden
+hacer múltiples operaciones. Por ejemplo calcular el rectángulo que contiene
+a cada uno (<em>bounding box</em>) con <a href="http://opencv.willowgarage.com/documentation/cpp/structural_analysis_and_shape_descriptors.html#cv-boundingrect" title="cv::boundingRect">cv::boundingRect</a>() para pintarlos sobre
+la imagen antes de mostrársela al usuario.</p>
 <h2>Referencias</h2>
 <ol>
 <li><a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a></li>

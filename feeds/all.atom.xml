@@ -34,22 +34,22 @@ clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigil
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
-    &lt;span class="nl"&gt;public:&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
         &lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
         &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
         &lt;span class="c1"&gt;// Ordenar asíncronamente un vector en el hilo de trabajo&lt;/span&gt;
-        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;sortAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;sortAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
     &lt;span class="nl"&gt;signals:&lt;/span&gt;
         &lt;span class="c1"&gt;// Señal para comunicarnos con el hilo de trabajo&lt;/span&gt;
-        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="nl"&gt;slots:&lt;/span&gt;
         &lt;span class="c1"&gt;// Slot para saber cuando el vector ha sido ordenado&lt;/span&gt;
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="nl"&gt;private:&lt;/span&gt;
+    &lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
         &lt;span class="c1"&gt;// Clase del hilo de trabajo&lt;/span&gt;
         &lt;span class="n"&gt;QThread&lt;/span&gt; &lt;span class="n"&gt;workingThread_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="c1"&gt;// Clase que hace el ordenamiento&lt;/span&gt;
@@ -102,7 +102,7 @@ notificados cuando el ordenamiento haya finalizado con éxito.&lt;/p&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;Q_FUNC_INFO&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;currentThreadId&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
-    &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="nf"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="n"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -131,14 +131,14 @@ lo que podría dejar los datos en uso en un estado indeterminado.&lt;/p&gt;
         &lt;span class="c1"&gt;// Señal emitida cuando el vector ha sido ordenado&lt;/span&gt;
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nl"&gt;slots:&lt;/span&gt;
         &lt;span class="c1"&gt;// Método encargado del ordenamiento&lt;/span&gt;
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;doSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
             &lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;Q_FUNC_INFO&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;currentThreadId&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
             &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;list_sorted&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
             &lt;span class="n"&gt;qSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list_sorted&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="nf"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list_sorted&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list_sorted&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
         &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -147,7 +147,7 @@ lo que podría dejar los datos en uso en un estado indeterminado.&lt;/p&gt;
 &lt;h2&gt;Como usar el ejemplo&lt;/h2&gt;
 &lt;p&gt;Para usar el ejemplo sólo necesitamos crear una instancia de &lt;code&gt;Sorter&lt;/code&gt; y
 llamar a su método &lt;code&gt;sortAsync()&lt;/code&gt; para pedir que ordene el vector especificado.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;QCoreApplication&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
@@ -190,7 +190,7 @@ En este sentido el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/q
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
-    &lt;span class="nl"&gt;protected:&lt;/span&gt;
+    &lt;span class="k"&gt;protected&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 
@@ -348,7 +348,7 @@ al del productor:&lt;/p&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
-    &lt;span class="nl"&gt;public:&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
 
         &lt;span class="n"&gt;FrameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
             &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -391,7 +391,7 @@ al del productor:&lt;/p&gt;
 &lt;p&gt;Finalmente es en la función principal del programa &lt;code&gt;main()&lt;/code&gt; donde debe crearse
 el hilo encargado del procesamiento de los &lt;em&gt;frames&lt;/em&gt;. Es decir, nuestro
 consumidor.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;QApplication&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="n"&gt;FrameProcessingThread&lt;/span&gt; &lt;span class="n"&gt;frameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -538,7 +538,7 @@ multimedia, es mejor utilizar el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http
 &lt;h2&gt;Primeros pasos&lt;/h2&gt;
 &lt;p&gt;La forma más sencilla de usar &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; es asignar un objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; a un
 control &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt; usando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()"&gt;setMovie&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QMovie&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;movie&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;video.mjpeg&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QMovie&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;movie&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;video.mjpeg&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -554,13 +554,13 @@ escoja de entre los disponibles en su disco duro podemos:&lt;/p&gt;
 &lt;p&gt;Crear un objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;, guardarlo en un miembro de la clase (manteniendo
  así un puntero al mismo que nos permita referenciarlo más adelante&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;) y asignar
  dicho objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; a &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QWidget&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QMainWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-      &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Ui&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nn"&gt;MovieViewerWindow::&lt;/span&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QWidget&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QMainWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+      &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nn"&gt;Ui::&lt;/span&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// Aquí otro código de inicialización de la instancia...&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Aqu&lt;/span&gt;&lt;span class="err"&gt;í&lt;/span&gt; &lt;span class="n"&gt;otro&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;digo&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;inicializaci&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;instancia&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
 
-    &lt;span class="n"&gt;movie_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;movie_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
     &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -571,24 +571,24 @@ escoja de entre los disponibles en su disco duro podemos:&lt;/p&gt;
 &lt;p&gt;En el slot de la acción que abre el cuadro de diálogo &lt;em&gt;abrir archivo&lt;/em&gt;,
  asignar al objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; el nombre escogido por el usuario mediante el
  método &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#setFileName" title="QMovie::setFileName()"&gt;setFileName&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;on_actionOpen_triggered&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="nn"&gt;MovieViewerWindow::&lt;/span&gt;&lt;span class="n"&gt;on_actionOpen_triggered&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// Aquí el código que abre el cuadro de diálogo y comprueba si&lt;/span&gt;
-    &lt;span class="c1"&gt;// el usuario seleccionó algún archivo...&lt;/span&gt;
-    &lt;span class="c1"&gt;//&lt;/span&gt;
-    &lt;span class="c1"&gt;// QString fileName = QFileDialog::getFileName(...);&lt;/span&gt;
-    &lt;span class="c1"&gt;//&lt;/span&gt;
-    &lt;span class="c1"&gt;// ...&lt;/span&gt;
-    &lt;span class="c1"&gt;//&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Aqu&lt;/span&gt;&lt;span class="err"&gt;í&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;digo&lt;/span&gt; &lt;span class="n"&gt;que&lt;/span&gt; &lt;span class="n"&gt;abre&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;cuadro&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;di&lt;/span&gt;&lt;span class="err"&gt;á&lt;/span&gt;&lt;span class="n"&gt;logo&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;comprueba&lt;/span&gt; &lt;span class="n"&gt;si&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;usuario&lt;/span&gt; &lt;span class="n"&gt;seleccion&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt; &lt;span class="n"&gt;alg&lt;/span&gt;&lt;span class="err"&gt;ú&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;archivo&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;QString&lt;/span&gt; &lt;span class="n"&gt;fileName&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nn"&gt;QFileDialog::&lt;/span&gt;&lt;span class="n"&gt;getFileName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt;
 
     &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setFileName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fileName&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;isValid&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;QMessageBox&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;critical&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-            &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;No se pudo abrir el archivo o el formato&amp;quot;&lt;/span&gt;
+        &lt;span class="nn"&gt;QMessageBox::&lt;/span&gt;&lt;span class="n"&gt;critical&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+            &lt;span class="nb"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;No se pudo abrir el archivo o el formato&amp;quot;&lt;/span&gt;
                &lt;span class="s"&gt;&amp;quot; es inválido&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;    &lt;span class="c1"&gt;// Iniciar la reproducción de la animación&lt;/span&gt;
+    &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Iniciar&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;reproducci&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;animaci&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -613,7 +613,7 @@ desarrolladores de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/v
 método nos permitiría conectarlo a una señal emitida desde otro control.&lt;/p&gt;
 &lt;p&gt;Por ejemplo, si tuvieramos un botón de &lt;em&gt;play&lt;/em&gt; podríamos conectar su señal
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qabstractbutton.html#clicked" title="QAbstractButton::clicked"&gt;clicked&lt;/a&gt;() al slot &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()"&gt;start&lt;/a&gt;() de la siguiente manera:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;playButton&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clicked&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nb"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;playButton&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clicked&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -633,9 +633,9 @@ la reproducción, este nunca funcionaría porque la aplicación no volvería al 
 de mensajes hasta que la reproducción no hubiera terminado.&lt;/p&gt;
 &lt;p&gt;Podemos comprobar esto añadiendo una espera justo después de invocar el
 &lt;em&gt;slot&lt;/em&gt; &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()"&gt;start&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QWaitCondition&lt;/span&gt; &lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QWaitCondition&lt;/span&gt; &lt;span class="nb"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;QMutex&lt;/span&gt; &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// Espera de 2 segundos&lt;/span&gt;
+&lt;span class="nb"&gt;sleep&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Espera&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="n"&gt;segundos&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -652,14 +652,14 @@ actual cambia.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Declaramos un &lt;em&gt;slot&lt;/em&gt; para que reciba la señal &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()"&gt;updated&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;private&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="c1"&gt;// Otros slots...&lt;/span&gt;
-    &lt;span class="c1"&gt;//&lt;/span&gt;
-    &lt;span class="c1"&gt;// void on_actionOpen_triggered();&lt;/span&gt;
-    &lt;span class="c1"&gt;//&lt;/span&gt;
-    &lt;span class="c1"&gt;// ...&lt;/span&gt;
-    &lt;span class="c1"&gt;//&lt;/span&gt;
-    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;private&lt;/span&gt; &lt;span class="n"&gt;slots:&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Otros&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;on_actionOpen_triggered&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt;
+    &lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -670,7 +670,7 @@ imagen mostrada por el control &lt;a href="http://qt-project.org/doc/qt-5.0/qtwi
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setPixmap" title="QLabel::setPixmap()"&gt;setPixmap&lt;/a&gt;() permite indicar al objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt; que imagen queremos
 mostrar. Mientras que &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#currentPixmap" title="QMovie::currentPixmap()"&gt;currentPixmap&lt;/a&gt;() nos permite obtener el último
 &lt;em&gt;frame&lt;/em&gt; del objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; en formato &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap"&gt;QPixmap&lt;/a&gt;:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="nn"&gt;MovieViewerWindow::&lt;/span&gt;&lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;QPixmap&lt;/span&gt; &lt;span class="n"&gt;pixmap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;currentPixmap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
     &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setPixmap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pixmap&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -683,10 +683,10 @@ mostrar. Mientras que &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.
 &lt;p&gt;Suprimimos el uso del método &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()"&gt;setMovie&lt;/a&gt;(), para que el
 objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt; no sepa nada de nuestra animación, y conectamos la señal
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()"&gt;updated&lt;/a&gt;() con nuestro nuevo slot:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;    &lt;span class="n"&gt;movie_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-    &lt;span class="c1"&gt;// ui-&amp;gt;label-&amp;gt;setMovie(movie_);&lt;/span&gt;
-    &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
-            &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;    &lt;span class="n"&gt;movie_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nb"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+            &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -757,10 +757,10 @@ de las basadas en Debian.&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;Paquetes de desarrollo.&lt;/strong&gt; En el sistema deben estar instalados una serie
 de paquetes utilizados habitualmente en tareas de desarrollo. En un sistema
 basado en Debian deberían poder instalarse con el siguiente comando:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;cvs&lt;/span&gt; &lt;span class="n"&gt;subversion&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt; &lt;span class="n"&gt;coreutils&lt;/span&gt; \
-&lt;span class="n"&gt;unzip&lt;/span&gt; &lt;span class="n"&gt;texi2html&lt;/span&gt; &lt;span class="n"&gt;texinfo&lt;/span&gt; &lt;span class="n"&gt;libsdl1&lt;/span&gt;&lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;docbook&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;gawk&lt;/span&gt; \
-&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pysqlite2&lt;/span&gt; &lt;span class="n"&gt;diffstat&lt;/span&gt; &lt;span class="n"&gt;help2man&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;essential&lt;/span&gt; \
-&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="n"&gt;desktop&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;chrpath&lt;/span&gt; &lt;span class="n"&gt;libgl1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libglu1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; \
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;cvs&lt;/span&gt; &lt;span class="n"&gt;subversion&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt; &lt;span class="n"&gt;coreutils&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+&lt;span class="n"&gt;unzip&lt;/span&gt; &lt;span class="n"&gt;texi2html&lt;/span&gt; &lt;span class="n"&gt;texinfo&lt;/span&gt; &lt;span class="n"&gt;libsdl1&lt;/span&gt;&lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;docbook&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;gawk&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pysqlite2&lt;/span&gt; &lt;span class="n"&gt;diffstat&lt;/span&gt; &lt;span class="n"&gt;help2man&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;essential&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="n"&gt;desktop&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;chrpath&lt;/span&gt; &lt;span class="n"&gt;libgl1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libglu1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
 &lt;span class="n"&gt;mercurial&lt;/span&gt; &lt;span class="n"&gt;autoconf&lt;/span&gt; &lt;span class="n"&gt;automake&lt;/span&gt; &lt;span class="n"&gt;groff&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -779,8 +779,8 @@ incluyendo las herramienta de desarrollo para la misma:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Descargar el sistema de construcción &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; de la última versión del
 proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; y descomprimirla:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;jxf&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="n"&gt;downloads&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;yoctoproject&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="sr"&gt;/releases/&lt;/span&gt;&lt;span class="n"&gt;yocto&lt;/span&gt;&lt;span class="sr"&gt;/yocto-1.3/&lt;/span&gt;&lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;
+&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;jxf&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -788,7 +788,7 @@ proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigila
 &lt;li&gt;
 &lt;p&gt;Crear el directorio &lt;code&gt;raspberry-pi-build&lt;/code&gt; donde construir la imagen y
 configurar las variables de entorno necesarias:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;oe&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;source&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;oe&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -798,14 +798,14 @@ configurar las variables de entorno necesarias:&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;minimal&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;minimal&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;La imagen construida puede ejecutarse en &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt; de la siguiente manera:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;runqemu&lt;/span&gt; &lt;span class="n"&gt;qemux86&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;runqemu&lt;/span&gt; &lt;span class="n"&gt;qemux86&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -834,15 +834,15 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;li&gt;
 &lt;p&gt;Clonar localmente el repositorio &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; fuera del directorio
 &lt;code&gt;raspberry-pi-build&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/djwillis/meta-raspberrypi.git&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https:&lt;/span&gt;&lt;span class="sr"&gt;//gi&lt;/span&gt;&lt;span class="n"&gt;thub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="sr"&gt;/djwillis/m&lt;/span&gt;&lt;span class="n"&gt;eta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Cambiar a la rama &lt;strong&gt;danny&lt;/strong&gt; que es la de la versión de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; que estamos usando:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="n"&gt;danny&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;
+&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="n"&gt;danny&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -851,7 +851,7 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;p&gt;Buscar la variable &lt;code&gt;BBLAYERS&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/bblayers.conf&lt;/code&gt; y añadir
 al final la ruta hasta el repositorio de la capa &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; para incluirla
 en el proceso de construcción. Por ejemplo:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="o"&gt;?=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto-bsp \&lt;/span&gt;
@@ -864,15 +864,15 @@ en el proceso de construcción. Por ejemplo:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Buscar la variable &lt;code&gt;MACHINE&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/local.conf&lt;/code&gt; e indicar que
 la máquina de destino de la imagen es &lt;code&gt;raspberrypi&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="o"&gt;?=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
+&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -881,7 +881,7 @@ Mientras que la imagen alternativa &lt;code&gt;rpi-hwup-image&lt;/code&gt; no co
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Transferir la imagen construida a la tarjeta SD.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;deploy&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;images&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sdimg&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;ruta&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;la&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sd&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="sr"&gt;/deploy/im&lt;/span&gt;&lt;span class="n"&gt;ages&lt;/span&gt;&lt;span class="sr"&gt;/rpi-basic-image-raspberrypi.rpi-sdimg of=/&lt;/span&gt;&lt;span class="n"&gt;ruta&lt;/span&gt;&lt;span class="sr"&gt;/a/&lt;/span&gt;&lt;span class="n"&gt;la&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sd&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 

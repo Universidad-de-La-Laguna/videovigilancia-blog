@@ -85,7 +85,7 @@ En este sentido el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthr
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="nl">protected:</span>
+    <span class="k">protected</span><span class="o">:</span>
         <span class="kt">void</span> <span class="n">run</span><span class="p">();</span>
 <span class="p">};</span>
 
@@ -243,7 +243,7 @@ al del productor:</p>
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="nl">public:</span>
+    <span class="k">public</span><span class="o">:</span>
 
         <span class="n">FrameProcessingThread</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">)</span>
             <span class="o">:</span> <span class="n">QThread</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
@@ -286,7 +286,7 @@ al del productor:</p>
 <p>Finalmente es en la función principal del programa <code>main()</code> donde debe crearse
 el hilo encargado del procesamiento de los <em>frames</em>. Es decir, nuestro
 consumidor.</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
     <span class="n">FrameProcessingThread</span> <span class="n">frameProcessingThread</span><span class="p">;</span>
