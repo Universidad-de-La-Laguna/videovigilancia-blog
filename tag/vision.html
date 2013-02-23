@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sistema de Videovigilancia from Scratch</title>
+    <title>visión - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="./theme/html5.js"></script>
+    <script src="../theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="./theme/bootstrap.min.css" rel="stylesheet">
-    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="./theme/local.css" rel="stylesheet">
-    <link href="./theme/pygments.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,12 +32,12 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
                         </ul>
         </div>
         
@@ -57,10 +57,10 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./deteccion-de-movimiento.html"><h1>Detección de movimiento</h1></a>
+            <a href="../deteccion-de-movimiento.html"><h1>Detección de movimiento</h1></a>
             mar 19 febrero 2013
 
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
@@ -122,11 +122,11 @@ algoritmos y del rendimiento, lo que puede dificultar el desarrollo. Por eso
 suele ser preferible utilizar una librería madura en lugar de hacer nuestra
 propia implementación.</p>
 <h2>OpenCV y Qt</h2>
-<p>Si estamos desarrollando una aplicación gráfica en <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> debemos tomar una serie
+<p>Si estamos desarrollando una aplicación gráfica en <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> debemos tomar una serie
 de medidas para poder emplear la librería <a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a> desde ella:</p>
 <h3>Conversión de QImage en cv::Mat</h3>
 <p>Las imágenes de las que haremos uso son instancias de la clase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>, propia
-del <em>framework</em> <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Sin embargo las funciones, clases y métodos de <a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a>
+del <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Sin embargo las funciones, clases y métodos de <a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a>
 esperan objetos <code>cv::Mat</code>. Para convertir entre un formato y otro podemos emplear
 el proyecto <a href="https://github.com/dbzhang800/QtOpenCV" title="QtOpenCV">QtOpenCV</a> de <a href="https://github.com/dbzhang800">Debao Zhang</a> (licencia
 <a href="http://es.wikipedia.org/wiki/MIT_License">MIT</a>)</p>
@@ -301,60 +301,13 @@ la imagen antes de mostrársela al usuario.</p>
         <hr />
     </div>
 		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./hilos-de-trabajo-usando-senales-y-slots.html"><h2>Hilos de trabajo usando señales y slots</h2></a>
-        <div class= "well small"> lun 18 febrero 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona clases para hilos y mecanismos de sincronización que facilitan
-sacar las tareas de larga duración del hilo principal de la aplicación, lo que
-de lo contrario bloquearía la interfaz de usuario.</p>
-<p>Una forma práctica de hacerlo la hemos visto <a href="./introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a>
-utilizando un <em>buffer</em> compartido. Sin embargo <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> provee ...</p> <a class="btn btn-info xsmall" href="./hilos-de-trabajo-usando-senales-y-slots.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./introduccion-al-uso-de-hilos-en-qt.html"><h2>Introducción al uso de hilos en Qt</h2></a>
-        <div class= "well small"> sáb 16 febrero 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
-larga duración en los <em>slots</em>. Si lo hiciéramos la ejecución tardaría en
-volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
-procesar nuevos eventos de los usuarios.</p>
-<p>Por eso lo habitual ...</p> <a class="btn btn-info xsmall" href="./introduccion-al-uso-de-hilos-en-qt.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
-    <li class="active"><a href="./index.html">1</a></li>
-    <li class=""><a href="./index2.html">2</a></li>
-    <li class=""><a href="./index3.html">3</a></li>
-    <li class=""><a href="./index4.html">4</a></li>
+    <li class="active"><a href="../tag/vision.html">1</a></li>
 
-    <li class="next"><a href="./index2.html">Next &rarr;</a></li>
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 
 </ul>
 </div>    
@@ -371,8 +324,8 @@ procesar nuevos eventos de los usuarios.</p>
                 Sitio
                 </li>
             
-                <li><a href="./archives.html">Archivos</a>
-                <li><a href="./tags.html">Etiquetas</a>
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -385,11 +338,11 @@ procesar nuevos eventos de los usuarios.</p>
                 Categorias
                 </li>
                 
-                                <li><a href="./category/hardware.html">Hardware</a></li>
-                                <li><a href="./category/linux.html">Linux</a></li>
-                                <li><a href="./category/overviews.html">Overviews</a></li>
-                                <li><a href="./category/qt.html">Qt</a></li>
-                                <li><a href="./category/vision.html">Visión</a></li>
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
+                                <li><a href="../category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>
