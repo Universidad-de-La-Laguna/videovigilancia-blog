@@ -146,6 +146,43 @@ de plataformas soportadas. Por lo general:
 los cambios correspondientes realizados. Debemos guardarlo para dar por
 finalizada la incorporación de la librería.
 
+## QImage vs QPixmap
+
+Una instancia de [QPixmap] es una representación de una imagen optimizada para
+ser mostrada. Esto significa que en muchos sistemas sus características
+dependen de las de la pantalla (p. ej. su profundida de color puede tener que
+ser la misma que la que actualmente tiene el adaptador gráfico: 8 bits,
+16 bits, 32 bits, etc.) y que internamente se implementa mediante algún tipo
+de objeto del lado del servidor gráfico cuya función es representar a las
+imágenes de cara al resto del sistema de ventanas. Por lo tanto, los píxeles
+de un objeto [QPixmap] no son accesibles directamente por parte del aplicación.
+
+Una instancia de [QImage] es una representación independiente del hardware de
+una imagen. Básicamente permite leer y escribir imágenes desde un archivo y
+manipular los píxeles directamente, sin que las características actuales del
+adaptador gráfico tengan nada que ver. Los datos de la imagen se almacenan
+en el lado de la aplicación, por lo que son accesibles a esta en todo momento.
+
+Normalmente la clase [QImage] se utiliza para cargar una imagen desde un
+archivo, opcionalmente manipular los píxeles y después convertirla a un
+objeto [QPixmap] para mostrarla en la pantalla.
+
+En nuestro caso existen dos motivos fundamentales para utilizar [QImage]
+en lugar de [QPixmap]:
+
+ * Para convertir la imagen a un objeto `cv::Mat` de [OpenCV] se necesita
+acceso a los datos de los píxeles. Como hemos comentado, eso sólo es posible
+con la clase [QImage].
+
+ * Generamente un objeto [QPixmap] encapsula el acceso a algún tipo de
+recurso del servidor gráfico, con el que la aplicación se comunica a través
+del hilo GUI (el hilo principal de la aplicación). Puesto que en muchos
+sistemas operativos no es seguro comunicarse con el servidor gráfico a través
+de un hilo diferente a ese, cualquier manipulación de un objeto [QPixmap]
+fuera del hilo principal puede dar lugar a efectos inesperados. Dado que
+queremos transferir las imágenes a un hilo de trabajo para su procesamiento,
+parece que lo más seguro es utilizar la clase [QImage].
+
 ## Detección de movimiento
 
 Con acceso a las clases y funciones de [OpenCV] desde nuestra aplicación,
@@ -167,6 +204,9 @@ typedef std::vector<cv::Mat> ImagesType;
 typedef std::vector<std::vector<cv::Point> > ContoursType;
 
 // Instancia de la clase del sustractor de fondo
+// cv::BackgroundSubtractorMOG2(history=500,
+//                              varThreshold=16,
+//                              bShadowDetection=true)
 cv::BackgroundSubtractorMOG2 backgroundSubtractor;
 backgroundSubtractor.nmixtures = 3;
 // Desactivar la detección de sombras
@@ -221,6 +261,7 @@ la imagen antes de mostrársela al usuario.
 [OpenCV]: http://opencv.willowgarage.com/wiki/ "OpenCV"
 [QtOpenCV]: https://github.com/dbzhang800/QtOpenCV "QtOpenCV"
 [QImage]: http://qt-project.org/doc/qt-5.0/qtgui/qimage.html "QImage"
+[QPixmap]: http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html "QPixmap"
 [cvmatandqimage.cpp]: https://github.com/dbzhang800/QtOpenCV/blob/master/cvmatandqimage.cpp "cvmatandqimage.cpp"
 [cvmatandqimage.h]: https://github.com/dbzhang800/QtOpenCV/blob/master/cvmatandqimage.h "cvmatandqimage.h"
 [QtOpenCV.pri]: https://github.com/dbzhang800/QtOpenCV/blob/master/QtOpenCV.pri "QtOpenCV.pri"
