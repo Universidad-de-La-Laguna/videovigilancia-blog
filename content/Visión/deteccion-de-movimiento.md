@@ -181,7 +181,7 @@ sistemas operativos no es seguro comunicarse con el servidor gráfico a través
 de un hilo diferente a ese, cualquier manipulación de un objeto [QPixmap]
 fuera del hilo principal puede dar lugar a efectos inesperados. Dado que
 queremos transferir las imágenes a un hilo de trabajo para su procesamiento,
-parece que lo más seguro es utilizar la clase [QImage].
+parece que lo más seguro es utilizar la clase [QImage][^1].
 
 ## Detección de movimiento
 
@@ -267,3 +267,6 @@ la imagen antes de mostrársela al usuario.
 [QtOpenCV.pri]: https://github.com/dbzhang800/QtOpenCV/blob/master/QtOpenCV.pri "QtOpenCV.pri"
 [opencv.pri]: https://github.com/dbzhang800/QtOpenCV/blob/master/opencv.pri "opencv.pri"
 [cv::boundingRect]: http://opencv.willowgarage.com/documentation/cpp/structural_analysis_and_shape_descriptors.html#cv-boundingrect "cv::boundingRect"
+
+[^1]: Más detalles en el mensaje [QPixmap: It is not safe to use pixmaps outside the GUI thread](http://lists.trolltech.com/qt-interest/2008-11/thread00534-0.html)
+de las listas de correo de [Qt].
