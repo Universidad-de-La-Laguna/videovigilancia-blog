@@ -200,7 +200,7 @@ sistemas operativos no es seguro comunicarse con el servidor gráfico a través
 de un hilo diferente a ese, cualquier manipulación de un objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap"&gt;QPixmap&lt;/a&gt;
 fuera del hilo principal puede dar lugar a efectos inesperados. Dado que
 queremos transferir las imágenes a un hilo de trabajo para su procesamiento,
-parece que lo más seguro es utilizar la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;.&lt;/p&gt;
+parece que lo más seguro es utilizar la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Detección de movimiento&lt;/h2&gt;
@@ -269,7 +269,16 @@ la imagen antes de mostrársela al usuario.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://opencv.willowgarage.com/wiki/" title="OpenCV"&gt;OpenCV&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/dbzhang800/QtOpenCV" title="QtOpenCV"&gt;QtOpenCV&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="visión"></category><category term="imágenes"></category><category term="opencv"></category><category term="qt. qimage"></category></entry><entry><title>Hilos de trabajo usando señales y slots</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html" rel="alternate"></link><updated>2013-02-18T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-18:hilos-de-trabajo-usando-senales-y-slots.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona clases para hilos y mecanismos de sincronización que facilitan
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;Más detalles en el mensaje &lt;a href="http://lists.trolltech.com/qt-interest/2008-11/thread00534-0.html"&gt;QPixmap: It is not safe to use pixmaps outside the GUI thread&lt;/a&gt;
+de las listas de correo de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</summary><category term="visión"></category><category term="imágenes"></category><category term="opencv"></category><category term="qt. qimage"></category></entry><entry><title>Hilos de trabajo usando señales y slots</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html" rel="alternate"></link><updated>2013-02-18T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-18:hilos-de-trabajo-usando-senales-y-slots.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona clases para hilos y mecanismos de sincronización que facilitan
 sacar las tareas de larga duración del hilo principal de la aplicación, lo que
 de lo contrario bloquearía la interfaz de usuario.&lt;/p&gt;
 &lt;p&gt;Una forma práctica de hacerlo la hemos visto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;anteriormente&lt;/a&gt;

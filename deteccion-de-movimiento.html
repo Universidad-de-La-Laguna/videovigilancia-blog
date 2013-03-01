@@ -262,7 +262,7 @@ sistemas operativos no es seguro comunicarse con el servidor gráfico a través
 de un hilo diferente a ese, cualquier manipulación de un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a>
 fuera del hilo principal puede dar lugar a efectos inesperados. Dado que
 queremos transferir las imágenes a un hilo de trabajo para su procesamiento,
-parece que lo más seguro es utilizar la clase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>.</p>
+parece que lo más seguro es utilizar la clase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>.</p>
 </li>
 </ul>
 <h2>Detección de movimiento</h2>
@@ -331,7 +331,16 @@ la imagen antes de mostrársela al usuario.</p>
 <ol>
 <li><a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a></li>
 <li><a href="https://github.com/dbzhang800/QtOpenCV" title="QtOpenCV">QtOpenCV</a></li>
-</ol></div>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Más detalles en el mensaje <a href="http://lists.trolltech.com/qt-interest/2008-11/thread00534-0.html">QPixmap: It is not safe to use pixmaps outside the GUI thread</a>
+de las listas de correo de <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
 	
         <hr>
     	   
