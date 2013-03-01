@@ -229,6 +229,42 @@ los cambios correspondientes realizados. Debemos guardarlo para dar por
 finalizada la incorporación de la librería.</p>
 </li>
 </ul>
+<h2>QImage vs QPixmap</h2>
+<p>Una instancia de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a> es una representación de una imagen optimizada para
+ser mostrada. Esto significa que en muchos sistemas sus características
+dependen de las de la pantalla (p. ej. su profundida de color puede tener que
+ser la misma que la que actualmente tiene el adaptador gráfico: 8 bits,
+16 bits, 32 bits, etc.) y que internamente se implementa mediante algún tipo
+de objeto del lado del servidor gráfico cuya función es representar a las
+imágenes de cara al resto del sistema de ventanas. Por lo tanto, los píxeles
+de un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a> no son accesibles directamente por parte del aplicación.</p>
+<p>Una instancia de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a> es una representación independiente del hardware de
+una imagen. Básicamente permite leer y escribir imágenes desde un archivo y
+manipular los píxeles directamente, sin que las características actuales del
+adaptador gráfico tengan nada que ver. Los datos de la imagen se almacenan
+en el lado de la aplicación, por lo que son accesibles a esta en todo momento.</p>
+<p>Normalmente la clase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a> se utiliza para cargar una imagen desde un
+archivo, opcionalmente manipular los píxeles y después convertirla a un
+objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a> para mostrarla en la pantalla.</p>
+<p>En nuestro caso existen dos motivos fundamentales para utilizar <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>
+en lugar de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a>:</p>
+<ul>
+<li>
+<p>Para convertir la imagen a un objeto <code>cv::Mat</code> de <a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a> se necesita
+acceso a los datos de los píxeles. Como hemos comentado, eso sólo es posible
+con la clase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>.</p>
+</li>
+<li>
+<p>Generamente un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a> encapsula el acceso a algún tipo de
+recurso del servidor gráfico, con el que la aplicación se comunica a través
+del hilo GUI (el hilo principal de la aplicación). Puesto que en muchos
+sistemas operativos no es seguro comunicarse con el servidor gráfico a través
+de un hilo diferente a ese, cualquier manipulación de un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a>
+fuera del hilo principal puede dar lugar a efectos inesperados. Dado que
+queremos transferir las imágenes a un hilo de trabajo para su procesamiento,
+parece que lo más seguro es utilizar la clase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>.</p>
+</li>
+</ul>
 <h2>Detección de movimiento</h2>
 <p>Con acceso a las clases y funciones de <a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a> desde nuestra aplicación,
 podemos pasar a resolver el problema que nos habíamos propuesto; detectar
@@ -245,6 +281,9 @@ según como los ajustemos.</p>
 <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Point</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">ContoursType</span><span class="p">;</span>
 
 <span class="c1">// Instancia de la clase del sustractor de fondo</span>
+<span class="c1">// cv::BackgroundSubtractorMOG2(history=500,</span>
+<span class="c1">//                              varThreshold=16,</span>
+<span class="c1">//                              bShadowDetection=true)</span>
 <span class="n">cv</span><span class="o">::</span><span class="n">BackgroundSubtractorMOG2</span> <span class="n">backgroundSubtractor</span><span class="p">;</span>
 <span class="n">backgroundSubtractor</span><span class="p">.</span><span class="n">nmixtures</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 <span class="c1">// Desactivar la detección de sombras</span>
