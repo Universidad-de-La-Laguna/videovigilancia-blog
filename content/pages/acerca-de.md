@@ -268,7 +268,7 @@ cuestión no dudes en ponerse en contacto [conmigo](jmtorres@ull.es).
 [GPIO]: http://en.wikipedia.org/wiki/General_Purpose_Input/Output "General-Purpose Input/Output"
 [I2C]: http://es.wikipedia.org/wiki/I2C "I²C (Inter-Integrated Circuit)"
 [SPI]: http://es.wikipedia.org/wiki/SPI "Serial Peripheral Interface"
-[Protocol Buffers]: |filename|/Overviews/protobufs.md "Google Protocol Buffers"
+[Protocol Buffers]: |filename|/Overviews/protobuf.md "Protocol Buffers"
 [Yocto]: |filename|/Overviews/yocto-poky-y-bitbake.md "Yocto, Poky y BitBake"
 [Raspberry Pi]: |filename|/Hardware/sbc-rpi.md "Raspberry Pi"
 [QEMU]: http://wiki.qemu.org/ "QEMU"
