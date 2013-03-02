@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Protocol Buffers - Sistema de Videovigilancia from Scratch</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jesús Torres">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+            <div class='article'>
+        <div class="content-title">
+            <h1>Protocol Buffers</h1>
+            sáb 02 marzo 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+        </div>
+	
+        <div><p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es una herramienta para la serialización<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> de estructuras de
+datos.</p>
+<p>Básicamente provee una manera sencilla de definir la estructura de los datos,
+pudieron entonces generar código que capaz de leer y escribir dichos datos de
+manera eficiente, desde diferentes lenguajes y en una variedad de distintos
+tipos de flujos de datos.</p>
+<p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> fue desarrollado internamente por Google para almacernar
+e intercambiar todo tipo de información estructurada. Hasta el punto de que
+sirve de base para un sistema de <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call">llamada a procedimiento remoto</a>
+o <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> (Remote Procedure Call) propio que es usado prácticamente para
+todas las comunicaciones entre equipos en Google.</p>
+<p>En su momento Google hizo generadores de codigo de <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> para
+C++, Java y Python y liberó la herramienta con una licencia
+<a href="http://es.wikipedia.org/wiki/Licencia_BSD">BSD</a></p>
+<p>La idea detrás de <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es muy similar a la que dio origen a
+<a href="http://en.wikipedia.org/wiki/XML" title="XML">XML</a>, solo que en este caso el formato es binario, compacto y pone énfasis
+en la velocidad a la hora de serializar<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> y deserializar los datos. Además
+es muy similar a <a href="http://en.wikipedia.org/wiki/Apache_Thrift" title="Apache Thrift">Apache Thrift</a> (creado y usado internamente por Facebook)
+o <a href="http://en.wikipedia.org/wiki/Apache_Avro" title="Apache Avro">Apache Avro</a>, excepto porque <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> no define un protocolo
+<a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> concreto, sino sólo como deben empaquetarse los datos.</p>
+<p>Si se quiere definir un servicio <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> que haga uso de un protocolo que se
+apoye sobre <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> para el intercambio de datos, existen
+<a href="http://code.google.com/p/protobuf/wiki/ThirdPartyAddOns#RPC_Implementations">diversas implementaciones RPC</a>
+para distintos lenguajes de programación.</p>
+<h2>Referencias</h2>
+<ol>
+<li><a href="http://code.google.com/p/protobuf/">protobuf - Protocol Buffers - Google's data interchange format</a>.</li>
+<li><a href="https://developers.google.com/protocol-buffers/">Protocol Buffers - Google Developers</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Protocol_Buffers">Wikipedia</a>.</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>La serialización es un proceso de codificacón de un objeto en un medio
+de almacenamiento (como puede ser una archivo o un buffer en memoria), en
+ocasiones para transmitirlo a través de una conexión de red o para preservarlo
+entre ejecuciones de un programa. La serie de bytes que codifican el estado
+del objeto tras la serialización puede ser usada para crear un nuevo objeto,
+idéntico al original, tras aplicar el proceso inverso de deserialización.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+			    </div>
+        </div>
+        
+        <div class="span3">
+
+            
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Sitio
+                </li>
+            
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categorias
+                </li>
+                
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
+                                <li><a href="../category/vision.html">Visión</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://github.com/ull-etsii-sistemas-operativos/">github</a></li>
+                                <li><a href="http://plus.google.com/u/0/communities/112085352199958768374">google+</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml">atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml">rss</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+<ul class="nav nav-list">
+    <li class="nav-header">
+    Búsqueda de Google
+    </li>
+
+    <script type="text/javascript">
+    (function() {
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.es/cse/cse.js?cx=' + '013894742475483232300:q2-5a1zlira';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
+    <gcse:search>Cargando...</gcse:search>
+</ul>
+</div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es"><img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />Este obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es">Licencia Creative Commons Atribución 3.0 Unported</a>.</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>
