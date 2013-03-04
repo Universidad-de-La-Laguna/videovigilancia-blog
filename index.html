@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./bsd-sockets.html"><h1>BSD sockets</h1></a>
-            sáb 02 marzo 2013
+            <a href="./qt-network.html"><h1>Qt Network</h1></a>
+            lun 04 marzo 2013
 
 by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,124 +67,185 @@ by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torre
  
         </div>
         
-        <div><p><em>POSIX sockets</em> es una parte de la especificación POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que define un API
-(Application Programming Interface) para la comunicación entre procesos,
-fundamentalmente entre equipos conectados a través de Internet
-(<em>socket</em> de Internet), aunque también soporta la conexión local entre procesos
-que se ejecutan en el mismo sistema (<a href="http://es.wikipedia.org/wiki/Socket_Unix">socket de dominio UNIX</a>
-o <a href="http://es.wikipedia.org/wiki/Socket_Unix">socket UNIX</a>).</p>
-<h2>Historia</h2>
-<p>La primera implementación ampliamente distribuida de la pila de protocolos
-TCP/IP lo fue con el UNIX 4.2BSD, que incluía <em>BSD sockets</em> (o <em>Berkeley sockets</em>)
-como API para las comunicaciones entre procesos usando estos protocolos.</p>
-<p>Las distintas versiones de BSD incorporaban código del UNIX original de AT&amp;T,
-por lo que estaban sujetas a la licencia de software de esta empresa. La
-licencias de código fuente se estaban volviendo muy costosas, por lo que muchas
-empresas y organizaciones comenzaron a interesarse en la liberación independiente
-del código de red, que había sido desarrollado enteramente al margen de AT&amp;T,
-por lo que no tenía que estar sujeto a los requerimientos de su licencia.</p>
-<p>En junio de 1989 este código fue liberado bajo los términos de la licencia
-<a href="http://es.wikipedia.org/wiki/Licencia_BSD">BSD</a>. Muchos fabricantes incluyeron
-este código directamente en sus propios sistemas, incluso aunque tuvieran sus
-propios protocolos propietarios con los que competían entre ellos. Y algunas
-compañías comenzaron a usarlo para vender pilas de protocolo TCP/IP para
-Windows, hasta que Microsoft incluyó la suya propia en Windows 95, también
-derivada del código de BSD.</p>
-<p>Todo esto alimentó el despegue de TCP/IP como protocolo dominante e impuso
-los <em>BSD sockets</em> como API de acceso a la red, de tal forma que hoy en día
-todos los sistemas operativos modernos tienen una implementación de <em>BSD
-sockets</em>.</p>
-<p>El API <em>BSD sockets</em> evolucionó y finalmente fue adoptado en el estándar
-POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>, donde algunas funciones fueron deprecadas y eliminadas y
-reemplazadas por otras. Aun así el API <em>POSIX sockets</em> es básicamente el
-<em>BSD sockets</em>.</p>
-<p>De la misma manera los sistemas Windows incluyen <a href="http://msdn.microsoft.com/es-es/library/windows/desktop/ms740673(v=vs.85).aspx" title="Windows Sockets API">Winsock</a>, un API de acceso a
-la red derivado de <em>BSD sockets</em> que sólo difiere de éste en unos
-<a href="http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html">pocos detalles</a></p>
-<h2>Funciones del API</h2>
-<p>Este es un resumen de las funciones proporcionadas por <em>POSIX sockets</em>:</p>
-<dl>
-<dt><code>socket()</code></dt>
-<dd>Crea un nuevo <em>socket</em>, identificado por un número entero, de cierto tipo y
-reserva recursos del sistema para él.</dd>
-<dt><code>bind()</code></dt>
-<dd>Se usa generalmente en el lado del servidor para asociar un <em>socket</em> con una
-dirección de red, por ejemplo una dirección IP y un puerto concretos.</dd>
-<dt><code>listen()</code></dt>
-<dd>Se usa en el lado del servidor para hacer que un <em>socket</em> TCP entre en modo
-de escucha a la espera de nuevas conexiones entrantes.</dd>
-<dt><code>connect()</code></dt>
-<dd>Se usa en el lado del cliente para asignar un número de puerto libre al
-<em>socket</em>. En el caso de <em>sockets</em> TCP, intenta establecer una nueva conexión TCP
-con un <em>socket</em> a la escucha en otro puerto y dirección IP.</dd>
-<dt><code>accept()</code></dt>
-<dd>Se usa en el lado del servidor para aceptar una conexión entrante e intentar
-crear una nueva conexión TCP con el cliente remoto. Si tiene éxito, crea un
-nuevo socket asociado con esta pareja concreta de direcciones en ambos
-extremos de la conexión.</dd>
-<dt><code>send()</code> y <code>recv()</code>, <code>write()</code> y <code>read()</code> o <code>sendto()</code> y <code>recvfrom()</code></dt>
-<dd>Se usan para enviar y recibir datos hacia y desde el otro extremo de la conexión.</dd>
-<dt><code>close()</code></dt>
-<dd>Hace que el sistema libere los recursos asignados al <em>socket</em>. En el caso
-de conexiones TCP, ésta es finalizada.</dd>
-<dt><code>getaddrinfo()</code> y <code>getnameinfo()</code></dt>
-<dd>Se usan para resolver nombres de máquina y direcciones IP (<a href="http://es.wikipedia.org/wiki/Domain_Name_System" title="DNS - Domain Name System">DNS</a>).</dd>
-<dt><code>select()</code></dt>
-<dd>Se usa para esperar a que uno o más <em>sockets</em> de una lista estén listos
-para leer, escribir o tengan algún error.</dd>
-<dt><code>poll()</code></dt>
-<dd>Se usa para comprobar el estado de un <em>socket</em> en un conjunto de <em>sockets</em>.
-Puede comprobar si están listos para escribir, leer o si ha ocurrido algún error.</dd>
-<dt><code>getsockopt()</code></dt>
-<dd>Se usa para recuperar el valor actual de una opción concreta de configuración
-del <em>socket</em> especificado.</dd>
-<dt><code>setsockopt()</code></dt>
-<dd>Se usa para cambiar el actual de una opción concreta de configuración del
-<em>socket</em> especificado.</dd>
-</dl>
-<h2>POSIX API en Boost.Asio</h2>
-<p><a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> es una librería de C++ para programadores de software de sistema
-donde el acceso a funcionalidades del sistema operativo; como la red, los archivos,
-un puerto serie, etc.; se requiere con cierta frecuencia. El acceso a estos recursos
-suele implicar operaciones de E/S que normalmente consumen mucho tiempo antes
-de completarse, por lo que <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> provee de herramientas para gestionar
-estas conexiones de manera asíncrona, sin necesitar modelos de concurrencia
-basados en hilos o en múltiples procesos y memoria compartida.</p>
-<p>Debido a que uno de los usos principales de esta librería son las comunicaciones
-por red, <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> incluye una interfaz multiplataforma de <em>sockets</em> de bajo nivel,
-basada en el API <em>BSD sockets</em>, e implementada sobre la que proporciona el propio
-sistema operativo.</p>
-<p>A diferencia de esta última, la implementación proporcionada por <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> no incluye
-algunos aspectos del API original que no son seguros o que son propensos a provocar
-errores de programación. Por ejemplo, el uso de <code>int</code> para identificar a los <em>sockets</em>
-por parte del API <em>BSD sockets</em> carece de la seguridad que nos ofrecería tener un
-tipo específico para ellos. Por eso la representación de un <em>socket</em> en <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> usa
-un tipo distinto para cada protocolo. Es decir, para TCP el tipo de un socket es
-<code>ip::tcp::socket</code> mientras para UDP el tipo es <code>ip::udp::socket</code>.</p>
-<p>En la documentación de <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> se incluye una <a href="http://www.boost.org/doc/html/boost_asio/overview/networking/bsd_sockets.html">tabla</a>
-que muestra la relación entre el API <em>BSD socket</em> y el API de acceso a red de <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a>:</p>
-<h2>Referencias</h2>
+        <div><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona un conjunto de API de comunicaciones a través del módulo
+<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>. Este ofrece tanto clases de bajo nivel para comunicación
+mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
+implementan operaciones usando los protocolos de nivel de aplicación más
+communes, como HTTP o FTP.</p>
+<p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> incorpora este módulo por dos motivos fundamentales:</p>
 <ol>
-<li><a href="http://en.wikipedia.org/wiki/Berkeley_sockets">BSD sockets - Wikipedia</a>.</li>
-<li><a href="http://msdn.microsoft.com/es-es/library/windows/desktop/ms740673(v=vs.85).aspx">Wnsock - Windows Sockets API</a>.</li>
-<li><a href="http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html">Winsock Programmer's FAQ - BSD Sockets Compatibility</a>.</li>
-<li><a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a>.</li>
-</ol>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>POSIX son las siglas de Portable Operating System Interface, una familia
-de estándares especificados por el <a href="http://www.ieee.org/">IEEE</a> para mantener
-la compatibilidad entre sistemas operativos. POSIX define un API, tomando del
-de los sistemas UNIX, para asegurar la compatibilidad entre las distintas
-variantes de UNIX y otros sistemas operativos.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li>
+<p>Aunque la mayor parte de los sistemas operativos modernos proporcionan un
+ API de acceso a red basado en <a href="./bsd-sockets.html">BSD sockets</a>,
+ algunos introducen funcionalidades adicionales para adaptarlo al modelo
+ de programación preferente en el sistema en cuestión. Este, por ejemplo,
+ es el caso de Windows y la librería <a href="./bsd-sockets.html">Winsock</a>
+ que incorpora. Por tanto <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, gracias a su módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>, nos
+ proporciona una forma portable de acceder a los servicios de red de los
+ sistemas operativos soportados sin tener que preocuparnos por las
+ particularidades de cada uno.</p>
+</li>
+<li>
+<p>Las operaciones de red suelen requerir mucho tiempo antes de completarse,
+ por lo que usarlas en un <em>slot</em> del hilo principal implica el bloqueo del bucle
+ de mensajes de la aplicación. Por fortuna el API <a href="./bsd-sockets.html">BSD sockets</a>
+ permite tanto el uso síncrono como asíncrono de la interfaz. Esta última
+ forma de utilizarla evita el bloqueo del bucle de mensajes al impedir que las
+ llamadas a la interfaz se bloqueen hasta que las operaciones de red son
+ completadas. Sin embargo implican una forma de programar mucho más compleja
+ para el desarrollador.</p>
+<p>El API de bajo nivel de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> es asíncrono por diseño,
+ ocultando toda esa complejidad detrás del bucle de mensajes y del mecanismo
+ de señales y <em>slots</em> común a todo el <em>framework</em> <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Aunque el API de bajo
+ nivel ofrece métodos para comunicación síncrona (los métodos <code>waitFor*</code>),
+ en cuyo caso no necesitamos bucle de mensajes, su uso no está recomendado
+ si no es en un hilo diferente al hilo principal. Además las clases del API
+ de alto nivel no ofrecen métodos síncronos, por lo que si se usan es
+ obligatorio disponer de un bucle de mensajes.</p>
+<p>Debemos tener en cuenta que las API del módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> se pueden usar
+ desde hilos diferentes al hilo principal ya que cada hilo gestionado por la
+ clase <a href="./hilos-de-trabajo-usando-senales-y-slots.html">QThread</a>
+ tiene su propio bucle de mensajes, que se inicia automáticamente en el método
+ <code>QThread::run()</code> por defecto.</p>
 </li>
 </ol>
-</div></div>
+<h2>Funcionalidad</h2>
+<p>El módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> ofrece las siguientes interfaces:</p>
+<dl>
+<dt><code>QNetworkRequest</code>, <code>QNetworkReply</code> y <code>QNetworkAccessManager</code></dt>
+<dd>Es una colección de clases que proporcionan una abstracción de alto nivel
+sobre operaciones y protocolos de comunicación comunes, por ejemplo HTTP y FTP.
+Cada instancia de la clase <code>QNetworkRequest</code> representa una petición u operación
+contra un servicio en red, mientras que las instancias de la clase
+<code>QNetworkReply</code> representan la respuesta a esas peticiones. La coordinación
+de toda esta actividad es responsabilidad de <code>QNetworkAccessManager</code>, que
+se encarga de entregar a la red las peticiones una vez han sido creadas y de
+emitir señales con la respuesta a las mismas cuando son recibidas. También
+coordina el uso de <em>cookies</em>, peticiones de autenticación y el uso de
+servidores <em>proxy</em>.</dd>
+<dt><code>QTcpSocket</code> y <code>QTcpServer</code></dt>
+<dd>TCP es el protocolo de comunicación utilizado por diversos protocolos de
+Internet, como HTTP o FTP. <code>QTcpSocket</code> proporciona acceso de bajo nivel a
+dicho protocolo. Permite establecer una conexión con una dirección IP y puerto
+determinados, así como enviar y recibir datos. Estas operaciones son
+asíncronas, por lo que no bloquean la ejecución del hilo, siendo la clase la
+que notifica mediante señales tanto las condiciones de error como de cuándo
+se dispone de nuevos datos para leer. Si lo que se desea es crear una
+aplicación que reciba conexiones TCP entrantes (como un servidor), lo
+conveniente es utilizar la clase <code>QTcpServer</code>. Ésta nos permite escuchar en
+una dirección IP y puerto concretos y aceptar las conexiones entrantes por parte
+de los clientes. Cada vez que se acepta el intento de conexión de un cliente,
+se obtiene una instancia de la clase <code>QTcpSocket</code> con la que podemos
+comunicarnos con él.</dd>
+<dt><code>QUdpSocket</code></dt>
+<dd>UDP es un protocolo de comunicación que también es utilizado por diversos
+protocolos de Internet. <code>QUdpSocket</code> proporciona acceso de bajo nivel a
+dicho protocolo. Permite enviar y recibir paquetes de datos a una dirección IP
+y puerto concretos, ya que a diferencia de TCP, UDP no provee un flujo continuo
+de datos sino que opera mediante el envío de paquetes. Tampoco se provee una
+clase específica para escuchar por conexiones entrantes (al estilo de
+<code>QTcpServer</code>), ya que UDP no es un protocolo orientado a conexión. La interfaz
+de <code>QUdpSocket</code> simplemente permite preparar el <em>socket</em> para aceptar la
+recepción de paquetes.</dd>
+<dt><code>QLocalSocket</code> y <code>QLocalServer</code></dt>
+<dd>Proporcionan una abstracción similar a la de <code>QTcpSocket</code> y <code>QTcpServer</code> pero
+para <em>sockets</em> locales. En Windows se implementa haciendo uso de tuberías con
+nombre, mientras que en UNIX, Linux y otro sistemas POSIX se utilizan
+<a href="http://es.wikipedia.org/wiki/Socket_Unix">sockets de dominio UNIX</a>.</dd>
+<dt><code>QHostInfo</code></dt>
+<dd>Se utiliza para obtener la dirección IP asignada a un nombre de máquina
+concreto a través del servicio DNS (Domain Name Service). Tanto la clase
+<code>QTcpSocket</code> como <code>QUdpSocket</code> hacen esto automáticamente cuando se indica
+un nombre de máquina y no una dirección IP. Sin embargo la clase <code>QHostInfo</code>
+nos permite hacerlo manualmente, si por cualquier motivo fuera necesario.</dd>
+<dt><code>QNetworkProxy</code></dt>
+<dd>Cada instancia de <code>QNetworkProxy</code> se usa para describir y configurar la
+conexión a un servidor <em>proxy</em>, que pueden dirigir o filtrar el tráfico
+entre ambos extremos de una conexión. Un servidor <em>proxy</em> puede ser activado
+para un socket concreto, a través del método <code>QAbstractSocket::setProxy()</code>,
+antes de conectarlo, o a nivel de toda la aplicación a través
+de la función <code>QNetworkProxy::setApplicationProxy()</code>.</dd>
+<dt><code>QNetworkConfigurationManager</code> y <code>QNetworkConfiguration</code></dt>
+<dd>Estas clases constituyen la interfaz del gestor de portabilidad, que controla
+el estado de conectividad del dispositivo, permitiendo iniciar y detener las
+interfaces de red así como migrar transparentemente entre puntos de acceso.
+La clase <code>QNetworkConfigurationManager</code> gestionar la lista de configuraciones
+de red conocidas por el dispositivo. Una configuración de red describe el
+conjunto de parámetros usados al iniciar la interfaz de red y es representada
+por instancias de la clase <code>QNetworkConfiguration</code>.</dd>
+</dl>
+<h2>Utilizar Qt Network</h2>
+<p>Para incorpora el módulo en nuestra aplicación, sólo tenemos que incluir la
+declaración de sus clases añadiendo la siguiente directiva en aquellos
+archivos donde las vayamos a utilizar:</p>
+<div class="codehilite"><pre><span class="c">#include &lt;QtNetwork&gt;</span>
+</pre></div>
+
+
+<p>Para enlazar el módulo con el ejecutable de la aplicación, sólo hay que añadir
+la siguiente línea al archivo <code>.pro</code> del proyecto:</p>
+<div class="codehilite"><pre><span class="n">QT</span> <span class="o">+=</span> <span class="n">network</span>
+</pre></div>
+
+
+<p>Hecho esto, la mejor forma de aprender a utilizar los recursos del módulo
+<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> es siguiendo los ejemplos disponibles en su documentación:</p>
+<ul>
+<li>
+<p>Ejemplos de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket">QTcpSocket</a> y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpserver.html" title="QTcpServer">QTcpServer</a>:</p>
+<ul>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/fortuneclient.html">Fortune Client</a>
+y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/fortuneserver.html">Fortune Server</a>
+muestran como desarrollar una aplicación cliente-servidor sobre TCP.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/blockingfortuneclient.html">Blocking Fortune Client</a>
+muestra como usar la interfaz síncrona de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket">QTcpSocket</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/threadedfortuneserver.html">Threaded Fortune Server</a>
+muestra como desarrollar un servidor multihilo donde cada hilo sirve a un
+cliente.</li>
+</ul>
+</li>
+<li>
+<p>Ejemplos de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qudpsocket.html" title="QUdpSocket">QUdpSocket</a>:</p>
+<ul>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/broadcastsender.html">Broadcast Sender</a>
+y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/broadcastreceiver.html">Broadcast Receiver</a>
+muestran como desarrollar un emisor y un receptor sobre UDP.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/multicastsender.html">Multicast Sender</a>
+y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/multicastreceiver.html">Multicast Receiver</a>
+muestran como desarrollar aplicaciones que hagan uso de la
+<a href="http://es.wikipedia.org/wiki/Multidifusi%C3%B3n">multidifusión</a> (o <em>multicast</em>).</li>
+</ul>
+</li>
+</ul>
+<h2>Referencias</h2>
+<ol>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a></li>
+</ol></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="./bsd-sockets.html"><h2>BSD sockets</h2></a>
+        <div class= "well small"> sáb 02 marzo 2013
+
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><em>POSIX sockets</em> es una parte de la especificación POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que define un API
+(Application Programming Interface) para la comunicación entre procesos,
+fundamentalmente entre equipos conectados a través de Internet
+(<em>socket</em> de Internet), aunque también soporta la conexión local entre procesos
+que se ejecutan en el mismo sistema (<a href="http://es.wikipedia.org/wiki/Socket_Unix">socket de ...</a></p> <a class="btn btn-info xsmall" href="./bsd-sockets.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -206,30 +267,6 @@ datos.</p>
 pudieron entonces generar código capaz de leer y escribir dichos datos de
 manera eficiente, desde diferentes lenguajes y en una variedad de distintos
 tipos de ...</p> <a class="btn btn-info xsmall" href="./protocol-buffers.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./deteccion-de-movimiento.html"><h2>Detección de movimiento</h2></a>
-        <div class= "well small"> mar 19 febrero 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Detectar movimiento en una secuencia de vídeo es una tarea relativamente simple
-que puede abordarse en unos pocos pasos:</p>
-<ol>
-<li>
-<p><strong>Supresión del fondo</strong>. Consiste en estimar un modelo del fondo y compararlo
-con el <em>frame</em> actual para detectar cambios. El resultado es una imagen binaria
-donde los píxeles se clasifican entre ...</p></li></ol> <a class="btn btn-info xsmall" href="./deteccion-de-movimiento.html">leer más</a></div>
     </div>	
 				
             <div class="pagination">

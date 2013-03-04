@@ -118,21 +118,99 @@ emitir señales con la respuesta a las mismas cuando son recibidas. También
 coordina el uso de <em>cookies</em>, peticiones de autenticación y el uso de
 servidores <em>proxy</em>.</dd>
 <dt><code>QTcpSocket</code> y <code>QTcpServer</code></dt>
-<dd>TCP es el protocolo de comunicación utilizado por muchos protocolos de
+<dd>TCP es el protocolo de comunicación utilizado por diversos protocolos de
 Internet, como HTTP o FTP. <code>QTcpSocket</code> proporciona acceso de bajo nivel a
 dicho protocolo. Permite establecer una conexión con una dirección IP y puerto
 determinados, así como enviar y recibir datos. Estas operaciones son
 asíncronas, por lo que no bloquean la ejecución del hilo, siendo la clase la
 que notifica mediante señales tanto las condiciones de error como de cuándo
-se dispone de nuevos datos para leer.</dd>
+se dispone de nuevos datos para leer. Si lo que se desea es crear una
+aplicación que reciba conexiones TCP entrantes (como un servidor), lo
+conveniente es utilizar la clase <code>QTcpServer</code>. Ésta nos permite escuchar en
+una dirección IP y puerto concretos y aceptar las conexiones entrantes por parte
+de los clientes. Cada vez que se acepta el intento de conexión de un cliente,
+se obtiene una instancia de la clase <code>QTcpSocket</code> con la que podemos
+comunicarnos con él.</dd>
+<dt><code>QUdpSocket</code></dt>
+<dd>UDP es un protocolo de comunicación que también es utilizado por diversos
+protocolos de Internet. <code>QUdpSocket</code> proporciona acceso de bajo nivel a
+dicho protocolo. Permite enviar y recibir paquetes de datos a una dirección IP
+y puerto concretos, ya que a diferencia de TCP, UDP no provee un flujo continuo
+de datos sino que opera mediante el envío de paquetes. Tampoco se provee una
+clase específica para escuchar por conexiones entrantes (al estilo de
+<code>QTcpServer</code>), ya que UDP no es un protocolo orientado a conexión. La interfaz
+de <code>QUdpSocket</code> simplemente permite preparar el <em>socket</em> para aceptar la
+recepción de paquetes.</dd>
+<dt><code>QLocalSocket</code> y <code>QLocalServer</code></dt>
+<dd>Proporcionan una abstracción similar a la de <code>QTcpSocket</code> y <code>QTcpServer</code> pero
+para <em>sockets</em> locales. En Windows se implementa haciendo uso de tuberías con
+nombre, mientras que en UNIX, Linux y otro sistemas POSIX se utilizan
+<a href="http://es.wikipedia.org/wiki/Socket_Unix">sockets de dominio UNIX</a>.</dd>
+<dt><code>QHostInfo</code></dt>
+<dd>Se utiliza para obtener la dirección IP asignada a un nombre de máquina
+concreto a través del servicio DNS (Domain Name Service). Tanto la clase
+<code>QTcpSocket</code> como <code>QUdpSocket</code> hacen esto automáticamente cuando se indica
+un nombre de máquina y no una dirección IP. Sin embargo la clase <code>QHostInfo</code>
+nos permite hacerlo manualmente, si por cualquier motivo fuera necesario.</dd>
+<dt><code>QNetworkProxy</code></dt>
+<dd>Cada instancia de <code>QNetworkProxy</code> se usa para describir y configurar la
+conexión a un servidor <em>proxy</em>, que pueden dirigir o filtrar el tráfico
+entre ambos extremos de una conexión. Un servidor <em>proxy</em> puede ser activado
+para un socket concreto, a través del método <code>QAbstractSocket::setProxy()</code>,
+antes de conectarlo, o a nivel de toda la aplicación a través
+de la función <code>QNetworkProxy::setApplicationProxy()</code>.</dd>
+<dt><code>QNetworkConfigurationManager</code> y <code>QNetworkConfiguration</code></dt>
+<dd>Estas clases constituyen la interfaz del gestor de portabilidad, que controla
+el estado de conectividad del dispositivo, permitiendo iniciar y detener las
+interfaces de red así como migrar transparentemente entre puntos de acceso.
+La clase <code>QNetworkConfigurationManager</code> gestionar la lista de configuraciones
+de red conocidas por el dispositivo. Una configuración de red describe el
+conjunto de parámetros usados al iniciar la interfaz de red y es representada
+por instancias de la clase <code>QNetworkConfiguration</code>.</dd>
 </dl>
-<p>Si lo que se desea es crear una aplicación que reciba conexiones TCP
-entrantes (como un servidor), lo conveniente es utilizar la clase
-<code>QTcpServer</code>. Ésta nos permite escuchar en una dirección IP y puerto concretos
-y aceptar las conexiones entrantes. Cada vez que se acepta el intento de
-conexión de un cliente, se obtiene una instancia de la clase <code>QTcpSocket</code> para
-comunicarnos con él.</p>
-<h2>Ejemplo</h2>
+<h2>Utilizar Qt Network</h2>
+<p>Para incorpora el módulo en nuestra aplicación, sólo tenemos que incluir la
+declaración de sus clases añadiendo la siguiente directiva en aquellos
+archivos donde las vayamos a utilizar:</p>
+<div class="codehilite"><pre><span class="c">#include &lt;QtNetwork&gt;</span>
+</pre></div>
+
+
+<p>Para enlazar el módulo con el ejecutable de la aplicación, sólo hay que añadir
+la siguiente línea al archivo <code>.pro</code> del proyecto:</p>
+<div class="codehilite"><pre><span class="n">QT</span> <span class="o">+=</span> <span class="n">network</span>
+</pre></div>
+
+
+<p>Hecho esto, la mejor forma de aprender a utilizar los recursos del módulo
+<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> es siguiendo los ejemplos disponibles en su documentación:</p>
+<ul>
+<li>
+<p>Ejemplos de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket">QTcpSocket</a> y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpserver.html" title="QTcpServer">QTcpServer</a>:</p>
+<ul>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/fortuneclient.html">Fortune Client</a>
+y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/fortuneserver.html">Fortune Server</a>
+muestran como desarrollar una aplicación cliente-servidor sobre TCP.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/blockingfortuneclient.html">Blocking Fortune Client</a>
+muestra como usar la interfaz síncrona de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket">QTcpSocket</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/threadedfortuneserver.html">Threaded Fortune Server</a>
+muestra como desarrollar un servidor multihilo donde cada hilo sirve a un
+cliente.</li>
+</ul>
+</li>
+<li>
+<p>Ejemplos de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qudpsocket.html" title="QUdpSocket">QUdpSocket</a>:</p>
+<ul>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/broadcastsender.html">Broadcast Sender</a>
+y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/broadcastreceiver.html">Broadcast Receiver</a>
+muestran como desarrollar un emisor y un receptor sobre UDP.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/multicastsender.html">Multicast Sender</a>
+y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/multicastreceiver.html">Multicast Receiver</a>
+muestran como desarrollar aplicaciones que hagan uso de la
+<a href="http://es.wikipedia.org/wiki/Multidifusi%C3%B3n">multidifusión</a> (o <em>multicast</em>).</li>
+</ul>
+</li>
+</ul>
 <h2>Referencias</h2>
 <ol>
 <li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a></li>

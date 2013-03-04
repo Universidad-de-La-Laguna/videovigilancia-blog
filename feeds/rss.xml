@@ -1,5 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 02 Mar 2013 00:00:00 +0000</lastBuildDate><item><title>BSD sockets</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html</link><description>&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 04 Mar 2013 00:00:00 +0000</lastBuildDate><item><title>Qt Network</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/qt-network.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona un conjunto de API de comunicaciones a través del módulo
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;. Este ofrece tanto clases de bajo nivel para comunicación
+mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
+implementan operaciones usando los protocolos de nivel de aplicación más
+communes, como HTTP o FTP.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incorpora este módulo por dos motivos fundamentales:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Aunque la mayor parte de los sistemas operativos modernos proporcionan un
+ API de acceso a red basado en &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html"&gt;BSD sockets&lt;/a&gt;,
+ algunos introducen funcionalidades adicionales para adaptarlo al modelo
+ de programación preferente en el sistema en cuestión. Este, por ejemplo,
+ es el caso de Windows y la librería &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html"&gt;Winsock&lt;/a&gt;
+ que incorpora. Por tanto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, gracias a su módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;, nos
+ proporciona una forma portable de acceder a los servicios de red de los
+ sistemas operativos soportados sin tener que preocuparnos por las
+ particularidades de cada uno.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Las operaciones de red suelen requerir mucho tiempo antes de completarse,
+ por lo que usarlas en un &lt;em&gt;slot&lt;/em&gt; del hilo principal implica el bloqueo del bucle
+ de mensajes de la aplicación. Por fortuna el API &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html"&gt;BSD sockets&lt;/a&gt;
+ permite tanto el uso síncrono como asíncrono de la interfaz. Esta última
+ forma de utilizarla evita el bloqueo del bucle de mensajes al impedir que las
+ llamadas a la interfaz se bloqueen hasta que las operaciones de red son
+ completadas. Sin embargo implican una forma de programar mucho más compleja
+ para el desarrollador.&lt;/p&gt;
+&lt;p&gt;El API de bajo nivel de &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt; es asíncrono por diseño,
+ ocultando toda esa complejidad detrás del bucle de mensajes y del mecanismo
+ de señales y &lt;em&gt;slots&lt;/em&gt; común a todo el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. Aunque el API de bajo
+ nivel ofrece métodos para comunicación síncrona (los métodos &lt;code&gt;waitFor*&lt;/code&gt;),
+ en cuyo caso no necesitamos bucle de mensajes, su uso no está recomendado
+ si no es en un hilo diferente al hilo principal. Además las clases del API
+ de alto nivel no ofrecen métodos síncronos, por lo que si se usan es
+ obligatorio disponer de un bucle de mensajes.&lt;/p&gt;
+&lt;p&gt;Debemos tener en cuenta que las API del módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt; se pueden usar
+ desde hilos diferentes al hilo principal ya que cada hilo gestionado por la
+ clase &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;QThread&lt;/a&gt;
+ tiene su propio bucle de mensajes, que se inicia automáticamente en el método
+ &lt;code&gt;QThread::run()&lt;/code&gt; por defecto.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Funcionalidad&lt;/h2&gt;
+&lt;p&gt;El módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt; ofrece las siguientes interfaces:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;code&gt;QNetworkRequest&lt;/code&gt;, &lt;code&gt;QNetworkReply&lt;/code&gt; y &lt;code&gt;QNetworkAccessManager&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Es una colección de clases que proporcionan una abstracción de alto nivel
+sobre operaciones y protocolos de comunicación comunes, por ejemplo HTTP y FTP.
+Cada instancia de la clase &lt;code&gt;QNetworkRequest&lt;/code&gt; representa una petición u operación
+contra un servicio en red, mientras que las instancias de la clase
+&lt;code&gt;QNetworkReply&lt;/code&gt; representan la respuesta a esas peticiones. La coordinación
+de toda esta actividad es responsabilidad de &lt;code&gt;QNetworkAccessManager&lt;/code&gt;, que
+se encarga de entregar a la red las peticiones una vez han sido creadas y de
+emitir señales con la respuesta a las mismas cuando son recibidas. También
+coordina el uso de &lt;em&gt;cookies&lt;/em&gt;, peticiones de autenticación y el uso de
+servidores &lt;em&gt;proxy&lt;/em&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QTcpSocket&lt;/code&gt; y &lt;code&gt;QTcpServer&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;TCP es el protocolo de comunicación utilizado por diversos protocolos de
+Internet, como HTTP o FTP. &lt;code&gt;QTcpSocket&lt;/code&gt; proporciona acceso de bajo nivel a
+dicho protocolo. Permite establecer una conexión con una dirección IP y puerto
+determinados, así como enviar y recibir datos. Estas operaciones son
+asíncronas, por lo que no bloquean la ejecución del hilo, siendo la clase la
+que notifica mediante señales tanto las condiciones de error como de cuándo
+se dispone de nuevos datos para leer. Si lo que se desea es crear una
+aplicación que reciba conexiones TCP entrantes (como un servidor), lo
+conveniente es utilizar la clase &lt;code&gt;QTcpServer&lt;/code&gt;. Ésta nos permite escuchar en
+una dirección IP y puerto concretos y aceptar las conexiones entrantes por parte
+de los clientes. Cada vez que se acepta el intento de conexión de un cliente,
+se obtiene una instancia de la clase &lt;code&gt;QTcpSocket&lt;/code&gt; con la que podemos
+comunicarnos con él.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QUdpSocket&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;UDP es un protocolo de comunicación que también es utilizado por diversos
+protocolos de Internet. &lt;code&gt;QUdpSocket&lt;/code&gt; proporciona acceso de bajo nivel a
+dicho protocolo. Permite enviar y recibir paquetes de datos a una dirección IP
+y puerto concretos, ya que a diferencia de TCP, UDP no provee un flujo continuo
+de datos sino que opera mediante el envío de paquetes. Tampoco se provee una
+clase específica para escuchar por conexiones entrantes (al estilo de
+&lt;code&gt;QTcpServer&lt;/code&gt;), ya que UDP no es un protocolo orientado a conexión. La interfaz
+de &lt;code&gt;QUdpSocket&lt;/code&gt; simplemente permite preparar el &lt;em&gt;socket&lt;/em&gt; para aceptar la
+recepción de paquetes.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QLocalSocket&lt;/code&gt; y &lt;code&gt;QLocalServer&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Proporcionan una abstracción similar a la de &lt;code&gt;QTcpSocket&lt;/code&gt; y &lt;code&gt;QTcpServer&lt;/code&gt; pero
+para &lt;em&gt;sockets&lt;/em&gt; locales. En Windows se implementa haciendo uso de tuberías con
+nombre, mientras que en UNIX, Linux y otro sistemas POSIX se utilizan
+&lt;a href="http://es.wikipedia.org/wiki/Socket_Unix"&gt;sockets de dominio UNIX&lt;/a&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QHostInfo&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Se utiliza para obtener la dirección IP asignada a un nombre de máquina
+concreto a través del servicio DNS (Domain Name Service). Tanto la clase
+&lt;code&gt;QTcpSocket&lt;/code&gt; como &lt;code&gt;QUdpSocket&lt;/code&gt; hacen esto automáticamente cuando se indica
+un nombre de máquina y no una dirección IP. Sin embargo la clase &lt;code&gt;QHostInfo&lt;/code&gt;
+nos permite hacerlo manualmente, si por cualquier motivo fuera necesario.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QNetworkProxy&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Cada instancia de &lt;code&gt;QNetworkProxy&lt;/code&gt; se usa para describir y configurar la
+conexión a un servidor &lt;em&gt;proxy&lt;/em&gt;, que pueden dirigir o filtrar el tráfico
+entre ambos extremos de una conexión. Un servidor &lt;em&gt;proxy&lt;/em&gt; puede ser activado
+para un socket concreto, a través del método &lt;code&gt;QAbstractSocket::setProxy()&lt;/code&gt;,
+antes de conectarlo, o a nivel de toda la aplicación a través
+de la función &lt;code&gt;QNetworkProxy::setApplicationProxy()&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QNetworkConfigurationManager&lt;/code&gt; y &lt;code&gt;QNetworkConfiguration&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Estas clases constituyen la interfaz del gestor de portabilidad, que controla
+el estado de conectividad del dispositivo, permitiendo iniciar y detener las
+interfaces de red así como migrar transparentemente entre puntos de acceso.
+La clase &lt;code&gt;QNetworkConfigurationManager&lt;/code&gt; gestionar la lista de configuraciones
+de red conocidas por el dispositivo. Una configuración de red describe el
+conjunto de parámetros usados al iniciar la interfaz de red y es representada
+por instancias de la clase &lt;code&gt;QNetworkConfiguration&lt;/code&gt;.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h2&gt;Utilizar Qt Network&lt;/h2&gt;
+&lt;p&gt;Para incorpora el módulo en nuestra aplicación, sólo tenemos que incluir la
+declaración de sus clases añadiendo la siguiente directiva en aquellos
+archivos donde las vayamos a utilizar:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#include &amp;lt;QtNetwork&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Para enlazar el módulo con el ejecutable de la aplicación, sólo hay que añadir
+la siguiente línea al archivo &lt;code&gt;.pro&lt;/code&gt; del proyecto:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QT&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;network&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Hecho esto, la mejor forma de aprender a utilizar los recursos del módulo
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt; es siguiendo los ejemplos disponibles en su documentación:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Ejemplos de &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket"&gt;QTcpSocket&lt;/a&gt; y &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpserver.html" title="QTcpServer"&gt;QTcpServer&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/fortuneclient.html"&gt;Fortune Client&lt;/a&gt;
+y &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/fortuneserver.html"&gt;Fortune Server&lt;/a&gt;
+muestran como desarrollar una aplicación cliente-servidor sobre TCP.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/blockingfortuneclient.html"&gt;Blocking Fortune Client&lt;/a&gt;
+muestra como usar la interfaz síncrona de &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket"&gt;QTcpSocket&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/threadedfortuneserver.html"&gt;Threaded Fortune Server&lt;/a&gt;
+muestra como desarrollar un servidor multihilo donde cada hilo sirve a un
+cliente.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ejemplos de &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qudpsocket.html" title="QUdpSocket"&gt;QUdpSocket&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/broadcastsender.html"&gt;Broadcast Sender&lt;/a&gt;
+y &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/broadcastreceiver.html"&gt;Broadcast Receiver&lt;/a&gt;
+muestran como desarrollar un emisor y un receptor sobre UDP.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/multicastsender.html"&gt;Multicast Sender&lt;/a&gt;
+y &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/multicastreceiver.html"&gt;Multicast Receiver&lt;/a&gt;
+muestran como desarrollar aplicaciones que hagan uso de la
+&lt;a href="http://es.wikipedia.org/wiki/Multidifusi%C3%B3n"&gt;multidifusión&lt;/a&gt; (o &lt;em&gt;multicast&lt;/em&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Referencias&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Mon, 04 Mar 2013 00:00:00 +0000</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-04:qt-network.html</guid><category>qt</category><category>comunicaciones</category><category>sockets</category></item><item><title>BSD sockets</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html</link><description>&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
 (Application Programming Interface) para la comunicación entre procesos,
 fundamentalmente entre equipos conectados a través de Internet
 (&lt;em&gt;socket&lt;/em&gt; de Internet), aunque también soporta la conexión local entre procesos

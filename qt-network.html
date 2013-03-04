@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>qt - Sistema de Videovigilancia from Scratch</title>
+    <title>Qt Network - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="../theme/html5.js"></script>
+    <script src="./theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../theme/bootstrap.min.css" rel="stylesheet">
-    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="../theme/local.css" rel="stylesheet">
-    <link href="../theme/pygments.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="./theme/local.css" rel="stylesheet">
+    <link href="./theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,12 +32,12 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
                         </ul>
         </div>
         
@@ -50,37 +50,31 @@
     <div class="row">
 
         <div class="span9">
-                
-
-        
-
-
-    <div class='article'>
+            <div class='article'>
         <div class="content-title">
-            <a href="../qt-network.html"><h1>Qt Network</h1></a>
+            <h1>Qt Network</h1>
             lun 04 marzo 2013
 
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- 
         </div>
-        
-        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona un conjunto de API de comunicaciones a través del módulo
+	
+        <div><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona un conjunto de API de comunicaciones a través del módulo
 <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>. Este ofrece tanto clases de bajo nivel para comunicación
 mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
 implementan operaciones usando los protocolos de nivel de aplicación más
 communes, como HTTP o FTP.</p>
-<p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> incorpora este módulo por dos motivos fundamentales:</p>
+<p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> incorpora este módulo por dos motivos fundamentales:</p>
 <ol>
 <li>
 <p>Aunque la mayor parte de los sistemas operativos modernos proporcionan un
- API de acceso a red basado en <a href="../bsd-sockets.html">BSD sockets</a>,
+ API de acceso a red basado en <a href="./bsd-sockets.html">BSD sockets</a>,
  algunos introducen funcionalidades adicionales para adaptarlo al modelo
  de programación preferente en el sistema en cuestión. Este, por ejemplo,
- es el caso de Windows y la librería <a href="../bsd-sockets.html">Winsock</a>
- que incorpora. Por tanto <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, gracias a su módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>, nos
+ es el caso de Windows y la librería <a href="./bsd-sockets.html">Winsock</a>
+ que incorpora. Por tanto <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, gracias a su módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>, nos
  proporciona una forma portable de acceder a los servicios de red de los
  sistemas operativos soportados sin tener que preocuparnos por las
  particularidades de cada uno.</p>
@@ -88,7 +82,7 @@ communes, como HTTP o FTP.</p>
 <li>
 <p>Las operaciones de red suelen requerir mucho tiempo antes de completarse,
  por lo que usarlas en un <em>slot</em> del hilo principal implica el bloqueo del bucle
- de mensajes de la aplicación. Por fortuna el API <a href="../bsd-sockets.html">BSD sockets</a>
+ de mensajes de la aplicación. Por fortuna el API <a href="./bsd-sockets.html">BSD sockets</a>
  permite tanto el uso síncrono como asíncrono de la interfaz. Esta última
  forma de utilizarla evita el bloqueo del bucle de mensajes al impedir que las
  llamadas a la interfaz se bloqueen hasta que las operaciones de red son
@@ -96,7 +90,7 @@ communes, como HTTP o FTP.</p>
  para el desarrollador.</p>
 <p>El API de bajo nivel de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> es asíncrono por diseño,
  ocultando toda esa complejidad detrás del bucle de mensajes y del mecanismo
- de señales y <em>slots</em> común a todo el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Aunque el API de bajo
+ de señales y <em>slots</em> común a todo el <em>framework</em> <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Aunque el API de bajo
  nivel ofrece métodos para comunicación síncrona (los métodos <code>waitFor*</code>),
  en cuyo caso no necesitamos bucle de mensajes, su uso no está recomendado
  si no es en un hilo diferente al hilo principal. Además las clases del API
@@ -104,7 +98,7 @@ communes, como HTTP o FTP.</p>
  obligatorio disponer de un bucle de mensajes.</p>
 <p>Debemos tener en cuenta que las API del módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> se pueden usar
  desde hilos diferentes al hilo principal ya que cada hilo gestionado por la
- clase <a href="../hilos-de-trabajo-usando-senales-y-slots.html">QThread</a>
+ clase <a href="./hilos-de-trabajo-usando-senales-y-slots.html">QThread</a>
  tiene su propio bucle de mensajes, que se inicia automáticamente en el método
  <code>QThread::run()</code> por defecto.</p>
 </li>
@@ -221,66 +215,11 @@ muestran como desarrollar aplicaciones que hagan uso de la
 <ol>
 <li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a></li>
 </ol></div>
-        <hr />
-    </div>
-		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../hilos-de-trabajo-usando-senales-y-slots.html"><h2>Hilos de trabajo usando señales y slots</h2></a>
-        <div class= "well small"> lun 18 febrero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona clases para hilos y mecanismos de sincronización que facilitan
-sacar las tareas de larga duración del hilo principal de la aplicación, lo que
-de lo contrario bloquearía la interfaz de usuario.</p>
-<p>Una forma práctica de hacerlo la hemos visto <a href="../introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a>
-utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> provee ...</p> <a class="btn btn-info xsmall" href="../hilos-de-trabajo-usando-senales-y-slots.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../introduccion-al-uso-de-hilos-en-qt.html"><h2>Introducción al uso de hilos en Qt</h2></a>
-        <div class= "well small"> sáb 16 febrero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
-larga duración en los <em>slots</em>. Si lo hiciéramos la ejecución tardaría en
-volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
-procesar nuevos eventos de los usuarios.</p>
-<p>Por eso lo habitual ...</p> <a class="btn btn-info xsmall" href="../introduccion-al-uso-de-hilos-en-qt.html">leer más</a></div>
-    </div>	
-				
-            <div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
-
-    <li class="active"><a href="../tag/qt.html">1</a></li>
-    <li class=""><a href="../tag/qt2.html">2</a></li>
-
-    <li class="next"><a href="../tag/qt2.html">Next &rarr;</a></li>
-
-</ul>
-</div>    
- 
-  
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+			    </div>
         </div>
         
         <div class="span3">
@@ -292,8 +231,8 @@ procesar nuevos eventos de los usuarios.</p>
                 Sitio
                 </li>
             
-                <li><a href="../archives.html">Archivos</a>
-                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="./archives.html">Archivos</a>
+                <li><a href="./tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -306,11 +245,11 @@ procesar nuevos eventos de los usuarios.</p>
                 Categorias
                 </li>
                 
-                                <li><a href="../category/hardware.html">Hardware</a></li>
-                                <li><a href="../category/linux.html">Linux</a></li>
-                                <li><a href="../category/overviews.html">Overviews</a></li>
-                                <li><a href="../category/qt.html">Qt</a></li>
-                                <li><a href="../category/vision.html">Visión</a></li>
+                                <li><a href="./category/hardware.html">Hardware</a></li>
+                                <li><a href="./category/linux.html">Linux</a></li>
+                                <li><a href="./category/overviews.html">Overviews</a></li>
+                                <li><a href="./category/qt.html">Qt</a></li>
+                                <li><a href="./category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>
