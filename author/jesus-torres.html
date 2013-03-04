@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../camara-cf7670c-v2.html"><h1>Cámara CF7670C-V2</h1></a>
-            dom 13 enero 2013
+            <a href="../bsd-sockets.html"><h1>BSD sockets</h1></a>
+            sáb 02 marzo 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,45 +67,146 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p>Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>
-con una memoria FIFO <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422">Averlogic AL422</a> de 3Mb.</p>
-<p><img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0px 10px 0"></p>
-<p>La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
-dando tiempo a la CPU externa a recuperarlas al ritmo que le sea posible.</p>
-<p>Las principales características del sensor <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a> son:</p>
-<ul>
-<li>Resolución de 640x480 pixels (VGA).</li>
-<li>Hasta 30 fps para resolución VGA.</li>
-<li>Formatos de salida (8 bits):<ul>
-<li><a href="http://es.wikipedia.org/wiki/YUV" title="YUV">YUV</a>/<a href="http://es.wikipedia.org/wiki/YCbCr" title="YCbCr">YCbCr</a> 4:2:2</li>
-<li>RGB 565/555/444</li>
-<li>GRB 4:2:2</li>
-<li>Raw RGB Data</li>
-</ul>
-</li>
-<li>Modo de <a href="http://es.wikipedia.org/wiki/Escaneo_progresivo">escaneo progresivo</a>.</li>
-<li>Interfaz de control mediante <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit" title="Serial Camera Control Bus">SCCB</a>.</li>
-</ul>
-<p>Tal y como se puede observar en el <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit" title="CF7670C-V2 Camera Module Schematic">esquemático</a> del módulo, tanto el bus
-<a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit" title="Serial Camera Control Bus">SCCB</a> (que prácticamente es un <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>) como las líneas del OV7670 que informan
-del barrido vertical (VSYNC) y horizontal (HREF) están disponibles para que
-sean accesibles a una CPU externa.</p>
-<p>Por el contrario, las líneas de datos del OV7670 están conectadas al AL422
-para almacenar en el la imagen capturada. Es la salida de esta memoria FIFO,
-así como las líneas necesarias para controlar la lectura de la misma, las que
-son  accesibles desde el conector del módulo.</p>
-<h2>Referencias adicionales</h2>
+        <div><p><em>POSIX sockets</em> es una parte de la especificación POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que define un API
+(Application Programming Interface) para la comunicación entre procesos,
+fundamentalmente entre equipos conectados a través de Internet
+(<em>socket</em> de Internet), aunque también soporta la conexión local entre procesos
+que se ejecutan en el mismo sistema (<a href="http://es.wikipedia.org/wiki/Socket_Unix">socket de dominio UNIX</a>
+o <a href="http://es.wikipedia.org/wiki/Socket_Unix">socket UNIX</a>).</p>
+<h2>Historia</h2>
+<p>La primera implementación ampliamente distribuida de la pila de protocolos
+TCP/IP lo fue con el UNIX 4.2BSD, que incluía <em>BSD sockets</em> (o <em>Berkeley sockets</em>)
+como API para las comunicaciones entre procesos usando estos protocolos.</p>
+<p>Las distintas versiones de BSD incorporaban código del UNIX original de AT&amp;T,
+por lo que estaban sujetas a la licencia de software de esta empresa. La
+licencias de código fuente se estaban volviendo muy costosas, por lo que muchas
+empresas y organizaciones comenzaron a interesarse en la liberación independiente
+del código de red, que había sido desarrollado enteramente al margen de AT&amp;T,
+por lo que no tenía que estar sujeto a los requerimientos de su licencia.</p>
+<p>En junio de 1989 este código fue liberado bajo los términos de la licencia
+<a href="http://es.wikipedia.org/wiki/Licencia_BSD">BSD</a>. Muchos fabricantes incluyeron
+este código directamente en sus propios sistemas, incluso aunque tuvieran sus
+propios protocolos propietarios con los que competían entre ellos. Y algunas
+compañías comenzaron a usarlo para vender pilas de protocolo TCP/IP para
+Windows, hasta que Microsoft incluyó la suya propia en Windows 95, también
+derivada del código de BSD.</p>
+<p>Todo esto alimentó el despegue de TCP/IP como protocolo dominante e impuso
+los <em>BSD sockets</em> como API de acceso a la red, de tal forma que hoy en día
+todos los sistemas operativos modernos tienen una implementación de <em>BSD
+sockets</em>.</p>
+<p>El API <em>BSD sockets</em> evolucionó y finalmente fue adoptado en el estándar
+POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>, donde algunas funciones fueron deprecadas y eliminadas y
+reemplazadas por otras. Aun así el API <em>POSIX sockets</em> es básicamente el
+<em>BSD sockets</em>.</p>
+<p>De la misma manera los sistemas Windows incluyen <a href="http://msdn.microsoft.com/es-es/library/windows/desktop/ms740673(v=vs.85).aspx" title="Windows Sockets API">Winsock</a>, un API de acceso a
+la red derivado de <em>BSD sockets</em> que sólo difiere de éste en unos
+<a href="http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html">pocos detalles</a></p>
+<h2>Funciones del API</h2>
+<p>Este es un resumen de las funciones proporcionadas por <em>POSIX sockets</em>:</p>
+<dl>
+<dt><code>socket()</code></dt>
+<dd>Crea un nuevo <em>socket</em>, identificado por un número entero, de cierto tipo y
+reserva recursos del sistema para él.</dd>
+<dt><code>bind()</code></dt>
+<dd>Se usa generalmente en el lado del servidor para asociar un <em>socket</em> con una
+dirección de red, por ejemplo una dirección IP y un puerto concretos.</dd>
+<dt><code>listen()</code></dt>
+<dd>Se usa en el lado del servidor para hacer que un <em>socket</em> TCP entre en modo
+de escucha a la espera de nuevas conexiones entrantes.</dd>
+<dt><code>connect()</code></dt>
+<dd>Se usa en el lado del cliente para asignar un número de puerto libre al
+<em>socket</em>. En el caso de <em>sockets</em> TCP, intenta establecer una nueva conexión TCP
+con un <em>socket</em> a la escucha en otro puerto y dirección IP.</dd>
+<dt><code>accept()</code></dt>
+<dd>Se usa en el lado del servidor para aceptar una conexión entrante e intentar
+crear una nueva conexión TCP con el cliente remoto. Si tiene éxito, crea un
+nuevo socket asociado con esta pareja concreta de direcciones en ambos
+extremos de la conexión.</dd>
+<dt><code>send()</code> y <code>recv()</code>, <code>write()</code> y <code>read()</code> o <code>sendto()</code> y <code>recvfrom()</code></dt>
+<dd>Se usan para enviar y recibir datos hacia y desde el otro extremo de la conexión.</dd>
+<dt><code>close()</code></dt>
+<dd>Hace que el sistema libere los recursos asignados al <em>socket</em>. En el caso
+de conexiones TCP, ésta es finalizada.</dd>
+<dt><code>getaddrinfo()</code> y <code>getnameinfo()</code></dt>
+<dd>Se usan para resolver nombres de máquina y direcciones IP (<a href="http://es.wikipedia.org/wiki/Domain_Name_System" title="DNS - Domain Name System">DNS</a>).</dd>
+<dt><code>select()</code></dt>
+<dd>Se usa para esperar a que uno o más <em>sockets</em> de una lista estén listos
+para leer, escribir o tengan algún error.</dd>
+<dt><code>poll()</code></dt>
+<dd>Se usa para comprobar el estado de un <em>socket</em> en un conjunto de <em>sockets</em>.
+Puede comprobar si están listos para escribir, leer o si ha ocurrido algún error.</dd>
+<dt><code>getsockopt()</code></dt>
+<dd>Se usa para recuperar el valor actual de una opción concreta de configuración
+del <em>socket</em> especificado.</dd>
+<dt><code>setsockopt()</code></dt>
+<dd>Se usa para cambiar el actual de una opción concreta de configuración del
+<em>socket</em> especificado.</dd>
+</dl>
+<h2>POSIX API en Boost.Asio</h2>
+<p><a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> es una librería de C++ para programadores de software de sistema
+donde el acceso a funcionalidades del sistema operativo; como la red, los archivos,
+un puerto serie, etc.; se requiere con cierta frecuencia. El acceso a estos recursos
+suele implicar operaciones de E/S que normalmente consumen mucho tiempo antes
+de completarse, por lo que <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> provee de herramientas para gestionar
+estas conexiones de manera asíncrona, sin necesitar modelos de concurrencia
+basados en hilos o en múltiples procesos y memoria compartida.</p>
+<p>Debido a que uno de los usos principales de esta librería son las comunicaciones
+por red, <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> incluye una interfaz multiplataforma de <em>sockets</em> de bajo nivel,
+basada en el API <em>BSD sockets</em>, e implementada sobre la que proporciona el propio
+sistema operativo.</p>
+<p>A diferencia de esta última, la implementación proporcionada por <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> no incluye
+algunos aspectos del API original que no son seguros o que son propensos a provocar
+errores de programación. Por ejemplo, el uso de <code>int</code> para identificar a los <em>sockets</em>
+por parte del API <em>BSD sockets</em> carece de la seguridad que nos ofrecería tener un
+tipo específico para ellos. Por eso la representación de un <em>socket</em> en <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> usa
+un tipo distinto para cada protocolo. Es decir, para TCP el tipo de un socket es
+<code>ip::tcp::socket</code> mientras para UDP el tipo es <code>ip::udp::socket</code>.</p>
+<p>En la documentación de <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> se incluye una <a href="http://www.boost.org/doc/html/boost_asio/overview/networking/bsd_sockets.html">tabla</a>
+que muestra la relación entre el API <em>BSD socket</em> y el API de acceso a red de <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a>:</p>
+<h2>Referencias</h2>
 <ol>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422">Averlogic AL422</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit">Esquemático del módulo CF7670C-V2</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ/edit">Pines del módulo CF7670C-V2</a>.</li>
-<li><a href="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fS3c4VTRTNHJvMEU">Controlador de ejemplo para el módulo CF7670C-V2</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk/edit">OV7670 Implementation Guide</a>.</li>
-</ol></div>
+<li><a href="http://en.wikipedia.org/wiki/Berkeley_sockets">BSD sockets - Wikipedia</a>.</li>
+<li><a href="http://msdn.microsoft.com/es-es/library/windows/desktop/ms740673(v=vs.85).aspx">Wnsock - Windows Sockets API</a>.</li>
+<li><a href="http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html">Winsock Programmer's FAQ - BSD Sockets Compatibility</a>.</li>
+<li><a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a>.</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>POSIX son las siglas de Portable Operating System Interface, una familia
+de estándares especificados por el <a href="http://www.ieee.org/">IEEE</a> para mantener
+la compatibilidad entre sistemas operativos. POSIX define un API, tomando del
+de los sistemas UNIX, para asegurar la compatibilidad entre las distintas
+variantes de UNIX y otros sistemas operativos.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../camara-cf7670c-v2.html"><h2>Cámara CF7670C-V2</h2></a>
+        <div class= "well small"> dom 13 enero 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>
+con una memoria FIFO <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422">Averlogic AL422</a> de 3Mb.</p>
+<p><img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0px 10px 0"></p>
+<p>La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
+dando tiempo a la CPU externa a recuperarlas al ritmo que le sea ...</p> <a class="btn btn-info xsmall" href="../camara-cf7670c-v2.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -129,29 +230,6 @@ internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagere
 animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="../como-usar-qmovie-en-qt.html">leer más</a></div>
     </div>	
 				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../crea-tu-propia-distro-de-linux-con-yocto.html"><h2>Crea tu propia distro de Linux con Yocto</h2></a>
-        <div class= "well small"> mar 22 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>El objetivo de este artículo es explicar paso a paso como se puede utilizar
-el proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> para crear nuestra propia distribución de Linux. Primero
-construiremos una para ejecutarla en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> y después otra para nuestra
-Raspberry Pi.</p>
-<h2>Inicio rápido</h2>
-<p>El inicio rápido con el proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> está perfectamente documentado ...</p> <a class="btn btn-info xsmall" href="../crea-tu-propia-distro-de-linux-con-yocto.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
@@ -160,6 +238,7 @@ Raspberry Pi.</p>
     <li class=""><a href="../author/jesus-torres2.html">2</a></li>
     <li class=""><a href="../author/jesus-torres3.html">3</a></li>
     <li class=""><a href="../author/jesus-torres4.html">4</a></li>
+    <li class=""><a href="../author/jesus-torres5.html">5</a></li>
 
     <li class="next"><a href="../author/jesus-torres2.html">Next &rarr;</a></li>
 

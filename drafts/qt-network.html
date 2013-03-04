@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Jesús Torres - Sistema de Videovigilancia from Scratch</title>
+    <title>Qt Network - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,108 +50,78 @@
     <div class="row">
 
         <div class="span9">
-                
-
-        
-
- 
-
-    <div class='article'>
-        <a href="../protocol-buffers.html"><h2>Protocol Buffers</h2></a>
-        <div class= "well small"> sáb 02 marzo 2013
+            <div class='article'>
+        <div class="content-title">
+            <h1>Qt Network</h1>
+            lun 04 marzo 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- </div>
-        <div class="summary"><p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es una herramienta para la serialización<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> de estructuras de
-datos.</p>
-<p>Básicamente provee una manera sencilla de definir la estructura de los datos,
-pudieron entonces generar código capaz de leer y escribir dichos datos de
-manera eficiente, desde diferentes lenguajes y en una variedad de distintos
-tipos de ...</p> <a class="btn btn-info xsmall" href="../protocol-buffers.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html"><h2>Proyecto Qt. Framework de desarrollo de aplicaciones</h2></a>
-        <div class= "well small"> mar 29 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> es una <em>framework</em> multiplataforma en C++ de desarrollo de aplicaciones. Se
-utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
-gracias al conjunto de controles independientes de la plataforma que ofrece,
-aunque también es usado para crear herramientas de linea de comando o consolas
-de gestión para servicios.</p>
-<p>Esto último ...</p> <a class="btn btn-info xsmall" href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../raspberry-pi.html"><h2>Raspberry Pi</h2></a>
-        <div class= "well small"> dom 13 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Una Raspberry Pi es una placa computadora (<a href="http://en.wikipedia.org/wiki/Single-board_computer" title="Single-board Computer">SBC</a>) de bajo coste que incluye:</p>
-<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/RaspberryPi.jpg/320px-RaspberryPi.jpg" style="float:right;margin:0 0px 10px 0"></p>
-<ul>
-<li>Un <a href="http://es.wikipedia.org/wiki/System_on_a_chip" title="System on a Chip">SOC</a> Broadcom BCM2835, que contiene una CPU <a href="http://en.wikipedia.org/wiki/ARM11" title="ARM11">ARM11</a>76JZF-S a 700 MHz y
-una GPU <a href="http://en.wikipedia.org/wiki/VideoCore" title="VideoCore">VideoCore</a> IV.</li>
-<li>512 MB de memoria RAM (en la versión B de Raspberry Pi, 256 MB en la versión A)
-instalada ...</li></ul> <a class="btn btn-info xsmall" href="../raspberry-pi.html">leer más</a></div>
-    </div>	
-				
-            <div class="pagination">
-<ul>
-    <li class="prev"><a href="../author/jesus-torres3.html">&larr; Previous</a></li>
-
-    <li class=""><a href="../author/jesus-torres.html">1</a></li>
-    <li class=""><a href="../author/jesus-torres2.html">2</a></li>
-    <li class=""><a href="../author/jesus-torres3.html">3</a></li>
-    <li class="active"><a href="../author/jesus-torres4.html">4</a></li>
-    <li class=""><a href="../author/jesus-torres5.html">5</a></li>
-
-    <li class="next"><a href="../author/jesus-torres5.html">Next &rarr;</a></li>
-
-</ul>
-</div>    
- 
-  
+        </div>
+	
+        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona un conjunto de API de comunicaciones a través del módulo
+<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>. Este ofrece tanto clases de bajo nivel para comunicación
+mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
+implementan operaciones usando los protocolos de nivel de aplicación más
+communes, como HTTP o FTP.</p>
+<p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> incorpora este módulo por dos motivos fundamentales:</p>
+<ol>
+<li>
+<p>Aunque la mayor parte de los sistemas operativos modernos proporcionan un
+ API de acceso a red basado en <a href="../bsd-sockets.html">BSD sockets</a>,
+ algunos introducen funcionalidades adicionales para adaptarlo al modelo
+ de programación preferente en el sistema en cuestión. Este, por ejemplo,
+ es el caso de Windows y la librería <a href="../bsd-sockets.html">Winsock</a>
+ que incorpora. Por tanto <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, gracias a su módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>, nos
+ proporciona una forma portable de acceder a los servicios de red de los
+ sistemas operativos soportados sin tener que preocuparnos por las
+ particularidades de cada uno.</p>
+</li>
+<li>
+<p>Las operaciones de red suelen requerir mucho tiempo antes de completarse,
+ por lo que usarlas en un <em>slot</em> del hilo principal implica el bloqueo del bucle
+ de mensajes de la aplicación. Por fortuna el API <a href="../bsd-sockets.html">BSD sockets</a>
+ permite tanto el uso síncrono como asíncrono de la interfaz. Esta última
+ forma de utilizarla evita el bloqueo del bucle de mensajes al impedir que las
+ llamadas a la interfaz se bloqueen hasta que las operaciones de red son
+ completadas. Sin embargo, implican una forma de programar mucho más compleja
+ para el desarrollador.</p>
+<p>El API de bajo nivel de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> es asíncrono por diseño,
+ ocultando toda esa complejidad detrás del mecanimo de señales y <em>slots</em>
+ común a todo el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Aunque el API de bajo nivel ofrece métodos
+ para comunicación síncrona (los métodos <code>waitFor*</code>) su uso no está recomendado
+ si no es en un hilo diferente al hilo principal. Además las clases del API
+ de alto nivel no ofrecen métodos síncronos, por lo que requieren la
+ existencia de un bucle de mensajes.</p>
+<p>En todo caso debemos tener en cuenta que las API del  módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>
+ se pueden usar desde hilos diferentes al hilo principal ya que cada hilo
+ gestionado por la clase <a href="../hilos-de-trabajo-usando-senales-y-slots.html">QThread</a>
+ tiene su propio bucle de mensajes.</p>
+</li>
+</ol>
+<h2>Funcionalidad</h2>
+<p>El módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> ofrece las siguientes interfaces:</p>
+<dl>
+<dt><code>QNetworkRequest</code>, <code>QNetworkReply</code> y <code>QNetworkAccessManager</code></dt>
+<dd></dd>
+</dl>
+<h2>Ejemplo</h2>
+<h2>Referencias</h2>
+<ol>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a></li>
+</ol></div>
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+			    </div>
         </div>
         
         <div class="span3">
 
-                <div class="social">
-    <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-    <ul class="nav nav-list">
-        <li class="nav-header">
-        Jesús Torres
-        </li>
-
-                    <li><a href="http://plus.google.com/u/0/113130190517682041034" rel="me">google+</a></li>
-            </ul>
-    </div>
-    </div>
-
+            
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 

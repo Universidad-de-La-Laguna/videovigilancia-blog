@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Jesús Torres - Sistema de Videovigilancia from Scratch</title>
+    <title>protobuf - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,83 +54,72 @@
 
         
 
- 
 
     <div class='article'>
-        <a href="../protocol-buffers.html"><h2>Protocol Buffers</h2></a>
-        <div class= "well small"> sáb 02 marzo 2013
+        <div class="content-title">
+            <a href="../protocol-buffers.html"><h1>Protocol Buffers</h1></a>
+            sáb 02 marzo 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- </div>
-        <div class="summary"><p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es una herramienta para la serialización<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> de estructuras de
+ 
+        </div>
+        
+        <div><p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es una herramienta para la serialización<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> de estructuras de
 datos.</p>
 <p>Básicamente provee una manera sencilla de definir la estructura de los datos,
 pudieron entonces generar código capaz de leer y escribir dichos datos de
 manera eficiente, desde diferentes lenguajes y en una variedad de distintos
-tipos de ...</p> <a class="btn btn-info xsmall" href="../protocol-buffers.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html"><h2>Proyecto Qt. Framework de desarrollo de aplicaciones</h2></a>
-        <div class= "well small"> mar 29 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> es una <em>framework</em> multiplataforma en C++ de desarrollo de aplicaciones. Se
-utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
-gracias al conjunto de controles independientes de la plataforma que ofrece,
-aunque también es usado para crear herramientas de linea de comando o consolas
-de gestión para servicios.</p>
-<p>Esto último ...</p> <a class="btn btn-info xsmall" href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../raspberry-pi.html"><h2>Raspberry Pi</h2></a>
-        <div class= "well small"> dom 13 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Una Raspberry Pi es una placa computadora (<a href="http://en.wikipedia.org/wiki/Single-board_computer" title="Single-board Computer">SBC</a>) de bajo coste que incluye:</p>
-<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/RaspberryPi.jpg/320px-RaspberryPi.jpg" style="float:right;margin:0 0px 10px 0"></p>
-<ul>
-<li>Un <a href="http://es.wikipedia.org/wiki/System_on_a_chip" title="System on a Chip">SOC</a> Broadcom BCM2835, que contiene una CPU <a href="http://en.wikipedia.org/wiki/ARM11" title="ARM11">ARM11</a>76JZF-S a 700 MHz y
-una GPU <a href="http://en.wikipedia.org/wiki/VideoCore" title="VideoCore">VideoCore</a> IV.</li>
-<li>512 MB de memoria RAM (en la versión B de Raspberry Pi, 256 MB en la versión A)
-instalada ...</li></ul> <a class="btn btn-info xsmall" href="../raspberry-pi.html">leer más</a></div>
-    </div>	
-				
+tipos de flujos de datos.</p>
+<p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> fue desarrollado internamente por Google para almacenar
+e intercambiar todo tipo de información estructurada. Hasta el punto de que
+sirve de base para un sistema de <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call">llamada a procedimiento remoto</a>
+o <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> (Remote Procedure Call) propio que es usado prácticamente para
+todas las comunicaciones entre equipos en Google.</p>
+<p>En su momento Google hizo generadores de código de <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> para
+C++, Java y Python y liberó la herramienta con una licencia
+<a href="http://es.wikipedia.org/wiki/Licencia_BSD">BSD</a></p>
+<p>La idea detrás de <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es muy similar a la que dio origen a
+<a href="http://en.wikipedia.org/wiki/XML" title="XML">XML</a>, solo que en este caso el formato es binario, compacto y pone énfasis
+en la velocidad a la hora de serializar<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> y deserializar los datos. Además
+es muy similar a <a href="http://en.wikipedia.org/wiki/Apache_Thrift" title="Apache Thrift">Apache Thrift</a> (creado y usado internamente por Facebook)
+o <a href="http://en.wikipedia.org/wiki/Apache_Avro" title="Apache Avro">Apache Avro</a>, excepto porque <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> no define un protocolo
+<a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> concreto, sino sólo como deben empaquetarse los datos.</p>
+<p>Si se quiere definir un servicio <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> que haga uso de un protocolo que se
+apoye sobre <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> para el intercambio de datos, existen
+<a href="http://code.google.com/p/protobuf/wiki/ThirdPartyAddOns#RPC_Implementations">diversas implementaciones RPC</a>
+para distintos lenguajes de programación.</p>
+<h2>Referencias</h2>
+<ol>
+<li><a href="http://code.google.com/p/protobuf/">protobuf - Protocol Buffers - Google's data interchange format</a>.</li>
+<li><a href="https://developers.google.com/protocol-buffers/">Protocol Buffers - Google Developers</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Protocol_Buffers">Wikipedia</a>.</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>La serialización es un proceso de codificación de un objeto en un medio
+de almacenamiento (como puede ser una archivo o un buffer en memoria), en
+ocasiones para transmitirlo a través de una conexión de red o para preservarlo
+entre ejecuciones de un programa. La serie de bytes que codifican el estado
+del objeto tras la serialización puede ser usada para crear un nuevo objeto,
+idéntico al original, tras aplicar el proceso inverso de deserialización.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+        <hr />
+    </div>
+		
             <div class="pagination">
 <ul>
-    <li class="prev"><a href="../author/jesus-torres3.html">&larr; Previous</a></li>
+    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
-    <li class=""><a href="../author/jesus-torres.html">1</a></li>
-    <li class=""><a href="../author/jesus-torres2.html">2</a></li>
-    <li class=""><a href="../author/jesus-torres3.html">3</a></li>
-    <li class="active"><a href="../author/jesus-torres4.html">4</a></li>
-    <li class=""><a href="../author/jesus-torres5.html">5</a></li>
+    <li class="active"><a href="../tag/protobuf.html">1</a></li>
 
-    <li class="next"><a href="../author/jesus-torres5.html">Next &rarr;</a></li>
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 
 </ul>
 </div>    
@@ -140,18 +129,7 @@ instalada ...</li></ul> <a class="btn btn-info xsmall" href="../raspberry-pi.htm
         
         <div class="span3">
 
-                <div class="social">
-    <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-    <ul class="nav nav-list">
-        <li class="nav-header">
-        Jesús Torres
-        </li>
-
-                    <li><a href="http://plus.google.com/u/0/113130190517682041034" rel="me">google+</a></li>
-            </ul>
-    </div>
-    </div>
-
+            
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
