@@ -1,6 +1,7 @@
 Title: BSD sockets
 Tags: sockets, POSIX, comunicaciones
 Date: 2013-03-02
+PlusActivityId: z12qzhgakye0iduyy04cddm5vvifuzcyy1g
 
 _POSIX sockets_ es una parte de la especificación POSIX[^1] que define un API
 (Application Programming Interface) para la comunicación entre procesos,
