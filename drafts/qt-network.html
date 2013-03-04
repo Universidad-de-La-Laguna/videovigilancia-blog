@@ -86,27 +86,52 @@ communes, como HTTP o FTP.</p>
  permite tanto el uso síncrono como asíncrono de la interfaz. Esta última
  forma de utilizarla evita el bloqueo del bucle de mensajes al impedir que las
  llamadas a la interfaz se bloqueen hasta que las operaciones de red son
- completadas. Sin embargo, implican una forma de programar mucho más compleja
+ completadas. Sin embargo implican una forma de programar mucho más compleja
  para el desarrollador.</p>
 <p>El API de bajo nivel de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> es asíncrono por diseño,
- ocultando toda esa complejidad detrás del mecanimo de señales y <em>slots</em>
- común a todo el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Aunque el API de bajo nivel ofrece métodos
- para comunicación síncrona (los métodos <code>waitFor*</code>) su uso no está recomendado
+ ocultando toda esa complejidad detrás del bucle de mensajes y del mecanismo
+ de señales y <em>slots</em> común a todo el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Aunque el API de bajo
+ nivel ofrece métodos para comunicación síncrona (los métodos <code>waitFor*</code>),
+ en cuyo caso no necesitamos bucle de mensajes, su uso no está recomendado
  si no es en un hilo diferente al hilo principal. Además las clases del API
- de alto nivel no ofrecen métodos síncronos, por lo que requieren la
- existencia de un bucle de mensajes.</p>
-<p>En todo caso debemos tener en cuenta que las API del  módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>
- se pueden usar desde hilos diferentes al hilo principal ya que cada hilo
- gestionado por la clase <a href="../hilos-de-trabajo-usando-senales-y-slots.html">QThread</a>
- tiene su propio bucle de mensajes.</p>
+ de alto nivel no ofrecen métodos síncronos, por lo que si se usan es
+ obligatorio disponer de un bucle de mensajes.</p>
+<p>Debemos tener en cuenta que las API del módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> se pueden usar
+ desde hilos diferentes al hilo principal ya que cada hilo gestionado por la
+ clase <a href="../hilos-de-trabajo-usando-senales-y-slots.html">QThread</a>
+ tiene su propio bucle de mensajes, que se inicia automáticamente en el método
+ <code>QThread::run()</code> por defecto.</p>
 </li>
 </ol>
 <h2>Funcionalidad</h2>
 <p>El módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> ofrece las siguientes interfaces:</p>
 <dl>
 <dt><code>QNetworkRequest</code>, <code>QNetworkReply</code> y <code>QNetworkAccessManager</code></dt>
-<dd></dd>
+<dd>Es una colección de clases que proporcionan una abstracción de alto nivel
+sobre operaciones y protocolos de comunicación comunes, por ejemplo HTTP y FTP.
+Cada instancia de la clase <code>QNetworkRequest</code> representa una petición u operación
+contra un servicio en red, mientras que las instancias de la clase
+<code>QNetworkReply</code> representan la respuesta a esas peticiones. La coordinación
+de toda esta actividad es responsabilidad de <code>QNetworkAccessManager</code>, que
+se encarga de entregar a la red las peticiones una vez han sido creadas y de
+emitir señales con la respuesta a las mismas cuando son recibidas. También
+coordina el uso de <em>cookies</em>, peticiones de autenticación y el uso de
+servidores <em>proxy</em>.</dd>
+<dt><code>QTcpSocket</code> y <code>QTcpServer</code></dt>
+<dd>TCP es el protocolo de comunicación utilizado por muchos protocolos de
+Internet, como HTTP o FTP. <code>QTcpSocket</code> proporciona acceso de bajo nivel a
+dicho protocolo. Permite establecer una conexión con una dirección IP y puerto
+determinados, así como enviar y recibir datos. Estas operaciones son
+asíncronas, por lo que no bloquean la ejecución del hilo, siendo la clase la
+que notifica mediante señales tanto las condiciones de error como de cuándo
+se dispone de nuevos datos para leer.</dd>
 </dl>
+<p>Si lo que se desea es crear una aplicación que reciba conexiones TCP
+entrantes (como un servidor), lo conveniente es utilizar la clase
+<code>QTcpServer</code>. Ésta nos permite escuchar en una dirección IP y puerto concretos
+y aceptar las conexiones entrantes. Cada vez que se acepta el intento de
+conexión de un cliente, se obtiene una instancia de la clase <code>QTcpSocket</code> para
+comunicarnos con él.</p>
 <h2>Ejemplo</h2>
 <h2>Referencias</h2>
 <ol>
