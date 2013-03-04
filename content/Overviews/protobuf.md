@@ -1,23 +1,22 @@
 Title: Protocol Buffers
 Tags: protobuf, serialización
 Date: 2013-03-02
-Status: draft
 
 [Protocol Buffers] es una herramienta para la serialización[^1] de estructuras de
 datos.
 
 Básicamente provee una manera sencilla de definir la estructura de los datos,
-pudieron entonces generar código que capaz de leer y escribir dichos datos de
+pudieron entonces generar código capaz de leer y escribir dichos datos de
 manera eficiente, desde diferentes lenguajes y en una variedad de distintos
 tipos de flujos de datos.
 
-[Protocol Buffers] fue desarrollado internamente por Google para almacernar
+[Protocol Buffers] fue desarrollado internamente por Google para almacenar
 e intercambiar todo tipo de información estructurada. Hasta el punto de que
 sirve de base para un sistema de [llamada a procedimiento remoto](http://es.wikipedia.org/wiki/Remote_Procedure_Call)
 o [RPC] (Remote Procedure Call) propio que es usado prácticamente para
 todas las comunicaciones entre equipos en Google.
 
-En su momento Google hizo generadores de codigo de [Protocol Buffers] para
+En su momento Google hizo generadores de código de [Protocol Buffers] para
 C++, Java y Python y liberó la herramienta con una licencia
 [BSD](http://es.wikipedia.org/wiki/Licencia_BSD)
 
@@ -46,7 +45,7 @@ para distintos lenguajes de programación.
 [RPC]: http://es.wikipedia.org/wiki/Remote_Procedure_Call "Llamada a Procedimiento Remoto"
 
 
-[^1]: La serialización es un proceso de codificacón de un objeto en un medio
+[^1]: La serialización es un proceso de codificación de un objeto en un medio
 de almacenamiento (como puede ser una archivo o un buffer en memoria), en
 ocasiones para transmitirlo a través de una conexión de red o para preservarlo
 entre ejecuciones de un programa. La serie de bytes que codifican el estado

@@ -1,7 +1,6 @@
 Title: BSD sockets
 Tags: sockets, POSIX, comunicaciones
 Date: 2013-03-02
-Status: draft
 
 _POSIX sockets_ es una parte de la especificación POSIX[^1] que define un API
 (Application Programming Interface) para la comunicación entre procesos,
@@ -12,22 +11,22 @@ o [socket UNIX](http://es.wikipedia.org/wiki/Socket_Unix)).
 
 ## Historia
 
-La primera implementación ámpliamente distribuida de la pila de protocolos
+La primera implementación ampliamente distribuida de la pila de protocolos
 TCP/IP lo fue con el UNIX 4.2BSD, que incluía _BSD sockets_ (o _Berkeley sockets_)
 como API para las comunicaciones entre procesos usando estos protocolos.
 
 Las distintas versiones de BSD incorporaban código del UNIX original de AT&T,
-por lo que estaban sujetas a un licencia de software de esta empresa. La
+por lo que estaban sujetas a la licencia de software de esta empresa. La
 licencias de código fuente se estaban volviendo muy costosas, por lo que muchas
-empresas y organizaciones comenzaron a interesante en la liberación independiente
+empresas y organizaciones comenzaron a interesarse en la liberación independiente
 del código de red, que había sido desarrollado enteramente al margen de AT&T,
-por lo que no tenía que estar sujeto a los requierimientos de su licencia.
+por lo que no tenía que estar sujeto a los requerimientos de su licencia.
 
 En junio de 1989 este código fue liberado bajo los términos de la licencia
-[BSD](http://es.wikipedia.org/wiki/Licencia_BSD). Muchos fabricantes incluyenron
+[BSD](http://es.wikipedia.org/wiki/Licencia_BSD). Muchos fabricantes incluyeron
 este código directamente en sus propios sistemas, incluso aunque tuvieran sus
 propios protocolos propietarios con los que competían entre ellos. Y algunas
-compañias comenzaron a usarlo para vender pilas de protocolo TCP/IP para
+compañías comenzaron a usarlo para vender pilas de protocolo TCP/IP para
 Windows, hasta que Microsoft incluyó la suya propia en Windows 95, también
 derivada del código de BSD.
 
@@ -42,7 +41,7 @@ reemplazadas por otras. Aun así el API _POSIX sockets_ es básicamente el
 _BSD sockets_.
 
 De la misma manera los sistemas Windows incluyen [Winsock], un API de acceso a
-la red derivado de _BSD sockets_ que sólo difiere de este en unos
+la red derivado de _BSD sockets_ que sólo difiere de éste en unos
 [pocos detalles](http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html)
 
 ## Funciones del API
@@ -51,7 +50,7 @@ Este es un resumen de las funciones proporcionadas por _POSIX sockets_:
 
 `socket()`
 : Crea un nuevo _socket_, identificado por un número entero, de cierto tipo y
-reserva recursos del sistema para el.
+reserva recursos del sistema para él.
 
 `bind()`
 : Se usa generalmente en el lado del servidor para asociar un _socket_ con una
@@ -77,7 +76,7 @@ extremos de la conexión.
 
 `close()`
 : Hace que el sistema libere los recursos asignados al _socket_. En el caso
-de conexiones TCP, esta es finalizada.
+de conexiones TCP, ésta es finalizada.
 
 `getaddrinfo()` y `getnameinfo()`
 : Se usan para resolver nombres de máquina y direcciones IP ([DNS]).
@@ -106,7 +105,7 @@ un puerto serie, etc.; se requiere con cierta frecuencia. El acceso a estos recu
 suele implicar operaciones de E/S que normalmente consumen mucho tiempo antes
 de completarse, por lo que [Boost.Asio] provee de herramientas para gestionar
 estas conexiones de manera asíncrona, sin necesitar modelos de concurrencia
-basados en hilos o en multiples procesos y memoria compartida.
+basados en hilos o en múltiples procesos y memoria compartida.
 
 Debido a que uno de los usos principales de esta librería son las comunicaciones
 por red, [Boost.Asio] incluye una interfaz multiplataforma de _sockets_ de bajo nivel,
@@ -127,7 +126,7 @@ que muestra la relación entre el API _BSD socket_ y el API de acceso a red de [
 ## Referencias
 
  1. [BSD sockets - Wikipedia](http://en.wikipedia.org/wiki/Berkeley_sockets).
- 1. [Winsock].
+ 1. [Wnsock - Windows Sockets API](http://msdn.microsoft.com/es-es/library/windows/desktop/ms740673(v=vs.85).aspx).
  1. [Winsock Programmer's FAQ - BSD Sockets Compatibility](http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html).
  1. [Boost.Asio].
   
@@ -138,5 +137,5 @@ que muestra la relación entre el API _BSD socket_ y el API de acceso a red de [
 [^1]: POSIX son las siglas de Portable Operating System Interface, una familia
 de estándares especificados por el [IEEE](http://www.ieee.org/) para mantener
 la compatibilidad entre sistemas operativos. POSIX define un API, tomando del
-de los sistemas UNIX, para segurar la compatibilidad entre las distintas
+de los sistemas UNIX, para asegurar la compatibilidad entre las distintas
 variantes de UNIX y otros sistemas operativos.
