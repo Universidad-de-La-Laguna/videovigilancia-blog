@@ -111,7 +111,7 @@ de la función `QNetworkProxy::setApplicationProxy()`.
 : Estas clases constituyen la interfaz del gestor de portabilidad, que controla
 el estado de conectividad del dispositivo, permitiendo iniciar y detener las
 interfaces de red así como migrar transparentemente entre puntos de acceso.
-La clase `QNetworkConfigurationManager` gestionar la lista de configuraciones
+La clase `QNetworkConfigurationManager` gestiona la lista de configuraciones
 de red conocidas por el dispositivo. Una configuración de red describe el
 conjunto de parámetros usados al iniciar la interfaz de red y es representada
 por instancias de la clase `QNetworkConfiguration`.
