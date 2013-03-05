@@ -185,19 +185,25 @@ nos ofrece los siguientes &lt;em&gt;accesores&lt;/em&gt;:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;a los campos del mensaje. Además  se define el &lt;em&gt;enum&lt;/em&gt; &lt;code&gt;SensorsReport::SensorStatus&lt;/code&gt;
+&lt;p&gt;a los campos del mensaje. Además  se define el &lt;code&gt;enum&lt;/code&gt; &lt;code&gt;SensorsReport::SensorStatus&lt;/code&gt;
 y la clase &lt;code&gt;SensorsReport::SensorStatus&lt;/code&gt;.&lt;/p&gt;
 &lt;h1&gt;TODO: uso&lt;/h1&gt;
 &lt;h2&gt;Serialización y deserialización&lt;/h2&gt;
 &lt;p&gt;Cada clase ofrece un conjunto de métodos para codificar (serializar) y decodificar
 (deserializar) los mensajes:&lt;/p&gt;
 &lt;dl&gt;
-&lt;dt&gt;&lt;code&gt;bool SerializeToString(string* output) const&lt;/code&gt;&lt;/dt&gt;
+&lt;dt&gt;&lt;code&gt;bool SerializeToString(string* output) const;&lt;/code&gt;&lt;/dt&gt;
 &lt;dd&gt;Serializa el mensaje y almacena los bytes en la cadena especificada en el
 argumento &lt;code&gt;output&lt;/code&gt;. Nótese que estos bytes son binarios, no texto, y que la
 clase &lt;code&gt;std::string&lt;/code&gt; se usa como un mero contenedor.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;bool ParseFromString(const string&amp;amp; data);&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Deserializa un mensaje codificado en la cadena especificada en el argumento
+&lt;code&gt;data&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;bool SerializeToOstream(ostream* output) const;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Escribe el mensaje serializado en el flujo &lt;code&gt;ostream&lt;/code&gt; indicado.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;bool ParseFromIstream(istream* input);&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Deserializa un mensaje leido del flujo &lt;code&gt;istream&lt;/code&gt; indicado.&lt;/dd&gt;
 &lt;/dl&gt;
-&lt;h1&gt;TODO: Terminar esto&lt;/h1&gt;
 &lt;h2&gt;Almacenamiento y transmisión por red&lt;/h2&gt;
 &lt;h2&gt;Referencias&lt;/h2&gt;
 &lt;ol&gt;
