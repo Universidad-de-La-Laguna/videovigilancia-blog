@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../protocol-buffers.html"><h1>Protocol Buffers</h1></a>
-            sáb 02 marzo 2013
+            <a href="../implementado-un-protocolo-con-protocol-buffers.html"><h1>Implementado un protocolo con Protocol Buffers</h1></a>
+            mar 05 marzo 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,52 +67,238 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es una herramienta para la serialización<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> de estructuras de
+        <div><p><a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> es un mecanismo sencillo para serializar estructuras de
+datos, de tal forma que los datos así codificados pueden ser almacenados
+o enviados a través de una red de comunicaciones. Esto nos ofrece una forma
+sencilla de crear nuestro propio protocolo de comunicaciones, adaptado a las
+necesidades de un problema concreto.  </p>
+<p>Los pasos concretos para usar <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> son lo siguientes:</p>
+<ol>
+<li>
+<p>Especificar la estructura de datos del mensaje del nuevo protocolo en un
+ archivo <code>.proto</code>. Estos archivos se escriben utilizando un <a href="https://developers.google.com/protocol-buffers/docs/proto">lenguaje de
+ descripción de interfaz</a>
+ que es propio de <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>.</p>
+</li>
+<li>
+<p>Ejecutar el compilador de <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>, para el lenguaje de la
+ aplicación, sobre el archivo <code>.proto</code> con el objeto de generar las clases
+ de acceso a los datos. Estas proporcionan accesores para cada campo, así
+ como métodos para serializar y deserializar los mensajes a y desde
+ una secuencia de bytes. </p>
+</li>
+<li>
+<p>Incluir las clases generadas en nuestra aplicación y usarlas para generar
+ instancias del mensaje, serializarlas y enviar los mensajes codificados o
+ leer dichos mensajes, deserializarlos y reconstruir las instancias de los
+ mensajes para acceder a sus campos.</p>
+</li>
+</ol>
+<h2>Definir la estructura del mensaje</h2>
+<p>Supongamos que conectados a una red tenemos un conjunto de [Arduinos] equipados
+con varios sensores de diferente tipo: temperatura, humedad, luminosidad,
+movimiento, etc. Cada <a href="http://www.arduino.cc/" title="Arduino">Arduino</a> tiene un nombre que lo identifica y su función
+es leer el estado de dichos sensores, a intervalos regulares, y enviar mensajes
+con los datos de los mismos a un servidor.</p>
+<p>Teniendo esto presente, el archivo <code>.proto</code> podría ser el siguiente:</p>
+<div class="codehilite"><pre><span class="c1">// sensorsreport.proto - Protocolo de comunicaciones con Arduino</span>
+<span class="c1">//</span>
+<span class="n">message</span> <span class="n">SensorsReport</span> <span class="p">{</span>
+    <span class="n">required</span> <span class="k">string</span> <span class="n">deviceName</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>     <span class="c1">// Nombre del Arduino</span>
+    <span class="n">required</span> <span class="n">uint64</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span>      <span class="c1">// Seg. desde 1/1/1970</span>
+
+    <span class="k">enum</span> <span class="n">SensorType</span> <span class="p">{</span>
+        <span class="no">HUMIDITY</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+        <span class="no">LUMINOSITY</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+        <span class="no">MOTION</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span>
+        <span class="no">TEMPERATURE</span> <span class="o">=</span> <span class="mh">3</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">message</span> <span class="n">SensorStatus</span> <span class="p">{</span>
+        <span class="n">required</span> <span class="n">SensorType</span> <span class="k">type</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+        <span class="n">required</span> <span class="n">int32</span> <span class="n">value</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">repeated</span> <span class="n">SensorStatus</span> <span class="n">sensors</span> <span class="o">=</span> <span class="mh">3</span><span class="p">;</span>  <span class="c1">// Vector de estados de los</span>
+                                        <span class="c1">// sensores</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Como se puede observar el lenguaje usado en los archivos <code>.proto</code> es muy
+sencillo. Solamente hay que indicar el nombre y el tipo de cada campo,
+así como si es opcional (<em>optional</em>), requerido (<em>required</em>) o se repite
+(<em>repeated</em>).</p>
+<p>En <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> los campos se etiquetan de manera única con un entero
+que después es utilizado en la codificación binaria para identificarlos.</p>
+<h2>Clases de acceso a los datos</h2>
+<p>Una vez tenemos la definición de la estructura del mensaje, podemos invocar
+al compilador de <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> para generar las clases de acceso a los
 datos.</p>
-<p>Básicamente provee una manera sencilla de definir la estructura de los datos,
-pudieron entonces generar código capaz de leer y escribir dichos datos de
-manera eficiente, desde diferentes lenguajes y en una variedad de distintos
-tipos de flujos de datos.</p>
-<p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> fue desarrollado internamente por Google para almacenar
-e intercambiar todo tipo de información estructurada. Hasta el punto de que
-sirve de base para un sistema de <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call">llamada a procedimiento remoto</a>
-o <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> (Remote Procedure Call) propio que es usado prácticamente para
-todas las comunicaciones entre equipos en Google.</p>
-<p>En su momento Google hizo generadores de código de <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> para
-C++, Java y Python y liberó la herramienta con una licencia
-<a href="http://es.wikipedia.org/wiki/Licencia_BSD">BSD</a></p>
-<p>La idea detrás de <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es muy similar a la que dio origen a
-<a href="http://en.wikipedia.org/wiki/XML" title="XML">XML</a>, solo que en este caso el formato es binario, compacto y pone énfasis
-en la velocidad a la hora de serializar<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> y deserializar los datos. Además
-es muy similar a <a href="http://en.wikipedia.org/wiki/Apache_Thrift" title="Apache Thrift">Apache Thrift</a> (creado y usado internamente por Facebook)
-o <a href="http://en.wikipedia.org/wiki/Apache_Avro" title="Apache Avro">Apache Avro</a>, excepto porque <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> no define un protocolo
-<a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> concreto, sino sólo como deben empaquetarse los datos.</p>
-<p>Si se quiere definir un servicio <a href="http://es.wikipedia.org/wiki/Remote_Procedure_Call" title="Llamada a Procedimiento Remoto">RPC</a> que haga uso de un protocolo que se
-apoye sobre <a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> para el intercambio de datos, existen
-<a href="http://code.google.com/p/protobuf/wiki/ThirdPartyAddOns#RPC_Implementations">diversas implementaciones RPC</a>
-para distintos lenguajes de programación.</p>
+<h3>Desde línea de comandos</h3>
+<p>Desde línea de comandos generar las clases es tan sencillo como:</p>
+<ol>
+<li>
+<p>Invocar el compilador de la siguiente manera:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">protoc</span> <span class="o">--</span><span class="n">cpp_out</span><span class="o">=</span><span class="p">.</span> <span class="n">sensorsreport</span><span class="p">.</span><span class="n">proto</span>
+</pre></div>
+
+
+<p>que genera los archivos <code>sensorsreport.pb.cc</code> y <code>sensorsreport.pb.h</code> en el
+directorio actual.</p>
+</li>
+<li>
+<p>Incluir el archivo de cabecera en nuestro código fuente allí donde vaya a
+    ser utilizado:</p>
+<div class="codehilite"><pre><span class="c">#include &quot;sensorsreport.pb.h&quot;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Compilar el ejecutable junto con el archivo <code>sensorsreport.pb.cc</code> y enlazar
+    con la librería <code>protobuf</code>.</p>
+</li>
+</ol>
+<h3>Con qmake</h3>
+<p>Si estamos usando <code>qmake</code> para construir nuestro proyecto (como es el caso cuando
+desarrollamos con el IDE Qt Creator) lo más cómodo es que este se encargue de
+invocar al compilador <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> para generar las clases de acceso
+de forma automática.</p>
+<p>En este sentido el archivo <a href="http://code.google.com/p/ostinato/source/browse/protobuf.pri">protobuf.pri</a> del proyecto
+<a href="http://code.google.com/p/ostinato">ostinato</a> puede ser de gran ayuda.</p>
+<div class="codehilite"><pre>#
+# Qt qmake integration with Google Protocol Buffers compiler protoc
+#
+# To compile protocol buffers with qt qmake, specify PROTOS variable and
+# include this file
+#
+# Example:
+# PROTOS = a.proto b.proto
+# include(protobuf.pri)
+#
+# By default protoc looks for .proto files (including the imported ones) in
+# the current directory where protoc is run. If you need to include additional
+# paths specify the PROTOPATH variable
+#
+
+PROTOPATH += .
+PROTOPATHS =
+for(p, PROTOPATH):PROTOPATHS += --proto_path=$${p}
+
+protobuf_decl.name  = protobuf header
+protobuf_decl.input = PROTOS
+protobuf_decl.output  = <span class="cp">${</span><span class="n">QMAKE_FILE_BASE</span><span class="cp">}</span>.pb.h
+protobuf_decl.commands = protoc --cpp_out=&quot;.&quot; $${PROTOPATHS} <span class="cp">${</span><span class="n">QMAKE_FILE_NAME</span><span class="cp">}</span>
+protobuf_decl.variable_out = GENERATED_FILES
+QMAKE_EXTRA_COMPILERS += protobuf_decl
+
+protobuf_impl.name  = protobuf implementation
+protobuf_impl.input = PROTOS
+protobuf_impl.output  = <span class="cp">${</span><span class="n">QMAKE_FILE_BASE</span><span class="cp">}</span>.pb.cc
+protobuf_impl.depends  = <span class="cp">${</span><span class="n">QMAKE_FILE_BASE</span><span class="cp">}</span>.pb.h
+protobuf_impl.commands = $$escape_expand(\n)
+protobuf_impl.variable_out = GENERATED_SOURCES
+QMAKE_EXTRA_COMPILERS += protobuf_impl
+</pre></div>
+
+
+<p>Para usarlo sólo tenemos que:</p>
+<ol>
+<li>Descargarlo al directorio del proyecto con el nombre <code>protobuf.pri</code>.</li>
+<li>
+<p>Abrir el archivo <code>.pro</code> del proyecto y añadir las líneas:</p>
+<div class="codehilite"><pre><span class="n">PROTOS</span> <span class="o">=</span> <span class="n">sensorsreport</span><span class="p">.</span><span class="n">proto</span>
+<span class="n">include</span><span class="p">(</span><span class="n">protobuf</span><span class="p">.</span><span class="n">pri</span><span class="p">)</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Incorporar la librería <code>protobuf</code> al proyecto. El procedimiento sería similar
+ al que <a href="/deteccion-de-movimiento.html#incorporar_libreria_manualmente">comentamos</a>
+ para añadir manualmente la librería OpenCV con el objeto de implementar la
+ <a href="/deteccion-de-movimiento.html">detección de movimiento</a></p>
+</li>
+</ol>
+<h2>Interfaz de Protocol Buffers</h2>
+<p>Si abrimos el archivo <code>sensorsreport.proto</code> veremos que la clase <code>SensorsReport</code>
+nos ofrece los siguientes <em>accesores</em>:</p>
+<div class="codehilite"><pre><span class="c1">// required string deviceName = 1;</span>
+<span class="kr">inline</span> <span class="kt">bool</span> <span class="n">has_devicename</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">clear_devicename</span><span class="p">();</span>
+<span class="kr">inline</span> <span class="k">const</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">devicename</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">value</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span> <span class="n">mutable_devicename</span><span class="p">();</span>
+<span class="kr">inline</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span> <span class="n">release_devicename</span><span class="p">();</span>
+
+<span class="c1">// required uint64 timestamp = 2;</span>
+<span class="kr">inline</span> <span class="kt">bool</span> <span class="n">has_timestamp</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">clear_timestamp</span><span class="p">();</span>
+<span class="kr">inline</span> <span class="o">::</span><span class="n">google</span><span class="o">::</span><span class="n">protobuf</span><span class="o">::</span><span class="n">uint64</span> <span class="n">timestamp</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">set_timestamp</span><span class="p">(</span><span class="o">::</span><span class="n">google</span><span class="o">::</span><span class="n">protobuf</span><span class="o">::</span><span class="n">uint64</span> <span class="n">value</span><span class="p">);</span>
+
+<span class="c1">// repeated .SensorsReport.SensorStatus sensors = 3;</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="n">sensors_size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">clear_sensors</span><span class="p">();</span>
+<span class="kr">inline</span> <span class="k">const</span> <span class="o">::</span><span class="n">SensorsReport_SensorStatus</span><span class="o">&amp;</span> <span class="n">sensors</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="o">::</span><span class="n">SensorsReport_SensorStatus</span><span class="o">*</span> <span class="n">mutable_sensors</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="o">::</span><span class="n">SensorsReport_SensorStatus</span><span class="o">*</span> <span class="n">add_sensors</span><span class="p">();</span>
+<span class="kr">inline</span> <span class="k">const</span> <span class="o">::</span><span class="n">google</span><span class="o">::</span><span class="n">protobuf</span><span class="o">::</span><span class="n">RepeatedPtrField</span><span class="o">&lt;</span> <span class="o">::</span><span class="n">SensorsReport_SensorStatus</span> <span class="o">&gt;&amp;</span>
+    <span class="n">sensors</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="o">::</span><span class="n">google</span><span class="o">::</span><span class="n">protobuf</span><span class="o">::</span><span class="n">RepeatedPtrField</span><span class="o">&lt;</span> <span class="o">::</span><span class="n">SensorsReport_SensorStatus</span> <span class="o">&gt;*</span>
+    <span class="n">mutable_sensors</span><span class="p">();</span>
+</pre></div>
+
+
+<p>a los campos del mensaje. Además  se define el <em>enum</em> <code>SensorsReport::SensorStatus</code>
+y la clase <code>SensorsReport::SensorStatus</code>.</p>
+<h1>TODO: uso</h1>
+<h2>Serialización y deserialización</h2>
+<p>Cada clase ofrece un conjunto de métodos para codificar (serializar) y decodificar
+(deserializar) los mensajes:</p>
+<dl>
+<dt><code>bool SerializeToString(string* output) const</code></dt>
+<dd>Serializa el mensaje y almacena los bytes en la cadena especificada en el
+argumento <code>output</code>. Nótese que estos bytes son binarios, no texto, y que la
+clase <code>std::string</code> se usa como un mero contenedor.</dd>
+</dl>
+<h1>TODO: Terminar esto</h1>
+<h2>Almacenamiento y transmisión por red</h2>
 <h2>Referencias</h2>
 <ol>
 <li><a href="http://code.google.com/p/protobuf/">protobuf - Protocol Buffers - Google's data interchange format</a>.</li>
 <li><a href="https://developers.google.com/protocol-buffers/">Protocol Buffers - Google Developers</a></li>
-<li><a href="http://en.wikipedia.org/wiki/Protocol_Buffers">Wikipedia</a>.</li>
-</ol>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>La serialización es un proceso de codificación de un objeto en un medio
-de almacenamiento (como puede ser una archivo o un buffer en memoria), en
-ocasiones para transmitirlo a través de una conexión de red o para preservarlo
-entre ejecuciones de un programa. La serie de bytes que codifican el estado
-del objeto tras la serialización puede ser usada para crear un nuevo objeto,
-idéntico al original, tras aplicar el proceso inverso de deserialización.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div></div>
+<li><a href="https://developers.google.com/protocol-buffers/docs/proto">Language Guide</a></li>
+</ol></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../protocol-buffers.html"><h2>Protocol Buffers</h2></a>
+        <div class= "well small"> sáb 02 marzo 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es una herramienta para la serialización<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> de estructuras de
+datos.</p>
+<p>Básicamente provee una manera sencilla de definir la estructura de los datos,
+pudieron entonces generar código capaz de leer y escribir dichos datos de
+manera eficiente, desde diferentes lenguajes y en una variedad de distintos
+tipos de ...</p> <a class="btn btn-info xsmall" href="../protocol-buffers.html">leer más</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
@@ -150,6 +336,7 @@ idéntico al original, tras aplicar el proceso inverso de deserialización.&#160
                 Categorias
                 </li>
                 
+                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
                                 <li><a href="../category/hardware.html">Hardware</a></li>
                                 <li><a href="../category/linux.html">Linux</a></li>
                                 <li><a href="../category/overviews.html">Overviews</a></li>

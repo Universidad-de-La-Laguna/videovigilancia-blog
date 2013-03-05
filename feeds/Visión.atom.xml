@@ -123,6 +123,9 @@ En nuestro caso concreto el módulo &lt;em&gt;video&lt;/em&gt; incluye las clase
 supresión del fondo que nos interesa utilizar, mientras que &lt;em&gt;imgproc&lt;/em&gt; contiene
 las operaciones morfológicas y de detección de contornos.&lt;/p&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id="incorporar_libreria_manualmente"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Si por cualquier motivo no estuviéramos haciendo uso de los archivos &lt;code&gt;.pri&lt;/code&gt;
 tendríamos que incorporar la librería al proyecto manualmente:&lt;/p&gt;

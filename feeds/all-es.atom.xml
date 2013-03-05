@@ -1,5 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-03-04T00:00:00+00:00</updated><entry><title>Qt Network</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/qt-network.html" rel="alternate"></link><updated>2013-03-04T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-04:qt-network.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona un conjunto de API de comunicaciones a través del módulo
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-03-05T00:00:00+00:00</updated><entry><title>Implementado un protocolo con Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/implementado-un-protocolo-con-protocol-buffers.html" rel="alternate"></link><updated>2013-03-05T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-05:implementado-un-protocolo-con-protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; es un mecanismo sencillo para serializar estructuras de
+datos, de tal forma que los datos así codificados pueden ser almacenados
+o enviados a través de una red de comunicaciones. Esto nos ofrece una forma
+sencilla de crear nuestro propio protocolo de comunicaciones, adaptado a las
+necesidades de un problema concreto.  &lt;/p&gt;
+&lt;p&gt;Los pasos concretos para usar &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; son lo siguientes:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Especificar la estructura de datos del mensaje del nuevo protocolo en un
+ archivo &lt;code&gt;.proto&lt;/code&gt;. Estos archivos se escriben utilizando un &lt;a href="https://developers.google.com/protocol-buffers/docs/proto"&gt;lenguaje de
+ descripción de interfaz&lt;/a&gt;
+ que es propio de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ejecutar el compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;, para el lenguaje de la
+ aplicación, sobre el archivo &lt;code&gt;.proto&lt;/code&gt; con el objeto de generar las clases
+ de acceso a los datos. Estas proporcionan accesores para cada campo, así
+ como métodos para serializar y deserializar los mensajes a y desde
+ una secuencia de bytes. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Incluir las clases generadas en nuestra aplicación y usarlas para generar
+ instancias del mensaje, serializarlas y enviar los mensajes codificados o
+ leer dichos mensajes, deserializarlos y reconstruir las instancias de los
+ mensajes para acceder a sus campos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Definir la estructura del mensaje&lt;/h2&gt;
+&lt;p&gt;Supongamos que conectados a una red tenemos un conjunto de [Arduinos] equipados
+con varios sensores de diferente tipo: temperatura, humedad, luminosidad,
+movimiento, etc. Cada &lt;a href="http://www.arduino.cc/" title="Arduino"&gt;Arduino&lt;/a&gt; tiene un nombre que lo identifica y su función
+es leer el estado de dichos sensores, a intervalos regulares, y enviar mensajes
+con los datos de los mismos a un servidor.&lt;/p&gt;
+&lt;p&gt;Teniendo esto presente, el archivo &lt;code&gt;.proto&lt;/code&gt; podría ser el siguiente:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// sensorsreport.proto - Protocolo de comunicaciones con Arduino&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="n"&gt;message&lt;/span&gt; &lt;span class="n"&gt;SensorsReport&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="k"&gt;string&lt;/span&gt; &lt;span class="n"&gt;deviceName&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="c1"&gt;// Nombre del Arduino&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;uint64&lt;/span&gt; &lt;span class="n"&gt;timestamp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// Seg. desde 1/1/1970&lt;/span&gt;
+
+    &lt;span class="k"&gt;enum&lt;/span&gt; &lt;span class="n"&gt;SensorType&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="no"&gt;HUMIDITY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="no"&gt;LUMINOSITY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="no"&gt;MOTION&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="no"&gt;TEMPERATURE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;message&lt;/span&gt; &lt;span class="n"&gt;SensorStatus&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;SensorType&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;int32&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;repeated&lt;/span&gt; &lt;span class="n"&gt;SensorStatus&lt;/span&gt; &lt;span class="n"&gt;sensors&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// Vector de estados de los&lt;/span&gt;
+                                        &lt;span class="c1"&gt;// sensores&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Como se puede observar el lenguaje usado en los archivos &lt;code&gt;.proto&lt;/code&gt; es muy
+sencillo. Solamente hay que indicar el nombre y el tipo de cada campo,
+así como si es opcional (&lt;em&gt;optional&lt;/em&gt;), requerido (&lt;em&gt;required&lt;/em&gt;) o se repite
+(&lt;em&gt;repeated&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;En &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; los campos se etiquetan de manera única con un entero
+que después es utilizado en la codificación binaria para identificarlos.&lt;/p&gt;
+&lt;h2&gt;Clases de acceso a los datos&lt;/h2&gt;
+&lt;p&gt;Una vez tenemos la definición de la estructura del mensaje, podemos invocar
+al compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso a los
+datos.&lt;/p&gt;
+&lt;h3&gt;Desde línea de comandos&lt;/h3&gt;
+&lt;p&gt;Desde línea de comandos generar las clases es tan sencillo como:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Invocar el compilador de la siguiente manera:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;protoc&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;cpp_out&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;sensorsreport&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;proto&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;que genera los archivos &lt;code&gt;sensorsreport.pb.cc&lt;/code&gt; y &lt;code&gt;sensorsreport.pb.h&lt;/code&gt; en el
+directorio actual.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Incluir el archivo de cabecera en nuestro código fuente allí donde vaya a
+    ser utilizado:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#include &amp;quot;sensorsreport.pb.h&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Compilar el ejecutable junto con el archivo &lt;code&gt;sensorsreport.pb.cc&lt;/code&gt; y enlazar
+    con la librería &lt;code&gt;protobuf&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Con qmake&lt;/h3&gt;
+&lt;p&gt;Si estamos usando &lt;code&gt;qmake&lt;/code&gt; para construir nuestro proyecto (como es el caso cuando
+desarrollamos con el IDE Qt Creator) lo más cómodo es que este se encargue de
+invocar al compilador &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso
+de forma automática.&lt;/p&gt;
+&lt;p&gt;En este sentido el archivo &lt;a href="http://code.google.com/p/ostinato/source/browse/protobuf.pri"&gt;protobuf.pri&lt;/a&gt; del proyecto
+&lt;a href="http://code.google.com/p/ostinato"&gt;ostinato&lt;/a&gt; puede ser de gran ayuda.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;#
+# Qt qmake integration with Google Protocol Buffers compiler protoc
+#
+# To compile protocol buffers with qt qmake, specify PROTOS variable and
+# include this file
+#
+# Example:
+# PROTOS = a.proto b.proto
+# include(protobuf.pri)
+#
+# By default protoc looks for .proto files (including the imported ones) in
+# the current directory where protoc is run. If you need to include additional
+# paths specify the PROTOPATH variable
+#
+
+PROTOPATH += .
+PROTOPATHS =
+for(p, PROTOPATH):PROTOPATHS += --proto_path=$${p}
+
+protobuf_decl.name  = protobuf header
+protobuf_decl.input = PROTOS
+protobuf_decl.output  = &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;.pb.h
+protobuf_decl.commands = protoc --cpp_out=&amp;quot;.&amp;quot; $${PROTOPATHS} &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_NAME&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+protobuf_decl.variable_out = GENERATED_FILES
+QMAKE_EXTRA_COMPILERS += protobuf_decl
+
+protobuf_impl.name  = protobuf implementation
+protobuf_impl.input = PROTOS
+protobuf_impl.output  = &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;.pb.cc
+protobuf_impl.depends  = &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;.pb.h
+protobuf_impl.commands = $$escape_expand(\n)
+protobuf_impl.variable_out = GENERATED_SOURCES
+QMAKE_EXTRA_COMPILERS += protobuf_impl
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Para usarlo sólo tenemos que:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Descargarlo al directorio del proyecto con el nombre &lt;code&gt;protobuf.pri&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Abrir el archivo &lt;code&gt;.pro&lt;/code&gt; del proyecto y añadir las líneas:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;PROTOS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sensorsreport&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;proto&lt;/span&gt;
+&lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pri&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Incorporar la librería &lt;code&gt;protobuf&lt;/code&gt; al proyecto. El procedimiento sería similar
+ al que &lt;a href="/deteccion-de-movimiento.html#incorporar_libreria_manualmente"&gt;comentamos&lt;/a&gt;
+ para añadir manualmente la librería OpenCV con el objeto de implementar la
+ &lt;a href="/deteccion-de-movimiento.html"&gt;detección de movimiento&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Interfaz de Protocol Buffers&lt;/h2&gt;
+&lt;p&gt;Si abrimos el archivo &lt;code&gt;sensorsreport.proto&lt;/code&gt; veremos que la clase &lt;code&gt;SensorsReport&lt;/code&gt;
+nos ofrece los siguientes &lt;em&gt;accesores&lt;/em&gt;:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// required string deviceName = 1;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;has_devicename&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;clear_devicename&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;devicename&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;mutable_devicename&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;release_devicename&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="c1"&gt;// required uint64 timestamp = 2;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;has_timestamp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;clear_timestamp&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;uint64&lt;/span&gt; &lt;span class="n"&gt;timestamp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;set_timestamp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;uint64&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// repeated .SensorsReport.SensorStatus sensors = 3;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sensors_size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;clear_sensors&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SensorsReport_SensorStatus&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;sensors&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SensorsReport_SensorStatus&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;mutable_sensors&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SensorsReport_SensorStatus&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;add_sensors&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;RepeatedPtrField&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SensorsReport_SensorStatus&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt;
+    &lt;span class="n"&gt;sensors&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;RepeatedPtrField&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SensorsReport_SensorStatus&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;*&lt;/span&gt;
+    &lt;span class="n"&gt;mutable_sensors&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;a los campos del mensaje. Además  se define el &lt;em&gt;enum&lt;/em&gt; &lt;code&gt;SensorsReport::SensorStatus&lt;/code&gt;
+y la clase &lt;code&gt;SensorsReport::SensorStatus&lt;/code&gt;.&lt;/p&gt;
+&lt;h1&gt;TODO: uso&lt;/h1&gt;
+&lt;h2&gt;Serialización y deserialización&lt;/h2&gt;
+&lt;p&gt;Cada clase ofrece un conjunto de métodos para codificar (serializar) y decodificar
+(deserializar) los mensajes:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;code&gt;bool SerializeToString(string* output) const&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Serializa el mensaje y almacena los bytes en la cadena especificada en el
+argumento &lt;code&gt;output&lt;/code&gt;. Nótese que estos bytes son binarios, no texto, y que la
+clase &lt;code&gt;std::string&lt;/code&gt; se usa como un mero contenedor.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h1&gt;TODO: Terminar esto&lt;/h1&gt;
+&lt;h2&gt;Almacenamiento y transmisión por red&lt;/h2&gt;
+&lt;h2&gt;Referencias&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://code.google.com/p/protobuf/"&gt;protobuf - Protocol Buffers - Google's data interchange format&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/protocol-buffers/"&gt;Protocol Buffers - Google Developers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/protocol-buffers/docs/proto"&gt;Language Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="protobuf"></category><category term="serialización"></category></entry><entry><title>Qt Network</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/qt-network.html" rel="alternate"></link><updated>2013-03-04T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-04:qt-network.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona un conjunto de API de comunicaciones a través del módulo
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;. Este ofrece tanto clases de bajo nivel para comunicación
 mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
 implementan operaciones usando los protocolos de nivel de aplicación más
@@ -101,7 +306,7 @@ de la función &lt;code&gt;QNetworkProxy::setApplicationProxy()&lt;/code&gt;.&lt
 &lt;dd&gt;Estas clases constituyen la interfaz del gestor de portabilidad, que controla
 el estado de conectividad del dispositivo, permitiendo iniciar y detener las
 interfaces de red así como migrar transparentemente entre puntos de acceso.
-La clase &lt;code&gt;QNetworkConfigurationManager&lt;/code&gt; gestionar la lista de configuraciones
+La clase &lt;code&gt;QNetworkConfigurationManager&lt;/code&gt; gestiona la lista de configuraciones
 de red conocidas por el dispositivo. Una configuración de red describe el
 conjunto de parámetros usados al iniciar la interfaz de red y es representada
 por instancias de la clase &lt;code&gt;QNetworkConfiguration&lt;/code&gt;.&lt;/dd&gt;
@@ -432,6 +637,9 @@ En nuestro caso concreto el módulo &lt;em&gt;video&lt;/em&gt; incluye las clase
 supresión del fondo que nos interesa utilizar, mientras que &lt;em&gt;imgproc&lt;/em&gt; contiene
 las operaciones morfológicas y de detección de contornos.&lt;/p&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id="incorporar_libreria_manualmente"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Si por cualquier motivo no estuviéramos haciendo uso de los archivos &lt;code&gt;.pri&lt;/code&gt;
 tendríamos que incorporar la librería al proyecto manualmente:&lt;/p&gt;
