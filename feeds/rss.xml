@@ -187,29 +187,148 @@ nos ofrece los siguientes &lt;em&gt;accesores&lt;/em&gt;:&lt;/p&gt;
 
 &lt;p&gt;a los campos del mensaje. Además  se define el &lt;code&gt;enum&lt;/code&gt; &lt;code&gt;SensorsReport::SensorStatus&lt;/code&gt;
 y la clase &lt;code&gt;SensorsReport::SensorStatus&lt;/code&gt;.&lt;/p&gt;
-&lt;h1&gt;TODO: uso&lt;/h1&gt;
-&lt;h2&gt;Serialización y deserialización&lt;/h2&gt;
-&lt;p&gt;Cada clase ofrece un conjunto de métodos para codificar (serializar) y decodificar
-(deserializar) los mensajes:&lt;/p&gt;
+&lt;p&gt;Todos los detalles sobre el código generado por el compilador están documentados
+en la &lt;a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated"&gt;referencia del código generado en C++&lt;/a&gt;.
+Eso incluye &lt;a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated#fields"&gt;los accesores creados&lt;/a&gt;
+según el tipo de definición de los campos.&lt;/p&gt;
+&lt;h3&gt;Campos individuales&lt;/h3&gt;
+&lt;p&gt;Por ejemplo, para definiciones de este tipo:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;optional&lt;/span&gt; &lt;span class="n"&gt;int32&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;int32&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;el compilador genera los siguientes &lt;em&gt;accesores&lt;/em&gt;:&lt;/p&gt;
 &lt;dl&gt;
-&lt;dt&gt;&lt;code&gt;bool SerializeToString(string* output) const;&lt;/code&gt;&lt;/dt&gt;
+&lt;dt&gt;&lt;code&gt;bool has_foo() const&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Devuelve &lt;code&gt;true&lt;/code&gt; si el campo &lt;code&gt;foo&lt;/code&gt; tiene un valor.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;int32 foo() const&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Devuelve el valor del campo &lt;code&gt;foo&lt;/code&gt;. Si el campo no tiene valor, devuelve el
+valor por defecto.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;void set_foo(int32 value)&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Fija el valor del campo. Después de llamar a este método, llamar a &lt;code&gt;has_foo()&lt;/code&gt;
+devolvería &lt;code&gt;true&lt;/code&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;void clear_foo()&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Limpia el valor del campo. Después de llamar a este método, llamar a &lt;code&gt;has_foo()&lt;/code&gt;
+devolvería &lt;code&gt;false&lt;/code&gt;.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;que nos permiten hacer cosas tales como:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;SensorsReport&lt;/span&gt; &lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ARDUINO01&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_timestamp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1362507283&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Device name: &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;devicename&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Timestamp: &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timestamp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Campos con repeticiones&lt;/h3&gt;
+&lt;p&gt;Mientras que para definiciones de este tipo:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;repeated&lt;/span&gt; &lt;span class="n"&gt;int32&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;El compilador genera los siguientes &lt;em&gt;accesores&lt;/em&gt;:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;code&gt;int foo_size() const&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Devuelve el número de elementos en el campo.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;int32 foo(int index) const&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Devuelve el elemento en el índice indicado.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;void set_foo(int index, int32 value)&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Fija el valor del elemento en el índice indicado.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;void add_foo(int32 value)&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Añade un nuevo elemento con el valor indicado.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;void clear_foo()&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Elimina todos los elementos del campo.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;const RepeatedField&amp;lt;int32&amp;gt;&amp;amp; foo() const&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Devuelve el objeto &lt;code&gt;RepeatedField&lt;/code&gt;que almacena todos los elementos. Este
+contenedor proporciona iteradores al estilo de otros contenedores de la STL.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h2&gt;Serialización y deserialización&lt;/h2&gt;
+&lt;p&gt;Cada clase de un mensaje ofrece un conjunto de métodos para codificar
+(serializar) y decodificar (deserializar) los mensajes:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;code&gt;bool SerializeToString(string* output) const&lt;/code&gt;&lt;/dt&gt;
 &lt;dd&gt;Serializa el mensaje y almacena los bytes en la cadena especificada en el
 argumento &lt;code&gt;output&lt;/code&gt;. Nótese que estos bytes son binarios, no texto, y que la
 clase &lt;code&gt;std::string&lt;/code&gt; se usa como un mero contenedor.&lt;/dd&gt;
-&lt;dt&gt;&lt;code&gt;bool ParseFromString(const string&amp;amp; data);&lt;/code&gt;&lt;/dt&gt;
+&lt;dt&gt;&lt;code&gt;bool ParseFromString(const string&amp;amp; data)&lt;/code&gt;&lt;/dt&gt;
 &lt;dd&gt;Deserializa un mensaje codificado en la cadena especificada en el argumento
 &lt;code&gt;data&lt;/code&gt;.&lt;/dd&gt;
-&lt;dt&gt;&lt;code&gt;bool SerializeToOstream(ostream* output) const;&lt;/code&gt;&lt;/dt&gt;
+&lt;dt&gt;&lt;code&gt;bool SerializeToOstream(ostream* output) const&lt;/code&gt;&lt;/dt&gt;
 &lt;dd&gt;Escribe el mensaje serializado en el flujo &lt;code&gt;ostream&lt;/code&gt; indicado.&lt;/dd&gt;
-&lt;dt&gt;&lt;code&gt;bool ParseFromIstream(istream* input);&lt;/code&gt;&lt;/dt&gt;
+&lt;dt&gt;&lt;code&gt;bool ParseFromIstream(istream* input)&lt;/code&gt;&lt;/dt&gt;
 &lt;dd&gt;Deserializa un mensaje leido del flujo &lt;code&gt;istream&lt;/code&gt; indicado.&lt;/dd&gt;
 &lt;/dl&gt;
-&lt;h2&gt;Almacenamiento y transmisión por red&lt;/h2&gt;
+&lt;h2&gt;Almacenamiento y transmisión por red de múltiples mensajes&lt;/h2&gt;
+&lt;p&gt;El formato de codificación de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; no está auto-limitado. Es decir,
+no incluye marcas que permitan identificar el principio y fin de los mensajes.
+Esto es un problema si se quieren almacenar o enviar varios mensajes en un mismo
+flujo de datos.&lt;/p&gt;
+&lt;p&gt;La forma más sencilla de resolverlo es:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Escribir el tamaño del mensaje codificado y después escribir el mensaje en
+ si mismo.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Serializar el mensaje&lt;/span&gt;
+&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="k"&gt;string&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SerializeToString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;uint32&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Abrir el archivo de destino y escribir el mensaje&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// std::ofstream ofs(...);&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="n"&gt;ofs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;ofs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c_str&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Al leer, leer primero el tamaño del mensaje, después leer los bytes
+ indicados en un  buffer independiente y finalmente deserializar el mensaje
+ desde dicho buffer.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Abrir el archivo de origen y leer el tamaño del mensaje&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// std::ifstream ifs(...);&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="n"&gt;uint32&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;ifs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Leer el mensaje&lt;/span&gt;
+&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="k"&gt;string&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;ifs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c_str&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Deserializar&lt;/span&gt;
+&lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ParseFromString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;En la misma documentación de la librería se nos sugiere una solución más
+conveniente usando las clases &lt;code&gt;CodedInputStream&lt;/code&gt; y &lt;code&gt;CodedOutputStream&lt;/code&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="https://developers.google.com/protocol-buffers/docs/techniques#streaming"&gt;Streaming Multiple Messages&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you want to avoid copying bytes to a separate buffer, check out the
+CodedInputStream class (in both C++ and Java) which can be told to limit
+reads to a certain number of bytes.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2&gt;Referencias&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="http://code.google.com/p/protobuf/"&gt;protobuf - Protocol Buffers - Google's data interchange format&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://developers.google.com/protocol-buffers/"&gt;Protocol Buffers - Google Developers&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://developers.google.com/protocol-buffers/docs/proto"&gt;Language Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated"&gt;C++ Generated Code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://code.google.com/p/protobuf/"&gt;protobuf - Protocol Buffers - Google's data interchange format&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/protocol-buffers/docs/techniques#streaming"&gt;Streaming Multiple Messages&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.io.coded_stream"&gt;Protocol Buffers - coded_stream.h&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/2340730/are-there-c-equivalents-for-the-protocol-buffers-delimited-i-o-functions-in-ja"&gt;Stackoverflow - Are there C++ equivalents for the Protocol Buffers delimited I/O functions in Java?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/11640864/length-prefix-for-protobuf-messages-in-c"&gt;Stackoverflow - Length prefix for protobuf messages in C++&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Tue, 05 Mar 2013 00:00:00 +0000</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-05:implementado-un-protocolo-con-protocol-buffers.html</guid><category>protobuf</category><category>serialización</category></item><item><title>Qt Network</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/qt-network.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona un conjunto de API de comunicaciones a través del módulo
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;. Este ofrece tanto clases de bajo nivel para comunicación
 mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que

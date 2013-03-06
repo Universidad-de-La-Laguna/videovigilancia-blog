@@ -255,29 +255,148 @@ nos ofrece los siguientes <em>accesores</em>:</p>
 
 <p>a los campos del mensaje. Además  se define el <code>enum</code> <code>SensorsReport::SensorStatus</code>
 y la clase <code>SensorsReport::SensorStatus</code>.</p>
-<h1>TODO: uso</h1>
-<h2>Serialización y deserialización</h2>
-<p>Cada clase ofrece un conjunto de métodos para codificar (serializar) y decodificar
-(deserializar) los mensajes:</p>
+<p>Todos los detalles sobre el código generado por el compilador están documentados
+en la <a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated">referencia del código generado en C++</a>.
+Eso incluye <a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated#fields">los accesores creados</a>
+según el tipo de definición de los campos.</p>
+<h3>Campos individuales</h3>
+<p>Por ejemplo, para definiciones de este tipo:</p>
+<div class="codehilite"><pre><span class="n">optional</span> <span class="n">int32</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">required</span> <span class="n">int32</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+
+
+<p>el compilador genera los siguientes <em>accesores</em>:</p>
 <dl>
-<dt><code>bool SerializeToString(string* output) const;</code></dt>
+<dt><code>bool has_foo() const</code></dt>
+<dd>Devuelve <code>true</code> si el campo <code>foo</code> tiene un valor.</dd>
+<dt><code>int32 foo() const</code></dt>
+<dd>Devuelve el valor del campo <code>foo</code>. Si el campo no tiene valor, devuelve el
+valor por defecto.</dd>
+<dt><code>void set_foo(int32 value)</code></dt>
+<dd>Fija el valor del campo. Después de llamar a este método, llamar a <code>has_foo()</code>
+devolvería <code>true</code>.</dd>
+<dt><code>void clear_foo()</code></dt>
+<dd>Limpia el valor del campo. Después de llamar a este método, llamar a <code>has_foo()</code>
+devolvería <code>false</code>.</dd>
+</dl>
+<p>que nos permiten hacer cosas tales como:</p>
+<div class="codehilite"><pre><span class="n">SensorsReport</span> <span class="n">report</span><span class="p">;</span>
+
+<span class="n">report</span><span class="p">.</span><span class="n">set_devicename</span><span class="p">(</span><span class="s">&quot;ARDUINO01&quot;</span><span class="p">);</span>
+<span class="n">report</span><span class="p">.</span><span class="n">set_timestamp</span><span class="p">(</span><span class="mi">1362507283</span><span class="p">);</span>
+
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Device name: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">report</span><span class="p">.</span><span class="n">devicename</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Timestamp: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">report</span><span class="p">.</span><span class="n">timestamp</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</pre></div>
+
+
+<h3>Campos con repeticiones</h3>
+<p>Mientras que para definiciones de este tipo:</p>
+<div class="codehilite"><pre><span class="n">repeated</span> <span class="n">int32</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+
+
+<p>El compilador genera los siguientes <em>accesores</em>:</p>
+<dl>
+<dt><code>int foo_size() const</code></dt>
+<dd>Devuelve el número de elementos en el campo.</dd>
+<dt><code>int32 foo(int index) const</code></dt>
+<dd>Devuelve el elemento en el índice indicado.</dd>
+<dt><code>void set_foo(int index, int32 value)</code></dt>
+<dd>Fija el valor del elemento en el índice indicado.</dd>
+<dt><code>void add_foo(int32 value)</code></dt>
+<dd>Añade un nuevo elemento con el valor indicado.</dd>
+<dt><code>void clear_foo()</code></dt>
+<dd>Elimina todos los elementos del campo.</dd>
+<dt><code>const RepeatedField&lt;int32&gt;&amp; foo() const</code></dt>
+<dd>Devuelve el objeto <code>RepeatedField</code>que almacena todos los elementos. Este
+contenedor proporciona iteradores al estilo de otros contenedores de la STL.</dd>
+</dl>
+<h2>Serialización y deserialización</h2>
+<p>Cada clase de un mensaje ofrece un conjunto de métodos para codificar
+(serializar) y decodificar (deserializar) los mensajes:</p>
+<dl>
+<dt><code>bool SerializeToString(string* output) const</code></dt>
 <dd>Serializa el mensaje y almacena los bytes en la cadena especificada en el
 argumento <code>output</code>. Nótese que estos bytes son binarios, no texto, y que la
 clase <code>std::string</code> se usa como un mero contenedor.</dd>
-<dt><code>bool ParseFromString(const string&amp; data);</code></dt>
+<dt><code>bool ParseFromString(const string&amp; data)</code></dt>
 <dd>Deserializa un mensaje codificado en la cadena especificada en el argumento
 <code>data</code>.</dd>
-<dt><code>bool SerializeToOstream(ostream* output) const;</code></dt>
+<dt><code>bool SerializeToOstream(ostream* output) const</code></dt>
 <dd>Escribe el mensaje serializado en el flujo <code>ostream</code> indicado.</dd>
-<dt><code>bool ParseFromIstream(istream* input);</code></dt>
+<dt><code>bool ParseFromIstream(istream* input)</code></dt>
 <dd>Deserializa un mensaje leido del flujo <code>istream</code> indicado.</dd>
 </dl>
-<h2>Almacenamiento y transmisión por red</h2>
+<h2>Almacenamiento y transmisión por red de múltiples mensajes</h2>
+<p>El formato de codificación de <a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> no está auto-limitado. Es decir,
+no incluye marcas que permitan identificar el principio y fin de los mensajes.
+Esto es un problema si se quieren almacenar o enviar varios mensajes en un mismo
+flujo de datos.</p>
+<p>La forma más sencilla de resolverlo es:</p>
+<ol>
+<li>
+<p>Escribir el tamaño del mensaje codificado y después escribir el mensaje en
+ si mismo.</p>
+<div class="codehilite"><pre><span class="c1">// Serializar el mensaje</span>
+<span class="n">std</span><span class="o">::</span><span class="k">string</span> <span class="n">buffer</span><span class="p">;</span>
+<span class="n">report</span><span class="p">.</span><span class="n">SerializeToString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
+<span class="n">uint32</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="c1">// Abrir el archivo de destino y escribir el mensaje</span>
+<span class="c1">//</span>
+<span class="c1">// std::ofstream ofs(...);</span>
+<span class="c1">//</span>
+<span class="n">ofs</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bufferSize</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">));</span>
+<span class="n">ofs</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">bufferSize</span><span class="p">);</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Al leer, leer primero el tamaño del mensaje, después leer los bytes
+ indicados en un  buffer independiente y finalmente deserializar el mensaje
+ desde dicho buffer.</p>
+<div class="codehilite"><pre><span class="c1">// Abrir el archivo de origen y leer el tamaño del mensaje</span>
+<span class="c1">//</span>
+<span class="c1">// std::ifstream ifs(...);</span>
+<span class="c1">//</span>
+<span class="n">uint32</span> <span class="n">bufferSize</span><span class="p">;</span>
+<span class="n">ifs</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bufferSize</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">));</span>
+
+<span class="c1">// Leer el mensaje</span>
+<span class="n">std</span><span class="o">::</span><span class="k">string</span> <span class="n">buffer</span><span class="p">;</span>
+<span class="n">buffer</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">);</span>
+<span class="n">ifs</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">const_cast</span><span class="o">&lt;</span><span class="n">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">c_str</span><span class="p">()),</span> <span class="n">bufferSize</span><span class="p">);</span>
+
+<span class="c1">// Deserializar</span>
+<span class="n">report</span><span class="p">.</span><span class="n">ParseFromString</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p>En la misma documentación de la librería se nos sugiere una solución más
+conveniente usando las clases <code>CodedInputStream</code> y <code>CodedOutputStream</code>:</p>
+<blockquote>
+<p><a href="https://developers.google.com/protocol-buffers/docs/techniques#streaming">Streaming Multiple Messages</a></p>
+<p>If you want to avoid copying bytes to a separate buffer, check out the
+CodedInputStream class (in both C++ and Java) which can be told to limit
+reads to a certain number of bytes.</p>
+</blockquote>
 <h2>Referencias</h2>
 <ol>
-<li><a href="http://code.google.com/p/protobuf/">protobuf - Protocol Buffers - Google's data interchange format</a>.</li>
 <li><a href="https://developers.google.com/protocol-buffers/">Protocol Buffers - Google Developers</a></li>
 <li><a href="https://developers.google.com/protocol-buffers/docs/proto">Language Guide</a></li>
+<li><a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated">C++ Generated Code</a></li>
+<li><a href="http://code.google.com/p/protobuf/">protobuf - Protocol Buffers - Google's data interchange format</a></li>
+<li><a href="https://developers.google.com/protocol-buffers/docs/techniques#streaming">Streaming Multiple Messages</a><ul>
+<li><a href="https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.io.coded_stream">Protocol Buffers - coded_stream.h</a></li>
+<li><a href="http://stackoverflow.com/questions/2340730/are-there-c-equivalents-for-the-protocol-buffers-delimited-i-o-functions-in-ja">Stackoverflow - Are there C++ equivalents for the Protocol Buffers delimited I/O functions in Java?</a></li>
+<li><a href="http://stackoverflow.com/questions/11640864/length-prefix-for-protobuf-messages-in-c">Stackoverflow - Length prefix for protobuf messages in C++</a></li>
+</ul>
+</li>
 </ol></div>
         <hr />
     </div>
