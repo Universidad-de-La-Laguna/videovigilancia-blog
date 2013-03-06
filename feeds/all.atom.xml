@@ -27,7 +27,7 @@ necesidades de un problema concreto.  &lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2&gt;Definir la estructura del mensaje&lt;/h2&gt;
-&lt;p&gt;Supongamos que conectados a una red tenemos un conjunto de [Arduinos] equipados
+&lt;p&gt;Supongamos que conectados a una red tenemos un conjunto de &lt;a href="http://www.arduino.cc/" title="Arduino"&gt;Arduinos&lt;/a&gt; equipados
 con varios sensores de diferente tipo: temperatura, humedad, luminosidad,
 movimiento, etc. Cada &lt;a href="http://www.arduino.cc/" title="Arduino"&gt;Arduino&lt;/a&gt; tiene un nombre que lo identifica y su función
 es leer el estado de dichos sensores, a intervalos regulares, y enviar mensajes
