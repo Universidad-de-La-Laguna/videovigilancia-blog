@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>serialización - Sistema de Videovigilancia from Scratch</title>
+    <title>Implementando un protocolo con Protocol Buffers - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="../theme/html5.js"></script>
+    <script src="./theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../theme/bootstrap.min.css" rel="stylesheet">
-    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="../theme/local.css" rel="stylesheet">
-    <link href="../theme/pygments.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="./theme/local.css" rel="stylesheet">
+    <link href="./theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,12 +32,12 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
                         </ul>
         </div>
         
@@ -50,38 +50,32 @@
     <div class="row">
 
         <div class="span9">
-                
-
-        
-
-
-    <div class='article'>
+            <div class='article'>
         <div class="content-title">
-            <a href="../implementando-un-protocolo-con-protocol-buffers.html"><h1>Implementando un protocolo con Protocol Buffers</h1></a>
+            <h1>Implementando un protocolo con Protocol Buffers</h1>
             mar 05 marzo 2013
 
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- 
         </div>
-        
-        <div><p><a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> es un mecanismo sencillo para serializar estructuras de
+	
+        <div><p><a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> es un mecanismo sencillo para serializar estructuras de
 datos, de tal forma que los datos así codificados pueden ser almacenados
 o enviados a través de una red de comunicaciones. Esto nos ofrece una forma
 sencilla de crear nuestro propio protocolo de comunicaciones, adaptado a las
 necesidades de un problema concreto.  </p>
-<p>Los pasos concretos para usar <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> son lo siguientes:</p>
+<p>Los pasos concretos para usar <a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> son lo siguientes:</p>
 <ol>
 <li>
 <p>Especificar la estructura de datos del mensaje del nuevo protocolo en un
  archivo <code>.proto</code>. Estos archivos se escriben utilizando un <a href="https://developers.google.com/protocol-buffers/docs/proto">lenguaje de
  descripción de interfaz</a>
- que es propio de <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>.</p>
+ que es propio de <a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>.</p>
 </li>
 <li>
-<p>Ejecutar el compilador de <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>, para el lenguaje de la
+<p>Ejecutar el compilador de <a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>, para el lenguaje de la
  aplicación, sobre el archivo <code>.proto</code> con el objeto de generar las clases
  de acceso a los datos. Estas proporcionan <em>accesores</em> para cada campo, así
  como métodos para serializar y deserializar los mensajes a y desde
@@ -129,11 +123,11 @@ con los datos de los mismos a un servidor.</p>
 sencillo. Solamente hay que indicar el nombre y el tipo de cada campo,
 así como si es opcional (<em>optional</em>), requerido (<em>required</em>) o se repite
 (<em>repeated</em>).</p>
-<p>En <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> los campos se etiquetan de manera única con un entero
+<p>En <a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> los campos se etiquetan de manera única con un entero
 que después es utilizado en la codificación binaria para identificarlos.</p>
 <h2>Clases de acceso a los datos</h2>
 <p>Una vez tenemos la definición de la estructura del mensaje, podemos invocar
-al compilador de <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> para generar las clases de acceso a los
+al compilador de <a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> para generar las clases de acceso a los
 datos.</p>
 <h3>Desde línea de comandos</h3>
 <p>Desde línea de comandos generar las clases es tan sencillo como:</p>
@@ -163,7 +157,7 @@ directorio actual.</p>
 <h3>Con qmake</h3>
 <p>Si estamos usando <code>qmake</code> para construir nuestro proyecto (como es el caso cuando
 desarrollamos con el IDE Qt Creator) lo más cómodo es que este se encargue de
-invocar al compilador <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> para generar las clases de acceso
+invocar al compilador <a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> para generar las clases de acceso
 de forma automática.</p>
 <p>En este sentido el archivo <a href="http://code.google.com/p/ostinato/source/browse/protobuf.pri">protobuf.pri</a> del proyecto
 <a href="http://code.google.com/p/ostinato">ostinato</a> puede ser de gran ayuda.</p>
@@ -330,7 +324,7 @@ clase <code>std::string</code> se usa como un mero contenedor.</dd>
 <dd>Deserializa un mensaje leido del flujo <code>istream</code> indicado.</dd>
 </dl>
 <h2>Almacenamiento y transmisión por red de múltiples mensajes</h2>
-<p>El formato de codificación de <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> no está auto-limitado. Es decir,
+<p>El formato de codificación de <a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> no está auto-limitado. Es decir,
 no incluye marcas que permitan identificar el principio y fin de los mensajes.
 Esto es un problema si se quieren almacenar o enviar varios mensajes en un mismo
 flujo de datos.</p>
@@ -398,44 +392,11 @@ reads to a certain number of bytes.</p>
 </ul>
 </li>
 </ol></div>
-        <hr />
-    </div>
-		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../protocol-buffers.html"><h2>Protocol Buffers</h2></a>
-        <div class= "well small"> sáb 02 marzo 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format">Protocol Buffers</a> es una herramienta para la serialización<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> de estructuras de
-datos.</p>
-<p>Básicamente provee una manera sencilla de definir la estructura de los datos,
-pudieron entonces generar código capaz de leer y escribir dichos datos de
-manera eficiente, desde diferentes lenguajes y en una variedad de distintos
-tipos de ...</p> <a class="btn btn-info xsmall" href="../protocol-buffers.html">leer más</a></div>
-    </div>	
-				
-            <div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
-
-    <li class="active"><a href="../tag/serializacion.html">1</a></li>
-
-    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
-
-</ul>
-</div>    
- 
-  
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+			    </div>
         </div>
         
         <div class="span3">
@@ -447,8 +408,8 @@ tipos de ...</p> <a class="btn btn-info xsmall" href="../protocol-buffers.html">
                 Sitio
                 </li>
             
-                <li><a href="../archives.html">Archivos</a>
-                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="./archives.html">Archivos</a>
+                <li><a href="./tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -461,12 +422,12 @@ tipos de ...</p> <a class="btn btn-info xsmall" href="../protocol-buffers.html">
                 Categorias
                 </li>
                 
-                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
-                                <li><a href="../category/hardware.html">Hardware</a></li>
-                                <li><a href="../category/linux.html">Linux</a></li>
-                                <li><a href="../category/overviews.html">Overviews</a></li>
-                                <li><a href="../category/qt.html">Qt</a></li>
-                                <li><a href="../category/vision.html">Visión</a></li>
+                                <li><a href="./category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="./category/hardware.html">Hardware</a></li>
+                                <li><a href="./category/linux.html">Linux</a></li>
+                                <li><a href="./category/overviews.html">Overviews</a></li>
+                                <li><a href="./category/qt.html">Qt</a></li>
+                                <li><a href="./category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>

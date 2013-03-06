@@ -57,7 +57,7 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../implementado-un-protocolo-con-protocol-buffers.html"><h1>Implementado un protocolo con Protocol Buffers</h1></a>
+            <a href="../implementando-un-protocolo-con-protocol-buffers.html"><h1>Implementando un protocolo con Protocol Buffers</h1></a>
             mar 05 marzo 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
@@ -83,7 +83,7 @@ necesidades de un problema concreto.  </p>
 <li>
 <p>Ejecutar el compilador de <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>, para el lenguaje de la
  aplicación, sobre el archivo <code>.proto</code> con el objeto de generar las clases
- de acceso a los datos. Estas proporcionan accesores para cada campo, así
+ de acceso a los datos. Estas proporcionan <em>accesores</em> para cada campo, así
  como métodos para serializar y deserializar los mensajes a y desde
  una secuencia de bytes. </p>
 </li>
@@ -356,8 +356,8 @@ flujo de datos.</p>
 </li>
 <li>
 <p>Al leer, leer primero el tamaño del mensaje, después leer los bytes
- indicados en un  buffer independiente y finalmente deserializar el mensaje
- desde dicho buffer.</p>
+ indicados en un  <em>buffer</em> independiente y finalmente deserializar el mensaje
+ desde dicho <em>buffer</em>.</p>
 <div class="codehilite"><pre><span class="c1">// Abrir el archivo de origen y leer el tamaño del mensaje</span>
 <span class="c1">//</span>
 <span class="c1">// std::ifstream ifs(...);</span>
