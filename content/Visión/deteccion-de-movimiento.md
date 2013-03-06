@@ -116,6 +116,8 @@ En nuestro caso concreto el módulo _video_ incluye las clases y funciones de
 supresión del fondo que nos interesa utilizar, mientras que _imgproc_ contiene
 las operaciones morfológicas y de detección de contornos.
 
+<a id="incorporar_libreria_manualmente"></a>
+
  * Si por cualquier motivo no estuviéramos haciendo uso de los archivos `.pri`
 tendríamos que incorporar la librería al proyecto manualmente:
 
