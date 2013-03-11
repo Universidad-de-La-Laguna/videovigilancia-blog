@@ -109,6 +109,15 @@ que tenemos que hacer es editar el archivo `.pro` e incorporar al final la líne
 
         add_opencv_modules(core video imgproc)
 
+    o en Windows:
+
+        add_opencv_modules(core video imgproc, 2.4.4)
+
+    donde `2.4.4` debe sustituirse por el número de la versión actualmente
+instalada de OpenCV. Esto es un requisito en los sistemas Windows ya que
+dicho número se usa para componer el nombre de las librerías `.dll` con las
+que debe enlazarse el ejecutable del proyecto.
+
     En la [introducción](http://docs.opencv.org/modules/core/doc/intro.html) de
 [OpenCV] se explica que el paquete está divido a su vez en distintos módulos
 o librerías, cada uno de los cuales está dedicado a un tipo de tarea específico.
