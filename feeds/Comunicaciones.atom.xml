@@ -99,39 +99,39 @@ invocar al compilador &lt;a href="http://ull-etsii-sistemas-operativos.github.co
 de forma automática.&lt;/p&gt;
 &lt;p&gt;En este sentido el archivo &lt;a href="http://code.google.com/p/ostinato/source/browse/protobuf.pri"&gt;protobuf.pri&lt;/a&gt; del proyecto
 &lt;a href="http://code.google.com/p/ostinato"&gt;ostinato&lt;/a&gt; puede ser de gran ayuda.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;#
-# Qt qmake integration with Google Protocol Buffers compiler protoc
-#
-# To compile protocol buffers with qt qmake, specify PROTOS variable and
-# include this file
-#
-# Example:
-# PROTOS = a.proto b.proto
-# include(protobuf.pri)
-#
-# By default protoc looks for .proto files (including the imported ones) in
-# the current directory where protoc is run. If you need to include additional
-# paths specify the PROTOPATH variable
-#
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# Qt qmake integration with Google Protocol Buffers compiler protoc&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# To compile protocol buffers with qt qmake, specify PROTOS variable and&lt;/span&gt;
+&lt;span class="c"&gt;# include this file&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# Example:&lt;/span&gt;
+&lt;span class="c"&gt;# PROTOS = a.proto b.proto&lt;/span&gt;
+&lt;span class="c"&gt;# include(protobuf.pri)&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# By default protoc looks for .proto files (including the imported ones) in&lt;/span&gt;
+&lt;span class="c"&gt;# the current directory where protoc is run. If you need to include additional&lt;/span&gt;
+&lt;span class="c"&gt;# paths specify the PROTOPATH variable&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
 
-PROTOPATH += .
-PROTOPATHS =
-for(p, PROTOPATH):PROTOPATHS += --proto_path=$${p}
+&lt;span class="n"&gt;PROTOPATH&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;PROTOPATHS&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;PROTOPATH&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;&lt;span class="n"&gt;PROTOPATHS&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;proto_path&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;$$&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 
-protobuf_decl.name  = protobuf header
-protobuf_decl.input = PROTOS
-protobuf_decl.output  = &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;.pb.h
-protobuf_decl.commands = protoc --cpp_out=&amp;quot;.&amp;quot; $${PROTOPATHS} &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_NAME&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
-protobuf_decl.variable_out = GENERATED_FILES
-QMAKE_EXTRA_COMPILERS += protobuf_decl
+&lt;span class="n"&gt;protobuf_decl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;  &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;protobuf&lt;/span&gt; &lt;span class="n"&gt;header&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_decl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;input&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;PROTOS&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_decl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;  &lt;span class="p"&gt;=&lt;/span&gt; $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="p"&gt;}.&lt;/span&gt;&lt;span class="n"&gt;pb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_decl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;commands&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;protoc&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;cpp_out&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;.&amp;quot;&lt;/span&gt; $$&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;PROTOPATHS&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_NAME&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_decl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;variable_out&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;GENERATED_FILES&lt;/span&gt;
+&lt;span class="n"&gt;QMAKE_EXTRA_COMPILERS&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;protobuf_decl&lt;/span&gt;
 
-protobuf_impl.name  = protobuf implementation
-protobuf_impl.input = PROTOS
-protobuf_impl.output  = &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;.pb.cc
-protobuf_impl.depends  = &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;.pb.h
-protobuf_impl.commands = $$escape_expand(\n)
-protobuf_impl.variable_out = GENERATED_SOURCES
-QMAKE_EXTRA_COMPILERS += protobuf_impl
+&lt;span class="n"&gt;protobuf_impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;  &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;protobuf&lt;/span&gt; &lt;span class="n"&gt;implementation&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;input&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;PROTOS&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;  &lt;span class="p"&gt;=&lt;/span&gt; $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="p"&gt;}.&lt;/span&gt;&lt;span class="n"&gt;pb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cc&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;depends&lt;/span&gt;  &lt;span class="p"&gt;=&lt;/span&gt; $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;QMAKE_FILE_BASE&lt;/span&gt;&lt;span class="p"&gt;}.&lt;/span&gt;&lt;span class="n"&gt;pb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;commands&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; $$&lt;span class="n"&gt;escape_expand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;protobuf_impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;variable_out&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;GENERATED_SOURCES&lt;/span&gt;
+&lt;span class="n"&gt;QMAKE_EXTRA_COMPILERS&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;protobuf_impl&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 

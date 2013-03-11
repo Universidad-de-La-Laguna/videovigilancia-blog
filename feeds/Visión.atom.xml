@@ -116,6 +116,15 @@ que tenemos que hacer es editar el archivo &lt;code&gt;.pro&lt;/code&gt; e incor
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;o en Windows:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;add_opencv_modules&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt; &lt;span class="n"&gt;video&lt;/span&gt; &lt;span class="n"&gt;imgproc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;2.4.4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;donde &lt;code&gt;2.4.4&lt;/code&gt; debe sustituirse por el número de la versión actualmente
+instalada de OpenCV. Esto es un requisito en los sistemas Windows ya que
+dicho número se usa para componer el nombre de las librerías &lt;code&gt;.dll&lt;/code&gt; con las
+que debe enlazarse el ejecutable del proyecto.&lt;/p&gt;
 &lt;p&gt;En la &lt;a href="http://docs.opencv.org/modules/core/doc/intro.html"&gt;introducción&lt;/a&gt; de
 &lt;a href="http://opencv.willowgarage.com/wiki/" title="OpenCV"&gt;OpenCV&lt;/a&gt; se explica que el paquete está divido a su vez en distintos módulos
 o librerías, cada uno de los cuales está dedicado a un tipo de tarea específico.

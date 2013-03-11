@@ -161,39 +161,39 @@ invocar al compilador <a href="./protocol-buffers.html" title="Protocol Buffers"
 de forma automática.</p>
 <p>En este sentido el archivo <a href="http://code.google.com/p/ostinato/source/browse/protobuf.pri">protobuf.pri</a> del proyecto
 <a href="http://code.google.com/p/ostinato">ostinato</a> puede ser de gran ayuda.</p>
-<div class="codehilite"><pre>#
-# Qt qmake integration with Google Protocol Buffers compiler protoc
-#
-# To compile protocol buffers with qt qmake, specify PROTOS variable and
-# include this file
-#
-# Example:
-# PROTOS = a.proto b.proto
-# include(protobuf.pri)
-#
-# By default protoc looks for .proto files (including the imported ones) in
-# the current directory where protoc is run. If you need to include additional
-# paths specify the PROTOPATH variable
-#
+<div class="codehilite"><pre><span class="c">#</span>
+<span class="c"># Qt qmake integration with Google Protocol Buffers compiler protoc</span>
+<span class="c">#</span>
+<span class="c"># To compile protocol buffers with qt qmake, specify PROTOS variable and</span>
+<span class="c"># include this file</span>
+<span class="c">#</span>
+<span class="c"># Example:</span>
+<span class="c"># PROTOS = a.proto b.proto</span>
+<span class="c"># include(protobuf.pri)</span>
+<span class="c">#</span>
+<span class="c"># By default protoc looks for .proto files (including the imported ones) in</span>
+<span class="c"># the current directory where protoc is run. If you need to include additional</span>
+<span class="c"># paths specify the PROTOPATH variable</span>
+<span class="c">#</span>
 
-PROTOPATH += .
-PROTOPATHS =
-for(p, PROTOPATH):PROTOPATHS += --proto_path=$${p}
+<span class="n">PROTOPATH</span> <span class="o">+=</span> <span class="p">.</span>
+<span class="n">PROTOPATHS</span> <span class="p">=</span>
+<span class="k">for</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">PROTOPATH</span><span class="p">):</span><span class="n">PROTOPATHS</span> <span class="o">+=</span> <span class="o">--</span><span class="n">proto_path</span><span class="p">=</span>$$<span class="p">{</span><span class="n">p</span><span class="p">}</span>
 
-protobuf_decl.name  = protobuf header
-protobuf_decl.input = PROTOS
-protobuf_decl.output  = <span class="cp">${</span><span class="n">QMAKE_FILE_BASE</span><span class="cp">}</span>.pb.h
-protobuf_decl.commands = protoc --cpp_out=&quot;.&quot; $${PROTOPATHS} <span class="cp">${</span><span class="n">QMAKE_FILE_NAME</span><span class="cp">}</span>
-protobuf_decl.variable_out = GENERATED_FILES
-QMAKE_EXTRA_COMPILERS += protobuf_decl
+<span class="n">protobuf_decl</span><span class="p">.</span><span class="n">name</span>  <span class="p">=</span> <span class="n">protobuf</span> <span class="n">header</span>
+<span class="n">protobuf_decl</span><span class="p">.</span><span class="nb">input</span> <span class="p">=</span> <span class="n">PROTOS</span>
+<span class="n">protobuf_decl</span><span class="p">.</span><span class="n">output</span>  <span class="p">=</span> $<span class="p">{</span><span class="n">QMAKE_FILE_BASE</span><span class="p">}.</span><span class="n">pb</span><span class="p">.</span><span class="n">h</span>
+<span class="n">protobuf_decl</span><span class="p">.</span><span class="n">commands</span> <span class="p">=</span> <span class="n">protoc</span> <span class="o">--</span><span class="n">cpp_out</span><span class="p">=</span><span class="s">&quot;.&quot;</span> $$<span class="p">{</span><span class="n">PROTOPATHS</span><span class="p">}</span> $<span class="p">{</span><span class="n">QMAKE_FILE_NAME</span><span class="p">}</span>
+<span class="n">protobuf_decl</span><span class="p">.</span><span class="n">variable_out</span> <span class="p">=</span> <span class="n">GENERATED_FILES</span>
+<span class="n">QMAKE_EXTRA_COMPILERS</span> <span class="o">+=</span> <span class="n">protobuf_decl</span>
 
-protobuf_impl.name  = protobuf implementation
-protobuf_impl.input = PROTOS
-protobuf_impl.output  = <span class="cp">${</span><span class="n">QMAKE_FILE_BASE</span><span class="cp">}</span>.pb.cc
-protobuf_impl.depends  = <span class="cp">${</span><span class="n">QMAKE_FILE_BASE</span><span class="cp">}</span>.pb.h
-protobuf_impl.commands = $$escape_expand(\n)
-protobuf_impl.variable_out = GENERATED_SOURCES
-QMAKE_EXTRA_COMPILERS += protobuf_impl
+<span class="n">protobuf_impl</span><span class="p">.</span><span class="n">name</span>  <span class="p">=</span> <span class="n">protobuf</span> <span class="n">implementation</span>
+<span class="n">protobuf_impl</span><span class="p">.</span><span class="nb">input</span> <span class="p">=</span> <span class="n">PROTOS</span>
+<span class="n">protobuf_impl</span><span class="p">.</span><span class="n">output</span>  <span class="p">=</span> $<span class="p">{</span><span class="n">QMAKE_FILE_BASE</span><span class="p">}.</span><span class="n">pb</span><span class="p">.</span><span class="n">cc</span>
+<span class="n">protobuf_impl</span><span class="p">.</span><span class="n">depends</span>  <span class="p">=</span> $<span class="p">{</span><span class="n">QMAKE_FILE_BASE</span><span class="p">}.</span><span class="n">pb</span><span class="p">.</span><span class="n">h</span>
+<span class="n">protobuf_impl</span><span class="p">.</span><span class="n">commands</span> <span class="p">=</span> $$<span class="n">escape_expand</span><span class="p">(</span><span class="o">\</span><span class="n">n</span><span class="p">)</span>
+<span class="n">protobuf_impl</span><span class="p">.</span><span class="n">variable_out</span> <span class="p">=</span> <span class="n">GENERATED_SOURCES</span>
+<span class="n">QMAKE_EXTRA_COMPILERS</span> <span class="o">+=</span> <span class="n">protobuf_impl</span>
 </pre></div>
 
 

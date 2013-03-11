@@ -178,6 +178,15 @@ que tenemos que hacer es editar el archivo <code>.pro</code> e incorporar al fin
 </pre></div>
 
 
+<p>o en Windows:</p>
+<div class="codehilite"><pre><span class="n">add_opencv_modules</span><span class="p">(</span><span class="n">core</span> <span class="n">video</span> <span class="n">imgproc</span><span class="p">,</span> <span class="mf">2.4.4</span><span class="p">)</span>
+</pre></div>
+
+
+<p>donde <code>2.4.4</code> debe sustituirse por el número de la versión actualmente
+instalada de OpenCV. Esto es un requisito en los sistemas Windows ya que
+dicho número se usa para componer el nombre de las librerías <code>.dll</code> con las
+que debe enlazarse el ejecutable del proyecto.</p>
 <p>En la <a href="http://docs.opencv.org/modules/core/doc/intro.html">introducción</a> de
 <a href="http://opencv.willowgarage.com/wiki/" title="OpenCV">OpenCV</a> se explica que el paquete está divido a su vez en distintos módulos
 o librerías, cada uno de los cuales está dedicado a un tipo de tarea específico.
