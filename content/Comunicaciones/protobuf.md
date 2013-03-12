@@ -1,6 +1,7 @@
-Title: Implementado un protocolo con Protocol Buffers
+Title: Implementando un protocolo con Protocol Buffers
 Tags: protobuf, serialización
 Date: 2013-03-5
+PlusActivityId: z13si3rxdnejjlhvf22egliyvmyrubrkf
 
 [Protocol Buffers] es un mecanismo sencillo para serializar estructuras de
 datos, de tal forma que los datos así codificados pueden ser almacenados
@@ -17,7 +18,7 @@ Los pasos concretos para usar [Protocol Buffers] son lo siguientes:
  
  2. Ejecutar el compilador de [Protocol Buffers], para el lenguaje de la
  aplicación, sobre el archivo `.proto` con el objeto de generar las clases
- de acceso a los datos. Estas proporcionan accesores para cada campo, así
+ de acceso a los datos. Estas proporcionan _accesores_ para cada campo, así
  como métodos para serializar y deserializar los mensajes a y desde
  una secuencia de bytes. 
  
@@ -306,8 +307,8 @@ La forma más sencilla de resolverlo es:
         ofs.write(buffer.c_str(), bufferSize);
 
  2. Al leer, leer primero el tamaño del mensaje, después leer los bytes
- indicados en un  buffer independiente y finalmente deserializar el mensaje
- desde dicho buffer.
+ indicados en un  _buffer_ independiente y finalmente deserializar el mensaje
+ desde dicho _buffer_.
 
         // Abrir el archivo de origen y leer el tamaño del mensaje
         //
@@ -346,3 +347,4 @@ conveniente usando las clases `CodedInputStream` y `CodedOutputStream`:
 
 [Protocol Buffers]: |filename|/Overviews/protobuf.md "Protocol Buffers"
 [Arduino]: http://www.arduino.cc/ "Arduino"
+[Arduinos]: http://www.arduino.cc/ "Arduino"
