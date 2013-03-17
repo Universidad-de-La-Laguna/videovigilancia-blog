@@ -102,22 +102,22 @@ clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" 
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="nl">public:</span>
+    <span class="k">public</span><span class="o">:</span>
         <span class="n">Sorter</span><span class="p">();</span>
         <span class="o">~</span><span class="n">Sorter</span><span class="p">();</span>
 
         <span class="c1">// Ordenar asíncronamente un vector en el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="nf">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="n">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
 
     <span class="nl">signals:</span>
         <span class="c1">// Señal para comunicarnos con el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">private</span> <span class="n">slots</span><span class="o">:</span>
+    <span class="k">private</span> <span class="nl">slots:</span>
         <span class="c1">// Slot para saber cuando el vector ha sido ordenado</span>
         <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="nl">private:</span>
+    <span class="k">private</span><span class="o">:</span>
         <span class="c1">// Clase del hilo de trabajo</span>
         <span class="n">QThread</span> <span class="n">workingThread_</span><span class="p">;</span>
         <span class="c1">// Clase que hace el ordenamiento</span>
@@ -170,7 +170,7 @@ notificados cuando el ordenamiento haya finalizado con éxito.</p>
 <span class="p">{</span>
     <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
 
-    <span class="n">emit</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+    <span class="n">emit</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">Sorter</span><span class="o">::</span><span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">)</span>
@@ -199,14 +199,14 @@ lo que podría dejar los datos en uso en un estado indeterminado.</p>
         <span class="c1">// Señal emitida cuando el vector ha sido ordenado</span>
         <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">public</span> <span class="n">slots</span><span class="o">:</span>
+    <span class="k">public</span> <span class="nl">slots:</span>
         <span class="c1">// Método encargado del ordenamiento</span>
         <span class="kt">void</span> <span class="n">doSort</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
 
             <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list_sorted</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
             <span class="n">qSort</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
-            <span class="n">emit</span> <span class="nf">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
+            <span class="n">emit</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
         <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -215,7 +215,7 @@ lo que podría dejar los datos en uso en un estado indeterminado.</p>
 <h2>Como usar el ejemplo</h2>
 <p>Para usar el ejemplo sólo necesitamos crear una instancia de <code>Sorter</code> y
 llamar a su método <code>sortAsync()</code> para pedir que ordene el vector especificado.</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 
@@ -349,7 +349,28 @@ procesar nuevos eventos de los usuarios.</p>
 </ul>
 </div>
 
-            <a class="FlattrButton" style="display:none;" href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/"></a>
+            <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=362217503891956";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-send="false" data-layout="box_count" data-width="55" data-show-faces="false"></div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="vertical">Twittear</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<div class="g-plusone" data-size="tall"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'es'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<a class="FlattrButton" style="display:none;" href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/"></a>
 <script type="text/javascript">
     (function() {
         var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
@@ -361,30 +382,6 @@ procesar nuevos eventos de los usuarios.</p>
 </script>
 <noscript><a href="http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
-<!-- Place this tag where you want the +1 button to render. -->
-<div class="g-plusone" data-size="tall"></div>
-
-<!-- Place this tag after the last +1 button tag. -->
-<script type="text/javascript">
-  window.___gcfg = {lang: 'es'};
-
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="vertical">Twittear</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=362217503891956";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false"></div>
         </div>  
     </div>     </div> 
 <footer>

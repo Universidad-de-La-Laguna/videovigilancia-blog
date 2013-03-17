@@ -79,7 +79,7 @@ En este sentido el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthr
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="nl">protected:</span>
+    <span class="k">protected</span><span class="o">:</span>
         <span class="kt">void</span> <span class="n">run</span><span class="p">();</span>
 <span class="p">};</span>
 
@@ -237,7 +237,7 @@ al del productor:</p>
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="nl">public:</span>
+    <span class="k">public</span><span class="o">:</span>
 
         <span class="n">FrameProcessingThread</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">)</span>
             <span class="o">:</span> <span class="n">QThread</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
@@ -280,7 +280,7 @@ al del productor:</p>
 <p>Finalmente es en la función principal del programa <code>main()</code> donde debe crearse
 el hilo encargado del procesamiento de los <em>frames</em>. Es decir, nuestro
 consumidor.</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
     <span class="n">FrameProcessingThread</span> <span class="n">frameProcessingThread</span><span class="p">;</span>
@@ -376,7 +376,28 @@ consumidor.</p>
 </ul>
 </div>
 
-            <a class="FlattrButton" style="display:none;" href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/"></a>
+            <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=362217503891956";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-send="false" data-layout="box_count" data-width="55" data-show-faces="false"></div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="vertical">Twittear</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<div class="g-plusone" data-size="tall"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'es'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<a class="FlattrButton" style="display:none;" href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/"></a>
 <script type="text/javascript">
     (function() {
         var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
@@ -388,30 +409,6 @@ consumidor.</p>
 </script>
 <noscript><a href="http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
-<!-- Place this tag where you want the +1 button to render. -->
-<div class="g-plusone" data-size="tall"></div>
-
-<!-- Place this tag after the last +1 button tag. -->
-<script type="text/javascript">
-  window.___gcfg = {lang: 'es'};
-
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="vertical">Twittear</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=362217503891956";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false"></div>
         </div>  
     </div>     </div> 
 <footer>

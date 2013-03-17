@@ -57,8 +57,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../qt-network.html"><h1>Qt Network</h1></a>
-            lun 04 marzo 2013
+            <a href="../uso-de-la-memoria-como-un-dispositivo-de-es.html"><h1>Uso de la memoria como un dispositivo de E/S</h1></a>
+            mié 13 marzo 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -67,163 +67,193 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona un conjunto de API de comunicaciones a través del módulo
-<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>. Este ofrece tanto clases de bajo nivel para comunicación
-mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
-implementan operaciones usando los protocolos de nivel de aplicación más
-communes, como HTTP o FTP.</p>
-<p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> incorpora este módulo por dos motivos fundamentales:</p>
-<ol>
-<li>
-<p>Aunque la mayor parte de los sistemas operativos modernos proporcionan un
- API de acceso a red basado en <a href="../bsd-sockets.html">BSD sockets</a>,
- algunos introducen funcionalidades adicionales para adaptarlo al modelo
- de programación preferente en el sistema en cuestión. Este, por ejemplo,
- es el caso de Windows y la librería <a href="../bsd-sockets.html">Winsock</a>
- que incorpora. Por tanto <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, gracias a su módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>, nos
- proporciona una forma portable de acceder a los servicios de red de los
- sistemas operativos soportados sin tener que preocuparnos por las
- particularidades de cada uno.</p>
-</li>
-<li>
-<p>Las operaciones de red suelen requerir mucho tiempo antes de completarse,
- por lo que usarlas en un <em>slot</em> del hilo principal implica el bloqueo del bucle
- de mensajes de la aplicación. Por fortuna el API <a href="../bsd-sockets.html">BSD sockets</a>
- permite tanto el uso síncrono como asíncrono de la interfaz. Esta última
- forma de utilizarla evita el bloqueo del bucle de mensajes al impedir que las
- llamadas a la interfaz se bloqueen hasta que las operaciones de red son
- completadas. Sin embargo implican una forma de programar mucho más compleja
- para el desarrollador.</p>
-<p>El API de bajo nivel de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> es asíncrono por diseño,
- ocultando toda esa complejidad detrás del bucle de mensajes y del mecanismo
- de señales y <em>slots</em> común a todo el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. Aunque el API de bajo
- nivel ofrece métodos para comunicación síncrona (los métodos <code>waitFor*</code>),
- en cuyo caso no necesitamos bucle de mensajes, su uso no está recomendado
- si no es en un hilo diferente al hilo principal. Además las clases del API
- de alto nivel no ofrecen métodos síncronos, por lo que si se usan es
- obligatorio disponer de un bucle de mensajes.</p>
-<p>Debemos tener en cuenta que las API del módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> se pueden usar
- desde hilos diferentes al hilo principal ya que cada hilo gestionado por la
- clase <a href="../hilos-de-trabajo-usando-senales-y-slots.html">QThread</a>
- tiene su propio bucle de mensajes, que se inicia automáticamente en el método
- <code>QThread::run()</code> por defecto.</p>
-</li>
-</ol>
-<h2>Funcionalidad</h2>
-<p>El módulo <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> ofrece las siguientes interfaces:</p>
+        <div><p>Algunas libreras se diseñan específicamente para leer y/o escribir datos en
+dispositivos de entrada/salida. Por ejemplo, una librería desarrollada en C++ para
+codificar y decodificar archivos MP3 recibiría objetos <a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a> o
+<a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para indicar el flujo del que leer o en el que escribir los datos
+respectivamente:</p>
 <dl>
-<dt><code>QNetworkRequest</code>, <code>QNetworkReply</code> y <code>QNetworkAccessManager</code></dt>
-<dd>Es una colección de clases que proporcionan una abstracción de alto nivel
-sobre operaciones y protocolos de comunicación comunes, por ejemplo HTTP y FTP.
-Cada instancia de la clase <code>QNetworkRequest</code> representa una petición u operación
-contra un servicio en red, mientras que las instancias de la clase
-<code>QNetworkReply</code> representan la respuesta a esas peticiones. La coordinación
-de toda esta actividad es responsabilidad de <code>QNetworkAccessManager</code>, que
-se encarga de entregar a la red las peticiones una vez han sido creadas y de
-emitir señales con la respuesta a las mismas cuando son recibidas. También
-coordina el uso de <em>cookies</em>, peticiones de autenticación y el uso de
-servidores <em>proxy</em>.</dd>
-<dt><code>QTcpSocket</code> y <code>QTcpServer</code></dt>
-<dd>TCP es el protocolo de comunicación utilizado por diversos protocolos de
-Internet, como HTTP o FTP. <code>QTcpSocket</code> proporciona acceso de bajo nivel a
-dicho protocolo. Permite establecer una conexión con una dirección IP y puerto
-determinados, así como enviar y recibir datos. Estas operaciones son
-asíncronas, por lo que no bloquean la ejecución del hilo, siendo la clase la
-que notifica mediante señales tanto las condiciones de error como de cuándo
-se dispone de nuevos datos para leer. Si lo que se desea es crear una
-aplicación que reciba conexiones TCP entrantes (como un servidor), lo
-conveniente es utilizar la clase <code>QTcpServer</code>. Ésta nos permite escuchar en
-una dirección IP y puerto concretos y aceptar las conexiones entrantes por parte
-de los clientes. Cada vez que se acepta el intento de conexión de un cliente,
-se obtiene una instancia de la clase <code>QTcpSocket</code> con la que podemos
-comunicarnos con él.</dd>
-<dt><code>QUdpSocket</code></dt>
-<dd>UDP es un protocolo de comunicación que también es utilizado por diversos
-protocolos de Internet. <code>QUdpSocket</code> proporciona acceso de bajo nivel a
-dicho protocolo. Permite enviar y recibir paquetes de datos a una dirección IP
-y puerto concretos, ya que a diferencia de TCP, UDP no provee un flujo continuo
-de datos sino que opera mediante el envío de paquetes. Tampoco se provee una
-clase específica para escuchar por conexiones entrantes (al estilo de
-<code>QTcpServer</code>), ya que UDP no es un protocolo orientado a conexión. La interfaz
-de <code>QUdpSocket</code> simplemente permite preparar el <em>socket</em> para aceptar la
-recepción de paquetes.</dd>
-<dt><code>QLocalSocket</code> y <code>QLocalServer</code></dt>
-<dd>Proporcionan una abstracción similar a la de <code>QTcpSocket</code> y <code>QTcpServer</code> pero
-para <em>sockets</em> locales. En Windows se implementa haciendo uso de tuberías con
-nombre, mientras que en UNIX, Linux y otro sistemas POSIX se utilizan
-<a href="http://es.wikipedia.org/wiki/Socket_Unix">sockets de dominio UNIX</a>.</dd>
-<dt><code>QHostInfo</code></dt>
-<dd>Se utiliza para obtener la dirección IP asignada a un nombre de máquina
-concreto a través del servicio DNS (Domain Name Service). Tanto la clase
-<code>QTcpSocket</code> como <code>QUdpSocket</code> hacen esto automáticamente cuando se indica
-un nombre de máquina y no una dirección IP. Sin embargo la clase <code>QHostInfo</code>
-nos permite hacerlo manualmente, si por cualquier motivo fuera necesario.</dd>
-<dt><code>QNetworkProxy</code></dt>
-<dd>Cada instancia de <code>QNetworkProxy</code> se usa para describir y configurar la
-conexión a un servidor <em>proxy</em>, que pueden dirigir o filtrar el tráfico
-entre ambos extremos de una conexión. Un servidor <em>proxy</em> puede ser activado
-para un socket concreto, a través del método <code>QAbstractSocket::setProxy()</code>,
-antes de conectarlo, o a nivel de toda la aplicación a través
-de la función <code>QNetworkProxy::setApplicationProxy()</code>.</dd>
-<dt><code>QNetworkConfigurationManager</code> y <code>QNetworkConfiguration</code></dt>
-<dd>Estas clases constituyen la interfaz del gestor de portabilidad, que controla
-el estado de conectividad del dispositivo, permitiendo iniciar y detener las
-interfaces de red así como migrar transparentemente entre puntos de acceso.
-La clase <code>QNetworkConfigurationManager</code> gestiona la lista de configuraciones
-de red conocidas por el dispositivo. Una configuración de red describe el
-conjunto de parámetros usados al iniciar la interfaz de red y es representada
-por instancias de la clase <code>QNetworkConfiguration</code>.</dd>
+<dt><a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a></dt>
+<dd>Clase de flujo de entrada. Los objetos de esta clase pueden leer e interpretar
+la entrada de datos a partir de secuencias de caracteres.</dd>
+<dt><a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a></dt>
+<dd>Clase de flujo de salida. Los objetos de esta clase pueden escribir secuencias
+de caracteres y representar como cadenas otras clases de datos.</dd>
 </dl>
-<h2>Utilizar Qt Network</h2>
-<p>Para incorpora el módulo en nuestra aplicación, sólo tenemos que incluir la
-declaración de sus clases añadiendo la siguiente directiva en aquellos
-archivos donde las vayamos a utilizar:</p>
-<div class="codehilite"><pre><span class="c">#include &lt;QtNetwork&gt;</span>
+<p>Por lo tanto, si deseáramos guardar o recuperar audio codificado en MP3 en un
+medio de almacenamiento concreto, necesitaríamos disponer de una clase que nos
+ofrezca el acceso al mismo a través de la interfaz de flujos de C++ de
+entrada/salida descrita por las clases anteriores.</p>
+<p>Objetos como <a href="http://www.cplusplus.com/reference/iostream/cin/" title="std::cin">std::cin</a> y <a href="http://www.cplusplus.com/reference/iostream/cout/" title="std::cout">std::cout</a> son instancias de estas clases, lo que
+permitiría que nuestra aplicación codificara y decodificara audio hacia y
+desde la entrada/salida estándar del proceso. Lo mismo ocurre con
+<a href="http://www.cplusplus.com/reference/fstream/ifstream/" title="std::ifstream">std::ifstream</a>, <a href="http://www.cplusplus.com/reference/fstream/ofstream/" title="std::ofstream">std::ofstream</a> y <a href="http://www.cplusplus.com/reference/fstream/fstream/" title="std::fstream">std::fstream</a>; que heredan de las clases
+anteriores e implementan la interfaz de flujos de C++ para los archivos. De
+esta manera nuestra hipotética librería de MP3 podría codificar y decodificar
+datos en este formato hacia y desde dichos archivos.</p>
+<p>En este punto la cuestión que se nos plantea es ¿qué podríamos hacer si,
+por ejemplo, quisiéramos codificar el audio para posteriormente transmitirlo
+a otro ordenador a través de una red? Teniendo en cuenta lo comentado hasta
+ahora, una opción sería codificarlo almacenándolo en un archivo y posteriormente
+leer del mismo para transmitir los datos por la red. Obviamente esto dista
+de ser ideal ya que sería preferible disponer de una clase que implementara
+la interfaz de <a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para almacenar los datos codificados directamente
+en la memoria, evitando tener que dar pasos intermedios como guardarlos y
+leerlos de un archivo temporal.</p>
+<p>Por fortuna la librería estándar de C++ nos provee de las clases:</p>
+<dl>
+<dt><a href="http://www.cplusplus.com/reference/sstream/istringstream/" title="std::istringstream">std::istringstream</a></dt>
+<dd>Flujo de entrada para operar sobre cadenas. Los objetos de esta clase
+permiten leer los caracteres del flujo de entrada a partir del contenido
+de un objeto <code>std::string</code>.</dd>
+<dt><a href="http://www.cplusplus.com/reference/sstream/ostringstream/" title="std::ostringstream">std::ostringstream</a></dt>
+<dd>Flujo de salida para operar sobre cadenas. Los objetos de esta clase
+permiten escribir los caracteres del flujo de salida en un objeto <code>std::string</code>.</dd>
+<dt><a href="http://www.cplusplus.com/reference/sstream/stringstream/" title="std::stringstream">std::stringstream</a></dt>
+<dd>Flujo para operar sobre cadenas. Los objetos de esta clase permiten leer
+y escribir en un objeto <code>std::string</code>.</dd>
+</dl>
+<p>ofreciéndonos una forma sencilla de almacenar o leer de la memoria del proceso
+los datos codificados en MP3, lo que facilitaría cuaĺquier tarea que quisiéramos
+realizar con ellos posteriormente.</p>
+<h2>QIODevice</h2>
+<p>En el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> ocurre algo muy parecido. Todas las clases diseñadas
+para acceder a dispositivos de entrada/salida reciben un objeto de la clase
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>. Por ejemplo:</p>
+<dl>
+<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qtextstream.html" title="QTextStream">QTextStream</a></dt>
+<dd>Proporciona una interfaz adecuada para leer y escribir datos en
+formato texto desde un <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
+<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qdatastream.html" title="QDataStream">QDataStream</a></dt>
+<dd>Proporciona una interfaz adecuada para leer y escribir datos binarios
+desde un <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
+<dt><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a></dt>
+<dd>Proporciona una interfaz independiente del formato para leer archivos de
+imágenes desde un dispositivo <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
+<dt><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter">QImageWriter</a></dt>
+<dd>Proporciona una interfaz independiente del formato para escribir archivos de
+imágenes desde un dispositivo <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
+<dt><a href="../como-usar-qmovie-en-qt.html" title="QMovie">QMovie</a></dt>
+<dd>Es una clase diseñada para reproducir películas leidas con <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>
+desde un <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
+</dl>
+<p>La clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> no se instancia directamente para crear objetos, sino que
+su función es definir una interfaz genérica válida para todo tipo de
+dispositivos de entrada/salida. En el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> diversas clases
+heredan de esta, implementando la interfaz <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> para un dispositivo
+concreto:</p>
+<dl>
+<dt><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket">QTcpSocket</a></dt>
+<dd>Es una clase heredera de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> que permite establecer una conexión
+TCP y transferir flujos de datos a través de ella.</dd>
+<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html" title="QFile">QFile</a></dt>
+<dd>Es una clase heredera de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> para leer y escribir archivos de texto
+y binarios, así como <a href="http://qt-project.org/doc/qt-5.0/qtcore/resources.html">recursos de la aplicación</a>.</dd>
+<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qprocess.html" title="QProcess">QProcess</a></dt>
+<dd>Es una clase heredera de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> que permite ejecutar un programa externo
+y comunicarnos con él.</dd>
+<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a></dt>
+<dd>Es una clase heredera de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> que implementa dicha interfaz de
+dispositivos sobre un <a href="http://qt-project.org/doc/qt-5.0/qtcore/qbytearray.html" title="QByteArray">QByteArray</a>. Ésta es una clase que provee una interfaz
+para manipular un <em>array</em> de bytes en la memoria.</dd>
+</dl>
+<h2>Ejemplos con imágenes</h2>
+<p>Para ilustrar lo comentado vamos a codificar y decodificar una imagen <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>
+directamente desde la memoria.</p>
+<h3>Codificando una imagen en la memoria</h3>
+<p>Supongamos que <code>image</code> es un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a> que queremos codificar en formato
+PNG, guardando el resultado en un <em>array</em> en la memoria para su procesamiento
+posterior (p. ej. para transmitirlo a través de una red de comunicaciones).</p>
+<p>Hacerlo es tan sencillo como incorporar las siguientes líneas al programa:</p>
+<div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
+<span class="n">image</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;png&quot;</span><span class="p">);</span>
 </pre></div>
 
 
-<p>Para enlazar el módulo con el ejecutable de la aplicación, sólo hay que añadir
-la siguiente línea al archivo <code>.pro</code> del proyecto:</p>
-<div class="codehilite"><pre><span class="n">QT</span> <span class="o">+=</span> <span class="n">network</span>
+<p>Como hemos comentado, <a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a> es un clase heredada de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>, por lo
+que podemos usarla allí donde se requiera un dispositivo de entrada/salida.
+Por defecto los objetos de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a> se crean con un <em>buffer</em> interno de tipo
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qbytearray.html" title="QByteArray">QByteArray</a>, al que podemos acceder directamente invocando el método
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html#buffer" title="QBuffer::buffer()">buffer</a>(). Por ejemplo:</p>
+<div class="codehilite"><pre><span class="n">QByteArray</span> <span class="n">bytes</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">buffer</span><span class="p">();</span>
+
+<span class="c1">// Guardamos en un string los primeros 6 bytes de la imagen en PNG</span>
+<span class="n">string</span> <span class="n">pngHeader</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">constData</span><span class="p">(),</span> <span class="mi">6</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pngHeader</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </pre></div>
 
 
-<p>Hecho esto, la mejor forma de aprender a utilizar los recursos del módulo
-<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a> es siguiendo los ejemplos disponibles en su documentación:</p>
-<ul>
-<li>
-<p>Ejemplos de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket">QTcpSocket</a> y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpserver.html" title="QTcpServer">QTcpServer</a>:</p>
-<ul>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/fortuneclient.html">Fortune Client</a>
-y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/fortuneserver.html">Fortune Server</a>
-muestran como desarrollar una aplicación cliente-servidor sobre TCP.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/blockingfortuneclient.html">Blocking Fortune Client</a>
-muestra como usar la interfaz síncrona de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket">QTcpSocket</a>.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/threadedfortuneserver.html">Threaded Fortune Server</a>
-muestra como desarrollar un servidor multihilo donde cada hilo sirve a un
-cliente.</li>
-</ul>
-</li>
-<li>
-<p>Ejemplos de <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qudpsocket.html" title="QUdpSocket">QUdpSocket</a>:</p>
-<ul>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/broadcastsender.html">Broadcast Sender</a>
-y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/broadcastreceiver.html">Broadcast Receiver</a>
-muestran como desarrollar un emisor y un receptor sobre UDP.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/multicastsender.html">Multicast Sender</a>
-y <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/multicastreceiver.html">Multicast Receiver</a>
-muestran como desarrollar aplicaciones que hagan uso de la
-<a href="http://es.wikipedia.org/wiki/Multidifusi%C3%B3n">multidifusión</a> (o <em>multicast</em>).</li>
-</ul>
-</li>
-</ul>
+<p>lo que mostraría por la salida estándar algo como lo siguiente:</p>
+<div class="codehilite"><pre><span class="err">�</span><span class="n">PNG</span>
+</pre></div>
+
+
+<p>Esta forma de guardar los datos es adecuada cuando no necesitamos más control
+sobre las opciones del formato en cuestión. Si por el contrario queremos
+controlar el nivel de compresión, el de gamma o algunos otros parámetros
+específicos del formato, tendremos que emplear un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter">QImageWriter</a>:</p>
+<div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
+<span class="n">QImageWriter</span> <span class="n">writer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
+<span class="n">writer</span><span class="p">.</span><span class="n">setFormat</span><span class="p">(</span><span class="s">&quot;jpeg&quot;</span><span class="p">);</span>
+<span class="n">writer</span><span class="p">.</span><span class="n">setCompression</span><span class="p">(</span><span class="mi">70</span><span class="p">);</span>
+<span class="n">writer</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">image</span><span class="p">)</span><span class="o">:</span>
+</pre></div>
+
+
+<h3>Decodificando una imagen almacenada en la memoria</h3>
+<p>Ahora hagámoslo en sentido inverso. Si tenemos un puntero <code>const char *bytes</code>
+a una zona de memoria con <code>size</code> bytes donde se almacena una imagen en formato
+PNG y queremos cargarla en un objeto <code>QImage</code>, sólo tenemos que asignar los
+datos a un objeto <code>QBuffer</code> y leer desde el:</p>
+<div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
+<span class="n">buffer</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+<span class="n">QImage</span> <span class="n">image</span><span class="p">();</span>
+<span class="n">image</span><span class="p">.</span><span class="n">setDevice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
+<span class="n">image</span><span class="p">.</span><span class="n">setFormat</span><span class="p">(</span><span class="s">&quot;png&quot;</span><span class="p">);</span>
+<span class="n">image</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+</pre></div>
+
+
+<p>o lo que es equivalente y mucho más simple:</p>
+<div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
+<span class="n">buffer</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+<span class="n">image</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;png&quot;</span><span class="p">);</span>
+</pre></div>
+
+
 <h2>Referencias</h2>
 <ol>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a></li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qbytearray.html" title="QByteArray">QByteArray</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter">QImageWriter</a>.</li>
 </ol></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../qt-network.html"><h2>Qt Network</h2></a>
+        <div class= "well small"> lun 04 marzo 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona un conjunto de API de comunicaciones a través del módulo
+<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>. Este ofrece tanto clases de bajo nivel para comunicación
+mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
+implementan operaciones usando los protocolos de nivel de aplicación más
+communes, como HTTP ...</p> <a class="btn btn-info xsmall" href="../qt-network.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -244,28 +274,6 @@ sacar las tareas de larga duración del hilo principal de la aplicación, lo que
 de lo contrario bloquearía la interfaz de usuario.</p>
 <p>Una forma práctica de hacerlo la hemos visto <a href="../introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a>
 utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> provee ...</p> <a class="btn btn-info xsmall" href="../hilos-de-trabajo-usando-senales-y-slots.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../introduccion-al-uso-de-hilos-en-qt.html"><h2>Introducción al uso de hilos en Qt</h2></a>
-        <div class= "well small"> sáb 16 febrero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
-larga duración en los <em>slots</em>. Si lo hiciéramos la ejecución tardaría en
-volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
-procesar nuevos eventos de los usuarios.</p>
-<p>Por eso lo habitual ...</p> <a class="btn btn-info xsmall" href="../introduccion-al-uso-de-hilos-en-qt.html">leer más</a></div>
     </div>	
 				
             <div class="pagination">
@@ -352,7 +360,28 @@ procesar nuevos eventos de los usuarios.</p>
 </ul>
 </div>
 
-            <a class="FlattrButton" style="display:none;" href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/"></a>
+            <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=362217503891956";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-send="false" data-layout="box_count" data-width="55" data-show-faces="false"></div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="vertical">Twittear</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<div class="g-plusone" data-size="tall"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'es'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<a class="FlattrButton" style="display:none;" href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/"></a>
 <script type="text/javascript">
     (function() {
         var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
@@ -364,30 +393,6 @@ procesar nuevos eventos de los usuarios.</p>
 </script>
 <noscript><a href="http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
-<!-- Place this tag where you want the +1 button to render. -->
-<div class="g-plusone" data-size="tall"></div>
-
-<!-- Place this tag after the last +1 button tag. -->
-<script type="text/javascript">
-  window.___gcfg = {lang: 'es'};
-
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="vertical">Twittear</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=362217503891956";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false"></div>
         </div>  
     </div>     </div> 
 <footer>
