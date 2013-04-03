@@ -24,7 +24,8 @@ LINKS =  ()
 
 # Author profiles
 PROFILES = {u'Jesús Torres': (
-            ('google+', 'http://plus.google.com/u/0/113130190517682041034'),)}
+            ('jmtorres', 'http://plus.google.com/u/0/113130190517682041034'),
+            ('@susotorres', 'http://twitter.com/susotorres'),)}
 
 # Social widget
 SOCIAL = (('github', 'http://github.com/ull-etsii-sistemas-operativos/'),
