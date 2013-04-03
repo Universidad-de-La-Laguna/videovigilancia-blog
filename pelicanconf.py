@@ -30,6 +30,7 @@ PROFILES = {u'Jesús Torres': (
 # Social widget
 SOCIAL = (('github', 'http://github.com/ull-etsii-sistemas-operativos/'),
           ('google+', 'http://plus.google.com/u/0/communities/112085352199958768374'),
+          ('flattr', 'http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch'),
           ('atom', FEED_DOMAIN + '/' + FEED_ATOM),
           ('rss', FEED_DOMAIN + '/' + FEED_RSS),)
 
