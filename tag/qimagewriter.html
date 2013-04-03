@@ -38,6 +38,7 @@
         <ul class="nav">
                     
                             <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
                         </ul>
         </div>
         
@@ -178,7 +179,7 @@ Por defecto los objetos de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuf
 <div class="codehilite"><pre><span class="n">QByteArray</span> <span class="n">bytes</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">buffer</span><span class="p">();</span>
 
 <span class="c1">// Guardamos en un string los primeros 6 bytes de la imagen en PNG</span>
-<span class="n">string</span> <span class="n">pngHeader</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">constData</span><span class="p">(),</span> <span class="mi">6</span><span class="p">);</span>
+<span class="n">string</span> <span class="nf">pngHeader</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">constData</span><span class="p">(),</span> <span class="mi">6</span><span class="p">);</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pngHeader</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </pre></div>
 
@@ -193,7 +194,7 @@ sobre las opciones del formato en cuestión. Si por el contrario queremos
 controlar el nivel de compresión, el de gamma o algunos otros parámetros
 específicos del formato, tendremos que emplear un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter">QImageWriter</a>:</p>
 <div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
-<span class="n">QImageWriter</span> <span class="n">writer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
+<span class="n">QImageWriter</span> <span class="nf">writer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
 <span class="n">writer</span><span class="p">.</span><span class="n">setFormat</span><span class="p">(</span><span class="s">&quot;jpeg&quot;</span><span class="p">);</span>
 <span class="n">writer</span><span class="p">.</span><span class="n">setCompression</span><span class="p">(</span><span class="mi">70</span><span class="p">);</span>
 <span class="n">writer</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">image</span><span class="p">)</span><span class="o">:</span>
@@ -207,7 +208,7 @@ PNG y queremos cargarla en un objeto <code>QImage</code>, sólo tenemos que asig
 datos a un objeto <code>QBuffer</code> y leer desde el:</p>
 <div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
 <span class="n">buffer</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
-<span class="n">QImage</span> <span class="n">image</span><span class="p">();</span>
+<span class="n">QImage</span> <span class="nf">image</span><span class="p">();</span>
 <span class="n">image</span><span class="p">.</span><span class="n">setDevice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
 <span class="n">image</span><span class="p">.</span><span class="n">setFormat</span><span class="p">(</span><span class="s">&quot;png&quot;</span><span class="p">);</span>
 <span class="n">image</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
@@ -291,6 +292,7 @@ datos a un objeto <code>QBuffer</code> y leer desde el:</p>
            
                                 <li><a href="http://github.com/ull-etsii-sistemas-operativos/">github</a></li>
                                 <li><a href="http://plus.google.com/u/0/communities/112085352199958768374">google+</a></li>
+                                <li><a href="http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch">flattr</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml">atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml">rss</a></li>
                             </ul>
@@ -315,39 +317,6 @@ datos a un objeto <code>QBuffer</code> y leer desde el:</p>
 </ul>
 </div>
 
-            <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=362217503891956";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-send="false" data-layout="box_count" data-width="55" data-show-faces="false"></div>
-<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="vertical">Twittear</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<div class="g-plusone" data-size="tall"></div>
-<script type="text/javascript">
-  window.___gcfg = {lang: 'es'};
-
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-<a class="FlattrButton" style="display:none;" href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/"></a>
-<script type="text/javascript">
-    (function() {
-        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-        t.parentNode.insertBefore(s, t);
-    })();
-</script>
-<noscript><a href="http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch" target="_blank">
-<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
         </div>  
     </div>     </div> 
 <footer>
