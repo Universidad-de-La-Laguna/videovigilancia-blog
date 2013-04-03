@@ -6,7 +6,7 @@ Esta es la web del proyecto de preparación de la práctica "Sistema de
 Videovigilancia from Scratch"
 para la asignatura de Sistemas Operativos Avanzados de 3º de Grado de
 Ingeniería Informática
-([ETSII-ULL](http://www.etsii.ull.es/))
+([ETSII-ULL](http://www.etsii.ull.es/)).
 
 Como su propio nombre indica, la idea es desarrollar un sistema de
 videoconferencia completo, incluyendo una serie de cámaras inteligentes, un
