@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sistema de Videovigilancia from Scratch</title>
+    <title>multiproceso - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="./theme/html5.js"></script>
+    <script src="../theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="./theme/bootstrap.min.css" rel="stylesheet">
-    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="./theme/local.css" rel="stylesheet">
-    <link href="./theme/pygments.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,13 +32,13 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
-                    <li><a href="./pages/seminarios.html">Seminarios</a></li>
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
                         </ul>
         </div>
         
@@ -58,10 +58,10 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./concurrencia.html"><h1>Concurrencia</h1></a>
+            <a href="../concurrencia.html"><h1>Concurrencia</h1></a>
             sáb 06 abril 2013
 
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
@@ -185,14 +185,14 @@ ha extendido el uso de modelos basados en paso de mensajes.</p>
 <p>En estos modelos los hilos no acceden directamente a los datos sino que se los
 transfieren entre si por medio de mensajes. Así se evita compartir recursos y,
 por tanto, el uso de
-<a href="./introduccion-al-uso-de-hilos-en-qt.html">cerrojos, semáforos y variables de condición</a>.
+<a href="../introduccion-al-uso-de-hilos-en-qt.html">cerrojos, semáforos y variables de condición</a>.
 Sin embargo se pierde la sencillez que ofrece el acceder directamente a los
 datos y otros recursos compartidos.</p>
 <p>Lenguajes como Scala o Erlang implementan el modelo <a href="http://en.wikipedia.org/wiki/Actor_model" title="Actor model">Actor</a>, mientras que Go
 se basa en en el modelo <a href="http://en.wikipedia.org/wiki/Communicating_sequential_processes" title="Communicating sequential processes">CSP</a>. Ambos casos, pese a <a href="http://www.informit.com/articles/article.aspx?p=1768317">sus
 diferencias</a>,
 fundamentalmente operan tal y como hemos descrito. También entraría dentro de
-este tipo de modelos el <a href="./hilos-de-trabajo-usando-senales-y-slots.html">sistema de comunicación entre hilos</a> que implementa <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> a través del uso de señales y <em>slots</em>.</p>
+este tipo de modelos el <a href="../hilos-de-trabajo-usando-senales-y-slots.html">sistema de comunicación entre hilos</a> que implementa <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> a través del uso de señales y <em>slots</em>.</p>
 <h2>Multiproceso</h2>
 <p>En los sistemas operativos que implementan una llamada al sistema tipo
 <a href="">fork</a> se pueden crear de forma sencilla múltiples procesos, en lugar de
@@ -289,7 +289,7 @@ paralela.</p>
 OS X bajo el nombre de <a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch">Grand Central Dispatch</a> (GCD). Para C++
 existen múltiples librerías, como por ejemplo Intel <a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks">TBB</a>, diseñada
 específicamente para facilitar que los programas aprovechen las ventajas de
-los sistemas multinúcleo, o <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, que incorpora su propia implementación del
+los sistemas multinúcleo, o <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, que incorpora su propia implementación del
 patrón a través de la clase <a href="http://qt-project.org/doc/qt-4.8/qthreadpool.html" title="QThreadPool">QThreadPool</a>:</p>
 <div class="codehilite"><pre><span class="k">class</span> <span class="nc">HelloWorldTask</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QRunnable</span>
  <span class="p">{</span>
@@ -342,7 +342,7 @@ operativo:</p>
 <li>En el bucle de mensajes se itera sobre la cola de eventos, se procesan y
 se llaman las rutinas de <em>callback</em> correspondientes.</li>
 <li>Estas rutinas de <em>callback</em> pueden estar predefinidas, como en el caso
-del sistema de señales de <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, o especificarse a través de un argumento
+del sistema de señales de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, o especificarse a través de un argumento
 adicional cuando se solicitó la operación.</li>
 </ul>
 </li>
@@ -406,61 +406,13 @@ de la librería <a href="http://www.boost.org/doc/libs/1_53_0/libs/coroutine/doc
         <hr />
     </div>
 		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./uso-de-la-memoria-como-un-dispositivo-de-es.html"><h2>Uso de la memoria como un dispositivo de E/S</h2></a>
-        <div class= "well small"> mié 13 marzo 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Algunas libreras se diseñan específicamente para leer y/o escribir datos en
-dispositivos de entrada/salida. Por ejemplo, una librería desarrollada en C++ para
-codificar y decodificar archivos MP3 recibiría objetos <a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a> o
-<a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para indicar el flujo del que leer o en el que escribir los datos ...</p> <a class="btn btn-info xsmall" href="./uso-de-la-memoria-como-un-dispositivo-de-es.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./implementando-un-protocolo-con-protocol-buffers.html"><h2>Implementando un protocolo con Protocol Buffers</h2></a>
-        <div class= "well small"> mar 05 marzo 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> es un mecanismo sencillo para serializar estructuras de
-datos, de tal forma que los datos así codificados pueden ser almacenados
-o enviados a través de una red de comunicaciones. Esto nos ofrece una forma
-sencilla de crear nuestro propio protocolo de comunicaciones, adaptado a las
-necesidades de un ...</p> <a class="btn btn-info xsmall" href="./implementando-un-protocolo-con-protocol-buffers.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
-    <li class="active"><a href="./index.html">1</a></li>
-    <li class=""><a href="./index2.html">2</a></li>
-    <li class=""><a href="./index3.html">3</a></li>
-    <li class=""><a href="./index4.html">4</a></li>
-    <li class=""><a href="./index5.html">5</a></li>
-    <li class=""><a href="./index6.html">6</a></li>
+    <li class="active"><a href="../tag/multiproceso.html">1</a></li>
 
-    <li class="next"><a href="./index2.html">Next &rarr;</a></li>
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 
 </ul>
 </div>    
@@ -477,8 +429,8 @@ necesidades de un ...</p> <a class="btn btn-info xsmall" href="./implementando-u
                 Sitio
                 </li>
             
-                <li><a href="./archives.html">Archivos</a>
-                <li><a href="./tags.html">Etiquetas</a>
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -491,12 +443,12 @@ necesidades de un ...</p> <a class="btn btn-info xsmall" href="./implementando-u
                 Categorias
                 </li>
                 
-                                <li><a href="./category/comunicaciones.html">Comunicaciones</a></li>
-                                <li><a href="./category/hardware.html">Hardware</a></li>
-                                <li><a href="./category/linux.html">Linux</a></li>
-                                <li><a href="./category/overviews.html">Overviews</a></li>
-                                <li><a href="./category/qt.html">Qt</a></li>
-                                <li><a href="./category/vision.html">Visión</a></li>
+                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
+                                <li><a href="../category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>

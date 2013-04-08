@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../bsd-sockets.html"><h1>BSD sockets</h1></a>
-            sáb 02 marzo 2013
+            <a href="../concurrencia.html"><h1>Concurrencia</h1></a>
+            sáb 06 abril 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,124 +68,366 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p><em>POSIX sockets</em> es una parte de la especificación POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que define un API
-(Application Programming Interface) para la comunicación entre procesos,
-fundamentalmente entre equipos conectados a través de Internet
-(<em>socket</em> de Internet), aunque también soporta la conexión local entre procesos
-que se ejecutan en el mismo sistema (<a href="http://es.wikipedia.org/wiki/Socket_Unix">socket de dominio UNIX</a>
-o <a href="http://es.wikipedia.org/wiki/Socket_Unix">socket UNIX</a>).</p>
-<h2>Historia</h2>
-<p>La primera implementación ampliamente distribuida de la pila de protocolos
-TCP/IP lo fue con el UNIX 4.2BSD, que incluía <em>BSD sockets</em> (o <em>Berkeley sockets</em>)
-como API para las comunicaciones entre procesos usando estos protocolos.</p>
-<p>Las distintas versiones de BSD incorporaban código del UNIX original de AT&amp;T,
-por lo que estaban sujetas a la licencia de software de esta empresa. La
-licencias de código fuente se estaban volviendo muy costosas, por lo que muchas
-empresas y organizaciones comenzaron a interesarse en la liberación independiente
-del código de red, que había sido desarrollado enteramente al margen de AT&amp;T,
-por lo que no tenía que estar sujeto a los requerimientos de su licencia.</p>
-<p>En junio de 1989 este código fue liberado bajo los términos de la licencia
-<a href="http://es.wikipedia.org/wiki/Licencia_BSD">BSD</a>. Muchos fabricantes incluyeron
-este código directamente en sus propios sistemas, incluso aunque tuvieran sus
-propios protocolos propietarios con los que competían entre ellos. Y algunas
-compañías comenzaron a usarlo para vender pilas de protocolo TCP/IP para
-Windows, hasta que Microsoft incluyó la suya propia en Windows 95, también
-derivada del código de BSD.</p>
-<p>Todo esto alimentó el despegue de TCP/IP como protocolo dominante e impuso
-los <em>BSD sockets</em> como API de acceso a la red, de tal forma que hoy en día
-todos los sistemas operativos modernos tienen una implementación de <em>BSD
-sockets</em>.</p>
-<p>El API <em>BSD sockets</em> evolucionó y finalmente fue adoptado en el estándar
-POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>, donde algunas funciones fueron deprecadas y eliminadas y
-reemplazadas por otras. Aun así el API <em>POSIX sockets</em> es básicamente el
-<em>BSD sockets</em>.</p>
-<p>De la misma manera los sistemas Windows incluyen <a href="http://msdn.microsoft.com/es-es/library/windows/desktop/ms740673(v=vs.85).aspx" title="Windows Sockets API">Winsock</a>, un API de acceso a
-la red derivado de <em>BSD sockets</em> que sólo difiere de éste en unos
-<a href="http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html">pocos detalles</a></p>
-<h2>Funciones del API</h2>
-<p>Este es un resumen de las funciones proporcionadas por <em>POSIX sockets</em>:</p>
-<dl>
-<dt><code>socket()</code></dt>
-<dd>Crea un nuevo <em>socket</em>, identificado por un número entero, de cierto tipo y
-reserva recursos del sistema para él.</dd>
-<dt><code>bind()</code></dt>
-<dd>Se usa generalmente en el lado del servidor para asociar un <em>socket</em> con una
-dirección de red, por ejemplo una dirección IP y un puerto concretos.</dd>
-<dt><code>listen()</code></dt>
-<dd>Se usa en el lado del servidor para hacer que un <em>socket</em> TCP entre en modo
-de escucha a la espera de nuevas conexiones entrantes.</dd>
-<dt><code>connect()</code></dt>
-<dd>Se usa en el lado del cliente para asignar un número de puerto libre al
-<em>socket</em>. En el caso de <em>sockets</em> TCP, intenta establecer una nueva conexión TCP
-con un <em>socket</em> a la escucha en otro puerto y dirección IP.</dd>
-<dt><code>accept()</code></dt>
-<dd>Se usa en el lado del servidor para aceptar una conexión entrante e intentar
-crear una nueva conexión TCP con el cliente remoto. Si tiene éxito, crea un
-nuevo socket asociado con esta pareja concreta de direcciones en ambos
-extremos de la conexión.</dd>
-<dt><code>send()</code> y <code>recv()</code>, <code>write()</code> y <code>read()</code> o <code>sendto()</code> y <code>recvfrom()</code></dt>
-<dd>Se usan para enviar y recibir datos hacia y desde el otro extremo de la conexión.</dd>
-<dt><code>close()</code></dt>
-<dd>Hace que el sistema libere los recursos asignados al <em>socket</em>. En el caso
-de conexiones TCP, ésta es finalizada.</dd>
-<dt><code>getaddrinfo()</code> y <code>getnameinfo()</code></dt>
-<dd>Se usan para resolver nombres de máquina y direcciones IP (<a href="http://es.wikipedia.org/wiki/Domain_Name_System" title="DNS - Domain Name System">DNS</a>).</dd>
-<dt><code>select()</code></dt>
-<dd>Se usa para esperar a que uno o más <em>sockets</em> de una lista estén listos
-para leer, escribir o tengan algún error.</dd>
-<dt><code>poll()</code></dt>
-<dd>Se usa para comprobar el estado de un <em>socket</em> en un conjunto de <em>sockets</em>.
-Puede comprobar si están listos para escribir, leer o si ha ocurrido algún error.</dd>
-<dt><code>getsockopt()</code></dt>
-<dd>Se usa para recuperar el valor actual de una opción concreta de configuración
-del <em>socket</em> especificado.</dd>
-<dt><code>setsockopt()</code></dt>
-<dd>Se usa para cambiar el actual de una opción concreta de configuración del
-<em>socket</em> especificado.</dd>
-</dl>
-<h2>POSIX API en Boost.Asio</h2>
-<p><a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> es una librería de C++ para programadores de software de sistema
-donde el acceso a funcionalidades del sistema operativo; como la red, los archivos,
-un puerto serie, etc.; se requiere con cierta frecuencia. El acceso a estos recursos
-suele implicar operaciones de E/S que normalmente consumen mucho tiempo antes
-de completarse, por lo que <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> provee de herramientas para gestionar
-estas conexiones de manera asíncrona, sin necesitar modelos de concurrencia
-basados en hilos o en múltiples procesos y memoria compartida.</p>
-<p>Debido a que uno de los usos principales de esta librería son las comunicaciones
-por red, <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> incluye una interfaz multiplataforma de <em>sockets</em> de bajo nivel,
-basada en el API <em>BSD sockets</em>, e implementada sobre la que proporciona el propio
-sistema operativo.</p>
-<p>A diferencia de esta última, la implementación proporcionada por <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> no incluye
-algunos aspectos del API original que no son seguros o que son propensos a provocar
-errores de programación. Por ejemplo, el uso de <code>int</code> para identificar a los <em>sockets</em>
-por parte del API <em>BSD sockets</em> carece de la seguridad que nos ofrecería tener un
-tipo específico para ellos. Por eso la representación de un <em>socket</em> en <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> usa
-un tipo distinto para cada protocolo. Es decir, para TCP el tipo de un socket es
-<code>ip::tcp::socket</code> mientras para UDP el tipo es <code>ip::udp::socket</code>.</p>
-<p>En la documentación de <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a> se incluye una <a href="http://www.boost.org/doc/html/boost_asio/overview/networking/bsd_sockets.html">tabla</a>
-que muestra la relación entre el API <em>BSD socket</em> y el API de acceso a red de <a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a>:</p>
-<h2>Referencias</h2>
+        <div><p>La concurrencia tiene que ver con manejar múltiples eventos que se superponen
+en el tiempo fuera del control del programa. Por lo tanto debe preocuparse de
+manejar la creciente complejidad que surge por la necesidad de un control de
+flujo no determinista. Los programas concurrentes vienen con frecuencia
+<em>limitados por la E/S</em>, como por ejemplo es el caso de las arañas usadas por
+los buscadores de Internet para explorar la web. Estos programas inician
+varias peticiones HTTP para obtener diversas páginas y aceptan de forma
+concurrente las respuestas con su contenido, acumulándolas en el conjunto de
+páginas que han sido visitadas. El control del flujo es no determinista
+porque las respuestas no se reciben necesariamente en el mismo orden en el que
+el programa hizo las correspondientes peticiones.</p>
+<p>En general existen aplicaciones que son fundamentalmente concurrentes, como
+los servidores web, los de archivos, los de base de datos y otros programas
+similares que deben manejar al mismo tiempo la conexión con diversos clientes.
+Pero también son concurrentes las aplicaciones desarrolladas para las interfaces
+gráficas de usuario actuales donde, por ejemplo, las peticiones de atender un
+click de ratón o actualizar el contenido de una ventana pueden llegar en
+cualquier momento fuera del control del programa.</p>
+<p>Por su naturaleza no determinista, los programas concurrentes son difíciles de
+depurar. </p>
+<h2>Paralelismo</h2>
+<p>El paralelismo no debe confundirse con la concurrencia, aunque es común que
+así ocurra. El paralelismo se preocupa de como superponer operaciones con el
+objeto de mejorar el rendimiento al realizar una tarea determinada.</p>
+<p>Normalmente un programa lanza un conjunto de subtareas que se ejecutan en
+paralelo para realizar un trabajo concreto, mientras la tarea principal no
+continua hasta que todas las subtareas han terminado. En esto no existe nada
+no determinista ni fuera del control del programa.  La programación
+paralela superar las dificultades de la programación concurrente asegurando
+un control de flujo determinista.</p>
+<p>Esto hace que la programación paralela sea mucho más sencilla de depurar. Lo
+realmente difícil es determinar las optimizaciones necesarias con respecto a
+cuestiones tales como la granularidad del paralelismo y el coste de la
+comunicación.</p>
+<p>Sin embargo La concurrencia es necesaria para implementar el paralelismo.
+Concretamente, en el ejemplo anterior, se hace cargo de establecer como se
+definen las distintas tareas, que características tienen y como se implementan
+sobre un hardware en concreto. También establece los mecanismos de
+coordinación y sincronización necesarios para lidiar con la indeterminación.
+En ese sentido podemos decir que el paralelismo es una abstracción útil para
+mejorar el rendimiento de una tarea. Sin embargo no debe confundirse dicha
+abstracción con su implementación, que entraría en el campo de la concurrencia.
+Así un programa con dos hilos concurrentes que se ejecute en un sistema
+monoprocesador sin mútiples núcleos ni físicos ni lógicos (<a href="http://en.wikipedia.org/wiki/Simultaneous_multithreading" title="Simultaneous Multithreading">SMT</a>) puede ser
+concurrente pero no paralelo. El paralelismo sólo es posible en sistemas
+multinúcleo, multiprocesador o distribuidos.</p>
+<h2>Manejar la concurrencia</h2>
+<p>Hasta el momento hemos dejado entrever las dos motivos más comunes por los que
+necesitamos gestionar la concurrencia:</p>
+<ul>
+<li>
+<p>Si nuestro programa deben manejar eventos externos que escapan a su control,
+como es el caso de un servidor que deben aceptar peticiones de múltiples
+clientes o una aplicación interactiva que debe responder ante los eventos
+notificados por el sistema a causa de las acciones del usuario, necesitamos
+manejar la concurrencia.</p>
+<p>Las tareas de estos programas con frecuencia están
+<em>limitadas por la E/S</em>, aunque no siempre es así. Por ejemplo, los recolectores
+de basura concurrentes presentes en algunas plataformas (p. ej. Java y .NET)
+están enteramente <em>limitados por la CPU</em>.</p>
+<p>Obviamente todo sería mucho más sencillo si optáramos por ignorar la
+concurrencia, manejando en turno una solicitud cada vez. Pero entonces una
+petición o un evento bloquearía a los otros hasta que hubiera terminado.</p>
+</li>
+<li>
+<p>Si en nuestro programa queremos usar <strong>programación paralela</strong> para descomponer
+ciertas tareas en otras más pequeñas que se puedan ejecutar al mismo tiempo con
+el objeto obtener el máximo rendimiento, también es necesario gestionar la
+concurrencia. Sin embargo, por lo general, este tipo de tareas están
+<em>limitadas por la CPU</em>.</p>
+</li>
+</ul>
+<p>En la actualidad existen diferentes maneras de tratar la concurrencia, que
+pueden ser más o menos convenientes según el tipo de problema a resolver.</p>
+<h2>Multihilo</h2>
+<p>El uso de múltiples hilos dentro de un mismo programa es uno de los enfoque
+más comunes cuando se plantea resolver un problema de concurrencia. En las
+mayor parte de los sistemas modernos los hilos creados por la aplicación son
+conocidos y gestionados por el núcleo (<a href="http://en.wikipedia.org/wiki/Thread_(computing)#1:1_.28Kernel-
+level_threading.29">modelo uno a
+uno</a>), lo que les permite acceder simultáneamente al mismo y
+ser planificados en diferentes procesadores, pudiendo así aprovechar el
+paralelismo ofrecido por el hardware en los sistemas multiprocesador y/o
+multinúcleo.</p>
+<p>Obviamente la manera en la que se utilizan los hilos dependen del tipo de problema:</p>
+<ul>
+<li>
+<p>Si el nuestro nuestro es de <strong>programación paralela</strong>, lo más común es crear
+tantos hilos como núcleos disponemos en el sistema y dividir entre ellos
+la tarea que deseemos realizar.</p>
+</li>
+<li>
+<p>Si por el contrario tenemos que gestionar eventos o peticiones, lo más
+habitual es crear un hilo por cliente conectado. Así cada hilo funcionará de
+manera independiente procesando y atendiendo las peticiones de su cliente.</p>
+</li>
+</ul>
+<h3>Características</h3>
+<p>Las principales características de la programación multihilo son:</p>
+<ul>
+<li>
+<p>Es muy sencilla, ya que permite gestionar diferentes hilos de ejecución
+dentro del espacio de direcciones virtual de un mismo proceso, lo que facilita
+la compartición de datos y otros recursos comunes.</p>
+</li>
+<li>
+<p>Se puede volver muy compleja, debido al cuidadoso control que es necesario
+hacer sobre el acceso a los recursos compartidos, a poco que el problema crezca.</p>
+</li>
+</ul>
+<h3>Modelos basados en paso de mensajes</h3>
+<p>Debido a que muchos de los problemas de la programación multihilo provienen de
+la compartición de recursos, para resolver problemas concurrentes complejos se
+ha extendido el uso de modelos basados en paso de mensajes.</p>
+<p>En estos modelos los hilos no acceden directamente a los datos sino que se los
+transfieren entre si por medio de mensajes. Así se evita compartir recursos y,
+por tanto, el uso de
+<a href="../introduccion-al-uso-de-hilos-en-qt.html">cerrojos, semáforos y variables de condición</a>.
+Sin embargo se pierde la sencillez que ofrece el acceder directamente a los
+datos y otros recursos compartidos.</p>
+<p>Lenguajes como Scala o Erlang implementan el modelo <a href="http://en.wikipedia.org/wiki/Actor_model" title="Actor model">Actor</a>, mientras que Go
+se basa en en el modelo <a href="http://en.wikipedia.org/wiki/Communicating_sequential_processes" title="Communicating sequential processes">CSP</a>. Ambos casos, pese a <a href="http://www.informit.com/articles/article.aspx?p=1768317">sus
+diferencias</a>,
+fundamentalmente operan tal y como hemos descrito. También entraría dentro de
+este tipo de modelos el <a href="../hilos-de-trabajo-usando-senales-y-slots.html">sistema de comunicación entre hilos</a> que implementa <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> a través del uso de señales y <em>slots</em>.</p>
+<h2>Multiproceso</h2>
+<p>En los sistemas operativos que implementan una llamada al sistema tipo
+<a href="">fork</a> se pueden crear de forma sencilla múltiples procesos, en lugar de
+hilos, para manejar la concurrencia. La forma de hacerlo no difiere mucho de
+la programación multihilo, aunque es necesario tener en cuenta lo siguiente:</p>
+<ul>
+<li>
+<p>Escala peor, ya que soportar cientos de clientes implica la creación de
+cientos de procesos y estos son más costosos que los hilos en lo que respecta
+al consumo de recursos del sistema.</p>
+</li>
+<li>
+<p>No es tan sencilla de usar como la programación multihilo, porque hay que
+indicar explícitamente que regiones de la memoria se desea compartir entre los
+procesos. Además, generalmente, sólo se puede establecer que recursos van a
+ser compartidos durante la creación de cada proceso.</p>
+</li>
+<li>
+<p>Los procesos ofrecen mejor aislamiento que los hilos y por tanto mayor
+robustez y seguridad.</p>
+</li>
+</ul>
+<p>Respecto a esto último debemos de tener en cuenta que un acceso indebido a la
+memoria en uno de los procesos, ocasionada quizás por una petición de un
+cliente mal formateada, no provocaría necesariamente la caída de toda la
+aplicación; a diferencia de lo que pasaría en una aplicación multihilo. De
+igual manera, si un atacante tomara el control de uno de los procesos tendría
+más difícil tener acceso a los otros, algunos de los cuales podrían estar
+ejecutando tareas de naturaleza crítica. Además a los procesos tienen
+características interesantes de las que carecen los hilos, como la posibilidad
+de ejecutarse como un usuario concreto del sistema o en un jaula <a href="http://es.wikipedia.org/wiki/Chroot" title="chroot">chroot</a>.</p>
+<h2>Agrupamiento de hilos</h2>
+<p>En la programación multihilo existen dos problemas que se pueden salvar con un
+solución común:</p>
+<ul>
+<li>
+<p>Aunque más baratos que los procesos, los hilos tiene un coste por lo que
+llega un momento en el que no se puede escalar ya que simplemente no se pueden
+crear más hilos.</p>
+</li>
+<li>
+<p>En un problema de <strong>programación paralela</strong> el número de hilos adecuado
+viene determinado por el de núcleos, lo que obliga a dividir el problema de
+manera diferente según las características del hardware donde el programa se
+va a ejecutar. Esto no es sencillo si la aplicación va a se distribuida al
+público y, por tanto, va a ser utiliza en ordenadores con características
+diversas.</p>
+</li>
+</ul>
+<p>Para enfrentar ambas cuestiones se puede hacer uso del patrón <a href="http://en.wikipedia.org/wiki/Thread_pool_pattern">agrupamiento de
+hilos</a> o <em>thread pool</em> que
+básicamente consiste en:</p>
 <ol>
-<li><a href="http://en.wikipedia.org/wiki/Berkeley_sockets">BSD sockets - Wikipedia</a>.</li>
-<li><a href="http://msdn.microsoft.com/es-es/library/windows/desktop/ms740673(v=vs.85).aspx">Wnsock - Windows Sockets API</a>.</li>
-<li><a href="http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html">Winsock Programmer's FAQ - BSD Sockets Compatibility</a>.</li>
-<li><a href="http://www.boost.org/libs/asio/" title="Boost.Asio">Boost.Asio</a>.</li>
-</ol>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>POSIX son las siglas de Portable Operating System Interface, una familia
-de estándares especificados por el <a href="http://www.ieee.org/">IEEE</a> para mantener
-la compatibilidad entre sistemas operativos. POSIX define un API, tomando del
-de los sistemas UNIX, para asegurar la compatibilidad entre las distintas
-variantes de UNIX y otros sistemas operativos.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li>
+<p>Un grupo de hilos, una cola con las tareas que deben ser ejecutadas en
+dichos hilos y otra cola donde almacenar los datos resultado de las tareas
+completadas.</p>
+</li>
+<li>
+<p>Cada vez que un hilo del agrupamiento queda libre, toma la siguiente tarea
+de la cola y la ejecuta hasta que es completada, insertado los resultados en
+la cola correspondiente.</p>
+</li>
+<li>
+<p>Cuando la cola de tareas está vacía, los hilos pueden morir o dormir hasta
+que hayan más tareas.</p>
 </li>
 </ol>
-</div></div>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" style="float:right;margin:0 0px 10px 0"></p>
+<h3>Número de hilos</h3>
+<p>Obviamente, el número concreto de hilos del agrupamiento se debe ajustar con
+el objeto de conseguir el mayor rendimiento posible:</p>
+<ul>
+<li>
+<p>Con tareas <em>limitadas por la CPU</em> generalmente el número de hilos está
+entorno al número de núcleos de procesador en el sistema.</p>
+</li>
+<li>
+<p>Con tareas <em>limitadas por la E/S</em> el número probablemente será muy superior
+y dependerá de la capacidad del sistema y del tipo de tarea.</p>
+</li>
+</ul>
+<p>En ocasiones el número de hilos en el agrupamiento puede ser ajustado por el
+programa dinámicamente en base al número de tareas pendientes de ser
+ejecutadas, hasta el máximo por encima del cual hemos determinado que el
+rendimiento se vería penalizado.</p>
+<h3>Soporte</h3>
+<p>Debido a la proliferación de los procesadores multinúcleo, es cada vez más
+común que los diferentes lenguajes dispongan de alguna implementación del
+patrón <em>agrupamiento de hilos</em>, ya sea en la librería que lo acompaña o a
+través de librerías de terceros, con el fin de facilitar la programación
+paralela.</p>
+<p>Plataformas como Java y .NET lo incorporan, así como el sistema operativo Mac
+OS X bajo el nombre de <a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch">Grand Central Dispatch</a> (GCD). Para C++
+existen múltiples librerías, como por ejemplo Intel <a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks">TBB</a>, diseñada
+específicamente para facilitar que los programas aprovechen las ventajas de
+los sistemas multinúcleo, o <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, que incorpora su propia implementación del
+patrón a través de la clase <a href="http://qt-project.org/doc/qt-4.8/qthreadpool.html" title="QThreadPool">QThreadPool</a>:</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">HelloWorldTask</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QRunnable</span>
+ <span class="p">{</span>
+     <span class="kt">void</span> <span class="n">run</span><span class="p">()</span>
+     <span class="p">{</span>
+         <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello world from thread&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThread</span><span class="p">();</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+
+ <span class="n">HelloWorldTask</span> <span class="o">*</span><span class="n">hello</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HelloWorldTask</span><span class="p">();</span>
+ <span class="c1">// QThreadPool takes ownership and deletes &#39;hello&#39; automatically</span>
+ <span class="n">QThreadPool</span><span class="o">::</span><span class="n">globalInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">(</span><span class="n">hello</span><span class="p">);</span>
+</pre></div>
+
+
+<h2>Ejecución basada en eventos</h2>
+<p>Como ya hemos comentado, los hilos tienen un coste que no se puede despreciar
+cuando el número de ellos que necesitamos es alto. Sin embargo en muchos
+problemas de concurrencia no paralelos las tareas están muy <em>limitadas por la
+E/S</em>, por lo que a penas se obtiene beneficio alguno de la posibilidad de
+ejecutarlas en paralelo. En esos casos la forma de gestionar la concurrencia
+que se ha demostrado más eficaz es la ejecución basada en eventos, por ejemplo
+usando el patrón <a href="http://en.wikipedia.org/wiki/Reactor_pattern" title="Reactor pattern">Reactor</a>.</p>
+<p>Sus principales características son:</p>
+<ul>
+<li>
+<p>Sólo se usa un hilo de ejecución. Por tanto:</p>
+<ul>
+<li>No es posible la ejecución paralela de código.</li>
+<li>Si se ejecutan tareas <em>limitadas por la CPU</em> se podrían estar bloqueando
+las peticiones de otros clientes al ocupar el hilo de ejecución.</li>
+</ul>
+</li>
+<li>
+<p>Toda la E/S es asíncrona:</p>
+<ul>
+<li>Esto es necesario para evitar el bloqueo de las peticiones de los
+clientes y que las operaciones de E/S se ejecuten en paralelo, entre sí y
+respecto a la ejecución de código.</li>
+<li>Cuando las operaciones se completan el sistema operativo lo notifica al
+manejador de servicio, que se encarga de insertar el evento en el bucle de
+mensajes.</li>
+</ul>
+</li>
+<li>
+<p>Hace uso de un bucle de mensajes, a donde llegan los eventos externos a
+través del manejador de servicio que es el elemento notificado por el sistema
+operativo:</p>
+<ul>
+<li>En el bucle de mensajes se itera sobre la cola de eventos, se procesan y
+se llaman las rutinas de <em>callback</em> correspondientes.</li>
+<li>Estas rutinas de <em>callback</em> pueden estar predefinidas, como en el caso
+del sistema de señales de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, o especificarse a través de un argumento
+adicional cuando se solicitó la operación.</li>
+</ul>
+</li>
+</ul>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">handle_read</span><span class="p">(</span><span class="kt">int</span> <span class="n">error</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// aquí va el código que lee y procesa los datos</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">async_read</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">handle_read</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Por lo general los programas que gestionan la concurrencia de esta manera
+tiene muchos menos requerimientos de memoria que quiénes usan múltiples hilos
+o procesos, lo que les permite escalar mejor. Este es por ejemplo el caso del
+servidor web Nginx o el servidor de aplicaciones en Javascript Node.js cuando
+se los compara con Apache, un servidor web que según la configuración utiliza
+un hilo o un proceso por conexión.</p>
+<h2>Corrutinas</h2>
+<p>Aunque eficiente, la ejecución basada en eventos puede ser más compleja de
+desarrollar ya que el control del flujo de ejecución se ve invertido. En un
+patrón procedural normal la interacción se expresa de forma imperativa,
+haciendo llamadas a procedimientos, funciones o métodos. En su lugar, en la
+ejecución basada en eventos se especifican las respuestas deseadas a los
+eventos notificados, siendo imposible desarrollar una función que contenga
+todo el código de una tarea concreta.</p>
+<p>Esto se puede resolver incorporando el uso de
+<a href="http://en.wikipedia.org/wiki/Coroutine">corrutinas</a>. Estas son una
+generalización de los procedimientos o subrutinas que, a diferencias de estas,
+pueden salir por diversos puntos para posteriormente volver a ejecutarse desde
+el último punto de retorno.</p>
+<p>En el contexto de la ejecución basada en eventos las distintas tareas pueden
+programarse como corrutinas mientras que las operaciones de E/S, a parte de
+programar la operación de manera asíncrona, forzarían la salida de la
+corrutina. Entonces el bucle de mensajes en lugar de invocar un <em>callback</em>
+ante el evento de que la operación ha sido completado, sólo tiene que
+continuar la ejecución de la corrutina donde fue interrumpida.</p>
+<p>Los corrutinas son soportadas por algunos lenguajes de alto nivel como Ruby,
+Lua o Go. Este último incluso permite planificar su ejecución en paralelo
+dentro de un agrupamiento de hilos, dando lugar a lo que sus desarrolladores
+ha denominado <em>goroutines</em>. Otro ejemplo destacable es Python, que si bien no
+lo soporta en el intérprete estándar, si lo hacen a través de <a href="http://en.wikipedia.org/wiki/Stackless_Python" title="Stackless Python">Stackless
+Python</a>. Este intérprete es usado en productos como Eve Online o Second Live
+donde el número de conexiones simultáneas es muy alto. Por lo demás la mayor
+parte de los lenguajes más populares no lo soportan ni en el propio lenguaje
+ni a través de su librería estándar, con la excepción de C++ mediante el uso
+de la librería <a href="http://www.boost.org/doc/libs/1_53_0/libs/coroutine/doc/html/index.html" title="Boost.Coroutine">Boost.Coroutine</a>.</p>
+<h1>Referencias</h1>
+<ol>
+<li><a href="http://blog.golang.org/2013/01/concurrency-is-not-parallelism.html">Concurrence is no parallelism</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Concurrency_pattern">Concurrency pattern</a></li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html#cms">Java SE 6 - The Concurrent Collector</a></li>
+<li><a href="http://www.informit.com/articles/article.aspx?p=1768317">A Tale of Two Concurrency Models: Comparing the Go and Erlang Programming Languages</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Thread_pool_pattern">Thread pool pattern</a></li>
+<li><a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/">Understanding the node.js event loop</a></li>
+<li>[Corutine]: http://en.wikipedia.org/wiki/Coroutine "Corutine"</li>
+</ol></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../bsd-sockets.html"><h2>BSD sockets</h2></a>
+        <div class= "well small"> sáb 02 marzo 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><em>POSIX sockets</em> es una parte de la especificación POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que define un API
+(Application Programming Interface) para la comunicación entre procesos,
+fundamentalmente entre equipos conectados a través de Internet
+(<em>socket</em> de Internet), aunque también soporta la conexión local entre procesos
+que se ejecutan en el mismo sistema (<a href="http://es.wikipedia.org/wiki/Socket_Unix">socket de ...</a></p> <a class="btn btn-info xsmall" href="../bsd-sockets.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -207,29 +449,6 @@ datos.</p>
 pudieron entonces generar código capaz de leer y escribir dichos datos de
 manera eficiente, desde diferentes lenguajes y en una variedad de distintos
 tipos de ...</p> <a class="btn btn-info xsmall" href="../protocol-buffers.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html"><h2>Proyecto Qt. Framework de desarrollo de aplicaciones</h2></a>
-        <div class= "well small"> mar 29 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="http://qt-project.org/" title="Qt Proyect">Qt</a> es una <em>framework</em> multiplataforma en C++ de desarrollo de aplicaciones. Se
-utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
-gracias al conjunto de controles independientes de la plataforma que ofrece,
-aunque también es usado para crear herramientas de linea de comando o consolas
-de gestión para servicios.</p>
-<p>Esto último ...</p> <a class="btn btn-info xsmall" href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html">leer más</a></div>
     </div>	
 				
             <div class="pagination">
