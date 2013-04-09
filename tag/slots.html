@@ -94,7 +94,7 @@ al hilo principal (clase <code>Sorter</code>) y otro al hilo de trabajo
 clase <code>Sorter</code> podría ser una ventana o cualquier otro control que
 quiera ceder una tarea al hilo de trabajo. Aquí no lo haremos así para
 que el ejemplo sea lo más sencillo posible.</p>
-<p><img src="https://docs.google.com/drawings/d/1tZ0CMTNJoLsbHx3TjgecQuRXGEM5hf3pYwm9_s1R8bI/pub?w=960&amp;h=720"></p>
+<p><img src="https://docs.google.com/drawings/d/1tZ0CMTNJoLsbHx3TjgecQuRXGEM5hf3pYwm9_s1R8bI/pub?w=960&amp;h=720" alt="Ejemplo de comunicación entre hilos en Qt" class="centered"></p>
 <p>En <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> un objeto se dice que vive en el hilo en el que es creado. Esto se
 puede cambiar utilizando el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()">moveToThread</a>() que tienen todas las
 clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>.</p>
@@ -103,22 +103,22 @@ clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" 
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="k">public</span><span class="o">:</span>
+    <span class="nl">public:</span>
         <span class="n">Sorter</span><span class="p">();</span>
         <span class="o">~</span><span class="n">Sorter</span><span class="p">();</span>
 
         <span class="c1">// Ordenar asíncronamente un vector en el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="n">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
 
     <span class="nl">signals:</span>
         <span class="c1">// Señal para comunicarnos con el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">private</span> <span class="nl">slots:</span>
+    <span class="k">private</span> <span class="n">slots</span><span class="o">:</span>
         <span class="c1">// Slot para saber cuando el vector ha sido ordenado</span>
         <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">private</span><span class="o">:</span>
+    <span class="nl">private:</span>
         <span class="c1">// Clase del hilo de trabajo</span>
         <span class="n">QThread</span> <span class="n">workingThread_</span><span class="p">;</span>
         <span class="c1">// Clase que hace el ordenamiento</span>
@@ -171,7 +171,7 @@ notificados cuando el ordenamiento haya finalizado con éxito.</p>
 <span class="p">{</span>
     <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
 
-    <span class="n">emit</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+    <span class="n">emit</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">Sorter</span><span class="o">::</span><span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">)</span>
@@ -200,14 +200,14 @@ lo que podría dejar los datos en uso en un estado indeterminado.</p>
         <span class="c1">// Señal emitida cuando el vector ha sido ordenado</span>
         <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">public</span> <span class="nl">slots:</span>
+    <span class="k">public</span> <span class="n">slots</span><span class="o">:</span>
         <span class="c1">// Método encargado del ordenamiento</span>
         <span class="kt">void</span> <span class="n">doSort</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
 
             <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list_sorted</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
             <span class="n">qSort</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
-            <span class="n">emit</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
+            <span class="n">emit</span> <span class="nf">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
         <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -216,7 +216,7 @@ lo que podría dejar los datos en uso en un estado indeterminado.</p>
 <h2>Como usar el ejemplo</h2>
 <p>Para usar el ejemplo sólo necesitamos crear una instancia de <code>Sorter</code> y
 llamar a su método <code>sortAsync()</code> para pedir que ordene el vector especificado.</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 
@@ -270,8 +270,8 @@ implementan algunos métodos comunes como <a href="http://qt-project.org/doc/qt-
             
                 <li><a href="../archives.html">Archivos</a>
                 <li><a href="../tags.html">Etiquetas</a>
-                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
-                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
+                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
             </div>
 
@@ -305,8 +305,8 @@ implementan algunos métodos comunes como <a href="http://qt-project.org/doc/qt-
                                 <li><a href="http://github.com/ull-etsii-sistemas-operativos/">github</a></li>
                                 <li><a href="http://plus.google.com/u/0/communities/112085352199958768374">google+</a></li>
                                 <li><a href="http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch">flattr</a></li>
-                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml">atom</a></li>
-                                <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml">rss</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml">atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml">rss</a></li>
                             </ul>
             </div>
             </div>

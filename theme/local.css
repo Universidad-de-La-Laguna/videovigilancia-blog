@@ -98,3 +98,7 @@ h3 { margin-top: 2.5em; }
 .comment-content { display: block; vertical-align: top; overflow: hidden;}
 .comment-date { padding-left: 10px; font-size: 11px; color: #666; }
 .comment-body { padding-top: 2px; line-height: 1.6em; }
+
+/* Styling for images */
+img.centered { display: block; margin-left: auto; margin-right: auto; border:none;}
+img.right-float { float:right; margin:0 0 0 10px;}
