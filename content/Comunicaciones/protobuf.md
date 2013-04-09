@@ -101,8 +101,8 @@ desarrollamos con el IDE Qt Creator) lo más cómodo es que este se encargue de
 invocar al compilador [Protocol Buffers] para generar las clases de acceso
 de forma automática.
 
-En este sentido el archivo [protobuf.pri](http://code.google.com/p/ostinato/source/browse/protobuf.pri) del proyecto
-[ostinato](http://code.google.com/p/ostinato) puede ser de gran ayuda.
+En este sentido el archivo `protobuf.pri` del proyecto [ostinato](http://code.google.com/p/ostinato)
+puede ser de gran ayuda con algunos cambios:
 
 ~~~~
 #
@@ -120,14 +120,15 @@ En este sentido el archivo [protobuf.pri](http://code.google.com/p/ostinato/sour
 # paths specify the PROTOPATH variable
 #
 
-PROTOPATH += .
+PROTOPATH += . \
+             ..
 PROTOPATHS =
 for(p, PROTOPATH):PROTOPATHS += --proto_path=$${p}
 
 protobuf_decl.name  = protobuf header
 protobuf_decl.input = PROTOS
 protobuf_decl.output  = ${QMAKE_FILE_BASE}.pb.h
-protobuf_decl.commands = protoc --cpp_out="." $${PROTOPATHS} ${QMAKE_FILE_NAME}
+protobuf_decl.commands = protoc --cpp_out="." $${PROTOPATHS} ${E}
 protobuf_decl.variable_out = GENERATED_FILES
 QMAKE_EXTRA_COMPILERS += protobuf_decl
 
@@ -138,24 +139,22 @@ protobuf_impl.depends  = ${QMAKE_FILE_BASE}.pb.h
 protobuf_impl.commands = $$escape_expand(\n)
 protobuf_impl.variable_out = GENERATED_SOURCES
 QMAKE_EXTRA_COMPILERS += protobuf_impl
+
+LIBS += -lprotobuf
 ~~~~
 
 Para usarlo sólo tenemos que:
 
- 1. Descargarlo al directorio del proyecto con el nombre `protobuf.pri`.
+ 1. Crear el archivo `protobuf.pri` con el contenido anterior en el directorio
+ del proyecto.
  2. Abrir el archivo `.pro` del proyecto y añadir las líneas:
 
         PROTOS = sensorsreport.proto
         include(protobuf.pri)
 
- 3. Incorporar la librería `protobuf` al proyecto. El procedimiento sería similar
- al que [comentamos](/deteccion-de-movimiento.html#incorporar_libreria_manualmente)
- para añadir manualmente la librería OpenCV con el objeto de implementar la
- [detección de movimiento](/deteccion-de-movimiento.html)
-
 ## Interfaz de Protocol Buffers
 
-Si abrimos el archivo `sensorsreport.proto` veremos que la clase `SensorsReport`
+Si abrimos el archivo `sensorsreport.pb.h` veremos que la clase `SensorsReport`
 nos ofrece los siguientes _accesores_:
 
 ~~~~.cpp
