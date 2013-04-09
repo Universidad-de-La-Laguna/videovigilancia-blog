@@ -5,7 +5,7 @@ Date: 2013-01-13
 Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS [OmniVision OV7670]
 con una memoria FIFO [Averlogic AL422] de 3Mb.
 
-<img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0 0 10px">
+<img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" alt="Cámara CF7670C-V2" class="right-float">
 
 La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
 dando tiempo a la CPU externa a recuperarlas al ritmo que le sea posible.

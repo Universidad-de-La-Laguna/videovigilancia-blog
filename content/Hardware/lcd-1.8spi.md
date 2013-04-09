@@ -4,7 +4,7 @@ Date: 2013-01-13
 
 El módulo en cuestión tiene las siguientes características:
 
-<img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fUmF1d0YzNzMwNG8" style="float:right;margin:0 0 0 10px">
+<img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fUmF1d0YzNzMwNG8" alt="Pantalla LCD" class="right-float">
 
  * Resolución de 128x160 pixels.
  * 262K colores.

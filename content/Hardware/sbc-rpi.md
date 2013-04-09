@@ -4,7 +4,7 @@ Date: 2013-01-13
 
 Una Raspberry Pi es una placa computadora ([SBC]) de bajo coste que incluye:
 
-<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/RaspberryPi.jpg/320px-RaspberryPi.jpg" style="float:right;margin:0 0 0 10px">
+<a href="http://commons.wikimedia.org/wiki/File:RaspberryPi.jpg"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/RaspberryPi.jpg/320px-RaspberryPi.jpg" alt="Raspberry Pi" class="right-float"></a>
 
  * Un [SOC] Broadcom BCM2835, que contiene una CPU [ARM11]76JZF-S a 700 MHz y
 una GPU [VideoCore] IV.

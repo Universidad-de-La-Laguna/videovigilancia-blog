@@ -35,8 +35,7 @@ para consultar los datos almacenados en el mismo.
 En la siguiente figura la interconexión de estos elementos se ilustra en un
 esquema general:
 
-<img
-src="https://docs.google.com/drawings/d/1M_yEQ_BTL66j23hB6gXWwF31HtpmgNTq-SgMXo6eoj8/pub?w=901&amp;h=420">
+<img src="https://docs.google.com/drawings/d/1M_yEQ_BTL66j23hB6gXWwF31HtpmgNTq-SgMXo6eoj8/pub?w=901&amp;h=420" alt="Arquitectura del sistema" class="centered">
 
 Como se puede observar, en principio el frontal puede ir tanto integrado en el
 servidor de videovigilancia como correr en un equipo a parte.
@@ -69,8 +68,7 @@ recursos de la placa (E/S digital, [I2C], [SPI], RS232, etc).
 A continuación se muestra un esquema de los diferentes componentes de la
 cámara y su interconexión:
 
-<img
-src="https://docs.google.com/drawings/d/1FJZdS7dX56nrNA55Y1fnkK1ZlUFSoE24Mr4Qxrkfapk/pub?w=624&amp;h=366">
+<img src="https://docs.google.com/drawings/d/1FJZdS7dX56nrNA55Y1fnkK1ZlUFSoE24Mr4Qxrkfapk/pub?w=624&amp;h=366" alt="Esquema del hardware de las cámaras inteligentes" class="centered">
 
 ### Tareas previstas
 
