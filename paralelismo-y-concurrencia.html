@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>hilos - Sistema de Videovigilancia from Scratch</title>
+    <title>Paralelismo y concurrencia - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="../theme/html5.js"></script>
+    <script src="./theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../theme/bootstrap.min.css" rel="stylesheet">
-    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="../theme/local.css" rel="stylesheet">
-    <link href="../theme/pygments.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="./theme/local.css" rel="stylesheet">
+    <link href="./theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,13 +32,13 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
-                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
+                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="./pages/seminarios.html">Seminarios</a></li>
                         </ul>
         </div>
         
@@ -51,24 +51,18 @@
     <div class="row">
 
         <div class="span9">
-                
-
-        
-
-
-    <div class='article'>
+            <div class='article'>
         <div class="content-title">
-            <a href="../paralelismo-y-concurrencia.html"><h1>Paralelismo y concurrencia</h1></a>
+            <h1>Paralelismo y concurrencia</h1>
             dom 07 abril 2013
 
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- 
         </div>
-        
-        <div><p>El paralelismo no debe confundirse con la <a href="../concurrencia.html">concurrencia</a>,
+	
+        <div><p>El paralelismo no debe confundirse con la <a href="./concurrencia.html">concurrencia</a>,
 aunque es común que así ocurra. El paralelismo se preocupa de analizar como
 superponer operaciones con el objeto de mejorar el rendimiento al realizar una
 tarea concreta.</p>
@@ -91,12 +85,12 @@ Así un programa con dos hilos concurrentes que se ejecute en un sistema
 monoprocesador sin múltiples núcleos ni físicos ni lógicos (<a href="http://en.wikipedia.org/wiki/Simultaneous_multithreading" title="Simultaneous Multithreading">SMT</a>) puede ser
 concurrente pero no paralelo. Obviamente el paralelismo sólo es posible en
 sistemas multinúcleo, multiprocesador o distribuidos.</p>
-<p>A continuación complementaremos lo hablado anteriormente sobre <a href="../concurrencia.html">concurrencia</a>
+<p>A continuación complementaremos lo hablado anteriormente sobre <a href="./concurrencia.html">concurrencia</a>
 considerando que ahora el contexto es el programas donde pretendemos descomponer
 y paralelizar tareas <em>limitadas por la CPU</em>.</p>
 <h2>Multihilo</h2>
 <p>El uso de múltiples hilos dentro de un programa paralelo es un enfoque muy
-común. Sin embargo, a diferencia de lo que ocurre <a href="../concurrencia.html">en los casos de los que
+común. Sin embargo, a diferencia de lo que ocurre <a href="./concurrencia.html">en los casos de los que
 hemos hablado anteriormente</a>, por lo
 general se crean tantos hilos como núcleos diferentes dispone el sistema y
 se divide entre ellos la tarea que deseamos realizar.</p>
@@ -110,7 +104,7 @@ donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
 se distribuida al público y por lo tanto va a ser utilizada en ordenadores con
 características diversas.</p>
 <p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" style="float:right;margin:0 0 0 10px"></p>
-<p>El patrón <em>agrupamiento de hilos</em> comentado en el artículo sobre <a href="../concurrencia.html">concurrencia</a>
+<p>El patrón <em>agrupamiento de hilos</em> comentado en el artículo sobre <a href="./concurrencia.html">concurrencia</a>
 nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
 las tareas <em>limitadas por la CPU</em> tanto como queramos. Y que estas sean
 ejecutadas sobre un agrupamiento configurado con el mismo número de hilos que
@@ -120,7 +114,7 @@ subyacente, aprovechando de forma sencilla las ventajas de los sistemas
 multinúcleo.</p>
 <p>Como ya hemos comentado, las plataformas Java y .NET incorporan una
 implementación de este patrón. Mientras que para C/C++ existen diversas librerías,
-entre las que no sólo está <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> y su clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool">QThreadPool</a>, si no que fundamentalmente
+entre las que no sólo está <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> y su clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool">QThreadPool</a>, si no que fundamentalmente
 tenemos que destacar la <a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks">Threading Building Blocks</a> de Intel (TBB).</p>
 <h1>Referencias</h1>
 <ol>
@@ -128,66 +122,11 @@ tenemos que destacar la <a href="http://es.wikipedia.org/wiki/Intel_Threading_Bu
 <li><a href="http://en.wikipedia.org/wiki/Concurrency_pattern">Concurrency pattern</a></li>
 <li><a href="http://en.wikipedia.org/wiki/Thread_pool_pattern">Thread pool pattern</a></li>
 </ol></div>
-        <hr />
-    </div>
-		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../concurrencia.html"><h2>Concurrencia</h2></a>
-        <div class= "well small"> sáb 06 abril 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>La concurrencia tiene que ver con manejar múltiples eventos que se superponen
-en el tiempo fuera del control del programa. Por lo tanto debe preocuparse de
-manejar la creciente complejidad que surge de la necesidad de un control de
-flujo no determinista. Los programas concurrentes vienen con frecuencia
-<em>limitados por ...</em></p> <a class="btn btn-info xsmall" href="../concurrencia.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../hilos-de-trabajo-usando-senales-y-slots.html"><h2>Hilos de trabajo usando señales y slots</h2></a>
-        <div class= "well small"> lun 18 febrero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona clases para hilos y mecanismos de sincronización que facilitan
-sacar las tareas de larga duración del hilo principal de la aplicación, lo que
-de lo contrario bloquearía la interfaz de usuario.</p>
-<p>Una forma práctica de hacerlo la hemos visto <a href="../introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a>
-utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> provee ...</p> <a class="btn btn-info xsmall" href="../hilos-de-trabajo-usando-senales-y-slots.html">leer más</a></div>
-    </div>	
-				
-            <div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
-
-    <li class="active"><a href="../tag/hilos.html">1</a></li>
-    <li class=""><a href="../tag/hilos2.html">2</a></li>
-
-    <li class="next"><a href="../tag/hilos2.html">Next &rarr;</a></li>
-
-</ul>
-</div>    
- 
-  
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+			    </div>
         </div>
         
         <div class="span3">
@@ -199,8 +138,8 @@ utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-fr
                 Sitio
                 </li>
             
-                <li><a href="../archives.html">Archivos</a>
-                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="./archives.html">Archivos</a>
+                <li><a href="./tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -213,12 +152,12 @@ utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-fr
                 Categorias
                 </li>
                 
-                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
-                                <li><a href="../category/hardware.html">Hardware</a></li>
-                                <li><a href="../category/linux.html">Linux</a></li>
-                                <li><a href="../category/overviews.html">Overviews</a></li>
-                                <li><a href="../category/qt.html">Qt</a></li>
-                                <li><a href="../category/vision.html">Visión</a></li>
+                                <li><a href="./category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="./category/hardware.html">Hardware</a></li>
+                                <li><a href="./category/linux.html">Linux</a></li>
+                                <li><a href="./category/overviews.html">Overviews</a></li>
+                                <li><a href="./category/qt.html">Qt</a></li>
+                                <li><a href="./category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>

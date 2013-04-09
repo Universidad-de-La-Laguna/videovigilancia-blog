@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>cf7670c - Sistema de Videovigilancia from Scratch</title>
+    <title>hilos - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,63 +55,30 @@
 
         
 
+ 
 
     <div class='article'>
-        <div class="content-title">
-            <a href="../camara-cf7670c-v2.html"><h1>Cámara CF7670C-V2</h1></a>
-            dom 13 enero 2013
+        <a href="../introduccion-al-uso-de-hilos-en-qt.html"><h2>Introducción al uso de hilos en Qt</h2></a>
+        <div class= "well small"> sáb 16 febrero 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- 
-        </div>
-        
-        <div><p>Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>
-con una memoria FIFO <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422">Averlogic AL422</a> de 3Mb.</p>
-<p><img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0 0 10px"></p>
-<p>La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
-dando tiempo a la CPU externa a recuperarlas al ritmo que le sea posible.</p>
-<p>Las principales características del sensor <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a> son:</p>
-<ul>
-<li>Resolución de 640x480 pixels (VGA).</li>
-<li>Hasta 30 fps para resolución VGA.</li>
-<li>Formatos de salida (8 bits):<ul>
-<li><a href="http://es.wikipedia.org/wiki/YUV" title="YUV">YUV</a>/<a href="http://es.wikipedia.org/wiki/YCbCr" title="YCbCr">YCbCr</a> 4:2:2</li>
-<li>RGB 565/555/444</li>
-<li>GRB 4:2:2</li>
-<li>Raw RGB Data</li>
-</ul>
-</li>
-<li>Modo de <a href="http://es.wikipedia.org/wiki/Escaneo_progresivo">escaneo progresivo</a>.</li>
-<li>Interfaz de control mediante <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit" title="Serial Camera Control Bus">SCCB</a>.</li>
-</ul>
-<p>Tal y como se puede observar en el <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit" title="CF7670C-V2 Camera Module Schematic">esquemático</a> del módulo, tanto el bus
-<a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit" title="Serial Camera Control Bus">SCCB</a> (que prácticamente es un <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>) como las líneas del OV7670 que informan
-del barrido vertical (VSYNC) y horizontal (HREF) están disponibles para que
-sean accesibles a una CPU externa.</p>
-<p>Por el contrario, las líneas de datos del OV7670 están conectadas al AL422
-para almacenar en el la imagen capturada. Es la salida de esta memoria FIFO,
-así como las líneas necesarias para controlar la lectura de la misma, las que
-son  accesibles desde el conector del módulo.</p>
-<h2>Referencias adicionales</h2>
-<ol>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422">Averlogic AL422</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit">Esquemático del módulo CF7670C-V2</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ/edit">Pines del módulo CF7670C-V2</a>.</li>
-<li><a href="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fS3c4VTRTNHJvMEU">Controlador de ejemplo para el módulo CF7670C-V2</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk/edit">OV7670 Implementation Guide</a>.</li>
-</ol></div>
-        <hr />
-    </div>
-		
+ </div>
+        <div class="summary"><p>Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
+larga duración en los <em>slots</em>. Si lo hiciéramos la ejecución tardaría en
+volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
+procesar nuevos eventos de los usuarios.</p>
+<p>Por eso lo habitual ...</p> <a class="btn btn-info xsmall" href="../introduccion-al-uso-de-hilos-en-qt.html">leer más</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
-    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
+    <li class="prev"><a href="../tag/hilos.html">&larr; Previous</a></li>
 
-    <li class="active"><a href="../tag/cf7670c.html">1</a></li>
+    <li class=""><a href="../tag/hilos.html">1</a></li>
+    <li class="active"><a href="../tag/hilos2.html">2</a></li>
 
     <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 

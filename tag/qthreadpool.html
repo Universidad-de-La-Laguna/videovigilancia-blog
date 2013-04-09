@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>cf7670c - Sistema de Videovigilancia from Scratch</title>
+    <title>qthreadpool - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../camara-cf7670c-v2.html"><h1>Cámara CF7670C-V2</h1></a>
-            dom 13 enero 2013
+            <a href="../paralelismo-y-concurrencia.html"><h1>Paralelismo y concurrencia</h1></a>
+            dom 07 abril 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,50 +68,96 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p>Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>
-con una memoria FIFO <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422">Averlogic AL422</a> de 3Mb.</p>
-<p><img src="https://drive.google.com/uc?export=download&confirm=&id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" style="float:right;margin:0 0 0 10px"></p>
-<p>La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
-dando tiempo a la CPU externa a recuperarlas al ritmo que le sea posible.</p>
-<p>Las principales características del sensor <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a> son:</p>
-<ul>
-<li>Resolución de 640x480 pixels (VGA).</li>
-<li>Hasta 30 fps para resolución VGA.</li>
-<li>Formatos de salida (8 bits):<ul>
-<li><a href="http://es.wikipedia.org/wiki/YUV" title="YUV">YUV</a>/<a href="http://es.wikipedia.org/wiki/YCbCr" title="YCbCr">YCbCr</a> 4:2:2</li>
-<li>RGB 565/555/444</li>
-<li>GRB 4:2:2</li>
-<li>Raw RGB Data</li>
-</ul>
-</li>
-<li>Modo de <a href="http://es.wikipedia.org/wiki/Escaneo_progresivo">escaneo progresivo</a>.</li>
-<li>Interfaz de control mediante <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit" title="Serial Camera Control Bus">SCCB</a>.</li>
-</ul>
-<p>Tal y como se puede observar en el <a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit" title="CF7670C-V2 Camera Module Schematic">esquemático</a> del módulo, tanto el bus
-<a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fTThIUmdRYUw4TXM/edit" title="Serial Camera Control Bus">SCCB</a> (que prácticamente es un <a href="http://es.wikipedia.org/wiki/I2C" title="I²C (Inter-Integrated Circuit)">I2C</a>) como las líneas del OV7670 que informan
-del barrido vertical (VSYNC) y horizontal (HREF) están disponibles para que
-sean accesibles a una CPU externa.</p>
-<p>Por el contrario, las líneas de datos del OV7670 están conectadas al AL422
-para almacenar en el la imagen capturada. Es la salida de esta memoria FIFO,
-así como las líneas necesarias para controlar la lectura de la misma, las que
-son  accesibles desde el conector del módulo.</p>
-<h2>Referencias adicionales</h2>
+        <div><p>El paralelismo no debe confundirse con la <a href="../concurrencia.html">concurrencia</a>,
+aunque es común que así ocurra. El paralelismo se preocupa de analizar como
+superponer operaciones con el objeto de mejorar el rendimiento al realizar una
+tarea concreta.</p>
+<p>Normalmente un programa lanza un conjunto de subtareas que se ejecutan en
+paralelo para realizar un trabajo determinado, mientras la tarea principal no
+continua hasta que todas las subtareas han terminado. El reto desde el punto
+de vista del paralelismo es determinar las optimizaciones necesarias con
+respecto a cuestiones tales como la granularidad y el coste de la comunicación.</p>
+<p>Sin embargo la concurrencia es necesaria para implementar el paralelismo.
+Concretamente, en el ejemplo anterior, se hace cargo de establecer como se
+definen las distintas tareas, que características tienen y como se implementan
+sobre un hardware en concreto. También establece los mecanismos de
+coordinación y sincronización necesarios para lidiar con la indeterminación, ya
+que no sabemos cuando terminarán las tareas ni cuando accederán a las estructuras
+de datos compartidas.</p>
+<p>En ese sentido podemos decir que el paralelismo es una abstracción útil para
+mejorar el rendimiento de una tarea. Sin embargo no debe confundirse dicha
+abstracción con su implementación, que entraría en el campo de la concurrencia.
+Así un programa con dos hilos concurrentes que se ejecute en un sistema
+monoprocesador sin múltiples núcleos ni físicos ni lógicos (<a href="http://en.wikipedia.org/wiki/Simultaneous_multithreading" title="Simultaneous Multithreading">SMT</a>) puede ser
+concurrente pero no paralelo. Obviamente el paralelismo sólo es posible en
+sistemas multinúcleo, multiprocesador o distribuidos.</p>
+<p>A continuación complementaremos lo hablado anteriormente sobre <a href="../concurrencia.html">concurrencia</a>
+considerando que ahora el contexto es el programas donde pretendemos descomponer
+y paralelizar tareas <em>limitadas por la CPU</em>.</p>
+<h2>Multihilo</h2>
+<p>El uso de múltiples hilos dentro de un programa paralelo es un enfoque muy
+común. Sin embargo, a diferencia de lo que ocurre <a href="../concurrencia.html">en los casos de los que
+hemos hablado anteriormente</a>, por lo
+general se crean tantos hilos como núcleos diferentes dispone el sistema y
+se divide entre ellos la tarea que deseamos realizar.</p>
+<p>Obviamente tienen poco sentido crear más hilos que secuencias de instrucciones
+pueden ejecutarse paralelamente en el sistema.</p>
+<h2>Agrupamiento de hilos</h2>
+<p>Como acabamos de comentar, en un problema de <strong>programación paralela</strong> el
+número de hilos adecuado viene determinado por el de núcleos, lo que obliga a
+dividir el problema de manera diferente según las características del hardware
+donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
+se distribuida al público y por lo tanto va a ser utilizada en ordenadores con
+características diversas.</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" style="float:right;margin:0 0 0 10px"></p>
+<p>El patrón <em>agrupamiento de hilos</em> comentado en el artículo sobre <a href="../concurrencia.html">concurrencia</a>
+nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
+las tareas <em>limitadas por la CPU</em> tanto como queramos. Y que estas sean
+ejecutadas sobre un agrupamiento configurado con el mismo número de hilos que
+núcleos de procesador hay en el sistema donde se está ejecutando al aplicación.</p>
+<p>De esta manera los programas se pueden adaptar al paralelismo del hardware
+subyacente, aprovechando de forma sencilla las ventajas de los sistemas
+multinúcleo.</p>
+<p>Como ya hemos comentado, las plataformas Java y .NET incorporan una
+implementación de este patrón. Mientras que para C/C++ existen diversas librerías,
+entre las que no sólo está <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> y su clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool">QThreadPool</a>, si no que fundamentalmente
+tenemos que destacar la <a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks">Threading Building Blocks</a> de Intel (TBB).</p>
+<h1>Referencias</h1>
 <ol>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670">OmniVision OV7670</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422">Averlogic AL422</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNFJ3QTdaY284Znc/edit">Esquemático del módulo CF7670C-V2</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ/edit">Pines del módulo CF7670C-V2</a>.</li>
-<li><a href="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fS3c4VTRTNHJvMEU">Controlador de ejemplo para el módulo CF7670C-V2</a>.</li>
-<li><a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk/edit">OV7670 Implementation Guide</a>.</li>
+<li><a href="http://blog.golang.org/2013/01/concurrency-is-not-parallelism.html">Concurrence is no parallelism</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Concurrency_pattern">Concurrency pattern</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Thread_pool_pattern">Thread pool pattern</a></li>
 </ol></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../concurrencia.html"><h2>Concurrencia</h2></a>
+        <div class= "well small"> sáb 06 abril 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>La concurrencia tiene que ver con manejar múltiples eventos que se superponen
+en el tiempo fuera del control del programa. Por lo tanto debe preocuparse de
+manejar la creciente complejidad que surge de la necesidad de un control de
+flujo no determinista. Los programas concurrentes vienen con frecuencia
+<em>limitados por ...</em></p> <a class="btn btn-info xsmall" href="../concurrencia.html">leer más</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
-    <li class="active"><a href="../tag/cf7670c.html">1</a></li>
+    <li class="active"><a href="../tag/qthreadpool.html">1</a></li>
 
     <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 

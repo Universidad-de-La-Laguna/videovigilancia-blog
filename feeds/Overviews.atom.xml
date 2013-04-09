@@ -1,50 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/Overviews.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-04-06T00:00:00+01:00</updated><entry><title>Concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html" rel="alternate"></link><updated>2013-04-06T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-06:concurrencia.html</id><summary type="html">&lt;p&gt;La concurrencia tiene que ver con manejar múltiples eventos que se superponen
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/feeds/Overviews.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-04-07T00:00:00+01:00</updated><entry><title>Paralelismo y concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html" rel="alternate"></link><updated>2013-04-07T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-07:paralelismo-y-concurrencia.html</id><summary type="html">&lt;p&gt;El paralelismo no debe confundirse con la &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;,
+aunque es común que así ocurra. El paralelismo se preocupa de analizar como
+superponer operaciones con el objeto de mejorar el rendimiento al realizar una
+tarea concreta.&lt;/p&gt;
+&lt;p&gt;Normalmente un programa lanza un conjunto de subtareas que se ejecutan en
+paralelo para realizar un trabajo determinado, mientras la tarea principal no
+continua hasta que todas las subtareas han terminado. El reto desde el punto
+de vista del paralelismo es determinar las optimizaciones necesarias con
+respecto a cuestiones tales como la granularidad y el coste de la comunicación.&lt;/p&gt;
+&lt;p&gt;Sin embargo la concurrencia es necesaria para implementar el paralelismo.
+Concretamente, en el ejemplo anterior, se hace cargo de establecer como se
+definen las distintas tareas, que características tienen y como se implementan
+sobre un hardware en concreto. También establece los mecanismos de
+coordinación y sincronización necesarios para lidiar con la indeterminación, ya
+que no sabemos cuando terminarán las tareas ni cuando accederán a las estructuras
+de datos compartidas.&lt;/p&gt;
+&lt;p&gt;En ese sentido podemos decir que el paralelismo es una abstracción útil para
+mejorar el rendimiento de una tarea. Sin embargo no debe confundirse dicha
+abstracción con su implementación, que entraría en el campo de la concurrencia.
+Así un programa con dos hilos concurrentes que se ejecute en un sistema
+monoprocesador sin múltiples núcleos ni físicos ni lógicos (&lt;a href="http://en.wikipedia.org/wiki/Simultaneous_multithreading" title="Simultaneous Multithreading"&gt;SMT&lt;/a&gt;) puede ser
+concurrente pero no paralelo. Obviamente el paralelismo sólo es posible en
+sistemas multinúcleo, multiprocesador o distribuidos.&lt;/p&gt;
+&lt;p&gt;A continuación complementaremos lo hablado anteriormente sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
+considerando que ahora el contexto es el programas donde pretendemos descomponer
+y paralelizar tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt;.&lt;/p&gt;
+&lt;h2&gt;Multihilo&lt;/h2&gt;
+&lt;p&gt;El uso de múltiples hilos dentro de un programa paralelo es un enfoque muy
+común. Sin embargo, a diferencia de lo que ocurre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;en los casos de los que
+hemos hablado anteriormente&lt;/a&gt;, por lo
+general se crean tantos hilos como núcleos diferentes dispone el sistema y
+se divide entre ellos la tarea que deseamos realizar.&lt;/p&gt;
+&lt;p&gt;Obviamente tienen poco sentido crear más hilos que secuencias de instrucciones
+pueden ejecutarse paralelamente en el sistema.&lt;/p&gt;
+&lt;h2&gt;Agrupamiento de hilos&lt;/h2&gt;
+&lt;p&gt;Como acabamos de comentar, en un problema de &lt;strong&gt;programación paralela&lt;/strong&gt; el
+número de hilos adecuado viene determinado por el de núcleos, lo que obliga a
+dividir el problema de manera diferente según las características del hardware
+donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
+se distribuida al público y por lo tanto va a ser utilizada en ordenadores con
+características diversas.&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" style="float:right;margin:0 0 0 10px"&gt;&lt;/p&gt;
+&lt;p&gt;El patrón &lt;em&gt;agrupamiento de hilos&lt;/em&gt; comentado en el artículo sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
+nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
+las tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt; tanto como queramos. Y que estas sean
+ejecutadas sobre un agrupamiento configurado con el mismo número de hilos que
+núcleos de procesador hay en el sistema donde se está ejecutando al aplicación.&lt;/p&gt;
+&lt;p&gt;De esta manera los programas se pueden adaptar al paralelismo del hardware
+subyacente, aprovechando de forma sencilla las ventajas de los sistemas
+multinúcleo.&lt;/p&gt;
+&lt;p&gt;Como ya hemos comentado, las plataformas Java y .NET incorporan una
+implementación de este patrón. Mientras que para C/C++ existen diversas librerías,
+entre las que no sólo está &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y su clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;, si no que fundamentalmente
+tenemos que destacar la &lt;a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks"&gt;Threading Building Blocks&lt;/a&gt; de Intel (TBB).&lt;/p&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://blog.golang.org/2013/01/concurrency-is-not-parallelism.html"&gt;Concurrence is no parallelism&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Concurrency_pattern"&gt;Concurrency pattern&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;Thread pool pattern&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="paralelismo"></category><category term="hilos"></category><category term="multihilo"></category><category term="qthreadpool"></category></entry><entry><title>Concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html" rel="alternate"></link><updated>2013-04-06T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-06:concurrencia.html</id><summary type="html">&lt;p&gt;La concurrencia tiene que ver con manejar múltiples eventos que se superponen
 en el tiempo fuera del control del programa. Por lo tanto debe preocuparse de
-manejar la creciente complejidad que surge por la necesidad de un control de
+manejar la creciente complejidad que surge de la necesidad de un control de
 flujo no determinista. Los programas concurrentes vienen con frecuencia
 &lt;em&gt;limitados por la E/S&lt;/em&gt;, como por ejemplo es el caso de las arañas usadas por
 los buscadores de Internet para explorar la web. Estos programas inician
 varias peticiones HTTP para obtener diversas páginas y aceptan de forma
 concurrente las respuestas con su contenido, acumulándolas en el conjunto de
-páginas que han sido visitadas. El control del flujo es no determinista
-porque las respuestas no se reciben necesariamente en el mismo orden en el que
-el programa hizo las correspondientes peticiones.&lt;/p&gt;
+páginas visitadas. El control del flujo es no determinista porque las respuestas
+no se reciben necesariamente en el mismo orden en el que el programa hizo las
+correspondientes peticiones.&lt;/p&gt;
 &lt;p&gt;En general existen aplicaciones que son fundamentalmente concurrentes, como
 los servidores web, los de archivos, los de base de datos y otros programas
 similares que deben manejar al mismo tiempo la conexión con diversos clientes.
-Pero también son concurrentes las aplicaciones desarrolladas para las interfaces
-gráficas de usuario actuales donde, por ejemplo, las peticiones de atender un
-click de ratón o actualizar el contenido de una ventana pueden llegar en
-cualquier momento fuera del control del programa.&lt;/p&gt;
+También son concurrentes las &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;aplicaciones paralelas&lt;/a&gt;,
+donde una tarea se descomponen en otras más pequeñas que se ejecutan al mismo
+tiempo para obtener el máximo rendimiento, porque en muchas ocasiones no se sabe
+de antemano cuando van a terminar estas subtareas o van a intentar acceder a las
+estructuras de datos compartidas. Así mismo son concurrentes las aplicaciones
+para las GUI modernas, ya que peticiones tales como atender un click de ratón o
+actualizar el contenido de una ventana pueden llegar en cualquier momento fuera
+del control del programa.&lt;/p&gt;
 &lt;p&gt;Por su naturaleza no determinista, los programas concurrentes son difíciles de
 depurar. &lt;/p&gt;
-&lt;h2&gt;Paralelismo&lt;/h2&gt;
-&lt;p&gt;El paralelismo no debe confundirse con la concurrencia, aunque es común que
-así ocurra. El paralelismo se preocupa de como superponer operaciones con el
-objeto de mejorar el rendimiento al realizar una tarea determinada.&lt;/p&gt;
-&lt;p&gt;Normalmente un programa lanza un conjunto de subtareas que se ejecutan en
-paralelo para realizar un trabajo concreto, mientras la tarea principal no
-continua hasta que todas las subtareas han terminado. En esto no existe nada
-no determinista ni fuera del control del programa.  La programación
-paralela superar las dificultades de la programación concurrente asegurando
-un control de flujo determinista.&lt;/p&gt;
-&lt;p&gt;Esto hace que la programación paralela sea mucho más sencilla de depurar. Lo
-realmente difícil es determinar las optimizaciones necesarias con respecto a
-cuestiones tales como la granularidad del paralelismo y el coste de la
-comunicación.&lt;/p&gt;
-&lt;p&gt;Sin embargo La concurrencia es necesaria para implementar el paralelismo.
-Concretamente, en el ejemplo anterior, se hace cargo de establecer como se
-definen las distintas tareas, que características tienen y como se implementan
-sobre un hardware en concreto. También establece los mecanismos de
-coordinación y sincronización necesarios para lidiar con la indeterminación.
-En ese sentido podemos decir que el paralelismo es una abstracción útil para
-mejorar el rendimiento de una tarea. Sin embargo no debe confundirse dicha
-abstracción con su implementación, que entraría en el campo de la concurrencia.
-Así un programa con dos hilos concurrentes que se ejecute en un sistema
-monoprocesador sin mútiples núcleos ni físicos ni lógicos (&lt;a href="http://en.wikipedia.org/wiki/Simultaneous_multithreading" title="Simultaneous Multithreading"&gt;SMT&lt;/a&gt;) puede ser
-concurrente pero no paralelo. El paralelismo sólo es posible en sistemas
-multinúcleo, multiprocesador o distribuidos.&lt;/p&gt;
 &lt;h2&gt;Manejar la concurrencia&lt;/h2&gt;
 &lt;p&gt;Hasta el momento hemos dejado entrever las dos motivos más comunes por los que
 necesitamos gestionar la concurrencia:&lt;/p&gt;
@@ -55,10 +92,10 @@ como es el caso de un servidor que deben aceptar peticiones de múltiples
 clientes o una aplicación interactiva que debe responder ante los eventos
 notificados por el sistema a causa de las acciones del usuario, necesitamos
 manejar la concurrencia.&lt;/p&gt;
-&lt;p&gt;Las tareas de estos programas con frecuencia están
-&lt;em&gt;limitadas por la E/S&lt;/em&gt;, aunque no siempre es así. Por ejemplo, los recolectores
-de basura concurrentes presentes en algunas plataformas (p. ej. Java y .NET)
-están enteramente &lt;em&gt;limitados por la CPU&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Las tareas de estos programas con frecuencia están &lt;em&gt;limitadas por la E/S&lt;/em&gt;,
+aunque no siempre es así. Por ejemplo, los recolectores de basura concurrentes
+presentes en algunas plataformas (p. ej. Java y .NET) están enteramente
+&lt;em&gt;limitados por la CPU&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Obviamente todo sería mucho más sencillo si optáramos por ignorar la
 concurrencia, manejando en turno una solicitud cada vez. Pero entonces una
 petición o un evento bloquearía a los otros hasta que hubiera terminado.&lt;/p&gt;
@@ -66,15 +103,18 @@ petición o un evento bloquearía a los otros hasta que hubiera terminado.&lt;/p
 &lt;li&gt;
 &lt;p&gt;Si en nuestro programa queremos usar &lt;strong&gt;programación paralela&lt;/strong&gt; para descomponer
 ciertas tareas en otras más pequeñas que se puedan ejecutar al mismo tiempo con
-el objeto obtener el máximo rendimiento, también es necesario gestionar la
+el objeto de obtener el máximo rendimiento, también es necesario gestionar la
 concurrencia. Sin embargo, por lo general, este tipo de tareas están
 &lt;em&gt;limitadas por la CPU&lt;/em&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;En la actualidad existen diferentes maneras de tratar la concurrencia, que
-pueden ser más o menos convenientes según el tipo de problema a resolver.&lt;/p&gt;
+pueden ser más o menos convenientes según el tipo de problemas a resolver.
+Nosotros nos centraremos por el momento en el primer tipo, dejando los detalles
+relacionados con la &lt;strong&gt;programación paralela&lt;/strong&gt; para u
+&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;artículo posterior&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Multihilo&lt;/h2&gt;
-&lt;p&gt;El uso de múltiples hilos dentro de un mismo programa es uno de los enfoque
+&lt;p&gt;El uso de múltiples hilos dentro de un mismo programa es uno de los enfoques
 más comunes cuando se plantea resolver un problema de concurrencia. En las
 mayor parte de los sistemas modernos los hilos creados por la aplicación son
 conocidos y gestionados por el núcleo (&lt;a href="http://en.wikipedia.org/wiki/Thread_(computing)#1:1_.28Kernel-
@@ -83,19 +123,10 @@ uno&lt;/a&gt;), lo que les permite acceder simultáneamente al mismo y
 ser planificados en diferentes procesadores, pudiendo así aprovechar el
 paralelismo ofrecido por el hardware en los sistemas multiprocesador y/o
 multinúcleo.&lt;/p&gt;
-&lt;p&gt;Obviamente la manera en la que se utilizan los hilos dependen del tipo de problema:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Si el nuestro nuestro es de &lt;strong&gt;programación paralela&lt;/strong&gt;, lo más común es crear
-tantos hilos como núcleos disponemos en el sistema y dividir entre ellos
-la tarea que deseemos realizar.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Si por el contrario tenemos que gestionar eventos o peticiones, lo más
-habitual es crear un hilo por cliente conectado. Así cada hilo funcionará de
-manera independiente procesando y atendiendo las peticiones de su cliente.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Obviamente la manera en la que se utilizan los hilos dependen del tipo de problema.
+Si lo que se pretende es gestionar eventos o peticiones externas, lo más habitual
+es crear un hilo por cliente conectado. Así cada hilo funcionará de manera
+independiente procesando y atendiendo las peticiones de su cliente.&lt;/p&gt;
 &lt;h3&gt;Características&lt;/h3&gt;
 &lt;p&gt;Las principales características de la programación multihilo son:&lt;/p&gt;
 &lt;ul&gt;
@@ -111,35 +142,34 @@ hacer sobre el acceso a los recursos compartidos, a poco que el problema crezca.
 &lt;/ul&gt;
 &lt;h3&gt;Modelos basados en paso de mensajes&lt;/h3&gt;
 &lt;p&gt;Debido a que muchos de los problemas de la programación multihilo provienen de
-la compartición de recursos, para resolver problemas concurrentes complejos se
-ha extendido el uso de modelos basados en paso de mensajes.&lt;/p&gt;
+la compartición de recursos, se ha extendido el uso de modelos basados en paso
+de mensajes para resolver problemas concurrentes complejos.&lt;/p&gt;
 &lt;p&gt;En estos modelos los hilos no acceden directamente a los datos sino que se los
 transfieren entre si por medio de mensajes. Así se evita compartir recursos y,
-por tanto, el uso de
-&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y variables de condición&lt;/a&gt;.
-Sin embargo se pierde la sencillez que ofrece el acceder directamente a los
-datos y otros recursos compartidos.&lt;/p&gt;
-&lt;p&gt;Lenguajes como Scala o Erlang implementan el modelo &lt;a href="http://en.wikipedia.org/wiki/Actor_model" title="Actor model"&gt;Actor&lt;/a&gt;, mientras que Go
-se basa en en el modelo &lt;a href="http://en.wikipedia.org/wiki/Communicating_sequential_processes" title="Communicating sequential processes"&gt;CSP&lt;/a&gt;. Ambos casos, pese a &lt;a href="http://www.informit.com/articles/article.aspx?p=1768317"&gt;sus
-diferencias&lt;/a&gt;,
+por tanto, el uso de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y variables de condición&lt;/a&gt;.
+Lamentablemente así se pierde sencillez.&lt;/p&gt;
+&lt;p&gt;Para estos lenguajes como Scala o Erlang implementan el modelo &lt;a href="http://en.wikipedia.org/wiki/Actor_model" title="Actor model"&gt;Actor&lt;/a&gt;, mientras
+que Go se basa en en el modelo &lt;a href="http://en.wikipedia.org/wiki/Communicating_sequential_processes" title="Communicating sequential processes"&gt;CSP&lt;/a&gt;. Ambos casos, pese a &lt;a href="http://www.informit.com/articles/article.aspx?p=1768317"&gt;sus diferencias&lt;/a&gt;,
 fundamentalmente operan tal y como hemos descrito. También entraría dentro de
-este tipo de modelos el &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;sistema de comunicación entre hilos&lt;/a&gt; que implementa &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; a través del uso de señales y &lt;em&gt;slots&lt;/em&gt;.&lt;/p&gt;
+este tipo de modelos el &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;mecanismo de comunicación entre hilos&lt;/a&gt; que implementa &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; a través del uso de señales y &lt;em&gt;slots&lt;/em&gt;.&lt;/p&gt;
 &lt;h2&gt;Multiproceso&lt;/h2&gt;
 &lt;p&gt;En los sistemas operativos que implementan una llamada al sistema tipo
 &lt;a href=""&gt;fork&lt;/a&gt; se pueden crear de forma sencilla múltiples procesos, en lugar de
 hilos, para manejar la concurrencia. La forma de hacerlo no difiere mucho de
-la programación multihilo, aunque es necesario tener en cuenta lo siguiente:&lt;/p&gt;
+la programación multihilo, aunque es necesario tener en cuenta los siguientes
+aspectos:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Escala peor, ya que soportar cientos de clientes implica la creación de
-cientos de procesos y estos son más costosos que los hilos en lo que respecta
+cientos de procesos y estos son más costosos que los hilos, en lo que respecta
 al consumo de recursos del sistema.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;No es tan sencilla de usar como la programación multihilo, porque hay que
-indicar explícitamente que regiones de la memoria se desea compartir entre los
-procesos. Además, generalmente, sólo se puede establecer que recursos van a
-ser compartidos durante la creación de cada proceso.&lt;/p&gt;
+&lt;p&gt;No es tan sencilla como la programación multihilo, porque hay que
+indicar explícitamente que regiones de la memoria se desea compartir entre
+procesos. Además, normalmente sólo se puede establecer que recursos van a
+ser compartidos durante la creación de cada proceso, no pudiendo compartir
+otros recursos posteriormente.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Los procesos ofrecen mejor aislamiento que los hilos y por tanto mayor
@@ -147,44 +177,28 @@ robustez y seguridad.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Respecto a esto último debemos de tener en cuenta que un acceso indebido a la
-memoria en uno de los procesos, ocasionada quizás por una petición de un
-cliente mal formateada, no provocaría necesariamente la caída de toda la
-aplicación; a diferencia de lo que pasaría en una aplicación multihilo. De
-igual manera, si un atacante tomara el control de uno de los procesos tendría
-más difícil tener acceso a los otros, algunos de los cuales podrían estar
-ejecutando tareas de naturaleza crítica. Además a los procesos tienen
-características interesantes de las que carecen los hilos, como la posibilidad
-de ejecutarse como un usuario concreto del sistema o en un jaula &lt;a href="http://es.wikipedia.org/wiki/Chroot" title="chroot"&gt;chroot&lt;/a&gt;.&lt;/p&gt;
+memoria en uno de los procesos, quizás ocasionada por una petición de un
+cliente mal formateada, no tiene por qué provocar la caída de toda la aplicación;
+a diferencia de lo que pasaría en una aplicación multihilo. De igual manera,
+si un atacante tomara el control de uno de los procesos tendría más difícil tener
+acceso a los otros. Además, los procesos tienen características interesantes de
+las que carecen los hilos, como la posibilidad de ejecutarse como un usuario
+concreto del sistema o en un jaula &lt;a href="http://es.wikipedia.org/wiki/Chroot" title="chroot"&gt;chroot&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Agrupamiento de hilos&lt;/h2&gt;
-&lt;p&gt;En la programación multihilo existen dos problemas que se pueden salvar con un
-solución común:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Aunque más baratos que los procesos, los hilos tiene un coste por lo que
-llega un momento en el que no se puede escalar ya que simplemente no se pueden
+&lt;p&gt;Aunque más baratos que los procesos, los hilos tienen un coste que llegado el
+momento puede hacer que nuestra aplicación no pueda escalar ya que no se puedan
 crear más hilos.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;En un problema de &lt;strong&gt;programación paralela&lt;/strong&gt; el número de hilos adecuado
-viene determinado por el de núcleos, lo que obliga a dividir el problema de
-manera diferente según las características del hardware donde el programa se
-va a ejecutar. Esto no es sencillo si la aplicación va a se distribuida al
-público y, por tanto, va a ser utiliza en ordenadores con características
-diversas.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Para enfrentar ambas cuestiones se puede hacer uso del patrón &lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;agrupamiento de
-hilos&lt;/a&gt; o &lt;em&gt;thread pool&lt;/em&gt; que
+&lt;p&gt;Para evitarlo se puede hacer uso del patrón &lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;agrupamiento de hilos&lt;/a&gt; (o &lt;em&gt;thread pool&lt;/em&gt;) que
 básicamente consiste en:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Un grupo de hilos, una cola con las tareas que deben ser ejecutadas en
-dichos hilos y otra cola donde almacenar los datos resultado de las tareas
-completadas.&lt;/p&gt;
+&lt;p&gt;Crear un grupo de hilos, una cola con las tareas que deben ser ejecutadas en
+dichos hilos y otra cola donde almacenar los resultados de las tareas ejecutadas.
+&lt;img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" style="float:right;margin:0 0 0 10px"&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Cada vez que un hilo del agrupamiento queda libre, toma la siguiente tarea
-de la cola y la ejecuta hasta que es completada, insertado los resultados en
+de la cola y la ejecuta hasta que es completada, insertando los resultados en
 la cola correspondiente.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -192,24 +206,16 @@ la cola correspondiente.&lt;/p&gt;
 que hayan más tareas.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" style="float:right;margin:0 0px 10px 0"&gt;&lt;/p&gt;
 &lt;h3&gt;Número de hilos&lt;/h3&gt;
-&lt;p&gt;Obviamente, el número concreto de hilos del agrupamiento se debe ajustar con
-el objeto de conseguir el mayor rendimiento posible:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Con tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt; generalmente el número de hilos está
-entorno al número de núcleos de procesador en el sistema.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Con tareas &lt;em&gt;limitadas por la E/S&lt;/em&gt; el número probablemente será muy superior
-y dependerá de la capacidad del sistema y del tipo de tarea.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;En ocasiones el número de hilos en el agrupamiento puede ser ajustado por el
-programa dinámicamente en base al número de tareas pendientes de ser
-ejecutadas, hasta el máximo por encima del cual hemos determinado que el
-rendimiento se vería penalizado.&lt;/p&gt;
+&lt;p&gt;Obviamente el número concreto de hilos del agrupamiento se debe ajustar con
+el objeto de conseguir el mayor rendimiento posible. Con tareas &lt;em&gt;limitadas por
+la E/S&lt;/em&gt; el número generalmente depende de la capacidad del sistema y del tipo de
+tarea, por lo que suele ser necesario determinarlo experimentalmente.&lt;/p&gt;
+&lt;p&gt;Además, en ocasiones el número de hilos en el agrupamiento puede ser ajustado
+por el programa dinámicamente, en base al número de tareas pendientes de ser
+ejecutadas. Así la aplicación podría incorporar hilos al agrupamiento sólo si la
+cantidad de tareas a la espera supera cierto umbral, y únicamente hasta el
+máximo por encima del cual hemos determinado que el rendimiento se vería penalizado.&lt;/p&gt;
 &lt;h3&gt;Soporte&lt;/h3&gt;
 &lt;p&gt;Debido a la proliferación de los procesadores multinúcleo, es cada vez más
 común que los diferentes lenguajes dispongan de alguna implementación del
@@ -217,11 +223,11 @@ patrón &lt;em&gt;agrupamiento de hilos&lt;/em&gt;, ya sea en la librería que l
 través de librerías de terceros, con el fin de facilitar la programación
 paralela.&lt;/p&gt;
 &lt;p&gt;Plataformas como Java y .NET lo incorporan, así como el sistema operativo Mac
-OS X bajo el nombre de &lt;a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch"&gt;Grand Central Dispatch&lt;/a&gt; (GCD). Para C++
-existen múltiples librerías, como por ejemplo Intel &lt;a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks"&gt;TBB&lt;/a&gt;, diseñada
+OS X bajo el nombre de &lt;a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch"&gt;Grand Central Dispatch&lt;/a&gt; (GCD).
+En el caso de C++ existen múltiples librerías, como por ejemplo Intel &lt;a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks"&gt;TBB&lt;/a&gt;, diseñada
 específicamente para facilitar que los programas aprovechen las ventajas de
 los sistemas multinúcleo, o &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, que incorpora su propia implementación del
-patrón a través de la clase &lt;a href="http://qt-project.org/doc/qt-4.8/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;:&lt;/p&gt;
+patrón a través de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;HelloWorldTask&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QRunnable&lt;/span&gt;
  &lt;span class="p"&gt;{&lt;/span&gt;
      &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
@@ -238,102 +244,77 @@ patrón a través de la clase &lt;a href="http://qt-project.org/doc/qt-4.8/qthre
 
 &lt;h2&gt;Ejecución basada en eventos&lt;/h2&gt;
 &lt;p&gt;Como ya hemos comentado, los hilos tienen un coste que no se puede despreciar
-cuando el número de ellos que necesitamos es alto. Sin embargo en muchos
-problemas de concurrencia no paralelos las tareas están muy &lt;em&gt;limitadas por la
-E/S&lt;/em&gt;, por lo que a penas se obtiene beneficio alguno de la posibilidad de
-ejecutarlas en paralelo. En esos casos la forma de gestionar la concurrencia
-que se ha demostrado más eficaz es la ejecución basada en eventos, por ejemplo
-usando el patrón &lt;a href="http://en.wikipedia.org/wiki/Reactor_pattern" title="Reactor pattern"&gt;Reactor&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Sus principales características son:&lt;/p&gt;
+cuando el número que necesitamos es alto. Además, en muchos problemas de
+concurrencia las tareas están muy &lt;em&gt;limitadas por la E/S&lt;/em&gt;, por lo que a penas se
+obtiene beneficio alguno de la posibilidad de ejecutarlas en paralelo. En esos
+casos la forma de gestionar la concurrencia que se ha demostrado más eficaz es
+la ejecución basada en eventos.&lt;/p&gt;
+&lt;p&gt;Simplificando, sus principales características son:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Sólo se usa un hilo de ejecución. Por tanto:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;No es posible la ejecución paralela de código.&lt;/li&gt;
-&lt;li&gt;Si se ejecutan tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt; se podrían estar bloqueando
-las peticiones de otros clientes al ocupar el hilo de ejecución.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Generalmente sólo se usa un hilo de ejecución. Por tanto no es posible la
+ejecución paralela de código, lo implica que si se ejecutan tareas &lt;em&gt;limitadas
+por la CPU&lt;/em&gt; se podría estar bloqueando las peticiones de otros clientes al
+ocupar el hilo de ejecución.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Toda la E/S es asíncrona:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Esto es necesario para evitar el bloqueo de las peticiones de los
-clientes y que las operaciones de E/S se ejecuten en paralelo, entre sí y
-respecto a la ejecución de código.&lt;/li&gt;
-&lt;li&gt;Cuando las operaciones se completan el sistema operativo lo notifica al
-manejador de servicio, que se encarga de insertar el evento en el bucle de
-mensajes.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Toda la E/S es asíncrona, para evitar el bloqueo de las peticiones de los
+clientes y que las operaciones de E/S se ejecuten en paralelo, tanto entre sí
+como respecto al código en el hilo de ejecución.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Hace uso de un bucle de mensajes, a donde llegan los eventos externos a
-través del manejador de servicio que es el elemento notificado por el sistema
-operativo:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;En el bucle de mensajes se itera sobre la cola de eventos, se procesan y
-se llaman las rutinas de &lt;em&gt;callback&lt;/em&gt; correspondientes.&lt;/li&gt;
-&lt;li&gt;Estas rutinas de &lt;em&gt;callback&lt;/em&gt; pueden estar predefinidas, como en el caso
+&lt;p&gt;Hace uso de un bucle de mensajes a donde llegan los eventos de E/S
+notificados por el sistema operativo. Desde este bucle se llama a las rutinas
+de &lt;em&gt;callback&lt;/em&gt; correspondientes, donde la aplicación tiene el código que da
+respuesta a dichos eventos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Estas rutinas de &lt;em&gt;callback&lt;/em&gt; pueden tener nombres predefinidos, como es el caso
 del sistema de señales de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, o especificarse a través de un argumento
-adicional cuando se solicitó la operación.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;handle_read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// aquí va el código que lee y procesa los datos&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="n"&gt;async_read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;handle_read&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
+adicional indicado cuando se solicitó la E/S.&lt;/p&gt;
 &lt;p&gt;Por lo general los programas que gestionan la concurrencia de esta manera
-tiene muchos menos requerimientos de memoria que quiénes usan múltiples hilos
+tiene muchos menos requerimientos de memoria que los que usan múltiples hilos
 o procesos, lo que les permite escalar mejor. Este es por ejemplo el caso del
 servidor web Nginx o el servidor de aplicaciones en Javascript Node.js cuando
 se los compara con Apache, un servidor web que según la configuración utiliza
 un hilo o un proceso por conexión.&lt;/p&gt;
 &lt;h2&gt;Corrutinas&lt;/h2&gt;
 &lt;p&gt;Aunque eficiente, la ejecución basada en eventos puede ser más compleja de
-desarrollar ya que el control del flujo de ejecución se ve invertido. En un
-patrón procedural normal la interacción se expresa de forma imperativa,
+implementar ya que el control del flujo de ejecución se invierte. Es decir, en
+un patrón procedural normal la interacción se expresa de forma imperativa,
 haciendo llamadas a procedimientos, funciones o métodos. En su lugar, en la
 ejecución basada en eventos se especifican las respuestas deseadas a los
 eventos notificados, siendo imposible desarrollar una función que contenga
-todo el código de una tarea concreta.&lt;/p&gt;
-&lt;p&gt;Esto se puede resolver incorporando el uso de
-&lt;a href="http://en.wikipedia.org/wiki/Coroutine"&gt;corrutinas&lt;/a&gt;. Estas son una
-generalización de los procedimientos o subrutinas que, a diferencias de estas,
-pueden salir por diversos puntos para posteriormente volver a ejecutarse desde
-el último punto de retorno.&lt;/p&gt;
-&lt;p&gt;En el contexto de la ejecución basada en eventos las distintas tareas pueden
-programarse como corrutinas mientras que las operaciones de E/S, a parte de
-programar la operación de manera asíncrona, forzarían la salida de la
-corrutina. Entonces el bucle de mensajes en lugar de invocar un &lt;em&gt;callback&lt;/em&gt;
-ante el evento de que la operación ha sido completado, sólo tiene que
-continuar la ejecución de la corrutina donde fue interrumpida.&lt;/p&gt;
+todo el código implicado en una tarea concreta.&lt;/p&gt;
+&lt;p&gt;Esto se puede resolver incorporando el uso de &lt;a href="http://en.wikipedia.org/wiki/Coroutine"&gt;corrutinas&lt;/a&gt;.
+Estas son una generalización de los procedimientos o subrutinas convencionales
+de las que se puede salir por diversos puntos para posteriormente volver y
+reiniciar la ejecución desde el último punto de retorno.&lt;/p&gt;
+&lt;p&gt;En el contexto de la ejecución basada en eventos, las distintas tareas que deben
+ser ejecutadas pueden programarse como corrutinas, mientras que las operaciones
+de E/S, a parte de solicitar la operación correspondiente de manera asíncrona,
+forzarían la salida de la corrutina. Así el bucle de mensajes, en lugar de
+invocar el &lt;em&gt;callback&lt;/em&gt; de una operación completada, sólo tiene que restablecer
+la ejecución de la corrutina allí donde fue interrumpida.&lt;/p&gt;
 &lt;p&gt;Los corrutinas son soportadas por algunos lenguajes de alto nivel como Ruby,
 Lua o Go. Este último incluso permite planificar su ejecución en paralelo
 dentro de un agrupamiento de hilos, dando lugar a lo que sus desarrolladores
 ha denominado &lt;em&gt;goroutines&lt;/em&gt;. Otro ejemplo destacable es Python, que si bien no
-lo soporta en el intérprete estándar, si lo hacen a través de &lt;a href="http://en.wikipedia.org/wiki/Stackless_Python" title="Stackless Python"&gt;Stackless
-Python&lt;/a&gt;. Este intérprete es usado en productos como Eve Online o Second Live
+las soporta en el intérprete estándar, si lo hacen a través de &lt;a href="http://en.wikipedia.org/wiki/Stackless_Python" title="Stackless Python"&gt;Stackless
+Python&lt;/a&gt;. Este intérprete es usado en productos como Eve Online o Second Live,
 donde el número de conexiones simultáneas es muy alto. Por lo demás la mayor
-parte de los lenguajes más populares no lo soportan ni en el propio lenguaje
-ni a través de su librería estándar, con la excepción de C++ mediante el uso
-de la librería &lt;a href="http://www.boost.org/doc/libs/1_53_0/libs/coroutine/doc/html/index.html" title="Boost.Coroutine"&gt;Boost.Coroutine&lt;/a&gt;.&lt;/p&gt;
+parte de los lenguajes más populares no lo soportan, ni en el propio lenguaje
+ni a través de su librería estándar, con la excepción de C++ a través de la
+librería &lt;a href="http://www.boost.org/doc/libs/1_53_0/libs/coroutine/doc/html/index.html" title="Boost.Coroutine"&gt;Boost.Coroutine&lt;/a&gt;.&lt;/p&gt;
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="http://blog.golang.org/2013/01/concurrency-is-not-parallelism.html"&gt;Concurrence is no parallelism&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Concurrency_pattern"&gt;Concurrency pattern&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html#cms"&gt;Java SE 6 - The Concurrent Collector&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.informit.com/articles/article.aspx?p=1768317"&gt;A Tale of Two Concurrency Models: Comparing the Go and Erlang Programming Languages&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;Thread pool pattern&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/"&gt;Understanding the node.js event loop&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;[Corutine]: http://en.wikipedia.org/wiki/Coroutine "Corutine"&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="paralelismo"></category><category term="hilos"></category><category term="bucle de mensajes"></category><category term="multiproceso"></category><category term="callbacks"></category></entry><entry><title>BSD sockets</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-02:bsd-sockets.html</id><summary type="html">&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
+&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="hilos"></category><category term="bucle de mensajes"></category><category term="multiproceso"></category><category term="multihilo"></category><category term="callbacks"></category><category term="qthreadpool"></category></entry><entry><title>BSD sockets</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-02:bsd-sockets.html</id><summary type="html">&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
 (Application Programming Interface) para la comunicación entre procesos,
 fundamentalmente entre equipos conectados a través de Internet
 (&lt;em&gt;socket&lt;/em&gt; de Internet), aunque también soporta la conexión local entre procesos
