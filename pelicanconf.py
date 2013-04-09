@@ -3,7 +3,7 @@
 
 AUTHOR = u'Jesús Torres'
 SITENAME = u'Sistema de Videovigilancia from Scratch'
-SITEURL = 'http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog'
+SITEURL = 'http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog'
 
 RELATIVE_URLS = True
 
