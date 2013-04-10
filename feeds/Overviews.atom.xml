@@ -316,7 +316,7 @@ librería &lt;a href="http://www.boost.org/doc/libs/1_53_0/libs/coroutine/doc/ht
 &lt;li&gt;&lt;a href="http://www.informit.com/articles/article.aspx?p=1768317"&gt;A Tale of Two Concurrency Models: Comparing the Go and Erlang Programming Languages&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;Thread pool pattern&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/"&gt;Understanding the node.js event loop&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Coroutine"&gt;Corutine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Coroutine"&gt;Coroutine&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;</summary><category term="concurrencia"></category><category term="hilos"></category><category term="bucle de mensajes"></category><category term="multiproceso"></category><category term="multihilo"></category><category term="callbacks"></category><category term="qthreadpool"></category></entry><entry><title>BSD sockets</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-02:bsd-sockets.html</id><summary type="html">&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
 (Application Programming Interface) para la comunicación entre procesos,
 fundamentalmente entre equipos conectados a través de Internet
