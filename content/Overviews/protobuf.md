@@ -36,7 +36,7 @@ para distintos lenguajes de programación.
 
  1. [protobuf - Protocol Buffers - Google's data interchange format](http://code.google.com/p/protobuf/).
  1. [Protocol Buffers - Google Developers](https://developers.google.com/protocol-buffers/)
- 1. [Wikipedia](http://en.wikipedia.org/wiki/Protocol_Buffers).
+ 1. Wikipedia - [Protocol Buffers](http://en.wikipedia.org/wiki/Protocol_Buffers).
 
 [Protocol Buffers]: http://code.google.com/p/protobuf/ "Protocol buffers - Google's data interchange format"
 [XML]: http://en.wikipedia.org/wiki/XML "XML"

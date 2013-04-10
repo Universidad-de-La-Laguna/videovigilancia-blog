@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
 
  1. [Starting Threads with QThread](http://qt-project.org/doc/qt-5.0/qtcore/threads-starting.html)
  2. [Wait Conditions Example](http://qt-project.org/doc/qt-4.8/threads-waitconditions.html)
- 3. [Producer-consumer problem](http://en.wikipedia.org/wiki/Producer-consumer_problem)
+ 3. Wikipedia - [Producer-consumer problem](http://en.wikipedia.org/wiki/Producer-consumer_problem)
 
 [Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
 [QThread]: http://qt-project.org/doc/qt-5.0/qtcore/qthread.html "QThread"

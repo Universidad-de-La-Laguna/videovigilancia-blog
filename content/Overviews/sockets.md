@@ -126,7 +126,7 @@ que muestra la relación entre el API _BSD socket_ y el API de acceso a red de [
 
 ## Referencias
 
- 1. [BSD sockets - Wikipedia](http://en.wikipedia.org/wiki/Berkeley_sockets).
+ 1. Wikipedia - [Berkeley sockets](http://en.wikipedia.org/wiki/Berkeley_sockets).
  1. [Wnsock - Windows Sockets API](http://msdn.microsoft.com/es-es/library/windows/desktop/ms740673(v=vs.85).aspx).
  1. [Winsock Programmer's FAQ - BSD Sockets Compatibility](http://tangentsoft.net/wskfaq/articles/bsd-compatibility.html).
  1. [Boost.Asio].

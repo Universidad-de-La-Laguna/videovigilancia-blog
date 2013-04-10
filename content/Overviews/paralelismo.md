@@ -73,8 +73,8 @@ tenemos que destacar la [Threading Building Blocks] de Intel (TBB).
 # Referencias
 
  1. [Concurrence is no parallelism](http://blog.golang.org/2013/01/concurrency-is-not-parallelism.html)
- 2. [Concurrency pattern](http://en.wikipedia.org/wiki/Concurrency_pattern)
- 5. [Thread pool pattern](http://en.wikipedia.org/wiki/Thread_pool_pattern)
+ 2. Wikipedia - [Concurrency pattern](http://en.wikipedia.org/wiki/Concurrency_pattern)
+ 5. Wikipedia - [Thread pool pattern](http://en.wikipedia.org/wiki/Thread_pool_pattern)
 
 [Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
 [SMT]: http://en.wikipedia.org/wiki/Simultaneous_multithreading "Simultaneous Multithreading"
