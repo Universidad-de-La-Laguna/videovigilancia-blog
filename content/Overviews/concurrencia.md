@@ -73,6 +73,8 @@ ser planificados en diferentes procesadores, pudiendo así aprovechar el
 paralelismo ofrecido por el hardware en los sistemas multiprocesador y/o
 multinúcleo.
 
+<img src="https://docs.google.com/drawings/d/1oViFjM7lI5jCoWx4uM9xD_8DRz9d2mOETWQuzjf3AU4/pub?w=606&amp;h=534" alt="Modelo de hilo 1:1" class="centered">
+
 Obviamente la manera en la que se utilizan los hilos dependen del tipo de problema.
 Si lo que se pretende es gestionar eventos o peticiones externas, lo más habitual
 es crear un hilo por cliente conectado. Así cada hilo funcionará de manera
@@ -141,12 +143,12 @@ Aunque más baratos que los procesos, los hilos tienen un coste que llegado el
 momento puede hacer que nuestra aplicación no pueda escalar ya que no se puedan
 crear más hilos.
 
-Para evitarlo se puede hacer uso del patrón [agrupamiento de hilos](http://en.wikipedia.org/wiki/Thread_pool_pattern) (o _thread pool_) que
-básicamente consiste en:
+Para evitarlo se puede hacer uso del patrón [agrupamiento de hilos](http://en.wikipedia.org/wiki/Thread_pool_pattern)
+(o _thread pool_) que básicamente consiste en:
 
  1. Crear un grupo de hilos, una cola con las tareas que deben ser ejecutadas en
 dichos hilos y otra cola donde almacenar los resultados de las tareas ejecutadas.
-<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" style="float:right;margin:0 0 0 10px">
+<a href="http://commons.wikimedia.org/wiki/File:Thread_pool.svg"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" alt="Sencillo esquema de un agrupamiento de hilos" class="right-float"></a>
 
  2. Cada vez que un hilo del agrupamiento queda libre, toma la siguiente tarea
 de la cola y la ejecuta hasta que es completada, insertando los resultados en
@@ -223,6 +225,8 @@ notificados por el sistema operativo. Desde este bucle se llama a las rutinas
 de _callback_ correspondientes, donde la aplicación tiene el código que da
 respuesta a dichos eventos.
 
+<img src="https://docs.google.com/drawings/d/1vr_1x_UQAW905hjxALQE0hGB6ii55dIiKOsqFD9lw_M/pub?w=809&amp;h=367" alt="Ejecución basada en eventos" class="centered">
+
 Estas rutinas de _callback_ pueden tener nombres predefinidos, como es el caso
 del sistema de señales de [Qt], o especificarse a través de un argumento
 adicional indicado cuando se solicitó la E/S.
@@ -248,6 +252,8 @@ Esto se puede resolver incorporando el uso de [corrutinas](http://en.wikipedia.o
 Estas son una generalización de los procedimientos o subrutinas convencionales
 de las que se puede salir por diversos puntos para posteriormente volver y
 reiniciar la ejecución desde el último punto de retorno.
+
+<img src="https://docs.google.com/drawings/d/1CiGFeo02uYTWL3Y31u-RpIKBjlLUDrIEaXj8e1_geLw/pub?w=851&amp;h=330" alt="Ejemplo de corrutina" class="centered">
 
 En el contexto de la ejecución basada en eventos, las distintas tareas que deben
 ser ejecutadas pueden programarse como corrutinas, mientras que las operaciones

@@ -53,7 +53,7 @@ donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
 se distribuida al público y por lo tanto va a ser utilizada en ordenadores con
 características diversas.
 
-<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" style="float:right;margin:0 0 0 10px">
+<a href="http://commons.wikimedia.org/wiki/File:Thread_pool.svg"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" alt="Sencillo esquema de un agrupamiento de hilos" class="right-float"></a>
 
 El patrón _agrupamiento de hilos_ comentado en el artículo sobre [concurrencia](|filename|/Overviews/concurrencia.md)
 nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
