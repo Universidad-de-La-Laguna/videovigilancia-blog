@@ -102,26 +102,26 @@ movimiento, etc. Cada <a href="http://www.arduino.cc/" title="Arduino">Arduino</
 es leer el estado de dichos sensores, a intervalos regulares, y enviar mensajes
 con los datos de los mismos a un servidor.</p>
 <p>Teniendo esto presente, el archivo <code>.proto</code> podría ser el siguiente:</p>
-<div class="codehilite"><pre><span class="sr">//</span> <span class="n">sensorsreport</span><span class="o">.</span><span class="n">proto</span> <span class="o">-</span> <span class="n">Protocolo</span> <span class="n">de</span> <span class="n">comunicaciones</span> <span class="n">con</span> <span class="n">Arduino</span>
-<span class="sr">//</span>
+<div class="codehilite"><pre><span class="c1">// sensorsreport.proto - Protocolo de comunicaciones con Arduino</span>
+<span class="c1">//</span>
 <span class="n">message</span> <span class="n">SensorsReport</span> <span class="p">{</span>
-    <span class="n">required</span> <span class="n">string</span> <span class="n">deviceName</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     <span class="sr">//</span> <span class="n">Nombre</span> <span class="n">del</span> <span class="n">Arduino</span>
-    <span class="n">required</span> <span class="n">uint64</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>      <span class="sr">//</span> <span class="n">Seg</span><span class="o">.</span> <span class="n">desde</span> <span class="mi">1</span><span class="sr">/1/</span><span class="mi">1970</span>
+    <span class="n">required</span> <span class="k">string</span> <span class="n">deviceName</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>     <span class="c1">// Nombre del Arduino</span>
+    <span class="n">required</span> <span class="n">uint64</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span>      <span class="c1">// Seg. desde 1/1/1970</span>
 
-    <span class="n">enum</span> <span class="n">SensorType</span> <span class="p">{</span>
-        <span class="n">HUMIDITY</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">LUMINOSITY</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">MOTION</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-        <span class="n">TEMPERATURE</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="k">enum</span> <span class="n">SensorType</span> <span class="p">{</span>
+        <span class="no">HUMIDITY</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+        <span class="no">LUMINOSITY</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+        <span class="no">MOTION</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span>
+        <span class="no">TEMPERATURE</span> <span class="o">=</span> <span class="mh">3</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="n">message</span> <span class="n">SensorStatus</span> <span class="p">{</span>
-        <span class="n">required</span> <span class="n">SensorType</span> <span class="n">type</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">required</span> <span class="n">int32</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="n">required</span> <span class="n">SensorType</span> <span class="k">type</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+        <span class="n">required</span> <span class="n">int32</span> <span class="n">value</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="n">repeated</span> <span class="n">SensorStatus</span> <span class="n">sensors</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>  <span class="sr">//</span> <span class="n">Vector</span> <span class="n">de</span> <span class="n">estados</span> <span class="n">de</span> <span class="n">los</span>
-                                        <span class="sr">//</span> <span class="n">sensores</span>
+    <span class="n">repeated</span> <span class="n">SensorStatus</span> <span class="n">sensors</span> <span class="o">=</span> <span class="mh">3</span><span class="p">;</span>  <span class="c1">// Vector de estados de los</span>
+                                        <span class="c1">// sensores</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -141,7 +141,7 @@ datos.</p>
 <ol>
 <li>
 <p>Invocar el compilador de la siguiente manera:</p>
-<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">protoc</span> <span class="o">--</span><span class="n">cpp_out</span><span class="o">=.</span> <span class="n">sensorsreport</span><span class="o">.</span><span class="n">proto</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">protoc</span> <span class="o">--</span><span class="n">cpp_out</span><span class="o">=</span><span class="p">.</span> <span class="n">sensorsreport</span><span class="p">.</span><span class="n">proto</span>
 </pre></div>
 
 
@@ -213,8 +213,8 @@ LIBS += -lprotobuf
  del proyecto.</li>
 <li>
 <p>Abrir el archivo <code>.pro</code> del proyecto y añadir las líneas:</p>
-<div class="codehilite"><pre><span class="n">PROTOS</span> <span class="o">=</span> <span class="n">sensorsreport</span><span class="o">.</span><span class="n">proto</span>
-<span class="n">include</span><span class="p">(</span><span class="n">protobuf</span><span class="o">.</span><span class="n">pri</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="n">PROTOS</span> <span class="o">=</span> <span class="n">sensorsreport</span><span class="p">.</span><span class="n">proto</span>
+<span class="n">include</span><span class="p">(</span><span class="n">protobuf</span><span class="p">.</span><span class="n">pri</span><span class="p">)</span>
 </pre></div>
 
 
@@ -225,23 +225,23 @@ LIBS += -lprotobuf
 nos ofrece los siguientes <em>accesores</em>:</p>
 <div class="codehilite"><pre><span class="c1">// required string deviceName = 1;</span>
 <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">has_devicename</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">clear_devicename</span><span class="p">();</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">clear_devicename</span><span class="p">();</span>
 <span class="kr">inline</span> <span class="k">const</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">devicename</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">value</span><span class="p">);</span>
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">value</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">set_devicename</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
 <span class="kr">inline</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span> <span class="n">mutable_devicename</span><span class="p">();</span>
 <span class="kr">inline</span> <span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span> <span class="n">release_devicename</span><span class="p">();</span>
 
 <span class="c1">// required uint64 timestamp = 2;</span>
 <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">has_timestamp</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">clear_timestamp</span><span class="p">();</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">clear_timestamp</span><span class="p">();</span>
 <span class="kr">inline</span> <span class="o">::</span><span class="n">google</span><span class="o">::</span><span class="n">protobuf</span><span class="o">::</span><span class="n">uint64</span> <span class="n">timestamp</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">set_timestamp</span><span class="p">(</span><span class="o">::</span><span class="n">google</span><span class="o">::</span><span class="n">protobuf</span><span class="o">::</span><span class="n">uint64</span> <span class="n">value</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">set_timestamp</span><span class="p">(</span><span class="o">::</span><span class="n">google</span><span class="o">::</span><span class="n">protobuf</span><span class="o">::</span><span class="n">uint64</span> <span class="n">value</span><span class="p">);</span>
 
 <span class="c1">// repeated .SensorsReport.SensorStatus sensors = 3;</span>
 <span class="kr">inline</span> <span class="kt">int</span> <span class="n">sensors_size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">clear_sensors</span><span class="p">();</span>
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">clear_sensors</span><span class="p">();</span>
 <span class="kr">inline</span> <span class="k">const</span> <span class="o">::</span><span class="n">SensorsReport_SensorStatus</span><span class="o">&amp;</span> <span class="n">sensors</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 <span class="kr">inline</span> <span class="o">::</span><span class="n">SensorsReport_SensorStatus</span><span class="o">*</span> <span class="n">mutable_sensors</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">);</span>
 <span class="kr">inline</span> <span class="o">::</span><span class="n">SensorsReport_SensorStatus</span><span class="o">*</span> <span class="n">add_sensors</span><span class="p">();</span>
@@ -338,17 +338,17 @@ flujo de datos.</p>
 <li>
 <p>Escribir el tamaño del mensaje codificado y después escribir el mensaje en
  si mismo.</p>
-<div class="codehilite"><pre><span class="sr">//</span> <span class="n">Serializar</span> <span class="n">el</span> <span class="n">mensaje</span>
-<span class="nn">std::</span><span class="n">string</span> <span class="n">buffer</span><span class="p">;</span>
-<span class="n">report</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
-<span class="n">uint32</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">size</span><span class="p">();</span>
+<div class="codehilite"><pre><span class="c1">// Serializar el mensaje</span>
+<span class="n">std</span><span class="o">::</span><span class="k">string</span> <span class="n">buffer</span><span class="p">;</span>
+<span class="n">report</span><span class="p">.</span><span class="n">SerializeToString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
+<span class="n">uint32</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 
-<span class="sr">//</span> <span class="n">Abrir</span> <span class="n">el</span> <span class="n">archivo</span> <span class="n">de</span> <span class="n">destino</span> <span class="n">y</span> <span class="n">escribir</span> <span class="n">el</span> <span class="n">mensaje</span>
-<span class="sr">//</span>
-<span class="sr">//</span> <span class="nn">std::</span><span class="n">ofstream</span> <span class="n">ofs</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-<span class="sr">//</span>
-<span class="n">ofs</span><span class="o">.</span><span class="nb">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bufferSize</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">));</span>
-<span class="n">ofs</span><span class="o">.</span><span class="nb">write</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">bufferSize</span><span class="p">);</span>
+<span class="c1">// Abrir el archivo de destino y escribir el mensaje</span>
+<span class="c1">//</span>
+<span class="c1">// std::ofstream ofs(...);</span>
+<span class="c1">//</span>
+<span class="n">ofs</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bufferSize</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">));</span>
+<span class="n">ofs</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">bufferSize</span><span class="p">);</span>
 </pre></div>
 
 
@@ -357,20 +357,20 @@ flujo de datos.</p>
 <p>Al leer, leer primero el tamaño del mensaje, después leer los bytes
  indicados en un  <em>buffer</em> independiente y finalmente deserializar el mensaje
  desde dicho <em>buffer</em>.</p>
-<div class="codehilite"><pre><span class="sr">//</span> <span class="n">Abrir</span> <span class="n">el</span> <span class="n">archivo</span> <span class="n">de</span> <span class="n">origen</span> <span class="n">y</span> <span class="n">leer</span> <span class="n">el</span> <span class="n">tama</span><span class="err">ñ</span><span class="n">o</span> <span class="n">del</span> <span class="n">mensaje</span>
-<span class="sr">//</span>
-<span class="sr">//</span> <span class="nn">std::</span><span class="n">ifstream</span> <span class="n">ifs</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-<span class="sr">//</span>
+<div class="codehilite"><pre><span class="c1">// Abrir el archivo de origen y leer el tamaño del mensaje</span>
+<span class="c1">//</span>
+<span class="c1">// std::ifstream ifs(...);</span>
+<span class="c1">//</span>
 <span class="n">uint32</span> <span class="n">bufferSize</span><span class="p">;</span>
-<span class="n">ifs</span><span class="o">.</span><span class="nb">read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bufferSize</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">));</span>
+<span class="n">ifs</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bufferSize</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">));</span>
 
-<span class="sr">//</span> <span class="n">Leer</span> <span class="n">el</span> <span class="n">mensaje</span>
-<span class="nn">std::</span><span class="n">string</span> <span class="n">buffer</span><span class="p">;</span>
-<span class="n">buffer</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">);</span>
-<span class="n">ifs</span><span class="o">.</span><span class="nb">read</span><span class="p">(</span><span class="n">const_cast</span><span class="sr">&lt;char*&gt;</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">c_str</span><span class="p">()),</span> <span class="n">bufferSize</span><span class="p">);</span>
+<span class="c1">// Leer el mensaje</span>
+<span class="n">std</span><span class="o">::</span><span class="k">string</span> <span class="n">buffer</span><span class="p">;</span>
+<span class="n">buffer</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">bufferSize</span><span class="p">);</span>
+<span class="n">ifs</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">const_cast</span><span class="o">&lt;</span><span class="n">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">c_str</span><span class="p">()),</span> <span class="n">bufferSize</span><span class="p">);</span>
 
-<span class="sr">//</span> <span class="n">Deserializar</span>
-<span class="n">report</span><span class="o">.</span><span class="n">ParseFromString</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+<span class="c1">// Deserializar</span>
+<span class="n">report</span><span class="p">.</span><span class="n">ParseFromString</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
 </pre></div>
 
 
