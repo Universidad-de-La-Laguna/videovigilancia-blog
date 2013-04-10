@@ -19,7 +19,7 @@ En general existen aplicaciones que son fundamentalmente concurrentes, como
 los servidores web, los de archivos, los de base de datos y otros programas
 similares que deben manejar al mismo tiempo la conexión con diversos clientes.
 También son concurrentes las [aplicaciones paralelas](|filename|/Overviews/paralelismo.md),
-donde una tarea se descomponen en otras más pequeñas que se ejecutan al mismo
+donde una tarea se descompone en otras más pequeñas que se ejecutan al mismo
 tiempo para obtener el máximo rendimiento, porque en muchas ocasiones no se sabe
 de antemano cuando van a terminar estas subtareas o van a intentar acceder a las
 estructuras de datos compartidas. Así mismo son concurrentes las aplicaciones
@@ -59,7 +59,7 @@ _limitadas por la CPU_.
 En la actualidad existen diferentes maneras de tratar la concurrencia, que
 pueden ser más o menos convenientes según el tipo de problemas a resolver.
 Nosotros nos centraremos por el momento en el primer tipo, dejando los detalles
-relacionados con la **programación paralela** para u
+relacionados con la **programación paralela** para un
 [artículo posterior](|filename|/Overviews/paralelismo.md).
 
 ## Multihilo
@@ -213,7 +213,7 @@ la ejecución basada en eventos.
 Simplificando, sus principales características son:
 
  * Generalmente sólo se usa un hilo de ejecución. Por tanto no es posible la
-ejecución paralela de código, lo implica que si se ejecutan tareas _limitadas
+ejecución paralela de código, lo que implica que si se ejecutan tareas _limitadas
 por la CPU_ se podría estar bloqueando las peticiones de otros clientes al
 ocupar el hilo de ejecución.
 
@@ -281,7 +281,7 @@ librería [Boost.Coroutine].
  4. [A Tale of Two Concurrency Models: Comparing the Go and Erlang Programming Languages](http://www.informit.com/articles/article.aspx?p=1768317)
  5. [Thread pool pattern](http://en.wikipedia.org/wiki/Thread_pool_pattern)
  6. [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
- 7. [Corutine]: http://en.wikipedia.org/wiki/Coroutine "Corutine"
+ 7. Wikipedia - [Corutine](http://en.wikipedia.org/wiki/Coroutine)
 
 [Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
 [Actor]: http://en.wikipedia.org/wiki/Actor_model "Actor model"
