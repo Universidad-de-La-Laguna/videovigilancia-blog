@@ -30,8 +30,8 @@ concurrente pero no paralelo. Obviamente el paralelismo sólo es posible en
 sistemas multinúcleo, multiprocesador o distribuidos.
 
 A continuación complementaremos lo hablado anteriormente sobre [concurrencia](|filename|/Overviews/concurrencia.md)
-considerando que ahora el contexto es el programas donde pretendemos descomponer
-y paralelizar tareas _limitadas por la CPU_.
+considerando que ahora el contexto es el de programas donde pretendemos
+descomponer y paralelizar tareas _limitadas por la CPU_.
 
 ## Multihilo
 
@@ -41,7 +41,7 @@ hemos hablado anteriormente](|filename|/Overviews/concurrencia.md), por lo
 general se crean tantos hilos como núcleos diferentes dispone el sistema y
 se divide entre ellos la tarea que deseamos realizar.
 
-Obviamente tienen poco sentido crear más hilos que secuencias de instrucciones
+Obviamente tiene poco sentido crear más hilos que secuencias de instrucciones
 pueden ejecutarse paralelamente en el sistema.
 
 ## Agrupamiento de hilos
@@ -50,7 +50,7 @@ Como acabamos de comentar, en un problema de **programación paralela** el
 número de hilos adecuado viene determinado por el de núcleos, lo que obliga a
 dividir el problema de manera diferente según las características del hardware
 donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
-se distribuida al público y por lo tanto va a ser utilizada en ordenadores con
+ser distribuida al público y por lo tanto será utilizada en ordenadores con
 características diversas.
 
 <a href="http://commons.wikimedia.org/wiki/File:Thread_pool.svg"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" alt="Sencillo esquema de un agrupamiento de hilos" class="right-float"></a>
@@ -59,7 +59,7 @@ El patrón _agrupamiento de hilos_ comentado en el artículo sobre [concurrencia
 nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
 las tareas _limitadas por la CPU_ tanto como queramos. Y que estas sean
 ejecutadas sobre un agrupamiento configurado con el mismo número de hilos que
-núcleos de procesador hay en el sistema donde se está ejecutando al aplicación.
+núcleos de procesador hay en el sistema donde se está ejecutando la aplicación.
 
 De esta manera los programas se pueden adaptar al paralelismo del hardware
 subyacente, aprovechando de forma sencilla las ventajas de los sistemas
