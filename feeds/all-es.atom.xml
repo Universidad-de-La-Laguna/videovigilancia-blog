@@ -23,29 +23,29 @@ monoprocesador sin múltiples núcleos ni físicos ni lógicos (&lt;a href="http
 concurrente pero no paralelo. Obviamente el paralelismo sólo es posible en
 sistemas multinúcleo, multiprocesador o distribuidos.&lt;/p&gt;
 &lt;p&gt;A continuación complementaremos lo hablado anteriormente sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
-considerando que ahora el contexto es el programas donde pretendemos descomponer
-y paralelizar tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt;.&lt;/p&gt;
+considerando que ahora el contexto es el de programas donde pretendemos
+descomponer y paralelizar tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt;.&lt;/p&gt;
 &lt;h2&gt;Multihilo&lt;/h2&gt;
 &lt;p&gt;El uso de múltiples hilos dentro de un programa paralelo es un enfoque muy
 común. Sin embargo, a diferencia de lo que ocurre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;en los casos de los que
 hemos hablado anteriormente&lt;/a&gt;, por lo
 general se crean tantos hilos como núcleos diferentes dispone el sistema y
 se divide entre ellos la tarea que deseamos realizar.&lt;/p&gt;
-&lt;p&gt;Obviamente tienen poco sentido crear más hilos que secuencias de instrucciones
+&lt;p&gt;Obviamente tiene poco sentido crear más hilos que secuencias de instrucciones
 pueden ejecutarse paralelamente en el sistema.&lt;/p&gt;
 &lt;h2&gt;Agrupamiento de hilos&lt;/h2&gt;
 &lt;p&gt;Como acabamos de comentar, en un problema de &lt;strong&gt;programación paralela&lt;/strong&gt; el
 número de hilos adecuado viene determinado por el de núcleos, lo que obliga a
 dividir el problema de manera diferente según las características del hardware
 donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
-se distribuida al público y por lo tanto va a ser utilizada en ordenadores con
+ser distribuida al público y por lo tanto será utilizada en ordenadores con
 características diversas.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://commons.wikimedia.org/wiki/File:Thread_pool.svg"&gt;&lt;img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" alt="Sencillo esquema de un agrupamiento de hilos" class="right-float"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;El patrón &lt;em&gt;agrupamiento de hilos&lt;/em&gt; comentado en el artículo sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
 nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
 las tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt; tanto como queramos. Y que estas sean
 ejecutadas sobre un agrupamiento configurado con el mismo número de hilos que
-núcleos de procesador hay en el sistema donde se está ejecutando al aplicación.&lt;/p&gt;
+núcleos de procesador hay en el sistema donde se está ejecutando la aplicación.&lt;/p&gt;
 &lt;p&gt;De esta manera los programas se pueden adaptar al paralelismo del hardware
 subyacente, aprovechando de forma sencilla las ventajas de los sistemas
 multinúcleo.&lt;/p&gt;
