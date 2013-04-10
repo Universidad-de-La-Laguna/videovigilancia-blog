@@ -97,22 +97,22 @@ clases de <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" t
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="nl">public:</span>
+    <span class="k">public</span><span class="o">:</span>
         <span class="n">Sorter</span><span class="p">();</span>
         <span class="o">~</span><span class="n">Sorter</span><span class="p">();</span>
 
         <span class="c1">// Ordenar asíncronamente un vector en el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="nf">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="n">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
 
     <span class="nl">signals:</span>
         <span class="c1">// Señal para comunicarnos con el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">private</span> <span class="n">slots</span><span class="o">:</span>
+    <span class="k">private</span> <span class="nl">slots:</span>
         <span class="c1">// Slot para saber cuando el vector ha sido ordenado</span>
         <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="nl">private:</span>
+    <span class="k">private</span><span class="o">:</span>
         <span class="c1">// Clase del hilo de trabajo</span>
         <span class="n">QThread</span> <span class="n">workingThread_</span><span class="p">;</span>
         <span class="c1">// Clase que hace el ordenamiento</span>
@@ -165,7 +165,7 @@ notificados cuando el ordenamiento haya finalizado con éxito.</p>
 <span class="p">{</span>
     <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
 
-    <span class="n">emit</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+    <span class="n">emit</span> <span class="n">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">Sorter</span><span class="o">::</span><span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">)</span>
@@ -194,14 +194,14 @@ lo que podría dejar los datos en uso en un estado indeterminado.</p>
         <span class="c1">// Señal emitida cuando el vector ha sido ordenado</span>
         <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
 
-    <span class="k">public</span> <span class="n">slots</span><span class="o">:</span>
+    <span class="k">public</span> <span class="nl">slots:</span>
         <span class="c1">// Método encargado del ordenamiento</span>
         <span class="kt">void</span> <span class="n">doSort</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
 
             <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list_sorted</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
             <span class="n">qSort</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
-            <span class="n">emit</span> <span class="nf">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
+            <span class="n">emit</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
         <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -210,7 +210,7 @@ lo que podría dejar los datos en uso en un estado indeterminado.</p>
 <h2>Como usar el ejemplo</h2>
 <p>Para usar el ejemplo sólo necesitamos crear una instancia de <code>Sorter</code> y
 llamar a su método <code>sortAsync()</code> para pedir que ordene el vector especificado.</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 
