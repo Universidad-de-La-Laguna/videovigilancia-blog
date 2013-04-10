@@ -281,7 +281,7 @@ librería [Boost.Coroutine].
  4. [A Tale of Two Concurrency Models: Comparing the Go and Erlang Programming Languages](http://www.informit.com/articles/article.aspx?p=1768317)
  5. [Thread pool pattern](http://en.wikipedia.org/wiki/Thread_pool_pattern)
  6. [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
- 7. Wikipedia - [Corutine](http://en.wikipedia.org/wiki/Coroutine)
+ 7. Wikipedia - [Coroutine](http://en.wikipedia.org/wiki/Coroutine)
 
 [Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
 [Actor]: http://en.wikipedia.org/wiki/Actor_model "Actor model"
