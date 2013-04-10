@@ -723,7 +723,7 @@ consumidor.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/threads-starting.html"&gt;Starting Threads with QThread&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-4.8/threads-waitconditions.html"&gt;Wait Conditions Example&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Producer-consumer_problem"&gt;Producer-consumer problem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Producer-consumer_problem"&gt;Producer-consumer problem&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;</summary><category term="qt"></category><category term="hilos"></category><category term="mutex"></category><category term="condición de espera"></category><category term="variables de condición"></category><category term="productor-consumidor"></category><category term="buffer finito"></category></entry><entry><title>Layouts en Qt. Organización de controles</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html" rel="alternate"></link><updated>2013-02-15T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-15:layouts-en-qt-organizacion-de-controles.html</id><summary type="html">&lt;p&gt;El sistema de &lt;em&gt;layouts&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporcionar una manera sencilla de organizar
 los controles dentro de otros controles o ventanas, asegurando el mejor
 aprovechamiento del espacio disponible.&lt;/p&gt;
