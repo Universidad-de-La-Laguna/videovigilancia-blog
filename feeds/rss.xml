@@ -1,5 +1,369 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 07 Apr 2013 00:00:00 +0100</lastBuildDate><item><title>Paralelismo y concurrencia</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html</link><description>&lt;p&gt;El paralelismo no debe confundirse con la &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;,
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 11 Apr 2013 00:00:00 +0100</lastBuildDate><item><title>Aplicaciones de consola con Qt</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/aplicaciones-de-consola-con-qt.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; es un &lt;em&gt;framework&lt;/em&gt; utilizado fundamentalmente para desarrollar aplicaciones
+con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
+aplicaciones de linea de comandos.&lt;/p&gt;
+&lt;h1&gt;QCoreApplication&lt;/h1&gt;
+&lt;p&gt;Al crear un proyecto de aplicación para consola, el asistente de Qt Creator
+crea un archivo &lt;code&gt;main.cpp&lt;/code&gt; con un contenido similar al siguiente:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;QCoreApplication&amp;gt;&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;QCoreApplication&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication"&gt;QCoreApplication&lt;/a&gt; es una clase que provee un bucle de mensaje para aplicaciones
+de consola, mientras que para aplicaciones gráficas lo adecuado es usar &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qapplication.html" title="QApplication"&gt;QApplication&lt;/a&gt;.
+El bucle de mensajes es iniciado con la invocación del método
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication"&gt;QCoreApplication&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#exec" title="QApplication::exec"&gt;exec&lt;/a&gt;(), que no retorna hasta que la aplicación finaliza.
+Por ejemplo cuando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication"&gt;QCoreApplication&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#quit" title="QApplication::quit"&gt;quit&lt;/a&gt;() es llamado.&lt;/p&gt;
+&lt;p&gt;Si la aplicación no necesita de un bucle de mensajes, no es necesario instanciar
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication"&gt;QCoreApplication&lt;/a&gt;, pudiendo desarrollarla como cualquier programa convencional
+en C++, sólo que beneficiándonos de las facilidades ofrecidas por las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; que requieren disponer de un bucle de mensajes son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Controles, ventanas y en general todas las relacionadas con el GUI&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Temporizadores&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Comunicación entre hilos mediante señales&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Red&lt;/strong&gt;. Si se usan los métodos síncronos &lt;code&gt;waitFor*&lt;/code&gt; se puede evitar el uso
+del bucle de mensajes, pero hay que tener en cuenta que las clases de comunicaciones
+de alto nivel (&lt;code&gt;QHttp&lt;/code&gt;, &lt;code&gt;QFtp&lt;/code&gt;, etc.) no ofrecen dicho API.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Entrada estándar&lt;/h1&gt;
+&lt;p&gt;Muchas aplicaciones de consola interactúan con el usuario a través de la
+&lt;em&gt;entrada estándar&lt;/em&gt;, para lo cual se pueden usar tanto las clases de la librería
+estándar de C++:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;getline&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cint&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;como los flujos de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QTextStream&lt;/span&gt; &lt;span class="nf"&gt;qtin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;QString&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;qtin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;readLine&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Sin embargo es necesario tener presente que en ambos casos el hilo principal
+se puede bloquear durante la lectura (hasta que hayan datos que leer) lo que
+impediría la ejecución del bucle de mensajes.&lt;/p&gt;
+&lt;p&gt;Para evitarlo se puede delegar la lectura de la &lt;em&gt;entrada estándar&lt;/em&gt; a otro hilo,
+que se comunicaría con el principal para informar de las acciones del usuario
+a través del mecanismo de señales y &lt;em&gt;slots&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. El procedimiento sería muy
+similar al que comentamos en
+&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;una entrada anterior&lt;/a&gt;, sólo que
+para leer la &lt;em&gt;entrada estándar&lt;/em&gt; en lugar de para ordenar un vector de enteros.&lt;/p&gt;
+&lt;h1&gt;Manejo de señales&lt;/h1&gt;
+&lt;p&gt;Los sistemas operativos compatibles POSIX implementan un tipo de interrupción
+por software conocido como &lt;em&gt;señales POSIX&lt;/em&gt;. Estas son enviadas a los procesos
+para informar de situaciones excepcionales durante la ejecución del programa, como
+por ejemplo:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;strong&gt;SIGSEGV&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Acceso a una dirección de memoria no válida.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;SIGFPE&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Intento de ejecutar una operación aritmética inválida, como por ejemplo una
+división por cero.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;SIGILL&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Intento de ejecutar una instrucción ilegal.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;SIGCHLD&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Notificación de terminación de algún proceso hijo.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;SIGTERM&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Notificación de que se ha solicitado la terminación del proceso.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;SIGINT&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Notificación de que el proceso está controlado por una terminal y el usuario
+quiere interrumpirlo. Generalmente esta señal es motivada por la pulsación de
+la combinación de teclas &lt;code&gt;Ctrl-C&lt;/code&gt; en la terminal desde la que se controla el
+proceso.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;Todas éstas sólo son una pequeña muestra de una &lt;a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals"&gt;lista&lt;/a&gt;
+mucho más larga.&lt;/p&gt;
+&lt;p&gt;Para cada tipo de señal el proceso puede especificar una &lt;a href="http://pubs.opengroup.org/onlinepubs/000095399/functions/xsh_chap02_04.html#tag_02_04_03" title="Signal Actions"&gt;acción&lt;/a&gt; diferente:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;strong&gt;SIG_DFL&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Ejecutar la acción por defecto, lo que en ocasiones implica terminar el proceso.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;SIG_IGN&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Ignorar la señal, lo que no es posible para todos los tipos de señales.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;Invocar un manejador de señal&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Invocar una función concreta del programa que actua como &lt;em&gt;manejador de la señal&lt;/em&gt;
+para realizar las acciones que el programador considere oportunas.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;Esto último es interesante porque permite realizar las acciones necesarias para
+que el programa termine en condiciones seguras. Por ejemplo: borrar archivos
+temporales, asegurar que los datos se escriben en disco y su estructura es
+consistente, terminar procesos hijo a los que se les haya delegado parte del
+trabajo, etc.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;signum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Señal (&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;signum&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;) recibida.&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Terminar el programa&lt;/span&gt;
+    &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;signum&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Seguridad respecto a las señales&lt;/h2&gt;
+&lt;p&gt;Sin embargo debemos de tener presente que las &lt;em&gt;señales POSIX&lt;/em&gt; pueden llegar en
+cualquier momento, interrumpiendo la secuencia normal de instrucciones del
+proceso. Por lo tanto los &lt;em&gt;manejadores de señal&lt;/em&gt; son invocados de forma asíncrona
+respecto a la ejecución del proceso, lo que introduce problemas de concurrencia
+debido al posible acceso del manejador a datos que esten siendo manipulados por
+el programa.&lt;/p&gt;
+&lt;p&gt;Por ello:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;El estándar POSIX establece que desde una manejador de señal sólo se pueden
+invocar funciones seguras respecto a la asincronicidad de las señales:&lt;ul&gt;
+&lt;li&gt;Estas funciones son aquellas que o son &lt;em&gt;reentrantes&lt;/em&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o no interrumpibles&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt;
+respecto a las señales.&lt;/li&gt;
+&lt;li&gt;Sólo &lt;a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals"&gt;unas pocas&lt;/a&gt;
+funciones de la librería del sistema cumplen con dicho requisito.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Incluso si se usan variables como banderas para notificar desde el manejador
+al programa principal que ha ocurrido una señal, con el objeto de que éste último
+ejecute las acciones necesarias, debemos especificar al compilador que no
+utilice con esas variables optimizaciones que puedan dar problemas de la
+concurrencia.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// volatile informa al compilador que no optimice el acceso a la&lt;/span&gt;
+&lt;span class="c1"&gt;// variable porque su valor puede cambiar en cualquier momento.&lt;/span&gt;
+&lt;span class="n"&gt;volatile&lt;/span&gt; &lt;span class="n"&gt;sig_atomic_t&lt;/span&gt; &lt;span class="n"&gt;waitingForQuit&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;signum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// Indicar al programa principal que debe terminar&lt;/span&gt;
+    &lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="c1"&gt;// Configurar el manejador de señal&lt;/span&gt;
+    &lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SIGINT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SIGTERM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="p"&gt;...&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="c1"&gt;// Terminar el proceso en condiciones seguras&lt;/span&gt;
+            &lt;span class="p"&gt;...&lt;/span&gt;
+            &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En programas multihilo cualquier hilo en el que no se haya bloqueado una
+señal puede ser utilizado para atenderla. Eso introduce problemas adicionales
+de concurrencia que obligan al uso de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y otros elementos
+de sincronización&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Obviamente no hay seguridad de que las funciones del API de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; cumplan con
+los requisitos comentados anteriormente, por lo que no podemos invocarlas
+directamente desde los &lt;em&gt;manejadores de señal&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Además &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; no integra ninguna solución que encapsule y simplifique la gestión
+de &lt;em&gt;señales POSIX&lt;/em&gt;, puesto que éstas no están disponibles en sistemas operativos
+que no soporten dicha especificación.&lt;/p&gt;
+&lt;h2&gt;Usando manejadores de señales POSIX con Qt&lt;/h2&gt;
+&lt;p&gt;Aun así en la documentación de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; se describe una forma de usar manejadores de
+señales POSIX. Realmente basta con que el &lt;em&gt;manejador de señal&lt;/em&gt; haga algo
+que provoque que &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; emita una señal y después retorne. Al volver a la
+secuencia normal de ejecución del programa, se emitiría la señal de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;
+invocando el &lt;em&gt;slot&lt;/em&gt; al que está conectada, desde donde se ejecutarían de forma
+segura las operaciones que fueran necesarias.&lt;/p&gt;
+&lt;p&gt;Concretamente en el artículo
+&lt;a href="http://doc.qt.digia.com/4.7/unix-signals.html"&gt;Calling Qt Functions From Unix Signal Handlers&lt;/a&gt;
+se propone lo siguiente:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Declarar una clase que contenga que contenga los &lt;em&gt;manejadores de señal&lt;/em&gt;,
+los &lt;em&gt;slots&lt;/em&gt; y otros elementos que comentaremos a continuación.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
+
+    &lt;span class="nl"&gt;public:&lt;/span&gt;
+        &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Manejadores de señal POSIX&lt;/span&gt;
+        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Slots Qt donde atender las señales POSIX&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;handleSigHup&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;handleSigTerm&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="nl"&gt;private:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Pares de sockets. Un par por señal a manejar&lt;/span&gt;
+        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;qintptr&lt;/span&gt; &lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;qintptr&lt;/span&gt; &lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Objetos para monitorizar los pares de sockets&lt;/span&gt;
+        &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;sigHupNotifier&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;sigTermNotifier&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En el constructor, para cada señal que se quiere manejar, se usa la llamada
+al sistema &lt;a href="http://linux.die.net/man/2/socketpair" title="socketpair(2)"&gt;socketpair&lt;/a&gt;() para crea una pareja de
+&lt;a href="http://es.wikipedia.org/wiki/Socket_Unix"&gt;sockets de dominio UNIX&lt;/a&gt; anonimos
+conectados entre sí. Al estar conectados desde el principio, lo que se escribe
+en uno de los &lt;em&gt;sockets&lt;/em&gt; de la pareja se puede leer en el otro. Además se crea un
+objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier"&gt;QSocketNotifier&lt;/a&gt; para uno de los sockets de cada pareja, con el objeto de
+monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso envía
+la señal &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier"&gt;QSocketNotifier&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()"&gt;activated&lt;/a&gt;().&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// Crear las parejas de sockets UNIX&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;socketpair&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AF_UNIX&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SOCK_STREAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="n"&gt;qFatal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Couldn&amp;#39;t create HUP socketpair&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;socketpair&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AF_UNIX&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SOCK_STREAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="n"&gt;qFatal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Couldn&amp;#39;t create TERM socketpair&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Crear los objetos para monitorizar uno de los socket&lt;/span&gt;
+    &lt;span class="c1"&gt;// de cada pareja.&lt;/span&gt;
+    &lt;span class="n"&gt;sigHupNotifier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupFd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Read&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;sigTermNotifier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Read&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Conectar la señal activated() de cada objeto&lt;/span&gt;
+    &lt;span class="c1"&gt;// QSocketNotifier con el slot correspondiente. Esta señal&lt;/span&gt;
+    &lt;span class="c1"&gt;// será emitida cuando hayan datos para ser leidos en el&lt;/span&gt;
+    &lt;span class="c1"&gt;// socket monitorizado.&lt;/span&gt;
+    &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupNotifier&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;activated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;handleSigHup&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
+    &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermNotifier&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;activated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;handleSigTerm&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
+
+    &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Entonces los manejadores de señal lo único que tienen que hacer cuando son
+invocados es escribir &lt;em&gt;algo&lt;/em&gt; en el &lt;em&gt;socket&lt;/em&gt; correspondiente. Nótese que los
+métodos de los manejadores se declaran como &lt;code&gt;static&lt;/code&gt; para que puedan ser pasados
+como un puntero de función de C a la llamada al sistema &lt;a href="http://linux.die.net/man/2/sigaction" title="sigaction(2)"&gt;sigaction&lt;/a&gt;(), cuando
+va a ser establecido el manejador de cada señal concreta:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// Manejador de la señal SIGHUP&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// Manejador de la señal SIGTERM&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+
+    &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// Configurar los manejadores de señal&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;setupUnixSignalHandlers&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt; &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_handler&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigemptyset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_mask&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_flags&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;SA_RESTART&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Establecer manejador de la señal SIGHUP&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SIGHUP&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_handler&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigemptyset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_mask&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_flags&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;SA_RESTART&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Establecer manejador de la señal SIGTERM&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SIGTERM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finalmente en los &lt;em&gt;slots&lt;/em&gt; a los que conectamos la señal &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier"&gt;QSocketNotifier&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()"&gt;activated&lt;/a&gt;()
+se lee &lt;em&gt;lo escrito&lt;/em&gt; desde el &lt;em&gt;manejador de señal&lt;/em&gt;, para después hacer todo
+aquello que no se puede hacer desde dicho manejador de señal POSIX.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;handleSigHup&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;hupNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// ...tu código aquí...&lt;/span&gt;
+
+    &lt;span class="n"&gt;hupNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;handleSigTerm&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;termNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// ...tu código aquí...&lt;/span&gt;
+
+    &lt;span class="n"&gt;termNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication"&gt;QCoreApplication&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier"&gt;QSocketNotifier&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://doc.qt.digia.com/4.7/unix-signals.html"&gt;Calling Qt Functions From Unix Signal Handlers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Unix_signal"&gt;Unix signal&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;Una función es reentrante si puede ser interrumpida en medio de su ejecución
+y vuelta a llamar con total seguridad. En general una función es reentrante si
+no modifica variables estáticas o globales, no modifica su propio código y no
+llama a otras funciones que no sean reentrantes.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:2"&gt;
+&lt;p&gt;Una función puede ser no interrumplible respecto a la señales si al entrar
+en la función el programa bloquean las señales, desbloqueándolas antes de salir.&amp;#160;&lt;a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Thu, 11 Apr 2013 00:00:00 +0100</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-11:aplicaciones-de-consola-con-qt.html</guid><category>qt</category><category>qcoreapplication</category><category>consola</category><category>señales</category><category>hilos</category></item><item><title>Paralelismo y concurrencia</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html</link><description>&lt;p&gt;El paralelismo no debe confundirse con la &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;,
 aunque es común que así ocurra. El paralelismo se preocupa de analizar como
 superponer operaciones con el objeto de mejorar el rendimiento al realizar una
 tarea concreta.&lt;/p&gt;

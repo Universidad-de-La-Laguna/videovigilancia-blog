@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../uso-de-la-memoria-como-un-dispositivo-de-es.html"><h1>Uso de la memoria como un dispositivo de E/S</h1></a>
-            mié 13 marzo 2013
+            <a href="../aplicaciones-de-consola-con-qt.html"><h1>Aplicaciones de consola con Qt</h1></a>
+            jue 11 abril 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,171 +68,395 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p>Algunas libreras se diseñan específicamente para leer y/o escribir datos en
-dispositivos de entrada/salida. Por ejemplo, una librería desarrollada en C++ para
-codificar y decodificar archivos MP3 recibiría objetos <a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a> o
-<a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para indicar el flujo del que leer o en el que escribir los datos
-respectivamente:</p>
+        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> es un <em>framework</em> utilizado fundamentalmente para desarrollar aplicaciones
+con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
+aplicaciones de linea de comandos.</p>
+<h1>QCoreApplication</h1>
+<p>Al crear un proyecto de aplicación para consola, el asistente de Qt Creator
+crea un archivo <code>main.cpp</code> con un contenido similar al siguiente:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;QCoreApplication&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a> es una clase que provee un bucle de mensaje para aplicaciones
+de consola, mientras que para aplicaciones gráficas lo adecuado es usar <a href="http://qt-project.org/doc/qt-5.0/qtcore/qapplication.html" title="QApplication">QApplication</a>.
+El bucle de mensajes es iniciado con la invocación del método
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#exec" title="QApplication::exec">exec</a>(), que no retorna hasta que la aplicación finaliza.
+Por ejemplo cuando el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#quit" title="QApplication::quit">quit</a>() es llamado.</p>
+<p>Si la aplicación no necesita de un bucle de mensajes, no es necesario instanciar
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>, pudiendo desarrollarla como cualquier programa convencional
+en C++, sólo que beneficiándonos de las facilidades ofrecidas por las clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
+<p>Las clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> que requieren disponer de un bucle de mensajes son:</p>
+<ul>
+<li><strong>Controles, ventanas y en general todas las relacionadas con el GUI</strong>.</li>
+<li><strong>Temporizadores</strong>.</li>
+<li><strong>Comunicación entre hilos mediante señales</strong>.</li>
+<li><strong>Red</strong>. Si se usan los métodos síncronos <code>waitFor*</code> se puede evitar el uso
+del bucle de mensajes, pero hay que tener en cuenta que las clases de comunicaciones
+de alto nivel (<code>QHttp</code>, <code>QFtp</code>, etc.) no ofrecen dicho API.</li>
+</ul>
+<h1>Entrada estándar</h1>
+<p>Muchas aplicaciones de consola interactúan con el usuario a través de la
+<em>entrada estándar</em>, para lo cual se pueden usar tanto las clases de la librería
+estándar de C++:</p>
+<div class="codehilite"><pre><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cint</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+</pre></div>
+
+
+<p>como los flujos de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>:</p>
+<div class="codehilite"><pre><span class="n">QTextStream</span> <span class="nf">qtin</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+<span class="n">QString</span> <span class="n">line</span> <span class="o">=</span> <span class="n">qtin</span><span class="p">.</span><span class="n">readLine</span><span class="p">();</span>
+</pre></div>
+
+
+<p>Sin embargo es necesario tener presente que en ambos casos el hilo principal
+se puede bloquear durante la lectura (hasta que hayan datos que leer) lo que
+impediría la ejecución del bucle de mensajes.</p>
+<p>Para evitarlo se puede delegar la lectura de la <em>entrada estándar</em> a otro hilo,
+que se comunicaría con el principal para informar de las acciones del usuario
+a través del mecanismo de señales y <em>slots</em> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. El procedimiento sería muy
+similar al que comentamos en
+<a href="../hilos-de-trabajo-usando-senales-y-slots.html">una entrada anterior</a>, sólo que
+para leer la <em>entrada estándar</em> en lugar de para ordenar un vector de enteros.</p>
+<h1>Manejo de señales</h1>
+<p>Los sistemas operativos compatibles POSIX implementan un tipo de interrupción
+por software conocido como <em>señales POSIX</em>. Estas son enviadas a los procesos
+para informar de situaciones excepcionales durante la ejecución del programa, como
+por ejemplo:</p>
 <dl>
-<dt><a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a></dt>
-<dd>Clase de flujo de entrada. Los objetos de esta clase pueden leer e interpretar
-la entrada de datos a partir de secuencias de caracteres.</dd>
-<dt><a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a></dt>
-<dd>Clase de flujo de salida. Los objetos de esta clase pueden escribir secuencias
-de caracteres y representar como cadenas otras clases de datos.</dd>
+<dt><strong>SIGSEGV</strong></dt>
+<dd>Acceso a una dirección de memoria no válida.</dd>
+<dt><strong>SIGFPE</strong></dt>
+<dd>Intento de ejecutar una operación aritmética inválida, como por ejemplo una
+división por cero.</dd>
+<dt><strong>SIGILL</strong></dt>
+<dd>Intento de ejecutar una instrucción ilegal.</dd>
+<dt><strong>SIGCHLD</strong></dt>
+<dd>Notificación de terminación de algún proceso hijo.</dd>
+<dt><strong>SIGTERM</strong></dt>
+<dd>Notificación de que se ha solicitado la terminación del proceso.</dd>
+<dt><strong>SIGINT</strong></dt>
+<dd>Notificación de que el proceso está controlado por una terminal y el usuario
+quiere interrumpirlo. Generalmente esta señal es motivada por la pulsación de
+la combinación de teclas <code>Ctrl-C</code> en la terminal desde la que se controla el
+proceso.</dd>
 </dl>
-<p>Por lo tanto, si deseáramos guardar o recuperar audio codificado en MP3 en un
-medio de almacenamiento concreto, necesitaríamos disponer de una clase que nos
-ofrezca el acceso al mismo a través de la interfaz de flujos de C++ de
-entrada/salida descrita por las clases anteriores.</p>
-<p>Objetos como <a href="http://www.cplusplus.com/reference/iostream/cin/" title="std::cin">std::cin</a> y <a href="http://www.cplusplus.com/reference/iostream/cout/" title="std::cout">std::cout</a> son instancias de estas clases, lo que
-permitiría que nuestra aplicación codificara y decodificara audio hacia y
-desde la entrada/salida estándar del proceso. Lo mismo ocurre con
-<a href="http://www.cplusplus.com/reference/fstream/ifstream/" title="std::ifstream">std::ifstream</a>, <a href="http://www.cplusplus.com/reference/fstream/ofstream/" title="std::ofstream">std::ofstream</a> y <a href="http://www.cplusplus.com/reference/fstream/fstream/" title="std::fstream">std::fstream</a>; que heredan de las clases
-anteriores e implementan la interfaz de flujos de C++ para los archivos. De
-esta manera nuestra hipotética librería de MP3 podría codificar y decodificar
-datos en este formato hacia y desde dichos archivos.</p>
-<p>En este punto la cuestión que se nos plantea es ¿qué podríamos hacer si,
-por ejemplo, quisiéramos codificar el audio para posteriormente transmitirlo
-a otro ordenador a través de una red? Teniendo en cuenta lo comentado hasta
-ahora, una opción sería codificarlo almacenándolo en un archivo y posteriormente
-leer del mismo para transmitir los datos por la red. Obviamente esto dista
-de ser ideal ya que sería preferible disponer de una clase que implementara
-la interfaz de <a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para almacenar los datos codificados directamente
-en la memoria, evitando tener que dar pasos intermedios como guardarlos y
-leerlos de un archivo temporal.</p>
-<p>Por fortuna la librería estándar de C++ nos provee de las clases:</p>
+<p>Todas éstas sólo son una pequeña muestra de una <a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">lista</a>
+mucho más larga.</p>
+<p>Para cada tipo de señal el proceso puede especificar una <a href="http://pubs.opengroup.org/onlinepubs/000095399/functions/xsh_chap02_04.html#tag_02_04_03" title="Signal Actions">acción</a> diferente:</p>
 <dl>
-<dt><a href="http://www.cplusplus.com/reference/sstream/istringstream/" title="std::istringstream">std::istringstream</a></dt>
-<dd>Flujo de entrada para operar sobre cadenas. Los objetos de esta clase
-permiten leer los caracteres del flujo de entrada a partir del contenido
-de un objeto <code>std::string</code>.</dd>
-<dt><a href="http://www.cplusplus.com/reference/sstream/ostringstream/" title="std::ostringstream">std::ostringstream</a></dt>
-<dd>Flujo de salida para operar sobre cadenas. Los objetos de esta clase
-permiten escribir los caracteres del flujo de salida en un objeto <code>std::string</code>.</dd>
-<dt><a href="http://www.cplusplus.com/reference/sstream/stringstream/" title="std::stringstream">std::stringstream</a></dt>
-<dd>Flujo para operar sobre cadenas. Los objetos de esta clase permiten leer
-y escribir en un objeto <code>std::string</code>.</dd>
+<dt><strong>SIG_DFL</strong></dt>
+<dd>Ejecutar la acción por defecto, lo que en ocasiones implica terminar el proceso.</dd>
+<dt><strong>SIG_IGN</strong></dt>
+<dd>Ignorar la señal, lo que no es posible para todos los tipos de señales.</dd>
+<dt><strong>Invocar un manejador de señal</strong></dt>
+<dd>Invocar una función concreta del programa que actua como <em>manejador de la señal</em>
+para realizar las acciones que el programador considere oportunas.</dd>
 </dl>
-<p>ofreciéndonos una forma sencilla de almacenar o leer de la memoria del proceso
-los datos codificados en MP3, lo que facilitaría cuaĺquier tarea que quisiéramos
-realizar con ellos posteriormente.</p>
-<h2>QIODevice</h2>
-<p>En el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> ocurre algo muy parecido. Todas las clases diseñadas
-para acceder a dispositivos de entrada/salida reciben un objeto de la clase
-<a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>. Por ejemplo:</p>
-<dl>
-<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qtextstream.html" title="QTextStream">QTextStream</a></dt>
-<dd>Proporciona una interfaz adecuada para leer y escribir datos en
-formato texto desde un <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
-<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qdatastream.html" title="QDataStream">QDataStream</a></dt>
-<dd>Proporciona una interfaz adecuada para leer y escribir datos binarios
-desde un <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
-<dt><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a></dt>
-<dd>Proporciona una interfaz independiente del formato para leer archivos de
-imágenes desde un dispositivo <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
-<dt><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter">QImageWriter</a></dt>
-<dd>Proporciona una interfaz independiente del formato para escribir archivos de
-imágenes desde un dispositivo <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
-<dt><a href="../como-usar-qmovie-en-qt.html" title="QMovie">QMovie</a></dt>
-<dd>Es una clase diseñada para reproducir películas leidas con <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>
-desde un <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>.</dd>
-</dl>
-<p>La clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> no se instancia directamente para crear objetos, sino que
-su función es definir una interfaz genérica válida para todo tipo de
-dispositivos de entrada/salida. En el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> diversas clases
-heredan de esta, implementando la interfaz <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> para un dispositivo
-concreto:</p>
-<dl>
-<dt><a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtcpsocket.html" title="QTcpSocket">QTcpSocket</a></dt>
-<dd>Es una clase heredera de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> que permite establecer una conexión
-TCP y transferir flujos de datos a través de ella.</dd>
-<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qfile.html" title="QFile">QFile</a></dt>
-<dd>Es una clase heredera de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> para leer y escribir archivos de texto
-y binarios, así como <a href="http://qt-project.org/doc/qt-5.0/qtcore/resources.html">recursos de la aplicación</a>.</dd>
-<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qprocess.html" title="QProcess">QProcess</a></dt>
-<dd>Es una clase heredera de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> que permite ejecutar un programa externo
-y comunicarnos con él.</dd>
-<dt><a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a></dt>
-<dd>Es una clase heredera de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a> que implementa dicha interfaz de
-dispositivos sobre un <a href="http://qt-project.org/doc/qt-5.0/qtcore/qbytearray.html" title="QByteArray">QByteArray</a>. Ésta es una clase que provee una interfaz
-para manipular un <em>array</em> de bytes en la memoria.</dd>
-</dl>
-<h2>Ejemplos con imágenes</h2>
-<p>Para ilustrar lo comentado vamos a codificar y decodificar una imagen <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>
-directamente desde la memoria.</p>
-<h3>Codificando una imagen en la memoria</h3>
-<p>Supongamos que <code>image</code> es un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a> que queremos codificar en formato
-PNG, guardando el resultado en un <em>array</em> en la memoria para su procesamiento
-posterior (p. ej. para transmitirlo a través de una red de comunicaciones).</p>
-<p>Hacerlo es tan sencillo como incorporar las siguientes líneas al programa:</p>
-<div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
-<span class="n">image</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;png&quot;</span><span class="p">);</span>
+<p>Esto último es interesante porque permite realizar las acciones necesarias para
+que el programa termine en condiciones seguras. Por ejemplo: borrar archivos
+temporales, asegurar que los datos se escriben en disco y su estructura es
+consistente, terminar procesos hijo a los que se les haya delegado parte del
+trabajo, etc.</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="nf">signalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">signum</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Señal (&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">signum</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) recibida.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// Terminar el programa</span>
+    <span class="n">exit</span><span class="p">(</span><span class="n">signum</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 
 
-<p>Como hemos comentado, <a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a> es un clase heredada de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice">QIODevice</a>, por lo
-que podemos usarla allí donde se requiera un dispositivo de entrada/salida.
-Por defecto los objetos de <a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a> se crean con un <em>buffer</em> interno de tipo
-<a href="http://qt-project.org/doc/qt-5.0/qtcore/qbytearray.html" title="QByteArray">QByteArray</a>, al que podemos acceder directamente invocando el método
-<a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html#buffer" title="QBuffer::buffer()">buffer</a>(). Por ejemplo:</p>
-<div class="codehilite"><pre><span class="n">QByteArray</span> <span class="n">bytes</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">buffer</span><span class="p">();</span>
+<h2>Seguridad respecto a las señales</h2>
+<p>Sin embargo debemos de tener presente que las <em>señales POSIX</em> pueden llegar en
+cualquier momento, interrumpiendo la secuencia normal de instrucciones del
+proceso. Por lo tanto los <em>manejadores de señal</em> son invocados de forma asíncrona
+respecto a la ejecución del proceso, lo que introduce problemas de concurrencia
+debido al posible acceso del manejador a datos que esten siendo manipulados por
+el programa.</p>
+<p>Por ello:</p>
+<ul>
+<li>El estándar POSIX establece que desde una manejador de señal sólo se pueden
+invocar funciones seguras respecto a la asincronicidad de las señales:<ul>
+<li>Estas funciones son aquellas que o son <em>reentrantes</em><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> o no interrumpibles<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>
+respecto a las señales.</li>
+<li>Sólo <a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">unas pocas</a>
+funciones de la librería del sistema cumplen con dicho requisito.</li>
+</ul>
+</li>
+<li>
+<p>Incluso si se usan variables como banderas para notificar desde el manejador
+al programa principal que ha ocurrido una señal, con el objeto de que éste último
+ejecute las acciones necesarias, debemos especificar al compilador que no
+utilice con esas variables optimizaciones que puedan dar problemas de la
+concurrencia.</p>
+<div class="codehilite"><pre><span class="c1">// volatile informa al compilador que no optimice el acceso a la</span>
+<span class="c1">// variable porque su valor puede cambiar en cualquier momento.</span>
+<span class="n">volatile</span> <span class="n">sig_atomic_t</span> <span class="n">waitingForQuit</span><span class="p">;</span>
 
-<span class="c1">// Guardamos en un string los primeros 6 bytes de la imagen en PNG</span>
-<span class="n">string</span> <span class="nf">pngHeader</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">constData</span><span class="p">(),</span> <span class="mi">6</span><span class="p">);</span>
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pngHeader</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="k">void</span> <span class="n">signalHandler</span><span class="p">(</span><span class="k">int</span> <span class="n">signum</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Indicar al programa principal que debe terminar</span>
+    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="p">...</span>
+    <span class="c1">// Configurar el manejador de señal</span>
+    <span class="n">signal</span><span class="p">(</span><span class="no">SIGINT</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
+    <span class="n">signal</span><span class="p">(</span><span class="no">SIGTERM</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
+    <span class="p">...</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mh">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">waitingForQuit</span> <span class="o">==</span> <span class="mh">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Terminar el proceso en condiciones seguras</span>
+            <span class="p">...</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mh">0</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 
-<p>lo que mostraría por la salida estándar algo como lo siguiente:</p>
-<div class="codehilite"><pre><span class="err">�</span><span class="n">PNG</span>
-</pre></div>
-
-
-<p>Esta forma de guardar los datos es adecuada cuando no necesitamos más control
-sobre las opciones del formato en cuestión. Si por el contrario queremos
-controlar el nivel de compresión, el de gamma o algunos otros parámetros
-específicos del formato, tendremos que emplear un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter">QImageWriter</a>:</p>
-<div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
-<span class="n">QImageWriter</span> <span class="nf">writer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
-<span class="n">writer</span><span class="p">.</span><span class="n">setFormat</span><span class="p">(</span><span class="s">&quot;jpeg&quot;</span><span class="p">);</span>
-<span class="n">writer</span><span class="p">.</span><span class="n">setCompression</span><span class="p">(</span><span class="mi">70</span><span class="p">);</span>
-<span class="n">writer</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">image</span><span class="p">)</span><span class="o">:</span>
-</pre></div>
-
-
-<h3>Decodificando una imagen almacenada en la memoria</h3>
-<p>Ahora hagámoslo en sentido inverso. Si tenemos un puntero <code>const char *bytes</code>
-a una zona de memoria con <code>size</code> bytes donde se almacena una imagen en formato
-PNG y queremos cargarla en un objeto <code>QImage</code>, sólo tenemos que asignar los
-datos a un objeto <code>QBuffer</code> y leer desde el:</p>
-<div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
-<span class="n">buffer</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
-<span class="n">QImage</span> <span class="nf">image</span><span class="p">();</span>
-<span class="n">image</span><span class="p">.</span><span class="n">setDevice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">);</span>
-<span class="n">image</span><span class="p">.</span><span class="n">setFormat</span><span class="p">(</span><span class="s">&quot;png&quot;</span><span class="p">);</span>
-<span class="n">image</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
-</pre></div>
-
-
-<p>o lo que es equivalente y mucho más simple:</p>
-<div class="codehilite"><pre><span class="n">QBuffer</span> <span class="n">buffer</span><span class="p">;</span>
-<span class="n">buffer</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
-<span class="n">image</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;png&quot;</span><span class="p">);</span>
-</pre></div>
-
-
-<h2>Referencias</h2>
+</li>
+<li>
+<p>En programas multihilo cualquier hilo en el que no se haya bloqueado una
+señal puede ser utilizado para atenderla. Eso introduce problemas adicionales
+de concurrencia que obligan al uso de <a href="../introduccion-al-uso-de-hilos-en-qt.html">cerrojos, semáforos y otros elementos
+de sincronización</a>.</p>
+</li>
+</ul>
+<p>Obviamente no hay seguridad de que las funciones del API de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> cumplan con
+los requisitos comentados anteriormente, por lo que no podemos invocarlas
+directamente desde los <em>manejadores de señal</em>.</p>
+<p>Además <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> no integra ninguna solución que encapsule y simplifique la gestión
+de <em>señales POSIX</em>, puesto que éstas no están disponibles en sistemas operativos
+que no soporten dicha especificación.</p>
+<h2>Usando manejadores de señales POSIX con Qt</h2>
+<p>Aun así en la documentación de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> se describe una forma de usar manejadores de
+señales POSIX. Realmente basta con que el <em>manejador de señal</em> haga algo
+que provoque que <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> emita una señal y después retorne. Al volver a la
+secuencia normal de ejecución del programa, se emitiría la señal de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>
+invocando el <em>slot</em> al que está conectada, desde donde se ejecutarían de forma
+segura las operaciones que fueran necesarias.</p>
+<p>Concretamente en el artículo
+<a href="http://doc.qt.digia.com/4.7/unix-signals.html">Calling Qt Functions From Unix Signal Handlers</a>
+se propone lo siguiente:</p>
 <ol>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qbuffer.html" title="QBuffer">QBuffer</a>.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qbytearray.html" title="QByteArray">QByteArray</a>.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage">QImage</a>.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter">QImageWriter</a>.</li>
-</ol></div>
+<li>
+<p>Declarar una clase que contenga que contenga los <em>manejadores de señal</em>,
+los <em>slots</em> y otros elementos que comentaremos a continuación.</p>
+<div class="codehilite"><pre><span class="n">class</span> <span class="n">MyDaemon</span> <span class="o">:</span> <span class="n">public</span> <span class="n">QObject</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
+
+    <span class="nl">public:</span>
+        <span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="o">~</span><span class="n">MyDaemon</span><span class="p">();</span>
+
+        <span class="c1">// Manejadores de señal POSIX</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="nf">hupSignalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">unused</span><span class="p">);</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="nf">termSignalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">unused</span><span class="p">);</span>
+
+    <span class="n">public</span> <span class="n">slots</span><span class="o">:</span>
+        <span class="c1">// Slots Qt donde atender las señales POSIX</span>
+        <span class="kt">void</span> <span class="n">handleSigHup</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="nf">handleSigTerm</span><span class="p">();</span>
+
+    <span class="nl">private:</span>
+        <span class="c1">// Pares de sockets. Un par por señal a manejar</span>
+        <span class="k">static</span> <span class="n">qintptr</span> <span class="n">sigHupSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+        <span class="k">static</span> <span class="n">qintptr</span> <span class="n">sigTermSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+        <span class="c1">// Objetos para monitorizar los pares de sockets</span>
+        <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigHupNotifier</span><span class="p">;</span>
+        <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigTermNotifier</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>En el constructor, para cada señal que se quiere manejar, se usa la llamada
+al sistema <a href="http://linux.die.net/man/2/socketpair" title="socketpair(2)">socketpair</a>() para crea una pareja de
+<a href="http://es.wikipedia.org/wiki/Socket_Unix">sockets de dominio UNIX</a> anonimos
+conectados entre sí. Al estar conectados desde el principio, lo que se escribe
+en uno de los <em>sockets</em> de la pareja se puede leer en el otro. Además se crea un
+objeto <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a> para uno de los sockets de cada pareja, con el objeto de
+monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso envía
+la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>().</p>
+<div class="codehilite"><pre><span class="n">MyDaemon</span><span class="o">::</span><span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span> <span class="o">:</span> <span class="n">QObject</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Crear las parejas de sockets UNIX</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigHupSd</span><span class="p">))</span>
+        <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create HUP socketpair&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigTermSd</span><span class="p">))</span>
+        <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create TERM socketpair&quot;</span><span class="p">);</span>
+
+    <span class="c1">// Crear los objetos para monitorizar uno de los socket</span>
+    <span class="c1">// de cada pareja.</span>
+    <span class="n">sigHupNotifier</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigHupFd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">QSocketNotifier</span><span class="o">::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
+    <span class="n">sigTermNotifier</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">QSocketNotifier</span><span class="o">::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
+
+    <span class="c1">// Conectar la señal activated() de cada objeto</span>
+    <span class="c1">// QSocketNotifier con el slot correspondiente. Esta señal</span>
+    <span class="c1">// será emitida cuando hayan datos para ser leidos en el</span>
+    <span class="c1">// socket monitorizado.</span>
+    <span class="n">connect</span><span class="p">(</span><span class="n">sigHupNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
+        <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigHup</span><span class="p">()));</span>
+    <span class="n">connect</span><span class="p">(</span><span class="n">sigTermNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
+        <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigTerm</span><span class="p">()));</span>
+
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Entonces los manejadores de señal lo único que tienen que hacer cuando son
+invocados es escribir <em>algo</em> en el <em>socket</em> correspondiente. Nótese que los
+métodos de los manejadores se declaran como <code>static</code> para que puedan ser pasados
+como un puntero de función de C a la llamada al sistema <a href="http://linux.die.net/man/2/sigaction" title="sigaction(2)">sigaction</a>(), cuando
+va a ser establecido el manejador de cada señal concreta:</p>
+<div class="codehilite"><pre><span class="c1">//</span>
+<span class="c1">// Manejador de la señal SIGHUP</span>
+<span class="c1">//</span>
+<span class="k">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">hupSignalHandler</span><span class="p">(</span><span class="k">int</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">//</span>
+<span class="c1">// Manejador de la señal SIGTERM</span>
+<span class="c1">//</span>
+<span class="k">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">(</span><span class="k">int</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">//</span>
+<span class="c1">// Configurar los manejadores de señal</span>
+<span class="c1">//</span>
+<span class="k">int</span> <span class="n">setupUnixSignalHandlers</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="o">::</span><span class="n">sigaction</span> <span class="n">hup</span><span class="p">,</span> <span class="n">term</span><span class="p">;</span>
+
+    <span class="n">hup</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">hupSignalHandler</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hup</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+    <span class="n">hup</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
+
+    <span class="c1">// Establecer manejador de la señal SIGHUP</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGHUP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hup</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mh">1</span><span class="p">;</span>
+
+    <span class="n">term</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">term</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+    <span class="n">term</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
+
+    <span class="c1">// Establecer manejador de la señal SIGTERM</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGTERM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">term</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mh">2</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mh">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Finalmente en los <em>slots</em> a los que conectamos la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>()
+se lee <em>lo escrito</em> desde el <em>manejador de señal</em>, para después hacer todo
+aquello que no se puede hacer desde dicho manejador de señal POSIX.</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigHup</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+
+    <span class="c1">// ...tu código aquí...</span>
+
+    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigTerm</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+
+    <span class="c1">// ...tu código aquí...</span>
+
+    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+</ol>
+<h1>Referencias</h1>
+<ol>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>.</li>
+<li><a href="http://doc.qt.digia.com/4.7/unix-signals.html">Calling Qt Functions From Unix Signal Handlers</a></li>
+<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Unix_signal">Unix signal</a></li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Una función es reentrante si puede ser interrumpida en medio de su ejecución
+y vuelta a llamar con total seguridad. En general una función es reentrante si
+no modifica variables estáticas o globales, no modifica su propio código y no
+llama a otras funciones que no sean reentrantes.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Una función puede ser no interrumplible respecto a la señales si al entrar
+en la función el programa bloquean las señales, desbloqueándolas antes de salir.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../uso-de-la-memoria-como-un-dispositivo-de-es.html"><h2>Uso de la memoria como un dispositivo de E/S</h2></a>
+        <div class= "well small"> mié 13 marzo 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Algunas libreras se diseñan específicamente para leer y/o escribir datos en
+dispositivos de entrada/salida. Por ejemplo, una librería desarrollada en C++ para
+codificar y decodificar archivos MP3 recibiría objetos <a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a> o
+<a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para indicar el flujo del que leer o en el que escribir los datos ...</p> <a class="btn btn-info xsmall" href="../uso-de-la-memoria-como-un-dispositivo-de-es.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -255,34 +479,13 @@ implementan operaciones usando los protocolos de nivel de aplicación más
 communes, como HTTP ...</p> <a class="btn btn-info xsmall" href="../qt-network.html">leer más</a></div>
     </div>	
 				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../hilos-de-trabajo-usando-senales-y-slots.html"><h2>Hilos de trabajo usando señales y slots</h2></a>
-        <div class= "well small"> lun 18 febrero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona clases para hilos y mecanismos de sincronización que facilitan
-sacar las tareas de larga duración del hilo principal de la aplicación, lo que
-de lo contrario bloquearía la interfaz de usuario.</p>
-<p>Una forma práctica de hacerlo la hemos visto <a href="../introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a>
-utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> provee ...</p> <a class="btn btn-info xsmall" href="../hilos-de-trabajo-usando-senales-y-slots.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
     <li class="active"><a href="../category/qt.html">1</a></li>
     <li class=""><a href="../category/qt2.html">2</a></li>
+    <li class=""><a href="../category/qt3.html">3</a></li>
 
     <li class="next"><a href="../category/qt2.html">Next &rarr;</a></li>
 

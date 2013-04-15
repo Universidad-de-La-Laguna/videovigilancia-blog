@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../hilos-de-trabajo-usando-senales-y-slots.html"><h1>Hilos de trabajo usando señales y slots</h1></a>
-            lun 18 febrero 2013
+            <a href="../aplicaciones-de-consola-con-qt.html"><h1>Aplicaciones de consola con Qt</h1></a>
+            jue 11 abril 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,183 +68,396 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona clases para hilos y mecanismos de sincronización que facilitan
-sacar las tareas de larga duración del hilo principal de la aplicación, lo que
-de lo contrario bloquearía la interfaz de usuario.</p>
-<p>Una forma práctica de hacerlo la hemos visto <a href="../introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a>
-utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> provee a cada hilo de una
-cola de mensajes, lo que permite enviar señales a <em>slots</em> en otros hilos. Esto
-nos proporciona una forma sencilla de pasar datos entre los hilos de la
-aplicación.</p>
-<p>Si no se indica lo contrario, las señales emitidas desde un hilo a un objeto
-en el mismo hilo son entregadas directamente. Es decir, que al emitir la señal
-se invoca el <em>slot</em> como si de un método convencional se tratara. Sin embargo
-si el emisor y el receptor residen en hilos diferentes, la señal es insertada
-en la cola de mensajes del hilo del objeto de destino. Así el <em>slot</em>
-correspondiente será invocado en el hilo receptor desde su bucle de mensajes.</p>
-<p>En la actualidad esta es la forma recomendada de usar hilos en <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> ya que
-permite evitar el uso de de mecanismos de sincronización como <a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex">QMutex</a>,
-<a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition">QWaitCondition</a>, etc.</p>
-<h2>El ejemplo. Ordenar números enteros</h2>
-<p>El ejemplo que vamos a seguir básicamente consiste en ordenar
-un vector de enteros en un hilo de trabajo distinto al hilo principal.</p>
-<p>Como se puede observar en la figura utilizaremos dos objetos, uno vinculado
-al hilo principal (clase <code>Sorter</code>) y otro al hilo de trabajo
-(clase <code>SorterWorker</code>). En una aplicación gráfica convencional con <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> la
-clase <code>Sorter</code> podría ser una ventana o cualquier otro control que
-quiera ceder una tarea al hilo de trabajo. Aquí no lo haremos así para
-que el ejemplo sea lo más sencillo posible.</p>
-<p><img src="https://docs.google.com/drawings/d/1tZ0CMTNJoLsbHx3TjgecQuRXGEM5hf3pYwm9_s1R8bI/pub?w=960&amp;h=720" alt="Ejemplo de comunicación entre hilos en Qt" class="centered"></p>
-<p>En <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> un objeto se dice que vive en el hilo en el que es creado. Esto se
-puede cambiar utilizando el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()">moveToThread</a>() que tienen todas las
-clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>.</p>
-<h2>La clase Sorter</h2>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Sorter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QObject</span>
-<span class="p">{</span>
-    <span class="n">Q_OBJECT</span>
+        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> es un <em>framework</em> utilizado fundamentalmente para desarrollar aplicaciones
+con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
+aplicaciones de linea de comandos.</p>
+<h1>QCoreApplication</h1>
+<p>Al crear un proyecto de aplicación para consola, el asistente de Qt Creator
+crea un archivo <code>main.cpp</code> con un contenido similar al siguiente:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;QCoreApplication&gt;</span>
 
-    <span class="nl">public:</span>
-        <span class="n">Sorter</span><span class="p">();</span>
-        <span class="o">~</span><span class="n">Sorter</span><span class="p">();</span>
-
-        <span class="c1">// Ordenar asíncronamente un vector en el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="nf">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">);</span>
-
-    <span class="nl">signals:</span>
-        <span class="c1">// Señal para comunicarnos con el hilo de trabajo</span>
-        <span class="kt">void</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
-
-    <span class="k">private</span> <span class="n">slots</span><span class="o">:</span>
-        <span class="c1">// Slot para saber cuando el vector ha sido ordenado</span>
-        <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
-
-    <span class="nl">private:</span>
-        <span class="c1">// Clase del hilo de trabajo</span>
-        <span class="n">QThread</span> <span class="n">workingThread_</span><span class="p">;</span>
-        <span class="c1">// Clase que hace el ordenamiento</span>
-        <span class="n">SorterWorker</span> <span class="n">sorterWorker_</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-
-
-<p>La propia clase <code>Sorter</code> se hará cargo de crear el hilo de trabajo, que por
-defecto lo único que hace es iterar en su propio bucle de mensajes. Todos
-los detalles acerca de la creación de hilos ya los vimos
-<a href="../introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a></p>
-<p>La clase <code>Sorter</code> provee un método <code>sortAsync()</code> que podrá ser llamado por
-los clientes para ordenar un vector de números enteros. Puesto que la operación
-es asíncrona, necesitamos definir un <em>slot</em> <code>vectorSorted()</code> para ser
-notificados cuando el ordenamiento haya finalizado con éxito.</p>
-<p>La implementación de esta clase sería la siguiente:</p>
-<div class="codehilite"><pre><span class="n">Sorter</span><span class="o">::</span><span class="n">Sorter</span><span class="p">()</span> <span class="o">:</span> <span class="n">QObject</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
-
-    <span class="c1">// Registrar los parámetros de la señales. Necesitamos registrar</span>
-    <span class="c1">// QList&lt;int&gt; porque no es un tipo conocido por el sistema de</span>
-    <span class="c1">// meta-objetos de Qt.</span>
-    <span class="n">qRegisterMetaType</span><span class="o">&lt;</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;QVector&lt;int&gt;&quot;</span><span class="p">);</span>
-
-    <span class="c1">// Pasar la petición de ordenar a la instancia de SorterWorker</span>
-    <span class="n">connect</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">sortingRequested</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)),</span>
-        <span class="o">&amp;</span><span class="n">sorterWorker_</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">doSort</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)));</span>
-    <span class="c1">// Ser notificado cuando el vector haya sido ordenado</span>
-    <span class="n">connect</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sorterWorker_</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">vectorSorted</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)),</span>
-        <span class="k">this</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">vectorSorted</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)));</span>
-
-    <span class="c1">// Migrar la instancia de SorterWorker al hilo de trabajo</span>
-    <span class="n">sorterWorker_</span><span class="p">.</span><span class="n">moveToThread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">workingThread_</span><span class="p">);</span>
-
-    <span class="c1">// Iniciar el hilo de trabajo</span>
-    <span class="n">workingThread_</span><span class="p">.</span><span class="n">start</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="n">Sorter</span><span class="o">::~</span><span class="n">Sorter</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">// Le decimos al bucle de mensajes del hilo que se detenga</span>
-    <span class="n">workingThread_</span><span class="p">.</span><span class="n">quit</span><span class="p">();</span>
-    <span class="c1">// Ahora esperamos a que el hilo de trabajo termine</span>
-    <span class="n">workingThread_</span><span class="p">.</span><span class="n">wait</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">Sorter</span><span class="o">::</span><span class="n">sortAsync</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
-
-    <span class="n">emit</span> <span class="nf">sortingRequested</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">Sorter</span><span class="o">::</span><span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">list</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">list</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Como se puede observar, en el constructor de <code>Sorter</code> se usa el método
-<code>qRegisterMetaType()</code>, antes de conectar las señales, para registrar el tipo
-<code>QVector&lt;int&gt;</code>. Esto debe hacerse porque cuando una señal es encolada sus
-parámetros deben ser de tipos conocidos para <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, de forma que pueda
-almacenar los argumentos en la cola.</p>
-<p>Por otro lado en el destructor de <code>Sorter</code> tenemos cuidado de detener
-el hilo de trabajo en condiciones seguras cuando ya no va a ser necesario.
-Si no lo hacemos así, el hilo podría ser destruido por el sistema operativo
-en cualquier punto de la secuencia de instrucciones al termina la aplicación,
-lo que podría dejar los datos en uso en un estado indeterminado.</p>
-<h2>La clase SorterWorker</h2>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">SorterWorker</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QObject</span>
-<span class="p">{</span>
-    <span class="n">Q_OBJECT</span>
-
-    <span class="nl">signals:</span>
-        <span class="c1">// Señal emitida cuando el vector ha sido ordenado</span>
-        <span class="kt">void</span> <span class="n">vectorSorted</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">);</span>
-
-    <span class="k">public</span> <span class="n">slots</span><span class="o">:</span>
-        <span class="c1">// Método encargado del ordenamiento</span>
-        <span class="kt">void</span> <span class="n">doSort</span><span class="p">(</span><span class="k">const</span> <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">list</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">Q_FUNC_INFO</span> <span class="o">&lt;&lt;</span> <span class="n">QThread</span><span class="o">::</span><span class="n">currentThreadId</span><span class="p">();</span>
-
-            <span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list_sorted</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
-            <span class="n">qSort</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
-            <span class="n">emit</span> <span class="nf">vectorSorted</span><span class="p">(</span><span class="n">list_sorted</span><span class="p">);</span>
-        <span class="p">}</span>
-<span class="p">};</span>
-</pre></div>
-
-
-<h2>Como usar el ejemplo</h2>
-<p>Para usar el ejemplo sólo necesitamos crear una instancia de <code>Sorter</code> y
-llamar a su método <code>sortAsync()</code> para pedir que ordene el vector especificado.</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
-
-    <span class="n">Sorter</span> <span class="n">sorter</span><span class="p">;</span>
-    <span class="n">sorter</span><span class="p">.</span><span class="n">sortAsync</span><span class="p">(</span><span class="n">QVector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">);</span>
 
     <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<h2>Referencias</h2>
+<p><a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a> es una clase que provee un bucle de mensaje para aplicaciones
+de consola, mientras que para aplicaciones gráficas lo adecuado es usar <a href="http://qt-project.org/doc/qt-5.0/qtcore/qapplication.html" title="QApplication">QApplication</a>.
+El bucle de mensajes es iniciado con la invocación del método
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#exec" title="QApplication::exec">exec</a>(), que no retorna hasta que la aplicación finaliza.
+Por ejemplo cuando el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#quit" title="QApplication::quit">quit</a>() es llamado.</p>
+<p>Si la aplicación no necesita de un bucle de mensajes, no es necesario instanciar
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>, pudiendo desarrollarla como cualquier programa convencional
+en C++, sólo que beneficiándonos de las facilidades ofrecidas por las clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
+<p>Las clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> que requieren disponer de un bucle de mensajes son:</p>
+<ul>
+<li><strong>Controles, ventanas y en general todas las relacionadas con el GUI</strong>.</li>
+<li><strong>Temporizadores</strong>.</li>
+<li><strong>Comunicación entre hilos mediante señales</strong>.</li>
+<li><strong>Red</strong>. Si se usan los métodos síncronos <code>waitFor*</code> se puede evitar el uso
+del bucle de mensajes, pero hay que tener en cuenta que las clases de comunicaciones
+de alto nivel (<code>QHttp</code>, <code>QFtp</code>, etc.) no ofrecen dicho API.</li>
+</ul>
+<h1>Entrada estándar</h1>
+<p>Muchas aplicaciones de consola interactúan con el usuario a través de la
+<em>entrada estándar</em>, para lo cual se pueden usar tanto las clases de la librería
+estándar de C++:</p>
+<div class="codehilite"><pre><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cint</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+</pre></div>
+
+
+<p>como los flujos de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>:</p>
+<div class="codehilite"><pre><span class="n">QTextStream</span> <span class="nf">qtin</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+<span class="n">QString</span> <span class="n">line</span> <span class="o">=</span> <span class="n">qtin</span><span class="p">.</span><span class="n">readLine</span><span class="p">();</span>
+</pre></div>
+
+
+<p>Sin embargo es necesario tener presente que en ambos casos el hilo principal
+se puede bloquear durante la lectura (hasta que hayan datos que leer) lo que
+impediría la ejecución del bucle de mensajes.</p>
+<p>Para evitarlo se puede delegar la lectura de la <em>entrada estándar</em> a otro hilo,
+que se comunicaría con el principal para informar de las acciones del usuario
+a través del mecanismo de señales y <em>slots</em> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. El procedimiento sería muy
+similar al que comentamos en
+<a href="../hilos-de-trabajo-usando-senales-y-slots.html">una entrada anterior</a>, sólo que
+para leer la <em>entrada estándar</em> en lugar de para ordenar un vector de enteros.</p>
+<h1>Manejo de señales</h1>
+<p>Los sistemas operativos compatibles POSIX implementan un tipo de interrupción
+por software conocido como <em>señales POSIX</em>. Estas son enviadas a los procesos
+para informar de situaciones excepcionales durante la ejecución del programa, como
+por ejemplo:</p>
+<dl>
+<dt><strong>SIGSEGV</strong></dt>
+<dd>Acceso a una dirección de memoria no válida.</dd>
+<dt><strong>SIGFPE</strong></dt>
+<dd>Intento de ejecutar una operación aritmética inválida, como por ejemplo una
+división por cero.</dd>
+<dt><strong>SIGILL</strong></dt>
+<dd>Intento de ejecutar una instrucción ilegal.</dd>
+<dt><strong>SIGCHLD</strong></dt>
+<dd>Notificación de terminación de algún proceso hijo.</dd>
+<dt><strong>SIGTERM</strong></dt>
+<dd>Notificación de que se ha solicitado la terminación del proceso.</dd>
+<dt><strong>SIGINT</strong></dt>
+<dd>Notificación de que el proceso está controlado por una terminal y el usuario
+quiere interrumpirlo. Generalmente esta señal es motivada por la pulsación de
+la combinación de teclas <code>Ctrl-C</code> en la terminal desde la que se controla el
+proceso.</dd>
+</dl>
+<p>Todas éstas sólo son una pequeña muestra de una <a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">lista</a>
+mucho más larga.</p>
+<p>Para cada tipo de señal el proceso puede especificar una <a href="http://pubs.opengroup.org/onlinepubs/000095399/functions/xsh_chap02_04.html#tag_02_04_03" title="Signal Actions">acción</a> diferente:</p>
+<dl>
+<dt><strong>SIG_DFL</strong></dt>
+<dd>Ejecutar la acción por defecto, lo que en ocasiones implica terminar el proceso.</dd>
+<dt><strong>SIG_IGN</strong></dt>
+<dd>Ignorar la señal, lo que no es posible para todos los tipos de señales.</dd>
+<dt><strong>Invocar un manejador de señal</strong></dt>
+<dd>Invocar una función concreta del programa que actua como <em>manejador de la señal</em>
+para realizar las acciones que el programador considere oportunas.</dd>
+</dl>
+<p>Esto último es interesante porque permite realizar las acciones necesarias para
+que el programa termine en condiciones seguras. Por ejemplo: borrar archivos
+temporales, asegurar que los datos se escriben en disco y su estructura es
+consistente, terminar procesos hijo a los que se les haya delegado parte del
+trabajo, etc.</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="nf">signalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">signum</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Señal (&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">signum</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) recibida.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// Terminar el programa</span>
+    <span class="n">exit</span><span class="p">(</span><span class="n">signum</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2>Seguridad respecto a las señales</h2>
+<p>Sin embargo debemos de tener presente que las <em>señales POSIX</em> pueden llegar en
+cualquier momento, interrumpiendo la secuencia normal de instrucciones del
+proceso. Por lo tanto los <em>manejadores de señal</em> son invocados de forma asíncrona
+respecto a la ejecución del proceso, lo que introduce problemas de concurrencia
+debido al posible acceso del manejador a datos que esten siendo manipulados por
+el programa.</p>
+<p>Por ello:</p>
+<ul>
+<li>El estándar POSIX establece que desde una manejador de señal sólo se pueden
+invocar funciones seguras respecto a la asincronicidad de las señales:<ul>
+<li>Estas funciones son aquellas que o son <em>reentrantes</em><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> o no interrumpibles<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>
+respecto a las señales.</li>
+<li>Sólo <a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">unas pocas</a>
+funciones de la librería del sistema cumplen con dicho requisito.</li>
+</ul>
+</li>
+<li>
+<p>Incluso si se usan variables como banderas para notificar desde el manejador
+al programa principal que ha ocurrido una señal, con el objeto de que éste último
+ejecute las acciones necesarias, debemos especificar al compilador que no
+utilice con esas variables optimizaciones que puedan dar problemas de la
+concurrencia.</p>
+<div class="codehilite"><pre><span class="c1">// volatile informa al compilador que no optimice el acceso a la</span>
+<span class="c1">// variable porque su valor puede cambiar en cualquier momento.</span>
+<span class="n">volatile</span> <span class="n">sig_atomic_t</span> <span class="n">waitingForQuit</span><span class="p">;</span>
+
+<span class="k">void</span> <span class="n">signalHandler</span><span class="p">(</span><span class="k">int</span> <span class="n">signum</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Indicar al programa principal que debe terminar</span>
+    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="p">...</span>
+    <span class="c1">// Configurar el manejador de señal</span>
+    <span class="n">signal</span><span class="p">(</span><span class="no">SIGINT</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
+    <span class="n">signal</span><span class="p">(</span><span class="no">SIGTERM</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
+    <span class="p">...</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mh">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">waitingForQuit</span> <span class="o">==</span> <span class="mh">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Terminar el proceso en condiciones seguras</span>
+            <span class="p">...</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mh">0</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>En programas multihilo cualquier hilo en el que no se haya bloqueado una
+señal puede ser utilizado para atenderla. Eso introduce problemas adicionales
+de concurrencia que obligan al uso de <a href="../introduccion-al-uso-de-hilos-en-qt.html">cerrojos, semáforos y otros elementos
+de sincronización</a>.</p>
+</li>
+</ul>
+<p>Obviamente no hay seguridad de que las funciones del API de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> cumplan con
+los requisitos comentados anteriormente, por lo que no podemos invocarlas
+directamente desde los <em>manejadores de señal</em>.</p>
+<p>Además <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> no integra ninguna solución que encapsule y simplifique la gestión
+de <em>señales POSIX</em>, puesto que éstas no están disponibles en sistemas operativos
+que no soporten dicha especificación.</p>
+<h2>Usando manejadores de señales POSIX con Qt</h2>
+<p>Aun así en la documentación de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> se describe una forma de usar manejadores de
+señales POSIX. Realmente basta con que el <em>manejador de señal</em> haga algo
+que provoque que <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> emita una señal y después retorne. Al volver a la
+secuencia normal de ejecución del programa, se emitiría la señal de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>
+invocando el <em>slot</em> al que está conectada, desde donde se ejecutarían de forma
+segura las operaciones que fueran necesarias.</p>
+<p>Concretamente en el artículo
+<a href="http://doc.qt.digia.com/4.7/unix-signals.html">Calling Qt Functions From Unix Signal Handlers</a>
+se propone lo siguiente:</p>
 <ol>
-<li><a href="../introduccion-al-uso-de-hilos-en-qt.html">Introducción al uso de hilos en Qt</a></li>
-<li><a href="http://cdumez.blogspot.com.es/2011/03/worker-thread-in-qt-using-signals-slots.html">Worker Thread in Qt using Signals &amp; Slots</a></li>
+<li>
+<p>Declarar una clase que contenga que contenga los <em>manejadores de señal</em>,
+los <em>slots</em> y otros elementos que comentaremos a continuación.</p>
+<div class="codehilite"><pre><span class="n">class</span> <span class="n">MyDaemon</span> <span class="o">:</span> <span class="n">public</span> <span class="n">QObject</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
+
+    <span class="nl">public:</span>
+        <span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="o">~</span><span class="n">MyDaemon</span><span class="p">();</span>
+
+        <span class="c1">// Manejadores de señal POSIX</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="nf">hupSignalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">unused</span><span class="p">);</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="nf">termSignalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">unused</span><span class="p">);</span>
+
+    <span class="n">public</span> <span class="n">slots</span><span class="o">:</span>
+        <span class="c1">// Slots Qt donde atender las señales POSIX</span>
+        <span class="kt">void</span> <span class="n">handleSigHup</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="nf">handleSigTerm</span><span class="p">();</span>
+
+    <span class="nl">private:</span>
+        <span class="c1">// Pares de sockets. Un par por señal a manejar</span>
+        <span class="k">static</span> <span class="n">qintptr</span> <span class="n">sigHupSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+        <span class="k">static</span> <span class="n">qintptr</span> <span class="n">sigTermSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+        <span class="c1">// Objetos para monitorizar los pares de sockets</span>
+        <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigHupNotifier</span><span class="p">;</span>
+        <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigTermNotifier</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>En el constructor, para cada señal que se quiere manejar, se usa la llamada
+al sistema <a href="http://linux.die.net/man/2/socketpair" title="socketpair(2)">socketpair</a>() para crea una pareja de
+<a href="http://es.wikipedia.org/wiki/Socket_Unix">sockets de dominio UNIX</a> anonimos
+conectados entre sí. Al estar conectados desde el principio, lo que se escribe
+en uno de los <em>sockets</em> de la pareja se puede leer en el otro. Además se crea un
+objeto <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a> para uno de los sockets de cada pareja, con el objeto de
+monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso envía
+la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>().</p>
+<div class="codehilite"><pre><span class="n">MyDaemon</span><span class="o">::</span><span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span> <span class="o">:</span> <span class="n">QObject</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Crear las parejas de sockets UNIX</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigHupSd</span><span class="p">))</span>
+        <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create HUP socketpair&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigTermSd</span><span class="p">))</span>
+        <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create TERM socketpair&quot;</span><span class="p">);</span>
+
+    <span class="c1">// Crear los objetos para monitorizar uno de los socket</span>
+    <span class="c1">// de cada pareja.</span>
+    <span class="n">sigHupNotifier</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigHupFd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">QSocketNotifier</span><span class="o">::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
+    <span class="n">sigTermNotifier</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">QSocketNotifier</span><span class="o">::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
+
+    <span class="c1">// Conectar la señal activated() de cada objeto</span>
+    <span class="c1">// QSocketNotifier con el slot correspondiente. Esta señal</span>
+    <span class="c1">// será emitida cuando hayan datos para ser leidos en el</span>
+    <span class="c1">// socket monitorizado.</span>
+    <span class="n">connect</span><span class="p">(</span><span class="n">sigHupNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
+        <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigHup</span><span class="p">()));</span>
+    <span class="n">connect</span><span class="p">(</span><span class="n">sigTermNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
+        <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigTerm</span><span class="p">()));</span>
+
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Entonces los manejadores de señal lo único que tienen que hacer cuando son
+invocados es escribir <em>algo</em> en el <em>socket</em> correspondiente. Nótese que los
+métodos de los manejadores se declaran como <code>static</code> para que puedan ser pasados
+como un puntero de función de C a la llamada al sistema <a href="http://linux.die.net/man/2/sigaction" title="sigaction(2)">sigaction</a>(), cuando
+va a ser establecido el manejador de cada señal concreta:</p>
+<div class="codehilite"><pre><span class="c1">//</span>
+<span class="c1">// Manejador de la señal SIGHUP</span>
+<span class="c1">//</span>
+<span class="k">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">hupSignalHandler</span><span class="p">(</span><span class="k">int</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">//</span>
+<span class="c1">// Manejador de la señal SIGTERM</span>
+<span class="c1">//</span>
+<span class="k">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">(</span><span class="k">int</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">//</span>
+<span class="c1">// Configurar los manejadores de señal</span>
+<span class="c1">//</span>
+<span class="k">int</span> <span class="n">setupUnixSignalHandlers</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="o">::</span><span class="n">sigaction</span> <span class="n">hup</span><span class="p">,</span> <span class="n">term</span><span class="p">;</span>
+
+    <span class="n">hup</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">hupSignalHandler</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hup</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+    <span class="n">hup</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
+
+    <span class="c1">// Establecer manejador de la señal SIGHUP</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGHUP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hup</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mh">1</span><span class="p">;</span>
+
+    <span class="n">term</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">term</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+    <span class="n">term</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
+
+    <span class="c1">// Establecer manejador de la señal SIGTERM</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGTERM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">term</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mh">2</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mh">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Finalmente en los <em>slots</em> a los que conectamos la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>()
+se lee <em>lo escrito</em> desde el <em>manejador de señal</em>, para después hacer todo
+aquello que no se puede hacer desde dicho manejador de señal POSIX.</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigHup</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+
+    <span class="c1">// ...tu código aquí...</span>
+
+    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigTerm</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+
+    <span class="c1">// ...tu código aquí...</span>
+
+    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+</ol>
+<h1>Referencias</h1>
+<ol>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>.</li>
+<li><a href="http://doc.qt.digia.com/4.7/unix-signals.html">Calling Qt Functions From Unix Signal Handlers</a></li>
+<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Unix_signal">Unix signal</a></li>
 </ol>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>Todas las clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> tienen como clase base <a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject">QObject</a> donde se
-implementan algunos métodos comunes como <a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject">QObject</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()">moveToThread</a>()&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Una función es reentrante si puede ser interrumpida en medio de su ejecución
+y vuelta a llamar con total seguridad. En general una función es reentrante si
+no modifica variables estáticas o globales, no modifica su propio código y no
+llama a otras funciones que no sean reentrantes.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Una función puede ser no interrumplible respecto a la señales si al entrar
+en la función el programa bloquean las señales, desbloqueándolas antes de salir.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../hilos-de-trabajo-usando-senales-y-slots.html"><h2>Hilos de trabajo usando señales y slots</h2></a>
+        <div class= "well small"> lun 18 febrero 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona clases para hilos y mecanismos de sincronización que facilitan
+sacar las tareas de larga duración del hilo principal de la aplicación, lo que
+de lo contrario bloquearía la interfaz de usuario.</p>
+<p>Una forma práctica de hacerlo la hemos visto <a href="../introduccion-al-uso-de-hilos-en-qt.html">anteriormente</a>
+utilizando un <em>buffer</em> compartido. Sin embargo <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> provee ...</p> <a class="btn btn-info xsmall" href="../hilos-de-trabajo-usando-senales-y-slots.html">leer más</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>

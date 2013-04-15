@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sistema de Videovigilancia from Scratch</title>
+    <title>Qt - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="./theme/html5.js"></script>
+    <script src="../theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="./theme/bootstrap.min.css" rel="stylesheet">
-    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="./theme/local.css" rel="stylesheet">
-    <link href="./theme/pygments.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,13 +32,13 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
-                    <li><a href="./pages/seminarios.html">Seminarios</a></li>
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
                         </ul>
         </div>
         
@@ -58,77 +58,31 @@
  
 
     <div class='article'>
-        <a href="./uso-de-la-memoria-como-un-dispositivo-de-es.html"><h2>Uso de la memoria como un dispositivo de E/S</h2></a>
-        <div class= "well small"> mié 13 marzo 2013
+        <a href="../como-usar-qmovie-en-qt.html"><h2>Como usar QMovie en Qt</h2></a>
+        <div class= "well small"> mié 13 febrero 2013
 
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
  </div>
-        <div class="summary"><p>Algunas libreras se diseñan específicamente para leer y/o escribir datos en
-dispositivos de entrada/salida. Por ejemplo, una librería desarrollada en C++ para
-codificar y decodificar archivos MP3 recibiría objetos <a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a> o
-<a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para indicar el flujo del que leer o en el que escribir los datos ...</p> <a class="btn btn-info xsmall" href="./uso-de-la-memoria-como-un-dispositivo-de-es.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./implementando-un-protocolo-con-protocol-buffers.html"><h2>Implementando un protocolo con Protocol Buffers</h2></a>
-        <div class= "well small"> mar 05 marzo 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="./protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a> es un mecanismo sencillo para serializar estructuras de
-datos, de tal forma que los datos así codificados pueden ser almacenados
-o enviados a través de una red de comunicaciones. Esto nos ofrece una forma
-sencilla de crear nuestro propio protocolo de comunicaciones, adaptado a las
-necesidades de un ...</p> <a class="btn btn-info xsmall" href="./implementando-un-protocolo-con-protocol-buffers.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./qt-network.html"><h2>Qt Network</h2></a>
-        <div class= "well small"> lun 04 marzo 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona un conjunto de API de comunicaciones a través del módulo
-<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>. Este ofrece tanto clases de bajo nivel para comunicación
-mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
-implementan operaciones usando los protocolos de nivel de aplicación más
-communes, como HTTP ...</p> <a class="btn btn-info xsmall" href="./qt-network.html">leer más</a></div>
+        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> trae una clase denominada <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> que facilita mostrar pequeñas
+animaciones sin mucho esfuerzo.</p>
+<p><a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> está diseñada para ser independiente del formato de archivo pero como
+internamente depende de <a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader">QImageReader</a>, sólo puede utilizarse con los que esta
+última soporta (véase <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#supportedFormats" title="QMovie::supportedFormats()">supportedFormats</a>()). Esto incluye GIF
+animados, archivos MNG y MJPEG ...</p> <a class="btn btn-info xsmall" href="../como-usar-qmovie-en-qt.html">leer más</a></div>
     </div>	
 				
             <div class="pagination">
 <ul>
-    <li class="prev"><a href="./index.html">&larr; Previous</a></li>
+    <li class="prev"><a href="../category/qt2.html">&larr; Previous</a></li>
 
-    <li class=""><a href="./index.html">1</a></li>
-    <li class="active"><a href="./index2.html">2</a></li>
-    <li class=""><a href="./index3.html">3</a></li>
-    <li class=""><a href="./index4.html">4</a></li>
-    <li class=""><a href="./index5.html">5</a></li>
-    <li class=""><a href="./index6.html">6</a></li>
-    <li class=""><a href="./index7.html">7</a></li>
+    <li class=""><a href="../category/qt.html">1</a></li>
+    <li class=""><a href="../category/qt2.html">2</a></li>
+    <li class="active"><a href="../category/qt3.html">3</a></li>
 
-    <li class="next"><a href="./index3.html">Next &rarr;</a></li>
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 
 </ul>
 </div>    
@@ -145,8 +99,8 @@ communes, como HTTP ...</p> <a class="btn btn-info xsmall" href="./qt-network.ht
                 Sitio
                 </li>
             
-                <li><a href="./archives.html">Archivos</a>
-                <li><a href="./tags.html">Etiquetas</a>
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -159,12 +113,12 @@ communes, como HTTP ...</p> <a class="btn btn-info xsmall" href="./qt-network.ht
                 Categorias
                 </li>
                 
-                                <li><a href="./category/comunicaciones.html">Comunicaciones</a></li>
-                                <li><a href="./category/hardware.html">Hardware</a></li>
-                                <li><a href="./category/linux.html">Linux</a></li>
-                                <li><a href="./category/overviews.html">Overviews</a></li>
-                                <li><a href="./category/qt.html">Qt</a></li>
-                                <li><a href="./category/vision.html">Visión</a></li>
+                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
+                                <li><a href="../category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>
