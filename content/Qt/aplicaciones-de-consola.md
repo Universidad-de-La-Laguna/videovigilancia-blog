@@ -1,5 +1,5 @@
 Title: Aplicaciones de consola con Qt
-Tags: qt, qcoreapplication, consola, señales, hilos
+Tags: qt, qcoreapplication, consola, terminal, señales, hilos, signal, sigaction, qsocketnotifier, volatile
 Date: 2013-04-11
 PlusActivityId: z121cpzhspqrxbucs22egliyvmyrubrkf
 
