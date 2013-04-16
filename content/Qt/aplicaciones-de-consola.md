@@ -137,7 +137,7 @@ Sin embargo debemos de tener presente que las _señales POSIX_ pueden llegar en
 cualquier momento, interrumpiendo la secuencia normal de instrucciones del
 proceso. Por lo tanto los _manejadores de señal_ son invocados de forma asíncrona
 respecto a la ejecución del proceso, lo que introduce problemas de concurrencia
-debido al posible acceso del manejador a datos que esten siendo manipulados por
+debido al posible acceso del manejador a datos que estén siendo manipulados por
 el programa.
 
 Por ello:
@@ -210,8 +210,8 @@ Concretamente en el artículo
 [Calling Qt Functions From Unix Signal Handlers](http://doc.qt.digia.com/4.7/unix-signals.html)
 se propone lo siguiente:
 
- 1. Declarar una clase que contenga que contenga los _manejadores de señal_,
-los _slots_ y otros elementos que comentaremos a continuación.
+ 1. Declarar una clase que contenga los _manejadores de señal_, los _slots_ y
+otros elementos que comentaremos a continuación.
 
         class MyDaemon : public QObject
         {
@@ -241,8 +241,8 @@ los _slots_ y otros elementos que comentaremos a continuación.
         };
 
  2. En el constructor, para cada señal que se quiere manejar, se usa la llamada
-al sistema [socketpair][]() para crea una pareja de
-[sockets de dominio UNIX](http://es.wikipedia.org/wiki/Socket_Unix) anonimos
+al sistema [socketpair][]() para crear una pareja de
+[sockets de dominio UNIX](http://es.wikipedia.org/wiki/Socket_Unix) anónimos
 conectados entre sí. Al estar conectados desde el principio, lo que se escribe
 en uno de los _sockets_ de la pareja se puede leer en el otro. Además se crea un
 objeto [QSocketNotifier] para uno de los sockets de cada pareja, con el objeto de
@@ -364,8 +364,8 @@ aquello que no se puede hacer desde dicho manejador de señal POSIX.
 y vuelta a llamar con total seguridad. En general una función es reentrante si
 no modifica variables estáticas o globales, no modifica su propio código y no
 llama a otras funciones que no sean reentrantes.
-[^2]: Una función puede ser no interrumplible respecto a la señales si al entrar
-en la función el programa bloquean las señales, desbloqueándolas antes de salir.
+[^2]: Una función puede ser no interrumpible respecto a las señales si al entrar
+en la función el programa las bloquea, desbloqueándolas antes de salir.
 
 [Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
 [QCoreApplication]: http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html "QCoreApplication"
