@@ -1,6 +1,7 @@
 Title: Aplicaciones de consola con Qt
 Tags: qt, qcoreapplication, consola, señales, hilos
 Date: 2013-04-11
+PlusActivityId: z121cpzhspqrxbucs22egliyvmyrubrkf
 
 [Qt] es un _framework_ utilizado fundamentalmente para desarrollar aplicaciones
 con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
