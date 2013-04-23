@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../aplicaciones-de-consola-con-qt.html"><h1>Aplicaciones de consola con Qt</h1></a>
-            jue 11 abril 2013
+            <a href="../make-install-con-qmake.html"><h1>Make install con qmake</h1></a>
+            lun 22 abril 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,374 +68,180 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> es un <em>framework</em> utilizado fundamentalmente para desarrollar aplicaciones
-con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
-aplicaciones de linea de comandos.</p>
-<h1>QCoreApplication</h1>
-<p>Al crear un proyecto de aplicación para consola, el asistente de Qt Creator
-crea un archivo <code>main.cpp</code> con un contenido similar al siguiente:</p>
-<div class="codehilite"><pre><span class="cp">#include &lt;QCoreApplication&gt;</span>
-
-<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
-<span class="p">}</span>
+        <div><p>Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios medios la manera de definir un proyecto de software y el proceso de construcción del mismo. Sin embargo <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> sigue siendo ámpliamente utilizado para este propósito, especialmente en los sistemas UNIX y derivados.</p>
+<h1>Make</h1>
+<p>Para usar <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> cada proyecto debe ir acompañado de un fichero <code>Makefile</code> donde se incluyen las reglas para la compilación y enlazado de las librerías y ejecutables del mismo. Estás reglas fijan que es lo que hay que hacer —que comandos ejecutar y como hacerlo— para obtener cada producto del proceso de construcción, así como las dependencias de estos con respecto a otros productos o a los distintos archivos de código fuente del proyecto. Además se pueden incluir reglas para automatizar tareas tales como generar la documentación; instalar o desplegar los programas, las librerías, la documentación y otros productos generados; o limpiar el proyecto, borrando archivos temporales y subproductos de la compilación.</p>
+<p>Cuando la construcción de un proyecto ha sido automatizada adecuadamente con <code>make</code>, la compilación del mismo se reduce a ejecutar el comando:</p>
+<div class="codehilite"><pre><span class="nv">$ </span>make
 </pre></div>
 
 
-<p><a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a> es una clase que provee un bucle de mensaje para aplicaciones
-de consola, mientras que para aplicaciones gráficas lo adecuado es usar <a href="http://qt-project.org/doc/qt-5.0/qtcore/qapplication.html" title="QApplication">QApplication</a>.
-El bucle de mensajes es iniciado con la invocación del método
-<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#exec" title="QApplication::exec">exec</a>(), que no retorna hasta que la aplicación finaliza.
-Por ejemplo cuando el método <a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#quit" title="QApplication::quit">quit</a>() es llamado.</p>
-<p>Si la aplicación no necesita de un bucle de mensajes, no es necesario instanciar
-<a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>, pudiendo desarrollarla como cualquier programa convencional
-en C++, sólo que beneficiándonos de las facilidades ofrecidas por las clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
-<p>Las clases de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> que requieren disponer de un bucle de mensajes son:</p>
-<ul>
-<li><strong>Controles, ventanas y en general todas las relacionadas con el GUI</strong>.</li>
-<li><strong>Temporizadores</strong>.</li>
-<li><strong>Comunicación entre hilos mediante señales</strong>.</li>
-<li><strong>Red</strong>. Si se usan los métodos síncronos <code>waitFor*</code> se puede evitar el uso
-del bucle de mensajes, pero hay que tener en cuenta que las clases de comunicaciones
-de alto nivel (<code>QHttp</code>, <code>QFtp</code>, etc.) no ofrecen dicho API.</li>
-</ul>
-<h1>Entrada estándar</h1>
-<p>Muchas aplicaciones de consola interactúan con el usuario a través de la
-<em>entrada estándar</em>, para lo cual se pueden usar tanto las clases de la librería
-estándar de C++:</p>
-<div class="codehilite"><pre><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cint</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+<p>el directorio del proyecto. Siendo su instalación igual de sencilla:</p>
+<div class="codehilite"><pre><span class="nv">$ </span>make install
 </pre></div>
 
 
-<p>como los flujos de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>:</p>
-<div class="codehilite"><pre><span class="n">QTextStream</span> <span class="n">qtin</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
-<span class="n">QString</span> <span class="n">line</span> <span class="o">=</span> <span class="n">qtin</span><span class="p">.</span><span class="n">readLine</span><span class="p">();</span>
+<p>Obviamente entornos integrados de desarrollo como Eclise, KDevelop, Code::Blocks o Visual Studio incorporan sus propias herramientas para automatizar la compilación de proyectos, que además se integran perfectamente con estos entornos gráficos. Sin embargo <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> suele estar disponible en cualquier sistema y puede ser utilizado independientemente de las preferencias de cada desarrollador acerca del entorno integrado con el que trabajar.</p>
+<p>Además <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> es una herramienta que fácilmente puede ser utilizada desde otras de más alto nivel. Por ejemplo, un sistema de construcción de paquetes como el que utilizan las distribuciones basadas en Debian automatiza todos los pasos, desde la descarga del código fuente hasta la generación del archivo <code>.deb</code>, pasando por invocar a <code>make</code> para compilar y a <code>make install</code> para que los productos de dicha construcción se instalen en su ubicación definitiva<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>, de donde son tomados para conformar el contenido del paquete del proyecto. De forma muy similar funciona <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Bitbake</a>, la herramienta de construcción que utiliza el proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> para generar distribuciones de Linux para sistemas empotrados, y así una larga lista de herramientas similares. Para todas ellas el poder automatizar la construcción de proyectos de software es fundamental, siendo éste un campo donde la solución orientada a línea de comandos de <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> se muestra mucho más flexible que las soluciones de interfaz gráfica integradas de los distintos entornos de desarrollo.</p>
+<h1>Qmake</h1>
+<p>Aunque <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> es una herramienta muy flexible, resulta muy compleja de utilizar, si no imposible, cuando se quiere crear software portable. Diferentes sistemas operativos pueden tener distintos compiladores, ya sean de diferentes fabricantes o en distintas versiones, u ofrecer a las aplicaciones diferentes funcionales —o las mismas pero de manera distintas—. Además un proyecto de software puede depender de otras librerías o programas, que nuevamente pueden ser de versiones diferentes o distintos desarrolladores. Y a todo eso hay que unir que según el sistema operativo la ubicación de librerías, programas y herramientas de desarrollo puede diferir.</p>
+<p>Enfrentar estas situaciones con <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> es extremadamente difícil, por lo que los desarrolladores suelen utilizar otras utilidades que se encarguen de buscar las herramientas de desarrollo y las dependencias del programa, detectar las funcionalidades del sistema y generar un archivo <code>Makefile</code> ajustado al sistema concreto donde se va a compilar.</p>
+<p>Herramientas de este tipo existen muchas. Por ejemplo Autotools<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>, CMake, SCons y <a href="http://en.wikipedia.org/wiki/Qmake" title="qmake">qmake</a>. Siendo esta última la que se usa preferentemente con las aplicaciones desarrolladas en <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, ya que sabe manejar perfectamente las singularidades de este <em>framework</em>.</p>
+<p>Con <a href="http://en.wikipedia.org/wiki/Qmake" title="qmake">qmake</a> las información requerida para construir un proyecto se define en un <a href="http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html" title="qmake Project Files">archivo de proyecto</a> que generalmente tienen extensión <code>.pro</code>. Al ejecutar <code>qmake</code> dentro del directorio de un proyecto, éste interpreta los archivos de proyecto y genera el <code>Makefile</code> correspondiente. Después sólo es necesario ejecutar el comando <code>make</code> para iniciar la compilación del mismo:</p>
+<div class="codehilite"><pre><span class="nv">$ </span>qmake
+<span class="nv">$ </span>make
+<span class="nv">$ </span>make install
 </pre></div>
 
 
-<p>Sin embargo es necesario tener presente que en ambos casos el hilo principal
-se puede bloquear durante la lectura (hasta que hayan datos que leer) lo que
-impediría la ejecución del bucle de mensajes.</p>
-<p>Para evitarlo se puede delegar la lectura de la <em>entrada estándar</em> a otro hilo,
-que se comunicaría con el principal para informar de las acciones del usuario
-a través del mecanismo de señales y <em>slots</em> de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>. El procedimiento sería muy
-similar al que comentamos en
-<a href="../hilos-de-trabajo-usando-senales-y-slots.html">una entrada anterior</a>, sólo que
-para leer la <em>entrada estándar</em> en lugar de para ordenar un vector de enteros.</p>
-<h1>Manejo de señales</h1>
-<p>Los sistemas operativos compatibles POSIX implementan un tipo de interrupción
-por software conocido como <em>señales POSIX</em>. Estas son enviadas a los procesos
-para informar de situaciones excepcionales durante la ejecución del programa, como
-por ejemplo:</p>
-<dl>
-<dt><strong>SIGSEGV</strong></dt>
-<dd>Acceso a una dirección de memoria no válida.</dd>
-<dt><strong>SIGFPE</strong></dt>
-<dd>Intento de ejecutar una operación aritmética inválida, como por ejemplo una
-división por cero.</dd>
-<dt><strong>SIGILL</strong></dt>
-<dd>Intento de ejecutar una instrucción ilegal.</dd>
-<dt><strong>SIGCHLD</strong></dt>
-<dd>Notificación de terminación de algún proceso hijo.</dd>
-<dt><strong>SIGTERM</strong></dt>
-<dd>Notificación de que se ha solicitado la terminación del proceso.</dd>
-<dt><strong>SIGINT</strong></dt>
-<dd>Notificación de que el proceso está controlado por una terminal y el usuario
-quiere interrumpirlo. Generalmente esta señal es motivada por la pulsación de
-la combinación de teclas <code>Ctrl-C</code> en la terminal desde la que se controla el
-proceso.</dd>
-</dl>
-<p>Todas éstas sólo son una pequeña muestra de una <a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">lista</a>
-mucho más larga.</p>
-<p>Para cada tipo de señal el proceso puede especificar una <a href="http://pubs.opengroup.org/onlinepubs/000095399/functions/xsh_chap02_04.html#tag_02_04_03" title="Signal Actions">acción</a> diferente:</p>
-<dl>
-<dt><strong>SIG_DFL</strong></dt>
-<dd>Ejecutar la acción por defecto, lo que en ocasiones implica terminar el proceso.</dd>
-<dt><strong>SIG_IGN</strong></dt>
-<dd>Ignorar la señal, lo que no es posible para todos los tipos de señales.</dd>
-<dt><strong>Invocar un manejador de señal</strong></dt>
-<dd>Invocar una función concreta del programa que actua como <em>manejador de la señal</em>
-para realizar las acciones que el programador considere oportunas.</dd>
-</dl>
-<p>Esto último es interesante porque permite realizar las acciones necesarias para
-que el programa termine en condiciones seguras. Por ejemplo: borrar archivos
-temporales, asegurar que los datos se escriben en disco y su estructura es
-consistente, terminar procesos hijo a los que se les haya delegado parte del
-trabajo, etc.</p>
-<div class="codehilite"><pre><span class="kt">void</span> <span class="n">signalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">signum</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Señal (&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">signum</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) recibida.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<h1>Reglas para make install</h1>
+<p>Realmente el último <code>make install</code> no sirve de mucho porque <a href="http://en.wikipedia.org/wiki/Qmake" title="qmake">qmake</a> por defecto no añade tareas a dicha regla en el archivo <code>Makefile</code>.</p>
+<p>Si queremos que al ejecutar <code>make install</code> se instalen los archivos de nuestra aplicación en las ubicaciones adecuadas<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup>, debemos instruir a <a href="http://en.wikipedia.org/wiki/Qmake" title="qmake">qmake</a> a través del <a href="http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html" title="qmake Project Files">archivo de proyecto</a> acerca de como se hace:</p>
+<div class="codehilite"><pre>unix {          # Esta configuración específica de Linux y UNIX
+    # Variables
+    #
+    isEmpty(PREFIX) {
+        PREFIX = /usr/local
+    }
+    BINDIR  = $$PREFIX/bin
+    DATADIR = $$PREFIX/share
+    CONFDIR = /etc
+    isEmpty(VARDIR) {
+        VARDIR  = /var/lib/$${TARGET}
+    }
 
-    <span class="c1">// Terminar el programa</span>
-    <span class="n">exit</span><span class="p">(</span><span class="n">signum</span><span class="p">);</span>
-<span class="p">}</span>
+    # Install
+    #
+    INSTALLS += target config desktop icon32 vardir
+
+    ## Instalar ejecutable
+    target.path = $$BINDIR
+
+    ## Instalar archivo de configuración
+    config.path = $$CONFDIR
+    config.files += $${TARGET}.ini
+
+    ## Instalar acceso directo en el menú del escritorio
+    desktop.path = $$DATADIR/applications
+    desktop.files += $${TARGET}.desktop
+
+    ## Instalar icono de aplicación
+    icon32.path = $$DATADIR/icons/hicolor/32x32/apps
+    icon32.files += ./data/32x32/$${TARGET}.png
+
+    ## Crear directorio de archivos variables
+    vardir.path = $$VARDIR
+    vardir.commands = :
+}
 </pre></div>
 
 
-<h2>Seguridad respecto a las señales</h2>
-<p>Sin embargo debemos de tener presente que las <em>señales POSIX</em> pueden llegar en
-cualquier momento, interrumpiendo la secuencia normal de instrucciones del
-proceso. Por lo tanto los <em>manejadores de señal</em> son invocados de forma asíncrona
-respecto a la ejecución del proceso, lo que introduce problemas de concurrencia
-debido al posible acceso del manejador a datos que estén siendo manipulados por
-el programa.</p>
-<p>Por ello:</p>
-<ul>
-<li>El estándar POSIX establece que desde una manejador de señal sólo se pueden
-invocar funciones seguras respecto a la asincronicidad de las señales:<ul>
-<li>Estas funciones son aquellas que o son <em>reentrantes</em><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> o no interrumpibles<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>
-respecto a las señales.</li>
-<li>Sólo <a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">unas pocas</a>
-funciones de la librería del sistema cumplen con dicho requisito.</li>
-</ul>
-</li>
-<li>
-<p>Incluso si se usan variables como banderas para notificar desde el manejador
-al programa principal que ha ocurrido una señal, con el objeto de que éste último
-ejecute las acciones necesarias, debemos especificar al compilador que no
-utilice con esas variables optimizaciones que puedan dar problemas de la
-concurrencia.</p>
-<div class="codehilite"><pre><span class="sr">//</span> <span class="n">volatile</span> <span class="n">informa</span> <span class="n">al</span> <span class="n">compilador</span> <span class="n">que</span> <span class="nb">no</span> <span class="n">optimice</span> <span class="n">el</span> <span class="n">acceso</span> <span class="n">a</span> <span class="n">la</span>
-<span class="sr">//</span> <span class="n">variable</span> <span class="n">porque</span> <span class="n">su</span> <span class="n">valor</span> <span class="n">puede</span> <span class="n">cambiar</span> <span class="n">en</span> <span class="n">cualquier</span> <span class="n">momento</span><span class="o">.</span>
-<span class="n">volatile</span> <span class="n">sig_atomic_t</span> <span class="n">waitingForQuit</span><span class="p">;</span>
-
-<span class="n">void</span> <span class="n">signalHandler</span><span class="p">(</span><span class="nb">int</span> <span class="n">signum</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="sr">//</span> <span class="n">Indicar</span> <span class="n">al</span> <span class="n">programa</span> <span class="n">principal</span> <span class="n">que</span> <span class="n">debe</span> <span class="n">terminar</span>
-    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nb">int</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="o">...</span>
-    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="o">...</span>
-    <span class="sr">//</span> <span class="n">Configurar</span> <span class="n">el</span> <span class="n">manejador</span> <span class="n">de</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span>
-    <span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
-    <span class="n">signal</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
-    <span class="o">...</span>
-    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="o">...</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">waitingForQuit</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="sr">//</span> <span class="n">Terminar</span> <span class="n">el</span> <span class="n">proceso</span> <span class="n">en</span> <span class="n">condiciones</span> <span class="n">seguras</span>
-            <span class="o">...</span>
-            <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>La variable <code>INSTALLS</code> debe contener una lista de los recursos que queremos que sean instalados con <code>make install</code>. De tal forma que cada elemento de la lista incorpora atributos que proporcionan información sobre dónde van a ser instalados.</p>
+<p>Por ejemplo, el elemento <code>target</code> representa a los ficheros resultado de la construcción del proyecto. Asignando una ruta a <code>target.path</code> estamos indicando donde queremos que sean instalados. De forma similar, el elemento <code>icon32</code> representa al icono de la aplicación en el escritorio. Asignando un valor a <code>icon32.path</code> estamos diciendo donde queremos que sea instalado, mientras que el valor del atributo <code>icon32.files</code> indica donde podemos encontrar el archivo o archivos del icono respecto al directorio del proyecto.</p>
+<h1>Definición de macros del preprocesador</h1>
+<p>Las variables que hemos definido dentro del <a href="http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html" title="qmake Project Files">archivo de proyecto</a> establecen la ubicación de los recursos del programa tras su instalación. Sería más complicado cometer errores si en nuestro código fuente usáramos directamente las rutas tal y como se definen en el <a href="http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html" title="qmake Project Files">archivo de proyecto</a>, sin tener que volver a definirlas en C++. Además eso daría pie a modificar la ruta de los archivos mediante la redefinición de variables en la línea de comandos de <a href="http://en.wikipedia.org/wiki/Qmake" title="qmake">qmake</a>, sin tener por ello que modificar el código fuente. Por ejemplo:</p>
+<div class="codehilite"><pre><span class="nv">$ </span>qmake <span class="nv">PREFIX</span><span class="o">=</span>/usr
 </pre></div>
 
 
-</li>
-<li>
-<p>En programas multihilo cualquier hilo en el que no se haya bloqueado una
-señal puede ser utilizado para atenderla. Eso introduce problemas adicionales
-de concurrencia que obligan al uso de <a href="../introduccion-al-uso-de-hilos-en-qt.html">cerrojos, semáforos y otros elementos
-de sincronización</a>.</p>
-</li>
-</ul>
-<p>Obviamente no hay seguridad de que las funciones del API de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> cumplan con
-los requisitos comentados anteriormente, por lo que no podemos invocarlas
-directamente desde los <em>manejadores de señal</em>.</p>
-<p>Además <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> no integra ninguna solución que encapsule y simplifique la gestión
-de <em>señales POSIX</em>, puesto que éstas no están disponibles en sistemas operativos
-que no soporten dicha especificación.</p>
-<h2>Usando manejadores de señales POSIX con Qt</h2>
-<p>Aun así en la documentación de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> se describe una forma de usar manejadores de
-señales POSIX. Realmente basta con que el <em>manejador de señal</em> haga algo
-que provoque que <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> emita una señal y después retorne. Al volver a la
-secuencia normal de ejecución del programa, se emitiría la señal de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>
-invocando el <em>slot</em> al que está conectada, desde donde se ejecutarían de forma
-segura las operaciones que fueran necesarias.</p>
-<p>Concretamente en el artículo
-<a href="http://doc.qt.digia.com/4.7/unix-signals.html">Calling Qt Functions From Unix Signal Handlers</a>
-se propone lo siguiente:</p>
-<ol>
-<li>
-<p>Declarar una clase que contenga los <em>manejadores de señal</em>, los <em>slots</em> y
-otros elementos que comentaremos a continuación.</p>
-<div class="codehilite"><pre><span class="n">class</span> <span class="n">MyDaemon</span> <span class="p">:</span> <span class="n">public</span> <span class="n">QObject</span>
-<span class="p">{</span>
-    <span class="n">Q_OBJECT</span>
+<p>ejecuta <a href="http://en.wikipedia.org/wiki/Qmake" title="qmake">qmake</a> usando el valor indicado para la variable <code>PREFIX</code>.</p>
+<p>Para conseguir esto sólo tenemos que utilizar la variable <code>DEFINES</code>, que nos permite listar un conjunto de macros del preprocesador<sup id="fnref:4"><a class="footnote-ref" href="#fn:4" rel="footnote">4</a></sup> que queremos que sean pasadas al compilador.</p>
+<div class="codehilite"><pre>unix {          # Esta configuración específica de Linux y UNIX
+    # Variables
+    #
+    isEmpty(PREFIX) {
+        PREFIX = /usr/local
+    }
+    BINDIR  = $$PREFIX/bin
+    DATADIR = $$PREFIX/share
+    CONFDIR = /etc
+    isEmpty(VARDIR) {
+        VARDIR  = /var/lib/$${TARGET}
+    }
 
-    <span class="n">public:</span>
-        <span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="o">~</span><span class="n">MyDaemon</span><span class="p">();</span>
+    DEFINES += APP_DATADIR=\\\&quot;$$DATADIR\\\&quot;
+    DEFINES += APP_VARDIR=\\\&quot;$$VARDIR\\\&quot;
+    DEFINES += APP_CONFFILE=\\\&quot;$$CONFDIR/$${TARGET}.ini\\\&quot;
 
-        <span class="sr">//</span> <span class="n">Manejadores</span> <span class="n">de</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">POSIX</span>
-        <span class="n">static</span> <span class="n">void</span> <span class="n">hupSignalHandler</span><span class="p">(</span><span class="nb">int</span> <span class="n">unused</span><span class="p">);</span>
-        <span class="n">static</span> <span class="n">void</span> <span class="n">termSignalHandler</span><span class="p">(</span><span class="nb">int</span> <span class="n">unused</span><span class="p">);</span>
+    # Install
+    #
+    INSTALLS += target config desktop icon32 vardir
 
-    <span class="n">public</span> <span class="n">slots:</span>
-        <span class="sr">//</span> <span class="n">Slots</span> <span class="n">Qt</span> <span class="n">donde</span> <span class="n">atender</span> <span class="n">las</span> <span class="n">se</span><span class="err">ñ</span><span class="n">ales</span> <span class="n">POSIX</span>
-        <span class="n">void</span> <span class="n">handleSigHup</span><span class="p">();</span>
-        <span class="n">void</span> <span class="n">handleSigTerm</span><span class="p">();</span>
+    ## Instalar ejecutable
+    target.path = $$BINDIR
 
-    <span class="n">private:</span>
-        <span class="sr">//</span> <span class="n">Pares</span> <span class="n">de</span> <span class="n">sockets</span><span class="o">.</span> <span class="n">Un</span> <span class="n">par</span> <span class="n">por</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">a</span> <span class="n">manejar</span>
-        <span class="n">static</span> <span class="n">qintptr</span> <span class="n">sigHupSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-        <span class="n">static</span> <span class="n">qintptr</span> <span class="n">sigTermSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    ## Instalar archivo de configuración
+    config.path = $$CONFDIR
+    config.files += $${TARGET}.ini
 
-        <span class="sr">//</span> <span class="n">Objetos</span> <span class="n">para</span> <span class="n">monitorizar</span> <span class="n">los</span> <span class="n">pares</span> <span class="n">de</span> <span class="n">sockets</span>
-        <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigHupNotifier</span><span class="p">;</span>
-        <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigTermNotifier</span><span class="p">;</span>
-<span class="p">};</span>
+    ## Instalar acceso directo en el menú del escritorio
+    desktop.path = $$DATADIR/applications
+    desktop.files += $${TARGET}.desktop
+
+    ## Instalar icono de aplicación
+    icon32.path = $$DATADIR/icons/hicolor/32x32/apps
+    icon32.files += ./data/32x32/$${TARGET}.png
+
+    ## Crear directorio de archivos variables
+    vardir.path = $$VARDIR
+    vardir.commands = :
+}
 </pre></div>
 
 
-</li>
-<li>
-<p>En el constructor, para cada señal que se quiere manejar, se usa la llamada
-al sistema <a href="http://linux.die.net/man/2/socketpair" title="socketpair(2)">socketpair</a>() para crear una pareja de
-<a href="http://es.wikipedia.org/wiki/Socket_Unix">sockets de dominio UNIX</a> anónimos
-conectados entre sí. Al estar conectados desde el principio, lo que se escribe
-en uno de los <em>sockets</em> de la pareja se puede leer en el otro. Además se crea un
-objeto <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a> para uno de los sockets de cada pareja, con el objeto de
-monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso envía
-la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>().</p>
-<div class="codehilite"><pre><span class="nn">MyDaemon::</span><span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span> <span class="p">:</span> <span class="n">QObject</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="sr">//</span> <span class="n">Crear</span> <span class="n">las</span> <span class="n">parejas</span> <span class="n">de</span> <span class="n">sockets</span> <span class="n">UNIX</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="nb">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigHupSd</span><span class="p">))</span>
-        <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create HUP socketpair&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="nb">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigTermSd</span><span class="p">))</span>
-        <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create TERM socketpair&quot;</span><span class="p">);</span>
-
-    <span class="sr">//</span> <span class="n">Crear</span> <span class="n">los</span> <span class="n">objetos</span> <span class="n">para</span> <span class="n">monitorizar</span> <span class="n">uno</span> <span class="n">de</span> <span class="n">los</span> <span class="nb">socket</span>
-    <span class="sr">//</span> <span class="n">de</span> <span class="n">cada</span> <span class="n">pareja</span><span class="o">.</span>
-    <span class="n">sigHupNotifier</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigHupFd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="nn">QSocketNotifier::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
-    <span class="n">sigTermNotifier</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="nn">QSocketNotifier::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
-
-    <span class="sr">//</span> <span class="n">Conectar</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">activated</span><span class="p">()</span> <span class="n">de</span> <span class="n">cada</span> <span class="n">objeto</span>
-    <span class="sr">//</span> <span class="n">QSocketNotifier</span> <span class="n">con</span> <span class="n">el</span> <span class="n">slot</span> <span class="n">correspondiente</span><span class="o">.</span> <span class="n">Esta</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span>
-    <span class="sr">//</span> <span class="n">ser</span><span class="err">á</span> <span class="n">emitida</span> <span class="n">cuando</span> <span class="n">hayan</span> <span class="n">datos</span> <span class="n">para</span> <span class="n">ser</span> <span class="n">leidos</span> <span class="n">en</span> <span class="n">el</span>
-    <span class="sr">//</span> <span class="nb">socket</span> <span class="n">monitorizado</span><span class="o">.</span>
-    <span class="nb">connect</span><span class="p">(</span><span class="n">sigHupNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="nb">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
-        <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigHup</span><span class="p">()));</span>
-    <span class="nb">connect</span><span class="p">(</span><span class="n">sigTermNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="nb">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
-        <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigTerm</span><span class="p">()));</span>
-
-    <span class="o">...</span>
-<span class="p">}</span>
+<p>Así, por ejemplo, dentro del código fuente se puede usar la macro <code>APP_CONFFILE</code> con la ruta al archivo de configuración de la aplicación para acceder a él mediante <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsettings.html" title="QSettings">QSettings</a>:</p>
+<div class="codehilite"><pre><span class="n">QSettings</span> <span class="nf">settings</span><span class="p">(</span><span class="n">APP_CONFFILE</span><span class="p">,</span> <span class="n">QSettings</span><span class="o">::</span><span class="n">IniFormat</span><span class="p">);</span>
 </pre></div>
 
 
-</li>
-<li>
-<p>Entonces los manejadores de señal lo único que tienen que hacer cuando son
-invocados es escribir <em>algo</em> en el <em>socket</em> correspondiente. Nótese que los
-métodos de los manejadores se declaran como <code>static</code> para que puedan ser pasados
-como un puntero de función de C a la llamada al sistema <a href="http://linux.die.net/man/2/sigaction" title="sigaction(2)">sigaction</a>(), cuando
-va a ser establecido el manejador de cada señal concreta:</p>
-<div class="codehilite"><pre><span class="sr">//</span>
-<span class="sr">//</span> <span class="n">Manejador</span> <span class="n">de</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">SIGHUP</span>
-<span class="sr">//</span>
-<span class="n">void</span> <span class="nn">MyDaemon::</span><span class="n">hupSignalHandler</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="o">::</span><span class="nb">write</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="sr">//</span>
-<span class="sr">//</span> <span class="n">Manejador</span> <span class="n">de</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">SIGTERM</span>
-<span class="sr">//</span>
-<span class="n">void</span> <span class="nn">MyDaemon::</span><span class="n">termSignalHandler</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="p">{</span>
-
-    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="o">::</span><span class="nb">write</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="sr">//</span>
-<span class="sr">//</span> <span class="n">Configurar</span> <span class="n">los</span> <span class="n">manejadores</span> <span class="n">de</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span>
-<span class="sr">//</span>
-<span class="nb">int</span> <span class="n">setupUnixSignalHandlers</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">struct</span> <span class="o">::</span><span class="n">sigaction</span> <span class="n">hup</span><span class="p">,</span> <span class="n">term</span><span class="p">;</span>
-
-    <span class="n">hup</span><span class="o">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nn">MyDaemon::</span><span class="n">hupSignalHandler</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hup</span><span class="o">.</span><span class="n">sa_mask</span><span class="p">);</span>
-    <span class="n">hup</span><span class="o">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="n">SA_RESTART</span><span class="p">;</span>
-
-    <span class="sr">//</span> <span class="n">Establecer</span> <span class="n">manejador</span> <span class="n">de</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">SIGHUP</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="n">SIGHUP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hup</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-
-    <span class="n">term</span><span class="o">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nn">MyDaemon::</span><span class="n">termSignalHandler</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">term</span><span class="o">.</span><span class="n">sa_mask</span><span class="p">);</span>
-    <span class="n">term</span><span class="o">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="n">SA_RESTART</span><span class="p">;</span>
-
-    <span class="sr">//</span> <span class="n">Establecer</span> <span class="n">manejador</span> <span class="n">de</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">SIGTERM</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">term</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Finalmente en los <em>slots</em> a los que conectamos la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>()
-se lee <em>lo escrito</em> desde el <em>manejador de señal</em>, para después hacer todo
-aquello que no se puede hacer desde dicho manejador de señal POSIX.</p>
-<div class="codehilite"><pre><span class="n">void</span> <span class="nn">MyDaemon::</span><span class="n">handleSigHup</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">false</span><span class="p">);</span>
-    <span class="n">char</span> <span class="n">tmp</span><span class="p">;</span>
-    <span class="o">::</span><span class="nb">read</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
-
-    <span class="sr">//</span> <span class="o">...</span><span class="n">tu</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">aqu</span><span class="err">í</span><span class="o">...</span>
-
-    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="n">void</span> <span class="nn">MyDaemon::</span><span class="n">handleSigTerm</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">false</span><span class="p">);</span>
-    <span class="n">char</span> <span class="n">tmp</span><span class="p">;</span>
-    <span class="o">::</span><span class="nb">read</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
-
-    <span class="sr">//</span> <span class="o">...</span><span class="n">tu</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">aqu</span><span class="err">í</span><span class="o">...</span>
-
-    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-</ol>
 <h1>Referencias</h1>
 <ol>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication">QCoreApplication</a>.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>.</li>
-<li><a href="http://doc.qt.digia.com/4.7/unix-signals.html">Calling Qt Functions From Unix Signal Handlers</a></li>
-<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Unix_signal">Unix signal</a></li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html">qmake Project Files</a></li>
+<li>Wikipedia - <a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard">Filesystem Hierarchy Standard</a></li>
 </ol>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>Una función es reentrante si puede ser interrumpida en medio de su ejecución
-y vuelta a llamar con total seguridad. En general una función es reentrante si
-no modifica variables estáticas o globales, no modifica su propio código y no
-llama a otras funciones que no sean reentrantes.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Durante el proceso de construcción de un paquete <code>.deb</code> el proyecto, una vez compilado, se instala, pero no en la raíz del sistema donde está teniendo lugar la compilación, sino que se confina el comando <code>make install</code> a un subdirectorio temporal. Así <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> deposita los archivos en sus ubicaciones predefinidas (p. ej. <code>/usr/bin</code>, <code>/usr/lib</code>, <code>/etc</code>, <code>/var/lib</code>, etc.) solo que relativas a dicho subdirectorio (p .ej. <code>/ruta/al/subdirectorio/usr/bin</code>, <code>/ruta/al/subdirectorio/etc</code>, <code>/ruta/al/subdirectorio/usr/lib</code>, <code>/ruta/al/subdirectorio/var/lib</code>, etc.). Para obtener el contenido del paquete sólo hace falta tomar el contenido del subdirectorio temporal, evitando que el proceso de construcción ensucie el sistema donde se está ejecutando.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
-<p>Una función puede ser no interrumpible respecto a las señales si al entrar
-en la función el programa las bloquea, desbloqueándolas antes de salir.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>GNU Autotools es la herramienta que está detrás de tener que ejecutar <code>./configure</code> antes de compilar muchos programas y librerías libres con <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a>.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>En los sistemas Linux, UNIX y derivados éstas ubicaciones vienen definidas por el <a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard">Filesystem Hierarchy Standard</a>.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Las macros del preprocesador son aquellas que generalmente se definen en C/C++ mediante la directiva <code>#define</code>.&#160;<a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../aplicaciones-de-consola-con-qt.html"><h2>Aplicaciones de consola con Qt</h2></a>
+        <div class= "well small"> jue 11 abril 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> es un <em>framework</em> utilizado fundamentalmente para desarrollar aplicaciones
+con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
+aplicaciones de linea de comandos.</p>
+<h1>QCoreApplication</h1>
+<p>Al crear un proyecto de aplicación para consola, el asistente de Qt Creator
+crea un archivo <code>main.cpp</code> con un contenido similar ...</p> <a class="btn btn-info xsmall" href="../aplicaciones-de-consola-con-qt.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -455,28 +261,6 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
 dispositivos de entrada/salida. Por ejemplo, una librería desarrollada en C++ para
 codificar y decodificar archivos MP3 recibiría objetos <a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a> o
 <a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para indicar el flujo del que leer o en el que escribir los datos ...</p> <a class="btn btn-info xsmall" href="../uso-de-la-memoria-como-un-dispositivo-de-es.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../qt-network.html"><h2>Qt Network</h2></a>
-        <div class= "well small"> lun 04 marzo 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> proporciona un conjunto de API de comunicaciones a través del módulo
-<a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network">Qt Network</a>. Este ofrece tanto clases de bajo nivel para comunicación
-mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
-implementan operaciones usando los protocolos de nivel de aplicación más
-communes, como HTTP ...</p> <a class="btn btn-info xsmall" href="../qt-network.html">leer más</a></div>
     </div>	
 				
             <div class="pagination">
