@@ -81,6 +81,7 @@ Desde línea de comandos generar las clases es tan sencillo como:
 
  1. Invocar el compilador de la siguiente manera:
 
+        :::sh
         $ protoc --cpp_out=. sensorsreport.proto
 
     que genera los archivos `sensorsreport.pb.cc` y `sensorsreport.pb.h` en el
@@ -89,6 +90,7 @@ Desde línea de comandos generar las clases es tan sencillo como:
  2. Incluir el archivo de cabecera en nuestro código fuente allí donde vaya a
     ser utilizado:
 
+        :::cpp
         #include "sensorsreport.pb.h"
 
  3. Compilar el ejecutable junto con el archivo `sensorsreport.pb.cc` y enlazar
@@ -293,6 +295,7 @@ La forma más sencilla de resolverlo es:
  1. Escribir el tamaño del mensaje codificado y después escribir el mensaje en
  si mismo.
 
+        :::cpp
         // Serializar el mensaje
         std::string buffer;
         report.SerializeToString(&buffer);
@@ -302,13 +305,15 @@ La forma más sencilla de resolverlo es:
         //
         // std::ofstream ofs(...);
         //
-        ofs.write(&bufferSize, sizeof(bufferSize));
+        ofs.write(reinterpret_cast<char*>(&bufferSize),
+                  sizeof(bufferSize));
         ofs.write(buffer.c_str(), bufferSize);
 
  2. Al leer, leer primero el tamaño del mensaje, después leer los bytes
  indicados en un  _buffer_ independiente y finalmente deserializar el mensaje
  desde dicho _buffer_.
 
+        :::cpp
         // Abrir el archivo de origen y leer el tamaño del mensaje
         //
         // std::ifstream ifs(...);

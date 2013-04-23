@@ -22,11 +22,12 @@ de las basadas en Debian.
 de paquetes utilizados habitualmente en tareas de desarrollo. En un sistema
 basado en Debian deberían poder instalarse con el siguiente comando:
 
-        $ sudo apt-get install sed wget cvs subversion git-core coreutils \
-        unzip texi2html texinfo libsdl1.2-dev docbook-utils gawk \
-        python-pysqlite2 diffstat help2man make gcc build-essential \
-        g++ desktop-file-utils chrpath libgl1-mesa-dev libglu1-mesa-dev \
-        mercurial autoconf automake groff
+        :::sh
+        $ sudo apt-get install sed wget cvs subversion git-core \
+        coreutils unzip texi2html texinfo libsdl1.2-dev docbook-utils \
+        gawk python-pysqlite2 diffstat help2man make gcc \
+        build-essential g++ desktop-file-utils chrpath libgl1-mesa-dev \
+        libglu1-mesa-dev mercurial autoconf automake groff
 
  * **Una versión del proyecto [Yocto].** Las distintas versiones pueden
 descargarse desde la dirección:
@@ -41,12 +42,14 @@ incluyendo las herramienta de desarrollo para la misma:
  1. Descargar el sistema de construcción [Poky] de la última versión del
 proyecto [Yocto] y descomprimirla:
 
+        :::sh
         $ wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2
         $ tar jxf poky-danny-8.0.tar.bz2
 
  2. Crear el directorio `raspberry-pi-build` donde construir la imagen y
 configurar las variables de entorno necesarias:
 
+        :::sh
         $ source poky-danny-8.0/oe-init-build-env raspberry-pi-build
 
      Como las variables de entorno configuradas por este comando se pierden al
@@ -55,10 +58,12 @@ configurar las variables de entorno necesarias:
 
  3. Construir la imagen:
 
+        :::sh
         $ bitbake core-image-minimal
 
 La imagen construida puede ejecutarse en [QEMU] de la siguiente manera:
 
+    :::sh
     $ runqemu qemux86
 
 Y en unos segundos tendremos acceso a la consola de nuestra nueva distribución.
@@ -91,10 +96,12 @@ Estos son los pasos para incorporarla a nuestro proyecto:
  1. Clonar localmente el repositorio **meta-raspberrypi** fuera del directorio
 `raspberry-pi-build`.
 
+        :::sh
         $ git clone https://github.com/djwillis/meta-raspberrypi.git
 
  2. Cambiar a la rama **danny** que es la de la versión de [Poky] que estamos usando:
 
+        :::sh
         $ cd meta-raspberrypi
         $ git checkout danny
 
@@ -116,6 +123,7 @@ la máquina de destino de la imagen es `raspberrypi`
 
  5. Construir la imagen:
 
+        :::sh
         $ cd raspberry-pi-build
         $ bitbake rpi-basic-image
 
@@ -123,7 +131,8 @@ la máquina de destino de la imagen es `raspberrypi`
 Mientras que la imagen alternativa `rpi-hwup-image` no contiene ninguna de las dos cosas.
     
  6. Transferir la imagen construida a la tarjeta SD.
- 
+
+        :::sh
         $ sudo dd if=tmp/deploy/images/rpi-basic-image-raspberrypi.rpi-sdimg of=/ruta/a/la/sd
 
     y probarla en el dispositivo.
