@@ -1,5 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/all.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-04-22T00:00:00+01:00</updated><entry><title>Make install con qmake</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/make-install-con-qmake.html" rel="alternate"></link><updated>2013-04-22T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-22:make-install-con-qmake.html</id><summary type="html">&lt;p&gt;Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/all.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-04-24T00:00:00+01:00</updated><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-04-24T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-24:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
+de fragmentos etiquetados o &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt;. Siendo usado en la actualidad como formato
+contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
+indudable que resulta especialmente útil para almacenar contenidos multimedia,
+aunque realmente puede almacenar cualquier tipo de información.&lt;/p&gt;
+&lt;h1&gt;Tipos de fragmentos&lt;/h1&gt;
+&lt;p&gt;Hay dos tipos de fragmentos en un archivo &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt;. El más básico son los
+&lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt; o fragmentos de datos propiamente dichos:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Chunk&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;        &lt;span class="c1"&gt;// contiene datos en general&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;donde &lt;code&gt;type&lt;/code&gt; sirve para identificar el tipo y el formato de los datos que
+almacena el fragmento y &lt;code&gt;size&lt;/code&gt; para especificar su tamaño —sin incluir ni el
+tamaño del campo &lt;code&gt;type&lt;/code&gt; ni el de &lt;code&gt;size&lt;/code&gt;—.&lt;/p&gt;
+&lt;p&gt;El otro tipo de fragmento son las listas:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;listType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;      &lt;span class="c1"&gt;// contiene otros Chunk o List&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;que son aquellos que contienen una colección de otros fragmentos o listas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Las listas se identifican y distinguen de otros fragmentos porque su campo
+&lt;code&gt;type&lt;/code&gt; contiene o los 4 caracteres de &lt;code&gt;RIFF&lt;/code&gt; o de &lt;code&gt;LIST&lt;/code&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;Para este tipo de fragmentos el tamaño en el campo &lt;code&gt;size&lt;/code&gt; incluye tanto el
+ de los datos almacenados dentro del fragmento como el del campo &lt;code&gt;listType&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Dentro de la lista los fragmentos que contiene se disponen unos detrás de
+otros, pero siempre asegurando que cada fragmento comienza en una dirección
+par —es decir, que se alinean a 16 bits—.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;El archivo contenedor en si mismo es una gran fragmento de lista tipo &lt;code&gt;RIFF&lt;/code&gt; que
+contiene otros fragmentos. Estos pueden ser &lt;em&gt;chunks&lt;/em&gt; o listas de tipo &lt;code&gt;LIST&lt;/code&gt;.
+Por lo tanto en una archivo RIFF sólo existe una lista de este tipo, que hace
+las veces de contenedor de todos los fragmentos del archivo. El valor del campo
+&lt;code&gt;listType&lt;/code&gt; del fragmento &lt;code&gt;RIFF&lt;/code&gt; es una secuencia de 4 bytes que identifica el
+formato del archivo y se lo conoce como el &lt;a href="http://www.fourcc.org/codecs.php" title="FourCC"&gt;FourCC&lt;/a&gt; del mismo.&lt;/p&gt;
+&lt;h1&gt;Estructura general&lt;/h1&gt;
+&lt;p&gt;Para hacernos una idea del formato este sería el esquema de un archivo AVI
+convencional:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;RIFF &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;AVI &amp;#39;&lt;/span&gt;
+      LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hdr1&amp;#39;&lt;/span&gt;
+            AVIH &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;cabecera principal del AVI&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;str1&amp;#39;&lt;/span&gt;
+                  STRH &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;cabecera del flujo&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                  STRF &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;formato del flujo&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                  ...
+                 &lt;span class="o"&gt;)&lt;/span&gt;
+            ...
+           &lt;span class="o"&gt;)&lt;/span&gt;
+      LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;movi&amp;#39;&lt;/span&gt;
+            &lt;span class="o"&gt;{&lt;/span&gt;Chunk | LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rec &amp;#39;&lt;/span&gt;
+                           Chunk1
+                           Chunk2
+                           ...
+                          &lt;span class="o"&gt;)&lt;/span&gt;
+             ...
+            &lt;span class="o"&gt;}&lt;/span&gt;
+            ...
+           &lt;span class="o"&gt;)&lt;/span&gt;
+      &lt;span class="o"&gt;[&lt;/span&gt;IDX1 &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;índice AVI&amp;gt;&lt;span class="o"&gt;)]&lt;/span&gt;
+     &lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Donde los identificadores en mayúsculas denotan el valor del campo &lt;code&gt;type&lt;/code&gt; al
+comienzo de un fragmento. Este siempre es seguido por el campo &lt;code&gt;size&lt;/code&gt;, que no se
+muestra en el esquema anterior. Por otro lado el valor de los campos &lt;code&gt;listType&lt;/code&gt;
+de los fragmentos de tipo lista se indica entre comillas simples.&lt;/p&gt;
+&lt;p&gt;Para observar una estructura real de archivo RIFF se puede utilizar el
+programa &lt;a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.html" title="Ubuntu Manpage: rifftree"&gt;rifftree&lt;/a&gt; del paquete &lt;code&gt;gigtools&lt;/code&gt; con cualquier archivo &lt;code&gt;.avi&lt;/code&gt; o
+&lt;code&gt;.wav&lt;/code&gt; que tengamos a mano.&lt;/p&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;MSDN - &lt;a href="http://msdn.microsoft.com/en-us/library/ms779636(VS.85).aspx"&gt;AVI RIFF File Reference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.alexander-noe.com/video/documentation/avi.pdf"&gt;AVI File Format&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.fourcc.org/codecs.php" title="FourCC"&gt;FourCC&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;Si bien en el archivo se almacenan los caracteres &lt;code&gt;'R'&lt;/code&gt;, &lt;code&gt;'R'&lt;/code&gt;, &lt;code&gt;'I'&lt;/code&gt;, &lt;code&gt;'F'&lt;/code&gt;
+en ese orden, hay que tener en cuenta que al interpretarlo como &lt;code&gt;uint32_t&lt;/code&gt; en
+una máquina &lt;em&gt;little-endian&lt;/em&gt; no veremos el número 0x52494646 sino 0x46464952.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</summary><category term="RIFF"></category><category term="AVI"></category><category term="WAV"></category></entry><entry><title>Make install con qmake</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/make-install-con-qmake.html" rel="alternate"></link><updated>2013-04-22T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-22:make-install-con-qmake.html</id><summary type="html">&lt;p&gt;Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios
 medios la manera de definir un proyecto de software y el proceso de construcción
 del mismo. Sin embargo &lt;a href="&amp;quot;http://es.wikipedia.org/wiki/Make&amp;quot;" title="make"&gt;make&lt;/a&gt; sigue siendo ámpliamente utilizado para este
 propósito, especialmente en los sistemas UNIX y derivados.&lt;/p&gt;
@@ -1147,7 +1245,7 @@ datos.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Invocar el compilador de la siguiente manera:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;protoc&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;cpp_out&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;sensorsreport&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;proto&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;protoc --cpp_out&lt;span class="o"&gt;=&lt;/span&gt;. sensorsreport.proto
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1157,7 +1255,7 @@ directorio actual.&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Incluir el archivo de cabecera en nuestro código fuente allí donde vaya a
     ser utilizado:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#include &amp;quot;sensorsreport.pb.h&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;quot;sensorsreport.pb.h&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1345,7 +1443,7 @@ flujo de datos.&lt;/p&gt;
 &lt;p&gt;Escribir el tamaño del mensaje codificado y después escribir el mensaje en
  si mismo.&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Serializar el mensaje&lt;/span&gt;
-&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="k"&gt;string&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SerializeToString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;uint32&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
@@ -1353,7 +1451,8 @@ flujo de datos.&lt;/p&gt;
 &lt;span class="c1"&gt;//&lt;/span&gt;
 &lt;span class="c1"&gt;// std::ofstream ofs(...);&lt;/span&gt;
 &lt;span class="c1"&gt;//&lt;/span&gt;
-&lt;span class="n"&gt;ofs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;ofs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;reinterpret_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+          &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 &lt;span class="n"&gt;ofs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c_str&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1368,12 +1467,12 @@ flujo de datos.&lt;/p&gt;
 &lt;span class="c1"&gt;// std::ifstream ifs(...);&lt;/span&gt;
 &lt;span class="c1"&gt;//&lt;/span&gt;
 &lt;span class="n"&gt;uint32&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;ifs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;ifs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 
 &lt;span class="c1"&gt;// Leer el mensaje&lt;/span&gt;
-&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="k"&gt;string&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;ifs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c_str&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;ifs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c_str&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;bufferSize&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
 &lt;span class="c1"&gt;// Deserializar&lt;/span&gt;
 &lt;span class="n"&gt;report&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ParseFromString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -2760,11 +2859,11 @@ de las basadas en Debian.&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;Paquetes de desarrollo.&lt;/strong&gt; En el sistema deben estar instalados una serie
 de paquetes utilizados habitualmente en tareas de desarrollo. En un sistema
 basado en Debian deberían poder instalarse con el siguiente comando:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;cvs&lt;/span&gt; &lt;span class="n"&gt;subversion&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt; &lt;span class="n"&gt;coreutils&lt;/span&gt; \
-&lt;span class="n"&gt;unzip&lt;/span&gt; &lt;span class="n"&gt;texi2html&lt;/span&gt; &lt;span class="n"&gt;texinfo&lt;/span&gt; &lt;span class="n"&gt;libsdl1&lt;/span&gt;&lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;docbook&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;gawk&lt;/span&gt; \
-&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pysqlite2&lt;/span&gt; &lt;span class="n"&gt;diffstat&lt;/span&gt; &lt;span class="n"&gt;help2man&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;essential&lt;/span&gt; \
-&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="n"&gt;desktop&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;chrpath&lt;/span&gt; &lt;span class="n"&gt;libgl1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libglu1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; \
-&lt;span class="n"&gt;mercurial&lt;/span&gt; &lt;span class="n"&gt;autoconf&lt;/span&gt; &lt;span class="n"&gt;automake&lt;/span&gt; &lt;span class="n"&gt;groff&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get install sed wget cvs subversion git-core &lt;span class="se"&gt;\&lt;/span&gt;
+coreutils unzip texi2html texinfo libsdl1.2-dev docbook-utils &lt;span class="se"&gt;\&lt;/span&gt;
+gawk python-pysqlite2 diffstat help2man make gcc &lt;span class="se"&gt;\&lt;/span&gt;
+build-essential g++ desktop-file-utils chrpath libgl1-mesa-dev &lt;span class="se"&gt;\&lt;/span&gt;
+libglu1-mesa-dev mercurial autoconf automake groff
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2782,8 +2881,8 @@ incluyendo las herramienta de desarrollo para la misma:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Descargar el sistema de construcción &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; de la última versión del
 proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; y descomprimirla:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;jxf&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2
+&lt;span class="nv"&gt;$ &lt;/span&gt;tar jxf poky-danny-8.0.tar.bz2
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2791,7 +2890,7 @@ proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigila
 &lt;li&gt;
 &lt;p&gt;Crear el directorio &lt;code&gt;raspberry-pi-build&lt;/code&gt; donde construir la imagen y
 configurar las variables de entorno necesarias:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;oe&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;source &lt;/span&gt;poky-danny-8.0/oe-init-build-env raspberry-pi-build
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2801,14 +2900,14 @@ configurar las variables de entorno necesarias:&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;minimal&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;bitbake core-image-minimal
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;La imagen construida puede ejecutarse en &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt; de la siguiente manera:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;runqemu&lt;/span&gt; &lt;span class="n"&gt;qemux86&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;runqemu qemux86
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2837,15 +2936,15 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;li&gt;
 &lt;p&gt;Clonar localmente el repositorio &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; fuera del directorio
 &lt;code&gt;raspberry-pi-build&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/djwillis/meta-raspberrypi.git&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone https://github.com/djwillis/meta-raspberrypi.git
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Cambiar a la rama &lt;strong&gt;danny&lt;/strong&gt; que es la de la versión de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; que estamos usando:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="n"&gt;danny&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;meta-raspberrypi
+&lt;span class="nv"&gt;$ &lt;/span&gt;git checkout danny
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2874,8 +2973,8 @@ la máquina de destino de la imagen es &lt;code&gt;raspberrypi&lt;/code&gt;&lt;/
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;raspberry-pi-build
+&lt;span class="nv"&gt;$ &lt;/span&gt;bitbake rpi-basic-image
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2884,7 +2983,7 @@ Mientras que la imagen alternativa &lt;code&gt;rpi-hwup-image&lt;/code&gt; no co
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Transferir la imagen construida a la tarjeta SD.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;deploy&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;images&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sdimg&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;ruta&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;la&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sd&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;tmp/deploy/images/rpi-basic-image-raspberrypi.rpi-sdimg &lt;span class="nv"&gt;of&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/ruta/a/la/sd
 &lt;/pre&gt;&lt;/div&gt;
 
 

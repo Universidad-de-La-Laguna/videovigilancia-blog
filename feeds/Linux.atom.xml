@@ -15,11 +15,11 @@ de las basadas en Debian.&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;Paquetes de desarrollo.&lt;/strong&gt; En el sistema deben estar instalados una serie
 de paquetes utilizados habitualmente en tareas de desarrollo. En un sistema
 basado en Debian deberían poder instalarse con el siguiente comando:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;cvs&lt;/span&gt; &lt;span class="n"&gt;subversion&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt; &lt;span class="n"&gt;coreutils&lt;/span&gt; \
-&lt;span class="n"&gt;unzip&lt;/span&gt; &lt;span class="n"&gt;texi2html&lt;/span&gt; &lt;span class="n"&gt;texinfo&lt;/span&gt; &lt;span class="n"&gt;libsdl1&lt;/span&gt;&lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;docbook&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;gawk&lt;/span&gt; \
-&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pysqlite2&lt;/span&gt; &lt;span class="n"&gt;diffstat&lt;/span&gt; &lt;span class="n"&gt;help2man&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;essential&lt;/span&gt; \
-&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="n"&gt;desktop&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt; &lt;span class="n"&gt;chrpath&lt;/span&gt; &lt;span class="n"&gt;libgl1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libglu1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mesa&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; \
-&lt;span class="n"&gt;mercurial&lt;/span&gt; &lt;span class="n"&gt;autoconf&lt;/span&gt; &lt;span class="n"&gt;automake&lt;/span&gt; &lt;span class="n"&gt;groff&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get install sed wget cvs subversion git-core &lt;span class="se"&gt;\&lt;/span&gt;
+coreutils unzip texi2html texinfo libsdl1.2-dev docbook-utils &lt;span class="se"&gt;\&lt;/span&gt;
+gawk python-pysqlite2 diffstat help2man make gcc &lt;span class="se"&gt;\&lt;/span&gt;
+build-essential g++ desktop-file-utils chrpath libgl1-mesa-dev &lt;span class="se"&gt;\&lt;/span&gt;
+libglu1-mesa-dev mercurial autoconf automake groff
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -37,8 +37,8 @@ incluyendo las herramienta de desarrollo para la misma:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Descargar el sistema de construcción &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; de la última versión del
 proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; y descomprimirla:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;jxf&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bz2&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2
+&lt;span class="nv"&gt;$ &lt;/span&gt;tar jxf poky-danny-8.0.tar.bz2
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -46,7 +46,7 @@ proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigila
 &lt;li&gt;
 &lt;p&gt;Crear el directorio &lt;code&gt;raspberry-pi-build&lt;/code&gt; donde construir la imagen y
 configurar las variables de entorno necesarias:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;poky&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;danny&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;oe&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;source &lt;/span&gt;poky-danny-8.0/oe-init-build-env raspberry-pi-build
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -56,14 +56,14 @@ configurar las variables de entorno necesarias:&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;minimal&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;bitbake core-image-minimal
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;La imagen construida puede ejecutarse en &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt; de la siguiente manera:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;runqemu&lt;/span&gt; &lt;span class="n"&gt;qemux86&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;runqemu qemux86
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -92,15 +92,15 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;li&gt;
 &lt;p&gt;Clonar localmente el repositorio &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; fuera del directorio
 &lt;code&gt;raspberry-pi-build&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/djwillis/meta-raspberrypi.git&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone https://github.com/djwillis/meta-raspberrypi.git
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Cambiar a la rama &lt;strong&gt;danny&lt;/strong&gt; que es la de la versión de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; que estamos usando:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="n"&gt;danny&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;meta-raspberrypi
+&lt;span class="nv"&gt;$ &lt;/span&gt;git checkout danny
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -129,8 +129,8 @@ la máquina de destino de la imagen es &lt;code&gt;raspberrypi&lt;/code&gt;&lt;/
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir la imagen:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;raspberry&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;bitbake&lt;/span&gt; &lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;raspberry-pi-build
+&lt;span class="nv"&gt;$ &lt;/span&gt;bitbake rpi-basic-image
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -139,7 +139,7 @@ Mientras que la imagen alternativa &lt;code&gt;rpi-hwup-image&lt;/code&gt; no co
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Transferir la imagen construida a la tarjeta SD.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;dd&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;deploy&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;images&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;basic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;raspberrypi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sdimg&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;ruta&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;la&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sd&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;tmp/deploy/images/rpi-basic-image-raspberrypi.rpi-sdimg &lt;span class="nv"&gt;of&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/ruta/a/la/sd
 &lt;/pre&gt;&lt;/div&gt;
 
 

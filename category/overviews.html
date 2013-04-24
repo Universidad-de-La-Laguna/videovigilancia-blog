@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../paralelismo-y-concurrencia.html"><h1>Paralelismo y concurrencia</h1></a>
-            dom 07 abril 2013
+            <a href="../resource-interchange-file-format.html"><h1>Resource Interchange File Format</h1></a>
+            mié 24 abril 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,69 +68,131 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p>El paralelismo no debe confundirse con la <a href="../concurrencia.html">concurrencia</a>,
+        <div><p>El <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format</a> o <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format">RIFF</a> es un formato contenedor genérico diseñado para almacenar datos en forma
+de fragmentos etiquetados o <a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a>. Siendo usado en la actualidad como formato
+contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
+indudable que resulta especialmente útil para almacenar contenidos multimedia,
+aunque realmente puede almacenar cualquier tipo de información.</p>
+<h1>Tipos de fragmentos</h1>
+<p>Hay dos tipos de fragmentos en un archivo <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format">RIFF</a>. El más básico son los
+<a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a> o fragmentos de datos propiamente dichos:</p>
+<div class="codehilite"><pre><span class="k">struct</span> <span class="n">Chunk</span>
+<span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">type</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>
+    <span class="kt">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>        <span class="c1">// contiene datos en general</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>donde <code>type</code> sirve para identificar el tipo y el formato de los datos que
+almacena el fragmento y <code>size</code> para especificar su tamaño —sin incluir ni el
+tamaño del campo <code>type</code> ni el de <code>size</code>—.</p>
+<p>El otro tipo de fragmento son las listas:</p>
+<div class="codehilite"><pre><span class="k">struct</span> <span class="n">List</span>
+<span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">type</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">listType</span><span class="p">;</span>
+    <span class="kt">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="o">-</span><span class="mi">4</span><span class="p">];</span>      <span class="c1">// contiene otros Chunk o List</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>que son aquellos que contienen una colección de otros fragmentos o listas:</p>
+<ul>
+<li>Las listas se identifican y distinguen de otros fragmentos porque su campo
+<code>type</code> contiene o los 4 caracteres de <code>RIFF</code> o de <code>LIST</code><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></li>
+<li>Para este tipo de fragmentos el tamaño en el campo <code>size</code> incluye tanto el
+ de los datos almacenados dentro del fragmento como el del campo <code>listType</code>.</li>
+<li>Dentro de la lista los fragmentos que contiene se disponen unos detrás de
+otros, pero siempre asegurando que cada fragmento comienza en una dirección
+par —es decir, que se alinean a 16 bits—.</li>
+</ul>
+<p>El archivo contenedor en si mismo es una gran fragmento de lista tipo <code>RIFF</code> que
+contiene otros fragmentos. Estos pueden ser <em>chunks</em> o listas de tipo <code>LIST</code>.
+Por lo tanto en una archivo RIFF sólo existe una lista de este tipo, que hace
+las veces de contenedor de todos los fragmentos del archivo. El valor del campo
+<code>listType</code> del fragmento <code>RIFF</code> es una secuencia de 4 bytes que identifica el
+formato del archivo y se lo conoce como el <a href="http://www.fourcc.org/codecs.php" title="FourCC">FourCC</a> del mismo.</p>
+<h1>Estructura general</h1>
+<p>Para hacernos una idea del formato este sería el esquema de un archivo AVI
+convencional:</p>
+<div class="codehilite"><pre>RIFF <span class="o">(</span><span class="s1">&#39;AVI &#39;</span>
+      LIST <span class="o">(</span><span class="s1">&#39;hdr1&#39;</span>
+            AVIH <span class="o">(</span>&lt;cabecera principal del AVI&gt;<span class="o">)</span>
+            LIST <span class="o">(</span><span class="s1">&#39;str1&#39;</span>
+                  STRH <span class="o">(</span>&lt;cabecera del flujo&gt;<span class="o">)</span>
+                  STRF <span class="o">(</span>&lt;formato del flujo&gt;<span class="o">)</span>
+                  ...
+                 <span class="o">)</span>
+            ...
+           <span class="o">)</span>
+      LIST <span class="o">(</span><span class="s1">&#39;movi&#39;</span>
+            <span class="o">{</span>Chunk | LIST <span class="o">(</span><span class="s1">&#39;rec &#39;</span>
+                           Chunk1
+                           Chunk2
+                           ...
+                          <span class="o">)</span>
+             ...
+            <span class="o">}</span>
+            ...
+           <span class="o">)</span>
+      <span class="o">[</span>IDX1 <span class="o">(</span>&lt;índice AVI&gt;<span class="o">)]</span>
+     <span class="o">)</span>
+</pre></div>
+
+
+<p>Donde los identificadores en mayúsculas denotan el valor del campo <code>type</code> al
+comienzo de un fragmento. Este siempre es seguido por el campo <code>size</code>, que no se
+muestra en el esquema anterior. Por otro lado el valor de los campos <code>listType</code>
+de los fragmentos de tipo lista se indica entre comillas simples.</p>
+<p>Para observar una estructura real de archivo RIFF se puede utilizar el
+programa <a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.html" title="Ubuntu Manpage: rifftree">rifftree</a> del paquete <code>gigtools</code> con cualquier archivo <code>.avi</code> o
+<code>.wav</code> que tengamos a mano.</p>
+<h1>Referencias</h1>
+<ol>
+<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format</a></li>
+<li>MSDN - <a href="http://msdn.microsoft.com/en-us/library/ms779636(VS.85).aspx">AVI RIFF File Reference</a></li>
+<li><a href="http://www.alexander-noe.com/video/documentation/avi.pdf">AVI File Format</a></li>
+<li><a href="http://www.fourcc.org/codecs.php" title="FourCC">FourCC</a></li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Si bien en el archivo se almacenan los caracteres <code>'R'</code>, <code>'R'</code>, <code>'I'</code>, <code>'F'</code>
+en ese orden, hay que tener en cuenta que al interpretarlo como <code>uint32_t</code> en
+una máquina <em>little-endian</em> no veremos el número 0x52494646 sino 0x46464952.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../paralelismo-y-concurrencia.html"><h2>Paralelismo y concurrencia</h2></a>
+        <div class= "well small"> dom 07 abril 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>El paralelismo no debe confundirse con la <a href="../concurrencia.html">concurrencia</a>,
 aunque es común que así ocurra. El paralelismo se preocupa de analizar como
 superponer operaciones con el objeto de mejorar el rendimiento al realizar una
 tarea concreta.</p>
 <p>Normalmente un programa lanza un conjunto de subtareas que se ejecutan en
-paralelo para realizar un trabajo determinado, mientras la tarea principal no
-continua hasta que todas las subtareas han terminado. El reto desde el punto
-de vista del paralelismo es determinar las optimizaciones necesarias con
-respecto a cuestiones tales como la granularidad y el coste de la comunicación.</p>
-<p>Sin embargo la concurrencia es necesaria para implementar el paralelismo.
-Concretamente, en el ejemplo anterior, se hace cargo de establecer como se
-definen las distintas tareas, que características tienen y como se implementan
-sobre un hardware en concreto. También establece los mecanismos de
-coordinación y sincronización necesarios para lidiar con la indeterminación, ya
-que no sabemos cuando terminarán las tareas ni cuando accederán a las estructuras
-de datos compartidas.</p>
-<p>En ese sentido podemos decir que el paralelismo es una abstracción útil para
-mejorar el rendimiento de una tarea. Sin embargo no debe confundirse dicha
-abstracción con su implementación, que entraría en el campo de la concurrencia.
-Así un programa con dos hilos concurrentes que se ejecute en un sistema
-monoprocesador sin múltiples núcleos ni físicos ni lógicos (<a href="http://en.wikipedia.org/wiki/Simultaneous_multithreading" title="Simultaneous Multithreading">SMT</a>) puede ser
-concurrente pero no paralelo. Obviamente el paralelismo sólo es posible en
-sistemas multinúcleo, multiprocesador o distribuidos.</p>
-<p>A continuación complementaremos lo hablado anteriormente sobre <a href="../concurrencia.html">concurrencia</a>
-considerando que ahora el contexto es el de programas donde pretendemos
-descomponer y paralelizar tareas <em>limitadas por la CPU</em>.</p>
-<h2>Multihilo</h2>
-<p>El uso de múltiples hilos dentro de un programa paralelo es un enfoque muy
-común. Sin embargo, a diferencia de lo que ocurre <a href="../concurrencia.html">en los casos de los que
-hemos hablado anteriormente</a>, por lo
-general se crean tantos hilos como núcleos diferentes dispone el sistema y
-se divide entre ellos la tarea que deseamos realizar.</p>
-<p>Obviamente tiene poco sentido crear más hilos que secuencias de instrucciones
-pueden ejecutarse paralelamente en el sistema.</p>
-<h2>Agrupamiento de hilos</h2>
-<p>Como acabamos de comentar, en un problema de <strong>programación paralela</strong> el
-número de hilos adecuado viene determinado por el de núcleos, lo que obliga a
-dividir el problema de manera diferente según las características del hardware
-donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
-ser distribuida al público y por lo tanto será utilizada en ordenadores con
-características diversas.</p>
-<p><a href="http://commons.wikimedia.org/wiki/File:Thread_pool.svg"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" alt="Sencillo esquema de un agrupamiento de hilos" class="right-float"></a></p>
-<p>El patrón <em>agrupamiento de hilos</em> comentado en el artículo sobre <a href="../concurrencia.html">concurrencia</a>
-nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
-las tareas <em>limitadas por la CPU</em> tanto como queramos. Y que estas sean
-ejecutadas sobre un agrupamiento configurado con el mismo número de hilos que
-núcleos de procesador hay en el sistema donde se está ejecutando la aplicación.</p>
-<p>De esta manera los programas se pueden adaptar al paralelismo del hardware
-subyacente, aprovechando de forma sencilla las ventajas de los sistemas
-multinúcleo.</p>
-<p>Como ya hemos comentado, las plataformas Java y .NET incorporan una
-implementación de este patrón. Mientras que para C/C++ existen diversas librerías,
-entre las que no sólo está <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> y su clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool">QThreadPool</a>, si no que fundamentalmente
-tenemos que destacar la <a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks">Threading Building Blocks</a> de Intel (TBB).</p>
-<h1>Referencias</h1>
-<ol>
-<li><a href="http://blog.golang.org/2013/01/concurrency-is-not-parallelism.html">Concurrence is no parallelism</a></li>
-<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Concurrency_pattern">Concurrency pattern</a></li>
-<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Thread_pool_pattern">Thread pool pattern</a></li>
-</ol></div>
-        <hr />
-    </div>
-		
+paralelo para realizar ...</p> <a class="btn btn-info xsmall" href="../paralelismo-y-concurrencia.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -153,34 +215,13 @@ flujo no determinista. Los programas concurrentes vienen con frecuencia
 <em>limitados por ...</em></p> <a class="btn btn-info xsmall" href="../concurrencia.html">leer más</a></div>
     </div>	
 				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../bsd-sockets.html"><h2>BSD sockets</h2></a>
-        <div class= "well small"> sáb 02 marzo 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><em>POSIX sockets</em> es una parte de la especificación POSIX<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que define un API
-(Application Programming Interface) para la comunicación entre procesos,
-fundamentalmente entre equipos conectados a través de Internet
-(<em>socket</em> de Internet), aunque también soporta la conexión local entre procesos
-que se ejecutan en el mismo sistema (<a href="http://es.wikipedia.org/wiki/Socket_Unix">socket de ...</a></p> <a class="btn btn-info xsmall" href="../bsd-sockets.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
     <li class="active"><a href="../category/overviews.html">1</a></li>
     <li class=""><a href="../category/overviews2.html">2</a></li>
+    <li class=""><a href="../category/overviews3.html">3</a></li>
 
     <li class="next"><a href="../category/overviews2.html">Next &rarr;</a></li>
 
