@@ -72,9 +72,9 @@ aunque realmente puede almacenar cualquier tipo de información.</p>
 <a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a> o fragmentos de datos propiamente dichos:</p>
 <div class="codehilite"><pre><span class="k">struct</span> <span class="n">Chunk</span>
 <span class="p">{</span>
-    <span class="kt">uint32_t</span> <span class="n">type</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>
-    <span class="kt">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>        <span class="c1">// contiene datos en general</span>
+    <span class="n">uint32_t</span> <span class="n">type</span><span class="p">;</span>
+    <span class="n">uint32_t</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>        <span class="c1">// contiene datos en general</span>
 <span class="p">};</span>
 </pre></div>
 
@@ -85,10 +85,10 @@ tamaño del campo <code>type</code> ni el de <code>size</code>—.</p>
 <p>El otro tipo de fragmento son las listas:</p>
 <div class="codehilite"><pre><span class="k">struct</span> <span class="n">List</span>
 <span class="p">{</span>
-    <span class="kt">uint32_t</span> <span class="n">type</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">listType</span><span class="p">;</span>
-    <span class="kt">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="o">-</span><span class="mi">4</span><span class="p">];</span>      <span class="c1">// contiene otros Chunk o List</span>
+    <span class="n">uint32_t</span> <span class="n">type</span><span class="p">;</span>
+    <span class="n">uint32_t</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">uint32_t</span> <span class="n">listType</span><span class="p">;</span>
+    <span class="n">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="o">-</span><span class="mi">4</span><span class="p">];</span>      <span class="c1">// contiene otros Chunk o List</span>
 <span class="p">};</span>
 </pre></div>
 
