@@ -75,7 +75,7 @@ propósito, especialmente en los sistemas UNIX y derivados.</p>
 <h1>Make</h1>
 <p>Para usar <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make</a> cada proyecto debe ir acompañado de un fichero <code>Makefile</code> donde
 se incluyen las reglas para la compilación y enlazado de las librerías y
-ejecutables del mismo. Estás reglas fijan que es lo que hay que hacer —que
+ejecutables del mismo. Estas reglas fijan que es lo que hay que hacer —que
 comandos ejecutar y como hacerlo— para obtener cada producto del proceso de
 construcción, así como las dependencias de estos con respecto a otros productos
 o a los distintos archivos de código fuente del proyecto. Además se pueden
@@ -89,7 +89,7 @@ subproductos de la compilación.</p>
 </pre></div>
 
 
-<p>el directorio del proyecto. Siendo su instalación igual de sencilla:</p>
+<p>en el directorio del proyecto. Siendo su instalación igual de sencilla:</p>
 <div class="codehilite"><pre><span class="nv">$ </span>make install
 </pre></div>
 
@@ -119,7 +119,7 @@ distintos entornos de desarrollo.</p>
 si no imposible, cuando se quiere crear software portable. Diferentes sistemas
 operativos pueden tener distintos compiladores, ya sean de diferentes
 fabricantes o en distintas versiones, u ofrecer a las aplicaciones diferentes
-funcionales —o las mismas pero de manera distintas—. Además un proyecto de
+funcionalidades —o las mismas pero de manera distintas—. Además un proyecto de
 software puede depender de otras librerías o programas, que nuevamente pueden
 ser de versiones diferentes o distintos desarrolladores. Y a todo eso hay que
 unir que según el sistema operativo la ubicación de librerías, programas y
@@ -262,7 +262,7 @@ pasadas al compilador.</p>
 <p>Así, por ejemplo, dentro del código fuente se puede usar la macro <code>APP_CONFFILE</code>
 con la ruta al archivo de configuración de la aplicación para acceder a él
 mediante <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsettings.html" title="QSettings">QSettings</a>:</p>
-<div class="codehilite"><pre><span class="n">QSettings</span> <span class="n">settings</span><span class="p">(</span><span class="n">APP_CONFFILE</span><span class="p">,</span> <span class="n">QSettings</span><span class="o">::</span><span class="n">IniFormat</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="n">QSettings</span> <span class="nf">settings</span><span class="p">(</span><span class="n">APP_CONFFILE</span><span class="p">,</span> <span class="n">QSettings</span><span class="o">::</span><span class="n">IniFormat</span><span class="p">);</span>
 </pre></div>
 
 

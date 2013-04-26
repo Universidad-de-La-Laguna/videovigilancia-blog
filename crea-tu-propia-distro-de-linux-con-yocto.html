@@ -172,7 +172,7 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.</p>
 <p>Buscar la variable <code>BBLAYERS</code> en <code>raspberry-pi-build/conf/bblayers.conf</code> y añadir
 al final la ruta hasta el repositorio de la capa <strong>meta-raspberrypi</strong> para incluirla
 en el proceso de construcción. Por ejemplo:</p>
-<div class="codehilite"><pre><span class="n">BBLAYERS</span> <span class="p">?</span><span class="o">=</span> <span class="s">&quot; \</span>
+<div class="codehilite"><pre><span class="n">BBLAYERS</span> <span class="o">?=</span> <span class="s">&quot; \</span>
 <span class="s">  /home/usuario/poky-danny-8.0/meta \</span>
 <span class="s">  /home/usuario/poky-danny-8.0/meta-yocto \</span>
 <span class="s">  /home/usuario/poky-danny-8.0/meta-yocto-bsp \</span>
@@ -185,7 +185,7 @@ en el proceso de construcción. Por ejemplo:</p>
 <li>
 <p>Buscar la variable <code>MACHINE</code> en <code>raspberry-pi-build/conf/local.conf</code> e indicar que
 la máquina de destino de la imagen es <code>raspberrypi</code></p>
-<div class="codehilite"><pre><span class="n">MACHINE</span> <span class="p">?</span><span class="o">=</span> <span class="s">&quot;raspberrypi&quot;</span>
+<div class="codehilite"><pre><span class="n">MACHINE</span> <span class="o">?=</span> <span class="s">&quot;raspberrypi&quot;</span>
 </pre></div>
 
 
