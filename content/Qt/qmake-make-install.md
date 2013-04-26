@@ -1,6 +1,7 @@
 Title: Make install con qmake
 Tags: qt, make, qmake, INSTALLS, DEFINES
 Date: 2013-04-22
+PlusActivityId: z12fvdn4syuctdye022egliyvmyrubrkf
 
 Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios
 medios la manera de definir un proyecto de software y el proceso de construcción
@@ -11,7 +12,7 @@ propósito, especialmente en los sistemas UNIX y derivados.
 
 Para usar [make] cada proyecto debe ir acompañado de un fichero `Makefile` donde
 se incluyen las reglas para la compilación y enlazado de las librerías y
-ejecutables del mismo. Estás reglas fijan que es lo que hay que hacer —que
+ejecutables del mismo. Estas reglas fijan que es lo que hay que hacer —que
 comandos ejecutar y como hacerlo— para obtener cada producto del proceso de
 construcción, así como las dependencias de estos con respecto a otros productos
 o a los distintos archivos de código fuente del proyecto. Además se pueden
@@ -27,7 +28,7 @@ Cuando la construcción de un proyecto ha sido automatizada adecuadamente con
 $ make
 ~~~~
 
-el directorio del proyecto. Siendo su instalación igual de sencilla:
+en el directorio del proyecto. Siendo su instalación igual de sencilla:
 
 ~~~~.sh
 $ make install
@@ -61,7 +62,7 @@ Aunque [make] es una herramienta muy flexible, resulta muy compleja de utilizar,
 si no imposible, cuando se quiere crear software portable. Diferentes sistemas
 operativos pueden tener distintos compiladores, ya sean de diferentes
 fabricantes o en distintas versiones, u ofrecer a las aplicaciones diferentes
-funcionales —o las mismas pero de manera distintas—. Además un proyecto de
+funcionalidades —o las mismas pero de manera distintas—. Además un proyecto de
 software puede depender de otras librerías o programas, que nuevamente pueden
 ser de versiones diferentes o distintos desarrolladores. Y a todo eso hay que
 unir que según el sistema operativo la ubicación de librerías, programas y
