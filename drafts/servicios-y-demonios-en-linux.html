@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Servicios y demonios en Linux - Sistema de Videovigilancia from Scratch</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jesús Torres">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
+                        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+            <div class='article'>
+        <div class="content-title">
+            <h1>Servicios y demonios en Linux</h1>
+            jue 02 mayo 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+        </div>
+	
+        <div><h1>Organización de los procesos</h1>
+<h2>Sesion</h2>
+<h2>Grupo de procesos</h2>
+<h1>Demonios del sistema</h1>
+<h2>Crear un proceso hijo</h2>
+<h2>Cambiar umask</h2>
+<h2>Abrir conexión con el registro de eventos</h2>
+<p><a href="http://en.wikipedia.org/wiki/Syslog" title="Syslog">Syslog</a><a href=""></a></p>
+<p>No decir en clase pero si en los apuntes. En Qt se puede usar http://libqxt.bitbucket.org/doc/tip/qxtlogger.html</p>
+<h2>Crear una nueva sesión</h2>
+<h2>Cambiar el directorio de trabajo</h2>
+<p>Motivos y comentar <a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard">Filesystem Hierarchy Standard</a>.</p>
+<h2>Reabrir los descriptores estándar</h2>
+<p>A /dev/null (hablar de motivos en la referencia (2))</p>
+<h2>Usar daemon()</h2>
+<p>Explicado en la referencia (2). No es estándar POSIX.</p>
+<h1>Cambiar la personalidad del proceso</h1>
+<p>Referencia [4]. En ella se comentan los motivos.</p>
+<h1>Señales</h1>
+<p>Explicar el motivo de interceptar señales como SIGTERM y SIGHUP</p>
+<p>En Aplicaciones de consola con Qt se explican como se usan en Qt.</p>
+<p>Más detalles de su uso tradicional en C en:</p>
+<p>http://beej.us/guide/bgipc/output/html/multipage/signals.html#catchsig</p>
+<h1>Arranque del servicio</h1>
+<p><a href="http://en.wikipedia.org/wiki/Runlevel" title="Runlevel">runlevels</a> y esquema del script de arranque del demonio.</p>
+<h1>Opciones de línea de comandos</h1>
+<p>Uso de getops para analizar las opciones de línea de comandos.
+Opciones interesantes en un demonio --daemon | -d, --help, para sobreescribir
+las opciones de configuración etc.</p>
+<p>En el código de rifftree que tengo a medio hacer hay un ejemplo (artículo Resource Interchange File Format).</p>
+<p>Señales</p>
+<ol>
+<li><a href="http://www.danielhall.me/2010/01/writing-a-daemon-in-c/">Writing a Daemon in C</a></li>
+<li><a href="http://stackoverflow.com/questions/7645378/whats-the-difference-between-calling-daemon-and-calling-fork-setsid-for">What's the difference between calling daemon() and calling fork(), setsid(), fork(), etc.?</a></li>
+<li>Wikipedia - <a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard">Filesystem Hierarchy Standard</a></li>
+<li>The GNU C Library - <a href="http://www.gnu.org/software/libc/manual/html_node/Users-and-Groups.html#Users-and-Groups">Users and Groups</a></li>
+<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Runlevel">Runlevel</a></li>
+</ol>
+<p><a href="http://en.wikipedia.org/wiki/Syslog" title="Syslog">syslog</a>: http://linux.die.net/man/3/syslog "syslog(3)
+[daemon]: http://linux.die.net/man/3/daemon "daemon(3)</p></div>
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+			    </div>
+        </div>
+        
+        <div class="span3">
+
+            
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Sitio
+                </li>
+            
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categorias
+                </li>
+                
+                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
+                                <li><a href="../category/vision.html">Visión</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://github.com/ull-etsii-sistemas-operativos/">github</a></li>
+                                <li><a href="http://plus.google.com/u/0/communities/112085352199958768374">google+</a></li>
+                                <li><a href="http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch">flattr</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml">atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml">rss</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+<ul class="nav nav-list">
+    <li class="nav-header">
+    Búsqueda de Google
+    </li>
+
+    <script type="text/javascript">
+    (function() {
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.es/cse/cse.js?cx=' + '013894742475483232300:q2-5a1zlira';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
+    <gcse:search>Cargando...</gcse:search>
+</ul>
+</div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es"><img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />Este obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es">Licencia Creative Commons Atribución 3.0 Unported</a>.</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>
