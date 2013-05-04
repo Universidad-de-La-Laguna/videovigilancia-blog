@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./resource-interchange-file-format.html"><h1>Resource Interchange File Format</h1></a>
-            mié 24 abril 2013
+            <a href="./conversion-de-tipos-en-c.html"><h1>Conversión de tipos en C++</h1></a>
+            dom 05 mayo 2013
 
 by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,108 +68,135 @@ by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torre
  
         </div>
         
-        <div><p>El <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format</a> o <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format">RIFF</a> es un formato contenedor genérico diseñado para almacenar datos en forma
-de fragmentos etiquetados o <a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a>. Siendo usado en la actualidad como formato
-contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
-indudable que resulta especialmente útil para almacenar contenidos multimedia,
-aunque realmente puede almacenar cualquier tipo de información.</p>
-<h1>Tipos de fragmentos</h1>
-<p>Hay dos tipos de fragmentos en un archivo <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format">RIFF</a>. El más básico son los
-<a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a> o fragmentos de datos propiamente dichos:</p>
-<div class="codehilite"><pre><span class="k">struct</span> <span class="n">Chunk</span>
+        <div><p>En C, cuando una conversión entre dos tipos no es realizada por el compilador de
+forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
+<code>char</code> a <code>int</code> o de éste a <code>float</code>— se puede forzar utilizando una expresión de
+<em>typecast</em> de la forma <code>(type)object</code> —o <code>type(object)</code>— para convertir el
+elemento <code>object</code> al tipo especificado por <code>type</code>.</p>
+<p>En C++, aunque entre los programadores sigue siendo muy común la conversión de
+<em>estilo C</em>, existen diversos operadores de <em>typecast</em> cuyo uso es más adecuado y
+menos peligroso.</p>
+<h1>static_cast</h1>
+<p>El operador:</p>
+<div class="codehilite"><pre><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+</pre></div>
+
+
+<p>es el primero que se debe intentar utilizar.</p>
+<p>Puede hacer conversiones implícitas entre tipos —como de <code>int</code> a <code>float</code> o de
+un puntero a <code>void*</code>— así como llamar a los métodos de conversión explícitos
+definidos en las clases:</p>
+<div class="codehilite"><pre><span class="k">operator</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="n">uint32_t</span> <span class="n">type</span><span class="p">;</span>
-    <span class="n">uint32_t</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>        <span class="c1">// contiene datos en general</span>
-<span class="p">};</span>
+    <span class="p">...</span>
+<span class="p">}</span>
 </pre></div>
 
 
-<p>donde <code>type</code> sirve para identificar el tipo y el formato de los datos que
-almacena el fragmento y <code>size</code> para especificar su tamaño —sin incluir ni el
-tamaño del campo <code>type</code> ni el de <code>size</code>—.</p>
-<p>El otro tipo de fragmento son las listas:</p>
-<div class="codehilite"><pre><span class="k">struct</span> <span class="n">List</span>
-<span class="p">{</span>
-    <span class="n">uint32_t</span> <span class="n">type</span><span class="p">;</span>
-    <span class="n">uint32_t</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">uint32_t</span> <span class="n">listType</span><span class="p">;</span>
-    <span class="n">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="o">-</span><span class="mi">4</span><span class="p">];</span>      <span class="c1">// contiene otros Chunk o List</span>
-<span class="p">};</span>
+<p><strong>static_cast</strong> convierte de clases bases a derivadas en una jerarquía de clases
+—la conversión de clases derivadas a clases bases es automática— siempre que no
+haya poliformismo<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>. En cualquier caso las conversiones <strong>static_cast</strong> se
+resuelven en <strong>tiempo de compilación</strong> y no comprueban si el tipo al que se
+convierte coincide con el tipo real del objeto. El estándar indica que queda
+indefinido lo que pueda pasar si se convierte de un tipo base a uno derivado
+cuando este último no es el tipo real del objeto.</p>
+<h1>dynamic_cast</h1>
+<p>El operador:</p>
+<div class="codehilite"><pre><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
 </pre></div>
 
 
-<p>que son aquellos que contienen una colección de otros fragmentos o listas:</p>
-<ul>
-<li>Las listas se identifican y distinguen de otros fragmentos porque su campo
-<code>type</code> contiene o los 4 caracteres de <code>RIFF</code> o de <code>LIST</code><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></li>
-<li>Para este tipo de fragmentos el tamaño en el campo <code>size</code> incluye tanto el
- de los datos almacenados dentro del fragmento como el del campo <code>listType</code>.</li>
-<li>Dentro de la lista los fragmentos que contiene se disponen unos detrás de
-otros, pero siempre asegurando que cada fragmento comienza en una dirección
-par —es decir, que se alinean a 16 bits—.</li>
-</ul>
-<p>El archivo contenedor en si mismo es una gran fragmento de lista tipo <code>RIFF</code> que
-contiene otros fragmentos. Estos pueden ser <em>chunks</em> o listas de tipo <code>LIST</code>.
-Por lo tanto en una archivo RIFF sólo existe una lista de este tipo, que hace
-las veces de contenedor de todos los fragmentos del archivo. El valor del campo
-<code>listType</code> del fragmento <code>RIFF</code> es una secuencia de 4 bytes que identifica el
-formato del archivo y se lo conoce como el <a href="http://www.fourcc.org/codecs.php" title="FourCC">FourCC</a> del mismo.</p>
-<h1>Estructura general</h1>
-<p>Para hacernos una idea del formato este sería el esquema de un archivo AVI
-convencional:</p>
-<div class="codehilite"><pre>RIFF <span class="o">(</span><span class="s1">&#39;AVI &#39;</span>
-      LIST <span class="o">(</span><span class="s1">&#39;hdr1&#39;</span>
-            AVIH <span class="o">(</span>&lt;cabecera principal del AVI&gt;<span class="o">)</span>
-            LIST <span class="o">(</span><span class="s1">&#39;str1&#39;</span>
-                  STRH <span class="o">(</span>&lt;cabecera del flujo&gt;<span class="o">)</span>
-                  STRF <span class="o">(</span>&lt;formato del flujo&gt;<span class="o">)</span>
-                  ...
-                 <span class="o">)</span>
-            ...
-           <span class="o">)</span>
-      LIST <span class="o">(</span><span class="s1">&#39;movi&#39;</span>
-            <span class="o">{</span>Chunk | LIST <span class="o">(</span><span class="s1">&#39;rec &#39;</span>
-                           Chunk1
-                           Chunk2
-                           ...
-                          <span class="o">)</span>
-             ...
-            <span class="o">}</span>
-            ...
-           <span class="o">)</span>
-      <span class="o">[</span>IDX1 <span class="o">(</span>&lt;índice AVI&gt;<span class="o">)]</span>
-     <span class="o">)</span>
+<p>se utiliza exclusivamente para manejar el poliformismo ya que permite convertir
+un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
+sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
+sino también de forma lateral o incluso a una jerarquía diferente.</p>
+<p><strong>dynamic_cast</strong> busca <strong>en tiempo de ejecución</strong> el objeto del tipo deseado
+en la jerarquía, devolviéndolo en caso de encontrarlo. Si no es así, devuelve
+<code>NULL</code> para punteros o lanzará una excepción <code>std::bad_cast</code> si lo que se
+convierten son referencias a objetos.</p>
+<h1>const_cast</h1>
+<p>El operador:</p>
+<div class="codehilite"><pre><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Donde los identificadores en mayúsculas denotan el valor del campo <code>type</code> al
-comienzo de un fragmento. Este siempre es seguido por el campo <code>size</code>, que no se
-muestra en el esquema anterior. Por otro lado el valor de los campos <code>listType</code>
-de los fragmentos de tipo lista se indica entre comillas simples.</p>
-<p>Para observar una estructura real de archivo RIFF se puede utilizar el
-programa <a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.html" title="Ubuntu Manpage: rifftree">rifftree</a> del paquete <code>gigtools</code> con cualquier archivo <code>.avi</code> o
-<code>.wav</code> que tengamos a mano.</p>
+<p>se usa exclusivamente para eliminar o añadir <code>const</code> a una variable, ya que esto
+es algo que no pueden hacer los otros operadores de <em>typecast</em>.</p>
+<p>Es importante destacar que su uso queda indefinido si la variable original
+realmente es constante. Por ejemplo, algunos compiladores optimizan las constantes
+reemplazándolas donde son utilizadas directamente por el valor que contienen. En
+casos como ese, intentar modificar la variable tiene un resultado indefinido
+según indica el estándar del lenguaje.</p>
+<h1>reinterpret_cast</h1>
+<p>El operador:</p>
+<div class="codehilite"><pre><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+</pre></div>
+
+
+<p>permite convertir un tipo directamente en otro, por lo que es el más peligroso
+de los operadores de conversión. Por ejemplo permite convertir punteros de un
+tipo a otro o convertir un puntero en un entero para su manipulación. Se utiliza
+fundamentalmente para convertir un flujo de bytes en el tipo definitivo con
+el que se van a manipular los datos.</p>
+<p>La única garantía ofrecida por el estándar de C++ es que si se hace un
+<strong>reinterpret_cast</strong> y posteriormente se realiza un conversión al tipo original,
+se obtiene el mismo resultado si el tipo intermedio tiene el tamaño suficiente.</p>
+<h1>Conversión estilo C</h1>
+<p>En C++ una conversión de <em>estilo C</em> se define como la primera que tenga éxito
+intentándolo en el siguiente orden:</p>
+<ol>
+<li><strong>const_cast</strong>.</li>
+<li><strong>static_cast</strong>.</li>
+<li><strong>static_cast</strong> y después <strong>const_cast</strong>.</li>
+<li><strong>reinterpret_cast</strong></li>
+<li><strong>reinterpret_cast</strong> y después <strong>const_cast</strong>.</li>
+</ol>
+<p>Obviamente este tipo de <em>typecast</em> es peligroso porque se puede convertir en un
+<strong>reinterpret_cast</strong>, siendo preferible que si este tipo de conversión es
+necesaria se indique de forma explícita, quedando como tal reflejada en el
+código.</p>
+<p>Además la conversión <em>estilo C</em> ignora el control de acceso cuando realiza un
+<strong>static_cast</strong>. Diversos ejemplos de esto se pueden encontrar en
+"<a href="http://stackoverflow.com/questions/8548667/static-cast-%20restricts-access-to-public-member-function">stackoverflow</a>" por lo que que este tipo de conversión permite hacer
+operaciones que con las otras no se puede.</p>
 <h1>Referencias</h1>
 <ol>
-<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format</a></li>
-<li>MSDN - <a href="http://msdn.microsoft.com/en-us/library/ms779636(VS.85).aspx">AVI RIFF File Reference</a></li>
-<li><a href="http://www.alexander-noe.com/video/documentation/avi.pdf">AVI File Format</a></li>
-<li><a href="http://www.fourcc.org/codecs.php" title="FourCC">FourCC</a></li>
+<li><a href="http://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-and-reinterpret-cast-be-used">When should static_cast, dynamic_cast and reinterpret_cast be used?</a></li>
+<li><a href="http://stackoverflow.com/questions/8548667/static-cast-restricts-access-to-public-member-function">static_cast restricts access to public member function?</a></li>
 </ol>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>Si bien en el archivo se almacenan los caracteres <code>'R'</code>, <code>'R'</code>, <code>'I'</code>, <code>'F'</code>
-en ese orden, hay que tener en cuenta que al interpretarlo como <code>uint32_t</code> en
-una máquina <em>little-endian</em> no veremos el número 0x52494646 sino 0x46464952.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Un tipo polimórfico es aquel que tiene al menos una función virtual, ya sea
+declarada directamente en el o heredada de una clase base.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="./resource-interchange-file-format.html"><h2>Resource Interchange File Format</h2></a>
+        <div class= "well small"> mié 24 abril 2013
+
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>El <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format</a> o <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format">RIFF</a> es un formato contenedor genérico diseñado para almacenar datos en forma
+de fragmentos etiquetados o <a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a>. Siendo usado en la actualidad como formato
+contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
+indudable que resulta especialmente útil para ...</p> <a class="btn btn-info xsmall" href="./resource-interchange-file-format.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -191,29 +218,6 @@ del mismo. Sin embargo <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" t
 propósito, especialmente en los sistemas UNIX y derivados.</p>
 <h1>Make</h1>
 <p>Para usar <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make ...</a></p> <a class="btn btn-info xsmall" href="./make-install-con-qmake.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./aplicaciones-de-consola-con-qt.html"><h2>Aplicaciones de consola con Qt</h2></a>
-        <div class= "well small"> jue 11 abril 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> es un <em>framework</em> utilizado fundamentalmente para desarrollar aplicaciones
-con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
-aplicaciones de linea de comandos.</p>
-<h1>QCoreApplication</h1>
-<p>Al crear un proyecto de aplicación para consola, el asistente de Qt Creator
-crea un archivo <code>main.cpp</code> con un contenido similar ...</p> <a class="btn btn-info xsmall" href="./aplicaciones-de-consola-con-qt.html">leer más</a></div>
     </div>	
 				
             <div class="pagination">

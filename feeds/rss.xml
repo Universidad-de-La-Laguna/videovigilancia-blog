@@ -1,5 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 24 Apr 2013 00:00:00 +0100</lastBuildDate><item><title>Resource Interchange File Format</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html</link><description>&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 05 May 2013 00:00:00 +0100</lastBuildDate><item><title>Conversión de tipos en C++</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/conversion-de-tipos-en-c.html</link><description>&lt;p&gt;En C, cuando una conversión entre dos tipos no es realizada por el compilador de
+forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
+&lt;code&gt;char&lt;/code&gt; a &lt;code&gt;int&lt;/code&gt; o de éste a &lt;code&gt;float&lt;/code&gt;— se puede forzar utilizando una expresión de
+&lt;em&gt;typecast&lt;/em&gt; de la forma &lt;code&gt;(type)object&lt;/code&gt; —o &lt;code&gt;type(object)&lt;/code&gt;— para convertir el
+elemento &lt;code&gt;object&lt;/code&gt; al tipo especificado por &lt;code&gt;type&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;En C++, aunque entre los programadores sigue siendo muy común la conversión de
+&lt;em&gt;estilo C&lt;/em&gt;, existen diversos operadores de &lt;em&gt;typecast&lt;/em&gt; cuyo uso es más adecuado y
+menos peligroso.&lt;/p&gt;
+&lt;h1&gt;static_cast&lt;/h1&gt;
+&lt;p&gt;El operador:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;static_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;es el primero que se debe intentar utilizar.&lt;/p&gt;
+&lt;p&gt;Puede hacer conversiones implícitas entre tipos —como de &lt;code&gt;int&lt;/code&gt; a &lt;code&gt;float&lt;/code&gt; o de
+un puntero a &lt;code&gt;void*&lt;/code&gt;— así como llamar a los métodos de conversión explícitos
+definidos en las clases:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;operator&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;static_cast&lt;/strong&gt; convierte de clases bases a derivadas en una jerarquía de clases
+—la conversión de clases derivadas a clases bases es automática— siempre que no
+haya poliformismo&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;. En cualquier caso las conversiones &lt;strong&gt;static_cast&lt;/strong&gt; se
+resuelven en &lt;strong&gt;tiempo de compilación&lt;/strong&gt; y no comprueban si el tipo al que se
+convierte coincide con el tipo real del objeto. El estándar indica que queda
+indefinido lo que pueda pasar si se convierte de un tipo base a uno derivado
+cuando este último no es el tipo real del objeto.&lt;/p&gt;
+&lt;h1&gt;dynamic_cast&lt;/h1&gt;
+&lt;p&gt;El operador:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;dynamic_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;se utiliza exclusivamente para manejar el poliformismo ya que permite convertir
+un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
+sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
+sino también de forma lateral o incluso a una jerarquía diferente.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;dynamic_cast&lt;/strong&gt; busca &lt;strong&gt;en tiempo de ejecución&lt;/strong&gt; el objeto del tipo deseado
+en la jerarquía, devolviéndolo en caso de encontrarlo. Si no es así, devuelve
+&lt;code&gt;NULL&lt;/code&gt; para punteros o lanzará una excepción &lt;code&gt;std::bad_cast&lt;/code&gt; si lo que se
+convierten son referencias a objetos.&lt;/p&gt;
+&lt;h1&gt;const_cast&lt;/h1&gt;
+&lt;p&gt;El operador:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;const_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;se usa exclusivamente para eliminar o añadir &lt;code&gt;const&lt;/code&gt; a una variable, ya que esto
+es algo que no pueden hacer los otros operadores de &lt;em&gt;typecast&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Es importante destacar que su uso queda indefinido si la variable original
+realmente es constante. Por ejemplo, algunos compiladores optimizan las constantes
+reemplazándolas donde son utilizadas directamente por el valor que contienen. En
+casos como ese, intentar modificar la variable tiene un resultado indefinido
+según indica el estándar del lenguaje.&lt;/p&gt;
+&lt;h1&gt;reinterpret_cast&lt;/h1&gt;
+&lt;p&gt;El operador:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;reinterpret_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;permite convertir un tipo directamente en otro, por lo que es el más peligroso
+de los operadores de conversión. Por ejemplo permite convertir punteros de un
+tipo a otro o convertir un puntero en un entero para su manipulación. Se utiliza
+fundamentalmente para convertir un flujo de bytes en el tipo definitivo con
+el que se van a manipular los datos.&lt;/p&gt;
+&lt;p&gt;La única garantía ofrecida por el estándar de C++ es que si se hace un
+&lt;strong&gt;reinterpret_cast&lt;/strong&gt; y posteriormente se realiza un conversión al tipo original,
+se obtiene el mismo resultado si el tipo intermedio tiene el tamaño suficiente.&lt;/p&gt;
+&lt;h1&gt;Conversión estilo C&lt;/h1&gt;
+&lt;p&gt;En C++ una conversión de &lt;em&gt;estilo C&lt;/em&gt; se define como la primera que tenga éxito
+intentándolo en el siguiente orden:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;const_cast&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;static_cast&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;static_cast&lt;/strong&gt; y después &lt;strong&gt;const_cast&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;reinterpret_cast&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;reinterpret_cast&lt;/strong&gt; y después &lt;strong&gt;const_cast&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Obviamente este tipo de &lt;em&gt;typecast&lt;/em&gt; es peligroso porque se puede convertir en un
+&lt;strong&gt;reinterpret_cast&lt;/strong&gt;, siendo preferible que si este tipo de conversión es
+necesaria se indique de forma explícita, quedando como tal reflejada en el
+código.&lt;/p&gt;
+&lt;p&gt;Además la conversión &lt;em&gt;estilo C&lt;/em&gt; ignora el control de acceso cuando realiza un
+&lt;strong&gt;static_cast&lt;/strong&gt;. Diversos ejemplos de esto se pueden encontrar en
+"&lt;a href="http://stackoverflow.com/questions/8548667/static-cast-%20restricts-access-to-public-member-function"&gt;stackoverflow&lt;/a&gt;" por lo que que este tipo de conversión permite hacer
+operaciones que con las otras no se puede.&lt;/p&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-and-reinterpret-cast-be-used"&gt;When should static_cast, dynamic_cast and reinterpret_cast be used?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/8548667/static-cast-restricts-access-to-public-member-function"&gt;static_cast restricts access to public member function?&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;Un tipo polimórfico es aquel que tiene al menos una función virtual, ya sea
+declarada directamente en el o heredada de una clase base.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Sun, 05 May 2013 00:00:00 +0100</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-05:conversion-de-tipos-en-c.html</guid><category>typecast</category><category>c++</category><category>cpp</category><category>static_cast</category><category>dynamic_cast</category><category>const_cast</category><category>reinterpret_cast</category></item><item><title>Resource Interchange File Format</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html</link><description>&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
 de fragmentos etiquetados o &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt;. Siendo usado en la actualidad como formato
 contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
 indudable que resulta especialmente útil para almacenar contenidos multimedia,
@@ -1172,111 +1276,7 @@ datos a un objeto &lt;code&gt;QBuffer&lt;/code&gt; y leer desde el:&lt;/p&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader"&gt;QImageReader&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter"&gt;QImageWriter&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Wed, 13 Mar 2013 00:00:00 +0000</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-13:uso-de-la-memoria-como-un-dispositivo-de-es.html</guid><category>qt</category><category>qbuffer</category><category>qiodevice</category><category>qimagewriter</category><category>qimagereader</category></item><item><title>Conversión de tipos en C++</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/conversion-de-tipos-en-c.html</link><description>&lt;p&gt;En C, cuando una conversión entre dos tipos no es realizada por el compilador de
-forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
-&lt;code&gt;char&lt;/code&gt; a &lt;code&gt;int&lt;/code&gt; o de éste a &lt;code&gt;float&lt;/code&gt;— se puede forzar utilizando una expresión de
-&lt;em&gt;typecast&lt;/em&gt; de la forma &lt;code&gt;(type)object&lt;/code&gt; —o &lt;code&gt;type(object)&lt;/code&gt;— para convertir el
-elemento &lt;code&gt;object&lt;/code&gt; al tipo especificado por &lt;code&gt;type&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;En C++, aunque entre los programadores sigue siendo muy común la conversión de
-&lt;em&gt;estilo C&lt;/em&gt;, existen diversos operadores de &lt;em&gt;typecast&lt;/em&gt; cuyo uso es más adecuado y
-menos peligroso.&lt;/p&gt;
-&lt;h1&gt;static_cast&lt;/h1&gt;
-&lt;p&gt;El operador:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;static_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;es el primero que se debe intentar utilizar.&lt;/p&gt;
-&lt;p&gt;Puede hacer conversiones implícitas entre tipos —como de &lt;code&gt;int&lt;/code&gt; a &lt;code&gt;float&lt;/code&gt; o de
-un puntero a &lt;code&gt;void*&lt;/code&gt;— así como llamar a los métodos de conversión explícitos
-definidos en las clases:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;operator&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="p"&gt;...&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;strong&gt;static_cast&lt;/strong&gt; convierte de clases bases a derivadas en una jerarquía de clases
-—la conversión de clases derivadas a clases bases es automática— siempre que no
-haya poliformismo&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;. En cualquier caso las conversiones &lt;strong&gt;static_cast&lt;/strong&gt; se
-resuelven en &lt;strong&gt;tiempo de compilación&lt;/strong&gt; y no comprueban si el tipo al que se
-convierte coincide con el tipo real del objeto. El estándar indica que queda
-indefinido lo que pueda pasar si se convierte de un tipo base a uno derivado
-cuando este último no es el tipo real del objeto.&lt;/p&gt;
-&lt;h1&gt;dynamic_cast&lt;/h1&gt;
-&lt;p&gt;El operador:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;dynamic_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;se utiliza exclusivamente para manejar el poliformismo ya que permite convertir
-un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
-sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
-sino también de forma lateral o incluso a una jerarquía diferente.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;dynamic_cast&lt;/strong&gt; busca &lt;strong&gt;en tiempo de ejecución&lt;/strong&gt; el objeto del tipo deseado
-en la jerarquía, devolviéndolo en caso de encontrarlo. Si no es así, devuelve
-&lt;code&gt;NULL&lt;/code&gt; para punteros o lanzará una excepción &lt;code&gt;std::bad_cast&lt;/code&gt; si lo que se
-convierten son referencias a objetos.&lt;/p&gt;
-&lt;h1&gt;const_cast&lt;/h1&gt;
-&lt;p&gt;El operador:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;const_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;se usa exclusivamente para eliminar o añadir &lt;code&gt;const&lt;/code&gt; a una variable, ya que esto
-es algo que no pueden hacer los otros operadores de &lt;em&gt;typecast&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Es importante destacar que su uso queda indefinido si la variable original
-realmente es constante. Por ejemplo, algunos compiladores optimizan las constantes
-reemplazándolas donde son utilizadas directamente por el valor que contienen. En
-casos como ese, intentar modificar la variable tiene un resultado indefinido
-según indica el estándar del lenguaje.&lt;/p&gt;
-&lt;h1&gt;reinterpret_cast&lt;/h1&gt;
-&lt;p&gt;El operador:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;reinterpret_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;permite convertir un tipo directamente en otro, por lo que es el más peligroso
-de los operadores de conversión. Por ejemplo permite convertir punteros de un
-tipo a otro o convertir un puntero en un entero para su manipulación. Se utiliza
-fundamentalmente para convertir un flujo de bytes en el tipo definitivo con
-el que se van a manipular los datos.&lt;/p&gt;
-&lt;p&gt;La única garantía ofrecida por el estándar de C++ es que si se hace un
-&lt;strong&gt;reinterpret_cast&lt;/strong&gt; y posteriormente se realiza un conversión al tipo original,
-se obtiene el mismo resultado si el tipo intermedio tiene el tamaño suficiente.&lt;/p&gt;
-&lt;h1&gt;Conversión estilo C&lt;/h1&gt;
-&lt;p&gt;En C++ una conversión de &lt;em&gt;estilo C&lt;/em&gt; se define como la primera que tenga éxito
-intentándolo en el siguiente orden:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;const_cast&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;static_cast&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;static_cast&lt;/strong&gt; y después &lt;strong&gt;const_cast&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;reinterpret_cast&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;reinterpret_cast&lt;/strong&gt; y después &lt;strong&gt;const_cast&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Obviamente este tipo de &lt;em&gt;typecast&lt;/em&gt; es peligroso porque se puede convertir en un
-&lt;strong&gt;reinterpret_cast&lt;/strong&gt;, siendo preferible que si este tipo de conversión es
-necesaria se indique de forma explícita, quedando como tal reflejada en el
-código.&lt;/p&gt;
-&lt;p&gt;Además la conversión &lt;em&gt;estilo C&lt;/em&gt; ignora el control de acceso cuando realiza un
-&lt;strong&gt;static_cast&lt;/strong&gt;. Diversos ejemplos de esto se pueden encontrar en
-"&lt;a href="http://stackoverflow.com/questions/8548667/static-cast-%20restricts-access-to-public-member-function"&gt;stackoverflow&lt;/a&gt;" por lo que que este tipo de conversión permite hacer
-operaciones que con las otras no se puede.&lt;/p&gt;
-&lt;h1&gt;Referencias&lt;/h1&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-and-reinterpret-cast-be-used"&gt;When should static_cast, dynamic_cast and reinterpret_cast be used?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/8548667/static-cast-restricts-access-to-public-member-function"&gt;static_cast restricts access to public member function?&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="footnote"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn:1"&gt;
-&lt;p&gt;Un tipo polimórfico es aquel que tiene al menos una función virtual, ya sea
-declarada directamente en el o heredada de una clase base.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Tue, 05 Mar 2013 00:00:00 +0000</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-05:conversion-de-tipos-en-c.html</guid><category>typecast</category><category>c++</category><category>cpp</category><category>static_cast</category><category>dynamic_cast</category><category>const_cast</category><category>reinterpret_cast</category></item><item><title>Implementando un protocolo con Protocol Buffers</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/implementando-un-protocolo-con-protocol-buffers.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; es un mecanismo sencillo para serializar estructuras de
+&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Wed, 13 Mar 2013 00:00:00 +0000</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-13:uso-de-la-memoria-como-un-dispositivo-de-es.html</guid><category>qt</category><category>qbuffer</category><category>qiodevice</category><category>qimagewriter</category><category>qimagereader</category></item><item><title>Implementando un protocolo con Protocol Buffers</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/implementando-un-protocolo-con-protocol-buffers.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; es un mecanismo sencillo para serializar estructuras de
 datos, de tal forma que los datos así codificados pueden ser almacenados
 o enviados a través de una red de comunicaciones. Esto nos ofrece una forma
 sencilla de crear nuestro propio protocolo de comunicaciones, adaptado a las
