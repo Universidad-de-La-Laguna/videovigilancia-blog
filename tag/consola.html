@@ -76,7 +76,7 @@ aplicaciones de linea de comandos.</p>
 crea un archivo <code>main.cpp</code> con un contenido similar al siguiente:</p>
 <div class="codehilite"><pre><span class="cp">#include &lt;QCoreApplication&gt;</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 
@@ -112,7 +112,7 @@ estándar de C++:</p>
 
 
 <p>como los flujos de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>:</p>
-<div class="codehilite"><pre><span class="n">QTextStream</span> <span class="nf">qtin</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="n">QTextStream</span> <span class="n">qtin</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
 <span class="n">QString</span> <span class="n">line</span> <span class="o">=</span> <span class="n">qtin</span><span class="p">.</span><span class="n">readLine</span><span class="p">();</span>
 </pre></div>
 
@@ -166,7 +166,7 @@ que el programa termine en condiciones seguras. Por ejemplo: borrar archivos
 temporales, asegurar que los datos se escriben en disco y su estructura es
 consistente, terminar procesos hijo a los que se les haya delegado parte del
 trabajo, etc.</p>
-<div class="codehilite"><pre><span class="kt">void</span> <span class="nf">signalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">signum</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">signalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">signum</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Señal (&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">signum</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) recibida.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
@@ -199,31 +199,31 @@ al programa principal que ha ocurrido una señal, con el objeto de que éste úl
 ejecute las acciones necesarias, debemos especificar al compilador que no
 utilice con esas variables optimizaciones que puedan dar problemas de la
 concurrencia.</p>
-<div class="codehilite"><pre><span class="c1">// volatile informa al compilador que no optimice el acceso a la</span>
-<span class="c1">// variable porque su valor puede cambiar en cualquier momento.</span>
+<div class="codehilite"><pre><span class="sr">//</span> <span class="n">volatile</span> <span class="n">informa</span> <span class="n">al</span> <span class="n">compilador</span> <span class="n">que</span> <span class="nb">no</span> <span class="n">optimice</span> <span class="n">el</span> <span class="n">acceso</span> <span class="n">a</span> <span class="n">la</span>
+<span class="sr">//</span> <span class="n">variable</span> <span class="n">porque</span> <span class="n">su</span> <span class="n">valor</span> <span class="n">puede</span> <span class="n">cambiar</span> <span class="n">en</span> <span class="n">cualquier</span> <span class="n">momento</span><span class="o">.</span>
 <span class="n">volatile</span> <span class="n">sig_atomic_t</span> <span class="n">waitingForQuit</span><span class="p">;</span>
 
-<span class="k">void</span> <span class="n">signalHandler</span><span class="p">(</span><span class="k">int</span> <span class="n">signum</span><span class="p">)</span>
+<span class="n">void</span> <span class="n">signalHandler</span><span class="p">(</span><span class="nb">int</span> <span class="n">signum</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="c1">// Indicar al programa principal que debe terminar</span>
-    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="sr">//</span> <span class="n">Indicar</span> <span class="n">al</span> <span class="n">programa</span> <span class="n">principal</span> <span class="n">que</span> <span class="n">debe</span> <span class="n">terminar</span>
+    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="p">...</span>
-    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
-    <span class="p">...</span>
-    <span class="c1">// Configurar el manejador de señal</span>
-    <span class="n">signal</span><span class="p">(</span><span class="no">SIGINT</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
-    <span class="n">signal</span><span class="p">(</span><span class="no">SIGTERM</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
-    <span class="p">...</span>
-    <span class="k">while</span> <span class="p">(</span><span class="mh">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="p">...</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">waitingForQuit</span> <span class="o">==</span> <span class="mh">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// Terminar el proceso en condiciones seguras</span>
-            <span class="p">...</span>
-            <span class="n">exit</span><span class="p">(</span><span class="mh">0</span><span class="p">);</span>
+    <span class="o">...</span>
+    <span class="n">waitingForQuit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="o">...</span>
+    <span class="sr">//</span> <span class="n">Configurar</span> <span class="n">el</span> <span class="n">manejador</span> <span class="n">de</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span>
+    <span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
+    <span class="n">signal</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="n">signalHandler</span><span class="p">);</span>
+    <span class="o">...</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">...</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">waitingForQuit</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="sr">//</span> <span class="n">Terminar</span> <span class="n">el</span> <span class="n">proceso</span> <span class="n">en</span> <span class="n">condiciones</span> <span class="n">seguras</span>
+            <span class="o">...</span>
+            <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -258,29 +258,29 @@ se propone lo siguiente:</p>
 <li>
 <p>Declarar una clase que contenga los <em>manejadores de señal</em>, los <em>slots</em> y
 otros elementos que comentaremos a continuación.</p>
-<div class="codehilite"><pre><span class="n">class</span> <span class="n">MyDaemon</span> <span class="o">:</span> <span class="n">public</span> <span class="n">QObject</span>
+<div class="codehilite"><pre><span class="n">class</span> <span class="n">MyDaemon</span> <span class="p">:</span> <span class="n">public</span> <span class="n">QObject</span>
 <span class="p">{</span>
     <span class="n">Q_OBJECT</span>
 
-    <span class="nl">public:</span>
+    <span class="n">public:</span>
         <span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
         <span class="o">~</span><span class="n">MyDaemon</span><span class="p">();</span>
 
-        <span class="c1">// Manejadores de señal POSIX</span>
-        <span class="k">static</span> <span class="kt">void</span> <span class="nf">hupSignalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">unused</span><span class="p">);</span>
-        <span class="k">static</span> <span class="kt">void</span> <span class="nf">termSignalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">unused</span><span class="p">);</span>
+        <span class="sr">//</span> <span class="n">Manejadores</span> <span class="n">de</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">POSIX</span>
+        <span class="n">static</span> <span class="n">void</span> <span class="n">hupSignalHandler</span><span class="p">(</span><span class="nb">int</span> <span class="n">unused</span><span class="p">);</span>
+        <span class="n">static</span> <span class="n">void</span> <span class="n">termSignalHandler</span><span class="p">(</span><span class="nb">int</span> <span class="n">unused</span><span class="p">);</span>
 
-    <span class="n">public</span> <span class="n">slots</span><span class="o">:</span>
-        <span class="c1">// Slots Qt donde atender las señales POSIX</span>
-        <span class="kt">void</span> <span class="n">handleSigHup</span><span class="p">();</span>
-        <span class="kt">void</span> <span class="nf">handleSigTerm</span><span class="p">();</span>
+    <span class="n">public</span> <span class="n">slots:</span>
+        <span class="sr">//</span> <span class="n">Slots</span> <span class="n">Qt</span> <span class="n">donde</span> <span class="n">atender</span> <span class="n">las</span> <span class="n">se</span><span class="err">ñ</span><span class="n">ales</span> <span class="n">POSIX</span>
+        <span class="n">void</span> <span class="n">handleSigHup</span><span class="p">();</span>
+        <span class="n">void</span> <span class="n">handleSigTerm</span><span class="p">();</span>
 
-    <span class="nl">private:</span>
-        <span class="c1">// Pares de sockets. Un par por señal a manejar</span>
-        <span class="k">static</span> <span class="n">qintptr</span> <span class="n">sigHupSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-        <span class="k">static</span> <span class="n">qintptr</span> <span class="n">sigTermSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">private:</span>
+        <span class="sr">//</span> <span class="n">Pares</span> <span class="n">de</span> <span class="n">sockets</span><span class="o">.</span> <span class="n">Un</span> <span class="n">par</span> <span class="n">por</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">a</span> <span class="n">manejar</span>
+        <span class="n">static</span> <span class="n">qintptr</span> <span class="n">sigHupSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+        <span class="n">static</span> <span class="n">qintptr</span> <span class="n">sigTermSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-        <span class="c1">// Objetos para monitorizar los pares de sockets</span>
+        <span class="sr">//</span> <span class="n">Objetos</span> <span class="n">para</span> <span class="n">monitorizar</span> <span class="n">los</span> <span class="n">pares</span> <span class="n">de</span> <span class="n">sockets</span>
         <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigHupNotifier</span><span class="p">;</span>
         <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigTermNotifier</span><span class="p">;</span>
 <span class="p">};</span>
@@ -297,31 +297,31 @@ en uno de los <em>sockets</em> de la pareja se puede leer en el otro. Además se
 objeto <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a> para uno de los sockets de cada pareja, con el objeto de
 monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso envía
 la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>().</p>
-<div class="codehilite"><pre><span class="n">MyDaemon</span><span class="o">::</span><span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span> <span class="o">:</span> <span class="n">QObject</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="nn">MyDaemon::</span><span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span> <span class="p">:</span> <span class="n">QObject</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="c1">// Crear las parejas de sockets UNIX</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigHupSd</span><span class="p">))</span>
+    <span class="sr">//</span> <span class="n">Crear</span> <span class="n">las</span> <span class="n">parejas</span> <span class="n">de</span> <span class="n">sockets</span> <span class="n">UNIX</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="nb">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigHupSd</span><span class="p">))</span>
         <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create HUP socketpair&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigTermSd</span><span class="p">))</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="nb">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigTermSd</span><span class="p">))</span>
         <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create TERM socketpair&quot;</span><span class="p">);</span>
 
-    <span class="c1">// Crear los objetos para monitorizar uno de los socket</span>
-    <span class="c1">// de cada pareja.</span>
-    <span class="n">sigHupNotifier</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigHupFd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="n">QSocketNotifier</span><span class="o">::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
-    <span class="n">sigTermNotifier</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="n">QSocketNotifier</span><span class="o">::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
+    <span class="sr">//</span> <span class="n">Crear</span> <span class="n">los</span> <span class="n">objetos</span> <span class="n">para</span> <span class="n">monitorizar</span> <span class="n">uno</span> <span class="n">de</span> <span class="n">los</span> <span class="nb">socket</span>
+    <span class="sr">//</span> <span class="n">de</span> <span class="n">cada</span> <span class="n">pareja</span><span class="o">.</span>
+    <span class="n">sigHupNotifier</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigHupFd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="nn">QSocketNotifier::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
+    <span class="n">sigTermNotifier</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="nn">QSocketNotifier::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
 
-    <span class="c1">// Conectar la señal activated() de cada objeto</span>
-    <span class="c1">// QSocketNotifier con el slot correspondiente. Esta señal</span>
-    <span class="c1">// será emitida cuando hayan datos para ser leidos en el</span>
-    <span class="c1">// socket monitorizado.</span>
-    <span class="n">connect</span><span class="p">(</span><span class="n">sigHupNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
+    <span class="sr">//</span> <span class="n">Conectar</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">activated</span><span class="p">()</span> <span class="n">de</span> <span class="n">cada</span> <span class="n">objeto</span>
+    <span class="sr">//</span> <span class="n">QSocketNotifier</span> <span class="n">con</span> <span class="n">el</span> <span class="n">slot</span> <span class="n">correspondiente</span><span class="o">.</span> <span class="n">Esta</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span>
+    <span class="sr">//</span> <span class="n">ser</span><span class="err">á</span> <span class="n">emitida</span> <span class="n">cuando</span> <span class="n">hayan</span> <span class="n">datos</span> <span class="n">para</span> <span class="n">ser</span> <span class="n">leidos</span> <span class="n">en</span> <span class="n">el</span>
+    <span class="sr">//</span> <span class="nb">socket</span> <span class="n">monitorizado</span><span class="o">.</span>
+    <span class="nb">connect</span><span class="p">(</span><span class="n">sigHupNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="nb">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
         <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigHup</span><span class="p">()));</span>
-    <span class="n">connect</span><span class="p">(</span><span class="n">sigTermNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
+    <span class="nb">connect</span><span class="p">(</span><span class="n">sigTermNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="nb">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
         <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigTerm</span><span class="p">()));</span>
 
-    <span class="p">...</span>
+    <span class="o">...</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -333,49 +333,49 @@ invocados es escribir <em>algo</em> en el <em>socket</em> correspondiente. Nóte
 métodos de los manejadores se declaran como <code>static</code> para que puedan ser pasados
 como un puntero de función de C a la llamada al sistema <a href="http://linux.die.net/man/2/sigaction" title="sigaction(2)">sigaction</a>(), cuando
 va a ser establecido el manejador de cada señal concreta:</p>
-<div class="codehilite"><pre><span class="c1">//</span>
-<span class="c1">// Manejador de la señal SIGHUP</span>
-<span class="c1">//</span>
-<span class="k">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">hupSignalHandler</span><span class="p">(</span><span class="k">int</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="sr">//</span>
+<span class="sr">//</span> <span class="n">Manejador</span> <span class="n">de</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">SIGHUP</span>
+<span class="sr">//</span>
+<span class="n">void</span> <span class="nn">MyDaemon::</span><span class="n">hupSignalHandler</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="o">::</span><span class="nb">write</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="c1">//</span>
-<span class="c1">// Manejador de la señal SIGTERM</span>
-<span class="c1">//</span>
-<span class="k">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">(</span><span class="k">int</span><span class="p">)</span>
+<span class="sr">//</span>
+<span class="sr">//</span> <span class="n">Manejador</span> <span class="n">de</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">SIGTERM</span>
+<span class="sr">//</span>
+<span class="n">void</span> <span class="nn">MyDaemon::</span><span class="n">termSignalHandler</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="p">{</span>
 
-    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="o">::</span><span class="nb">write</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="c1">//</span>
-<span class="c1">// Configurar los manejadores de señal</span>
-<span class="c1">//</span>
-<span class="k">int</span> <span class="n">setupUnixSignalHandlers</span><span class="p">()</span>
+<span class="sr">//</span>
+<span class="sr">//</span> <span class="n">Configurar</span> <span class="n">los</span> <span class="n">manejadores</span> <span class="n">de</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span>
+<span class="sr">//</span>
+<span class="nb">int</span> <span class="n">setupUnixSignalHandlers</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="k">struct</span> <span class="o">::</span><span class="n">sigaction</span> <span class="n">hup</span><span class="p">,</span> <span class="n">term</span><span class="p">;</span>
+    <span class="n">struct</span> <span class="o">::</span><span class="n">sigaction</span> <span class="n">hup</span><span class="p">,</span> <span class="n">term</span><span class="p">;</span>
 
-    <span class="n">hup</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">hupSignalHandler</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hup</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
-    <span class="n">hup</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
+    <span class="n">hup</span><span class="o">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nn">MyDaemon::</span><span class="n">hupSignalHandler</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hup</span><span class="o">.</span><span class="n">sa_mask</span><span class="p">);</span>
+    <span class="n">hup</span><span class="o">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="n">SA_RESTART</span><span class="p">;</span>
 
-    <span class="c1">// Establecer manejador de la señal SIGHUP</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGHUP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hup</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="sr">//</span> <span class="n">Establecer</span> <span class="n">manejador</span> <span class="n">de</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">SIGHUP</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="n">SIGHUP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hup</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
 
-    <span class="n">term</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">term</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
-    <span class="n">term</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
+    <span class="n">term</span><span class="o">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nn">MyDaemon::</span><span class="n">termSignalHandler</span><span class="p">;</span>
+    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">term</span><span class="o">.</span><span class="n">sa_mask</span><span class="p">);</span>
+    <span class="n">term</span><span class="o">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="n">SA_RESTART</span><span class="p">;</span>
 
-    <span class="c1">// Establecer manejador de la señal SIGTERM</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGTERM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">term</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mh">2</span><span class="p">;</span>
+    <span class="sr">//</span> <span class="n">Establecer</span> <span class="n">manejador</span> <span class="n">de</span> <span class="n">la</span> <span class="n">se</span><span class="err">ñ</span><span class="n">al</span> <span class="n">SIGTERM</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">term</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
 
-    <span class="k">return</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -385,26 +385,26 @@ va a ser establecido el manejador de cada señal concreta:</p>
 <p>Finalmente en los <em>slots</em> a los que conectamos la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>()
 se lee <em>lo escrito</em> desde el <em>manejador de señal</em>, para después hacer todo
 aquello que no se puede hacer desde dicho manejador de señal POSIX.</p>
-<div class="codehilite"><pre><span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigHup</span><span class="p">()</span>
+<div class="codehilite"><pre><span class="n">void</span> <span class="nn">MyDaemon::</span><span class="n">handleSigHup</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="n">tmp</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">false</span><span class="p">);</span>
+    <span class="n">char</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="o">::</span><span class="nb">read</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
 
-    <span class="c1">// ...tu código aquí...</span>
+    <span class="sr">//</span> <span class="o">...</span><span class="n">tu</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">aqu</span><span class="err">í</span><span class="o">...</span>
 
-    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigTerm</span><span class="p">()</span>
+<span class="n">void</span> <span class="nn">MyDaemon::</span><span class="n">handleSigTerm</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="n">tmp</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">false</span><span class="p">);</span>
+    <span class="n">char</span> <span class="n">tmp</span><span class="p">;</span>
+    <span class="o">::</span><span class="nb">read</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
 
-    <span class="c1">// ...tu código aquí...</span>
+    <span class="sr">//</span> <span class="o">...</span><span class="n">tu</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">aqu</span><span class="err">í</span><span class="o">...</span>
 
-    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+    <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -474,6 +474,7 @@ en la función el programa las bloquea, desbloqueándolas antes de salir.&#160;<
                 </li>
                 
                                 <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="../category/desarrollo.html">Desarrollo</a></li>
                                 <li><a href="../category/hardware.html">Hardware</a></li>
                                 <li><a href="../category/linux.html">Linux</a></li>
                                 <li><a href="../category/overviews.html">Overviews</a></li>

@@ -109,7 +109,7 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;p&gt;Buscar la variable &lt;code&gt;BBLAYERS&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/bblayers.conf&lt;/code&gt; y añadir
 al final la ruta hasta el repositorio de la capa &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; para incluirla
 en el proceso de construcción. Por ejemplo:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="o"&gt;?=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto-bsp \&lt;/span&gt;
@@ -122,7 +122,7 @@ en el proceso de construcción. Por ejemplo:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Buscar la variable &lt;code&gt;MACHINE&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/local.conf&lt;/code&gt; e indicar que
 la máquina de destino de la imagen es &lt;code&gt;raspberrypi&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="o"&gt;?=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>static_cast - Sistema de Videovigilancia from Scratch</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jesús Torres">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
+                        </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../conversion-de-tipos-en-c.html"><h1>Conversión de tipos en C++</h1></a>
+            mar 05 marzo 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>En C, cuando una conversión entre dos tipos no es realizada por el compilador de
+forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
+<code>char</code> a <code>int</code> o de éste a <code>float</code>— se puede forzar utilizando una expresión de
+<em>typecast</em> de la forma <code>(type)object</code> —o <code>type(object)</code>— para convertir el
+elemento <code>object</code> al tipo especificado por <code>type</code>.</p>
+<p>En C++, aunque entre los programadores sigue siendo muy común la conversión de
+<em>estilo C</em>, existen diversos operadores de <em>typecast</em> cuyo uso es más adecuado y
+menos peligroso.</p>
+<h1>static_cast</h1>
+<p>El operador:</p>
+<div class="codehilite"><pre><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+</pre></div>
+
+
+<p>es el primero que se debe intentar utilizar.</p>
+<p>Puede hacer conversiones implícitas entre tipos —como de <code>int</code> a <code>float</code> o de
+un puntero a <code>void*</code>— así como llamar a los métodos de conversión explícitos
+definidos en las clases:</p>
+<div class="codehilite"><pre><span class="k">operator</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>static_cast</strong> convierte de clases bases a derivadas en una jerarquía de clases
+—la conversión de clases derivadas a clases bases es automática— siempre que no
+haya poliformismo<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>. En cualquier caso las conversiones <strong>static_cast</strong> se
+resuelven en <strong>tiempo de compilación</strong> y no comprueban si el tipo al que se
+convierte coincide con el tipo real del objeto. El estándar indica que queda
+indefinido lo que pueda pasar si se convierte de un tipo base a uno derivado
+cuando este último no es el tipo real del objeto.</p>
+<h1>dynamic_cast</h1>
+<p>El operador:</p>
+<div class="codehilite"><pre><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+</pre></div>
+
+
+<p>se utiliza exclusivamente para manejar el poliformismo ya que permite convertir
+un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
+sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
+sino también de forma lateral o incluso a una jerarquía diferente.</p>
+<p><strong>dynamic_cast</strong> busca <strong>en tiempo de ejecución</strong> el objeto del tipo deseado
+en la jerarquía, devolviéndolo en caso de encontrarlo. Si no es así, devuelve
+<code>NULL</code> para punteros o lanzará una excepción <code>std::bad_cast</code> si lo que se
+convierten son referencias a objetos.</p>
+<h1>const_cast</h1>
+<p>El operador:</p>
+<div class="codehilite"><pre><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+</pre></div>
+
+
+<p>se usa exclusivamente para eliminar o añadir <code>const</code> a una variable, ya que esto
+es algo que no pueden hacer los otros operadores de <em>typecast</em>.</p>
+<p>Es importante destacar que su uso queda indefinido si la variable original
+realmente es constante. Por ejemplo, algunos compiladores optimizan las constantes
+reemplazándolas donde son utilizadas directamente por el valor que contienen. En
+casos como ese, intentar modificar la variable tiene un resultado indefinido
+según indica el estándar del lenguaje.</p>
+<h1>reinterpret_cast</h1>
+<p>El operador:</p>
+<div class="codehilite"><pre><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+</pre></div>
+
+
+<p>permite convertir un tipo directamente en otro, por lo que es el más peligroso
+de los operadores de conversión. Por ejemplo permite convertir punteros de un
+tipo a otro o convertir un puntero en un entero para su manipulación. Se utiliza
+fundamentalmente para convertir un flujo de bytes en el tipo definitivo con
+el que se van a manipular los datos.</p>
+<p>La única garantía ofrecida por el estándar de C++ es que si se hace un
+<strong>reinterpret_cast</strong> y posteriormente se realiza un conversión al tipo original,
+se obtiene el mismo resultado si el tipo intermedio tiene el tamaño suficiente.</p>
+<h1>Conversión estilo C</h1>
+<p>En C++ una conversión de <em>estilo C</em> se define como la primera que tenga éxito
+intentándolo en el siguiente orden:</p>
+<ol>
+<li><strong>const_cast</strong>.</li>
+<li><strong>static_cast</strong>.</li>
+<li><strong>static_cast</strong> y después <strong>const_cast</strong>.</li>
+<li><strong>reinterpret_cast</strong></li>
+<li><strong>reinterpret_cast</strong> y después <strong>const_cast</strong>.</li>
+</ol>
+<p>Obviamente este tipo de <em>typecast</em> es peligroso porque se puede convertir en un
+<strong>reinterpret_cast</strong>, siendo preferible que si este tipo de conversión es
+necesaria se indique de forma explícita, quedando como tal reflejada en el
+código.</p>
+<p>Además la conversión <em>estilo C</em> ignora el control de acceso cuando realiza un
+<strong>static_cast</strong>. Diversos ejemplos de esto se pueden encontrar en
+"<a href="http://stackoverflow.com/questions/8548667/static-cast-%20restricts-access-to-public-member-function">stackoverflow</a>" por lo que que este tipo de conversión permite hacer
+operaciones que con las otras no se puede.</p>
+<h1>Referencias</h1>
+<ol>
+<li><a href="http://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-and-reinterpret-cast-be-used">When should static_cast, dynamic_cast and reinterpret_cast be used?</a></li>
+<li><a href="http://stackoverflow.com/questions/8548667/static-cast-restricts-access-to-public-member-function">static_cast restricts access to public member function?</a></li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Un tipo polimórfico es aquel que tiene al menos una función virtual, ya sea
+declarada directamente en el o heredada de una clase base.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
+
+    <li class="active"><a href="../tag/static_cast.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Sitio
+                </li>
+            
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categorias
+                </li>
+                
+                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="../category/desarrollo.html">Desarrollo</a></li>
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
+                                <li><a href="../category/vision.html">Visión</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://github.com/ull-etsii-sistemas-operativos/">github</a></li>
+                                <li><a href="http://plus.google.com/u/0/communities/112085352199958768374">google+</a></li>
+                                <li><a href="http://flattr.com/thing/1171169/Sistema-de-videovigilancia-from-scratch">flattr</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml">atom</a></li>
+                                <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml">rss</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+<ul class="nav nav-list">
+    <li class="nav-header">
+    Búsqueda de Google
+    </li>
+
+    <script type="text/javascript">
+    (function() {
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.es/cse/cse.js?cx=' + '013894742475483232300:q2-5a1zlira';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
+    <gcse:search>Cargando...</gcse:search>
+</ul>
+</div>
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es"><img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />Este obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.es">Licencia Creative Commons Atribución 3.0 Unported</a>.</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+ 
+</body>
+</html>

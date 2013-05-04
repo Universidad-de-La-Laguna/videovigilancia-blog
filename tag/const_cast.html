@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Conversión de tipos en C++ - Sistema de Videovigilancia from Scratch</title>
+    <title>const_cast - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,17 +51,23 @@
     <div class="row">
 
         <div class="span9">
-            <div class='article'>
+                
+
+        
+
+
+    <div class='article'>
         <div class="content-title">
-            <h1>Conversión de tipos en C++</h1>
+            <a href="../conversion-de-tipos-en-c.html"><h1>Conversión de tipos en C++</h1></a>
             mar 05 marzo 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
+ 
         </div>
-	
+        
         <div><p>En C, cuando una conversión entre dos tipos no es realizada por el compilador de
 forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
 <code>char</code> a <code>int</code> o de éste a <code>float</code>— se puede forzar utilizando una expresión de
@@ -117,10 +123,10 @@ convierten son referencias a objetos.</p>
 <p>se usa exclusivamente para eliminar o añadir <code>const</code> a una variable, ya que esto
 es algo que no pueden hacer los otros operadores de <em>typecast</em>.</p>
 <p>Es importante destacar que su uso queda indefinido si la variable original
-realmente constante. Por ejemplo, algunos compiladores optimizan las constantes
+realmente es constante. Por ejemplo, algunos compiladores optimizan las constantes
 reemplazándolas donde son utilizadas directamente por el valor que contienen. En
 casos como ese, intentar modificar la variable tiene un resultado indefinido
-según indicia el estándar del lenguaje.</p>
+según indica el estándar del lenguaje.</p>
 <h1>reinterpret_cast</h1>
 <p>El operador:</p>
 <div class="codehilite"><pre><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
@@ -152,7 +158,7 @@ código.</p>
 <p>Además la conversión <em>estilo C</em> ignora el control de acceso cuando realiza un
 <strong>static_cast</strong>. Diversos ejemplos de esto se pueden encontrar en
 "<a href="http://stackoverflow.com/questions/8548667/static-cast-%20restricts-access-to-public-member-function">stackoverflow</a>" por lo que que este tipo de conversión permite hacer
-operaciones que con las otras no se puede:</p>
+operaciones que con las otras no se puede.</p>
 <h1>Referencias</h1>
 <ol>
 <li><a href="http://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-and-reinterpret-cast-be-used">When should static_cast, dynamic_cast and reinterpret_cast be used?</a></li>
@@ -167,11 +173,21 @@ declarada directamente en el o heredada de una clase base.&#160;<a class="footno
 </li>
 </ol>
 </div></div>
-	
-        <hr>
-    	   
-        <h2>Comentarios</h2>
-			    </div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
+
+    <li class="active"><a href="../tag/const_cast.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
+
+</ul>
+</div>    
+ 
+  
         </div>
         
         <div class="span3">
@@ -198,6 +214,7 @@ declarada directamente en el o heredada de una clase base.&#160;<a class="footno
                 </li>
                 
                                 <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="../category/desarrollo.html">Desarrollo</a></li>
                                 <li><a href="../category/hardware.html">Hardware</a></li>
                                 <li><a href="../category/linux.html">Linux</a></li>
                                 <li><a href="../category/overviews.html">Overviews</a></li>
