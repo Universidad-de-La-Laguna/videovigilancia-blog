@@ -112,9 +112,9 @@ necesaria se indique de forma explícita, quedando como tal reflejada en el
 código.
 
 Además la conversión _estilo C_ ignora el control de acceso cuando realiza un
-**static_cast**. Diversos ejemplos de esto se pueden encontrar en
-"[stackoverflow](http://stackoverflow.com/questions/8548667/static-cast- restricts-access-to-public-member-function)" por lo que que este tipo de conversión permite hacer
-operaciones que con las otras no se puede.
+**static_cast** por lo que que este tipo de conversión permite hacer
+operaciones que con las otras no se puede. Diversos ejemplos de esto se pueden encontrar en
+[stackoverflow](http://stackoverflow.com/questions/8548667/static-cast- restricts-access-to-public-member-function).
 
 # Referencias
 
