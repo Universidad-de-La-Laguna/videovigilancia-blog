@@ -36,7 +36,7 @@ operator const char*()
 
 **static_cast** convierte de clases bases a derivadas en una jerarquía de clases
 —la conversión de clases derivadas a clases bases es automática— siempre que no
-haya poliformismo[^1]. En cualquier caso las conversiones **static_cast** se
+haya polimorfismo[^1]. En cualquier caso las conversiones **static_cast** se
 resuelven en **tiempo de compilación** y no comprueban si el tipo al que se
 convierte coincide con el tipo real del objeto. El estándar indica que queda
 indefinido lo que pueda pasar si se convierte de un tipo base a uno derivado
@@ -50,7 +50,7 @@ El operador:
 dynamic_cast<type>(object)
 ~~~
 
-se utiliza exclusivamente para manejar el poliformismo ya que permite convertir
+se utiliza exclusivamente para manejar el polimorfismo ya que permite convertir
 un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
 sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
 sino también de forma lateral o incluso a una jerarquía diferente.
