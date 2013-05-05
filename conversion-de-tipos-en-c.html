@@ -89,7 +89,7 @@ definidos en las clases:</p>
 
 <p><strong>static_cast</strong> convierte de clases bases a derivadas en una jerarquía de clases
 —la conversión de clases derivadas a clases bases es automática— siempre que no
-haya poliformismo<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>. En cualquier caso las conversiones <strong>static_cast</strong> se
+haya polimorfismo<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>. En cualquier caso las conversiones <strong>static_cast</strong> se
 resuelven en <strong>tiempo de compilación</strong> y no comprueban si el tipo al que se
 convierte coincide con el tipo real del objeto. El estándar indica que queda
 indefinido lo que pueda pasar si se convierte de un tipo base a uno derivado
@@ -100,7 +100,7 @@ cuando este último no es el tipo real del objeto.</p>
 </pre></div>
 
 
-<p>se utiliza exclusivamente para manejar el poliformismo ya que permite convertir
+<p>se utiliza exclusivamente para manejar el polimorfismo ya que permite convertir
 un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
 sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
 sino también de forma lateral o incluso a una jerarquía diferente.</p>

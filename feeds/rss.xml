@@ -26,7 +26,7 @@ definidos en las clases:&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;static_cast&lt;/strong&gt; convierte de clases bases a derivadas en una jerarquía de clases
 —la conversión de clases derivadas a clases bases es automática— siempre que no
-haya poliformismo&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;. En cualquier caso las conversiones &lt;strong&gt;static_cast&lt;/strong&gt; se
+haya polimorfismo&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;. En cualquier caso las conversiones &lt;strong&gt;static_cast&lt;/strong&gt; se
 resuelven en &lt;strong&gt;tiempo de compilación&lt;/strong&gt; y no comprueban si el tipo al que se
 convierte coincide con el tipo real del objeto. El estándar indica que queda
 indefinido lo que pueda pasar si se convierte de un tipo base a uno derivado
@@ -37,7 +37,7 @@ cuando este último no es el tipo real del objeto.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;se utiliza exclusivamente para manejar el poliformismo ya que permite convertir
+&lt;p&gt;se utiliza exclusivamente para manejar el polimorfismo ya que permite convertir
 un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
 sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
 sino también de forma lateral o incluso a una jerarquía diferente.&lt;/p&gt;
