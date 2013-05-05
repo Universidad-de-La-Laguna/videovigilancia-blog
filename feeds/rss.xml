@@ -87,9 +87,9 @@ intentándolo en el siguiente orden:&lt;/p&gt;
 necesaria se indique de forma explícita, quedando como tal reflejada en el
 código.&lt;/p&gt;
 &lt;p&gt;Además la conversión &lt;em&gt;estilo C&lt;/em&gt; ignora el control de acceso cuando realiza un
-&lt;strong&gt;static_cast&lt;/strong&gt;. Diversos ejemplos de esto se pueden encontrar en
-"&lt;a href="http://stackoverflow.com/questions/8548667/static-cast-%20restricts-access-to-public-member-function"&gt;stackoverflow&lt;/a&gt;" por lo que que este tipo de conversión permite hacer
-operaciones que con las otras no se puede.&lt;/p&gt;
+&lt;strong&gt;static_cast&lt;/strong&gt; por lo que que este tipo de conversión permite hacer
+operaciones que con las otras no se puede. Diversos ejemplos de esto se pueden encontrar en
+&lt;a href="http://stackoverflow.com/questions/8548667/static-cast-%20restricts-access-to-public-member-function"&gt;stackoverflow&lt;/a&gt;.&lt;/p&gt;
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://stackoverflow.com/questions/332030/when-should-static-cast-dynamic-cast-and-reinterpret-cast-be-used"&gt;When should static_cast, dynamic_cast and reinterpret_cast be used?&lt;/a&gt;&lt;/li&gt;
