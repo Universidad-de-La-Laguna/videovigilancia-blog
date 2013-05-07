@@ -52,13 +52,14 @@ dynamic_cast<type>(object)
 
 se utiliza exclusivamente para manejar el polimorfismo ya que permite convertir
 un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
-sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
-sino también de forma lateral o incluso a una jerarquía diferente.
+sólo permite convertir de clases base a derivadas, sino también desplazarnos
+lateralmente e incluso movernos a una cadena de herencia diferente dentro de
+una misma jerarquía de clases.
 
 **dynamic_cast** busca **en tiempo de ejecución** el objeto del tipo deseado
-en la jerarquía, devolviéndolo en caso de encontrarlo. Si no es así, devuelve
-`NULL` para punteros o lanzará una excepción `std::bad_cast` si lo que se
-convierten son referencias a objetos.
+en la jerarquía, devolviéndolo en caso de encontrarlo. Si los tipos no son
+compatibles, devuelve `NULL` para punteros o lanza una excepción
+`std::bad_cast` si lo que se convierten son referencias a objetos.
 
 # const_cast
 
