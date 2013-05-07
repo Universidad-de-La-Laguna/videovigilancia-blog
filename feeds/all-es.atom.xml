@@ -39,12 +39,13 @@ cuando este último no es el tipo real del objeto.&lt;/p&gt;
 
 &lt;p&gt;se utiliza exclusivamente para manejar el polimorfismo ya que permite convertir
 un puntero o referencia de un tipo polimórfico a cualquier otro tipo. Esto no
-sólo permite convertir de clases bases a derivadas en una jerarquía de clases,
-sino también de forma lateral o incluso a una jerarquía diferente.&lt;/p&gt;
+sólo permite convertir de clases base a derivadas, sino también desplazarnos
+lateralmente e incluso movernos a una cadena de herencia diferente dentro de
+una misma jerarquía de clases.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;dynamic_cast&lt;/strong&gt; busca &lt;strong&gt;en tiempo de ejecución&lt;/strong&gt; el objeto del tipo deseado
-en la jerarquía, devolviéndolo en caso de encontrarlo. Si no es así, devuelve
-&lt;code&gt;NULL&lt;/code&gt; para punteros o lanzará una excepción &lt;code&gt;std::bad_cast&lt;/code&gt; si lo que se
-convierten son referencias a objetos.&lt;/p&gt;
+en la jerarquía, devolviéndolo en caso de encontrarlo. Si los tipos no son
+compatibles, devuelve &lt;code&gt;NULL&lt;/code&gt; para punteros o lanza una excepción
+&lt;code&gt;std::bad_cast&lt;/code&gt; si lo que se convierten son referencias a objetos.&lt;/p&gt;
 &lt;h1&gt;const_cast&lt;/h1&gt;
 &lt;p&gt;El operador:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;const_cast&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
