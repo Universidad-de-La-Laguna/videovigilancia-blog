@@ -177,9 +177,9 @@ image.read();
 o lo que es equivalente y mucho más simple:
 
 ~~~~.cpp
-QBuffer buffer;
-buffer.setData(bytes, size);
-image(&buffer, "png");
+QByteArray buffer(bytes, size);
+QImage image();
+image.loadFromData(buffer, "png");
 ~~~~
 
 ## Referencias
