@@ -1,6 +1,7 @@
 Title: Resource Interchange File Format
 Tags: RIFF, AVI, WAV
 Date: 2013-05-12
+PlusActivityId: z121w5opwsrivlp5b04cddm5vvifuzcyy1g
 
 El [Resource Interchange File Format](http://en.wikipedia.org/wiki/Resource_Interchange_File_Format) o [RIFF] es un formato contenedor genérico diseñado para almacenar datos en forma
 de fragmentos etiquetados o [chunks]. Siendo usado en la actualidad como formato
