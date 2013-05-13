@@ -1,5 +1,5 @@
 Title: Resource Interchange File Format
-Tags: RIFF, AVI, WAV
+Tags: RIFF, AVI, WAV, rifftree
 Date: 2013-05-12
 PlusActivityId: z121w5opwsrivlp5b04cddm5vvifuzcyy1g
 
