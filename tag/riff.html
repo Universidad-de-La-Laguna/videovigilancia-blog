@@ -78,9 +78,9 @@ aunque realmente puede almacenar cualquier tipo de información.</p>
 <a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a> o fragmentos de datos propiamente dichos:</p>
 <div class="codehilite"><pre><span class="k">struct</span> <span class="n">Chunk</span>
 <span class="p">{</span>
-    <span class="kt">uint32_t</span> <span class="n">type</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>
-    <span class="kt">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>        <span class="c1">// contiene datos en general</span>
+    <span class="n">uint32_t</span> <span class="n">type</span><span class="p">;</span>
+    <span class="n">uint32_t</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>        <span class="c1">// contiene datos en general</span>
 <span class="p">};</span>
 </pre></div>
 
@@ -91,10 +91,10 @@ tamaño del campo <code>type</code> ni el de <code>size</code>—.</p>
 <p>El otro tipo de fragmento son las listas:</p>
 <div class="codehilite"><pre><span class="k">struct</span> <span class="n">List</span>
 <span class="p">{</span>
-    <span class="kt">uint32_t</span> <span class="n">type</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">listType</span><span class="p">;</span>
-    <span class="kt">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="o">-</span><span class="mi">4</span><span class="p">];</span>      <span class="c1">// contiene otros Chunk o List</span>
+    <span class="n">uint32_t</span> <span class="n">type</span><span class="p">;</span>
+    <span class="n">uint32_t</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">uint32_t</span> <span class="n">listType</span><span class="p">;</span>
+    <span class="n">uint8_t</span>  <span class="n">data</span><span class="p">[</span><span class="n">size</span><span class="o">-</span><span class="mi">4</span><span class="p">];</span>      <span class="c1">// contiene otros Chunk o List</span>
 <span class="p">};</span>
 </pre></div>
 
@@ -150,6 +150,10 @@ de los fragmentos de tipo lista se indica entre comillas simples.</p>
 <p>Para observar una estructura real de archivo RIFF se puede utilizar el
 programa <a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.html" title="Ubuntu Manpage: rifftree">rifftree</a> del paquete <code>gigtools</code> con cualquier archivo <code>.avi</code> o
 <code>.wav</code> que tengamos a mano.</p>
+<h1>Rifftree</h1>
+<p>Para ilustrar lo comentado sobre los archivos RIFF, he publicado en GitHub mi
+propia versión de <code>rifftree</code>. Está desarrollada con <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> y hace uso del mapeo
+de archivos en memoria para facilitar el acceso al archivo RIFF.</p>
 <h1>Referencias</h1>
 <ol>
 <li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format</a></li>

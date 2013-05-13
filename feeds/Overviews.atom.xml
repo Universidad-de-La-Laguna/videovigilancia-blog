@@ -9,9 +9,9 @@ aunque realmente puede almacenar cualquier tipo de información.&lt;/p&gt;
 &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt; o fragmentos de datos propiamente dichos:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Chunk&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;        &lt;span class="c1"&gt;// contiene datos en general&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;        &lt;span class="c1"&gt;// contiene datos en general&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -22,10 +22,10 @@ tamaño del campo &lt;code&gt;type&lt;/code&gt; ni el de &lt;code&gt;size&lt;/co
 &lt;p&gt;El otro tipo de fragmento son las listas:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;listType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="kt"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;      &lt;span class="c1"&gt;// contiene otros Chunk o List&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;listType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;      &lt;span class="c1"&gt;// contiene otros Chunk o List&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -81,6 +81,10 @@ de los fragmentos de tipo lista se indica entre comillas simples.&lt;/p&gt;
 &lt;p&gt;Para observar una estructura real de archivo RIFF se puede utilizar el
 programa &lt;a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.html" title="Ubuntu Manpage: rifftree"&gt;rifftree&lt;/a&gt; del paquete &lt;code&gt;gigtools&lt;/code&gt; con cualquier archivo &lt;code&gt;.avi&lt;/code&gt; o
 &lt;code&gt;.wav&lt;/code&gt; que tengamos a mano.&lt;/p&gt;
+&lt;h1&gt;Rifftree&lt;/h1&gt;
+&lt;p&gt;Para ilustrar lo comentado sobre los archivos RIFF, he publicado en GitHub mi
+propia versión de &lt;code&gt;rifftree&lt;/code&gt;. Está desarrollada con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y hace uso del mapeo
+de archivos en memoria para facilitar el acceso al archivo RIFF.&lt;/p&gt;
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt;&lt;/li&gt;
