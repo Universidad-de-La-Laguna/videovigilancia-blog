@@ -1,6 +1,6 @@
 Title: Resource Interchange File Format
 Tags: RIFF, AVI, WAV
-Date: 2013-04-24
+Date: 2013-05-12
 
 El [Resource Interchange File Format](http://en.wikipedia.org/wiki/Resource_Interchange_File_Format) o [RIFF] es un formato contenedor genérico diseñado para almacenar datos en forma
 de fragmentos etiquetados o [chunks]. Siendo usado en la actualidad como formato
@@ -94,6 +94,13 @@ Para observar una estructura real de archivo RIFF se puede utilizar el
 programa [rifftree] del paquete `gigtools` con cualquier archivo `.avi` o
 `.wav` que tengamos a mano.
 
+# Mi rifftree
+
+Para ilustrar lo comentado sobre los archivos RIFF, he publicado en GitHub [mi
+propia versión de rifftree](http://github.com/aplatanado/rifftree). Está
+desarrollada con [Qt] y hace uso del mapeo de archivos en memoria para
+simplificar el acceso al archivo RIFF.
+
 # Referencias
 
  1. Wikipedia - [Resource Interchange File Format](http://en.wikipedia.org/wiki/Resource_Interchange_File_Format)
@@ -101,6 +108,7 @@ programa [rifftree] del paquete `gigtools` con cualquier archivo `.avi` o
  3. [AVI File Format](http://www.alexander-noe.com/video/documentation/avi.pdf)
  2. [FourCC]
 
+[Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
 [RIFF]: http://en.wikipedia.org/wiki/Resource_Interchange_File_Format "Resource Interchange File Format"
 [chunks]: http://en.wikipedia.org/wiki/Chunk_(information) "Chunk (information)"
 [FourCC]: http://www.fourcc.org/codecs.php "FourCC"
