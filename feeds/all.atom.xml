@@ -1,5 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/all.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-05-05T00:00:00+01:00</updated><entry><title>Conversión de tipos en C++</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/conversion-de-tipos-en-c.html" rel="alternate"></link><updated>2013-05-05T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-05:conversion-de-tipos-en-c.html</id><summary type="html">&lt;p&gt;En C, cuando una conversión entre dos tipos no es realizada por el compilador de
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/all.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-05-12T00:00:00+01:00</updated><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-05-12T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-12:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
+de fragmentos etiquetados o &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt;. Siendo usado en la actualidad como formato
+contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
+indudable que resulta especialmente útil para almacenar contenidos multimedia,
+aunque realmente puede almacenar cualquier tipo de información.&lt;/p&gt;
+&lt;h1&gt;Tipos de fragmentos&lt;/h1&gt;
+&lt;p&gt;Hay dos tipos de fragmentos en un archivo &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt;. El más básico son los
+&lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt; o fragmentos de datos propiamente dichos:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Chunk&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;        &lt;span class="c1"&gt;// contiene datos en general&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;donde &lt;code&gt;type&lt;/code&gt; sirve para identificar el tipo y el formato de los datos que
+almacena el fragmento y &lt;code&gt;size&lt;/code&gt; para especificar su tamaño —sin incluir ni el
+tamaño del campo &lt;code&gt;type&lt;/code&gt; ni el de &lt;code&gt;size&lt;/code&gt;—.&lt;/p&gt;
+&lt;p&gt;El otro tipo de fragmento son las listas:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;listType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;      &lt;span class="c1"&gt;// contiene otros Chunk o List&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;que son aquellos que contienen una colección de otros fragmentos o listas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Las listas se identifican y distinguen de otros fragmentos porque su campo
+&lt;code&gt;type&lt;/code&gt; contiene o los 4 caracteres de &lt;code&gt;RIFF&lt;/code&gt; o de &lt;code&gt;LIST&lt;/code&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;Para este tipo de fragmentos el tamaño en el campo &lt;code&gt;size&lt;/code&gt; incluye tanto el
+ de los datos almacenados dentro del fragmento como el del campo &lt;code&gt;listType&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Dentro de la lista los fragmentos que contiene se disponen unos detrás de
+otros, pero siempre asegurando que cada fragmento comienza en una dirección
+par —es decir, que se alinean a 16 bits—.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;El archivo contenedor en si mismo es una gran fragmento de lista tipo &lt;code&gt;RIFF&lt;/code&gt; que
+contiene otros fragmentos. Estos pueden ser &lt;em&gt;chunks&lt;/em&gt; o listas de tipo &lt;code&gt;LIST&lt;/code&gt;.
+Por lo tanto en una archivo RIFF sólo existe una lista de este tipo, que hace
+las veces de contenedor de todos los fragmentos del archivo. El valor del campo
+&lt;code&gt;listType&lt;/code&gt; del fragmento &lt;code&gt;RIFF&lt;/code&gt; es una secuencia de 4 bytes que identifica el
+formato del archivo y se lo conoce como el &lt;a href="http://www.fourcc.org/codecs.php" title="FourCC"&gt;FourCC&lt;/a&gt; del mismo.&lt;/p&gt;
+&lt;h1&gt;Estructura general&lt;/h1&gt;
+&lt;p&gt;Para hacernos una idea del formato este sería el esquema de un archivo AVI
+convencional:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;RIFF &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;AVI &amp;#39;&lt;/span&gt;
+      LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hdr1&amp;#39;&lt;/span&gt;
+            AVIH &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;cabecera principal del AVI&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;str1&amp;#39;&lt;/span&gt;
+                  STRH &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;cabecera del flujo&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                  STRF &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;formato del flujo&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                  ...
+                 &lt;span class="o"&gt;)&lt;/span&gt;
+            ...
+           &lt;span class="o"&gt;)&lt;/span&gt;
+      LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;movi&amp;#39;&lt;/span&gt;
+            &lt;span class="o"&gt;{&lt;/span&gt;Chunk | LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rec &amp;#39;&lt;/span&gt;
+                           Chunk1
+                           Chunk2
+                           ...
+                          &lt;span class="o"&gt;)&lt;/span&gt;
+             ...
+            &lt;span class="o"&gt;}&lt;/span&gt;
+            ...
+           &lt;span class="o"&gt;)&lt;/span&gt;
+      &lt;span class="o"&gt;[&lt;/span&gt;IDX1 &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;índice AVI&amp;gt;&lt;span class="o"&gt;)]&lt;/span&gt;
+     &lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Donde los identificadores en mayúsculas denotan el valor del campo &lt;code&gt;type&lt;/code&gt; al
+comienzo de un fragmento. Este siempre es seguido por el campo &lt;code&gt;size&lt;/code&gt;, que no se
+muestra en el esquema anterior. Por otro lado el valor de los campos &lt;code&gt;listType&lt;/code&gt;
+de los fragmentos de tipo lista se indica entre comillas simples.&lt;/p&gt;
+&lt;p&gt;Para observar una estructura real de archivo RIFF se puede utilizar el
+programa &lt;a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.html" title="Ubuntu Manpage: rifftree"&gt;rifftree&lt;/a&gt; del paquete &lt;code&gt;gigtools&lt;/code&gt; con cualquier archivo &lt;code&gt;.avi&lt;/code&gt; o
+&lt;code&gt;.wav&lt;/code&gt; que tengamos a mano.&lt;/p&gt;
+&lt;h1&gt;Rifftree&lt;/h1&gt;
+&lt;p&gt;Para ilustrar lo comentado sobre los archivos RIFF, he publicado en GitHub mi
+propia versión de &lt;code&gt;rifftree&lt;/code&gt;. Está desarrollada con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y hace uso del mapeo
+de archivos en memoria para facilitar el acceso al archivo RIFF.&lt;/p&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;MSDN - &lt;a href="http://msdn.microsoft.com/en-us/library/ms779636(VS.85).aspx"&gt;AVI RIFF File Reference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.alexander-noe.com/video/documentation/avi.pdf"&gt;AVI File Format&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.fourcc.org/codecs.php" title="FourCC"&gt;FourCC&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;Si bien en el archivo se almacenan los caracteres &lt;code&gt;'R'&lt;/code&gt;, &lt;code&gt;'R'&lt;/code&gt;, &lt;code&gt;'I'&lt;/code&gt;, &lt;code&gt;'F'&lt;/code&gt;
+en ese orden, hay que tener en cuenta que al interpretarlo como &lt;code&gt;uint32_t&lt;/code&gt; en
+una máquina &lt;em&gt;little-endian&lt;/em&gt; no veremos el número 0x52494646 sino 0x46464952.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</summary><category term="RIFF"></category><category term="AVI"></category><category term="WAV"></category></entry><entry><title>Conversión de tipos en C++</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/conversion-de-tipos-en-c.html" rel="alternate"></link><updated>2013-05-05T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-05:conversion-de-tipos-en-c.html</id><summary type="html">&lt;p&gt;En C, cuando una conversión entre dos tipos no es realizada por el compilador de
 forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
 &lt;code&gt;char&lt;/code&gt; a &lt;code&gt;int&lt;/code&gt; o de éste a &lt;code&gt;float&lt;/code&gt;— se puede forzar utilizando una expresión de
 &lt;em&gt;typecast&lt;/em&gt; de la forma &lt;code&gt;(type)object&lt;/code&gt; —o &lt;code&gt;type(object)&lt;/code&gt;— para convertir el
@@ -104,109 +206,7 @@ operaciones que con las otras no se puede. Diversos ejemplos de esto se pueden e
 declarada directamente en el o heredada de una clase base.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="typecast"></category><category term="c++"></category><category term="cpp"></category><category term="static_cast"></category><category term="dynamic_cast"></category><category term="const_cast"></category><category term="reinterpret_cast"></category></entry><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-04-24T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-24:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
-de fragmentos etiquetados o &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt;. Siendo usado en la actualidad como formato
-contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
-indudable que resulta especialmente útil para almacenar contenidos multimedia,
-aunque realmente puede almacenar cualquier tipo de información.&lt;/p&gt;
-&lt;h1&gt;Tipos de fragmentos&lt;/h1&gt;
-&lt;p&gt;Hay dos tipos de fragmentos en un archivo &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt;. El más básico son los
-&lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt; o fragmentos de datos propiamente dichos:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Chunk&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;        &lt;span class="c1"&gt;// contiene datos en general&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;donde &lt;code&gt;type&lt;/code&gt; sirve para identificar el tipo y el formato de los datos que
-almacena el fragmento y &lt;code&gt;size&lt;/code&gt; para especificar su tamaño —sin incluir ni el
-tamaño del campo &lt;code&gt;type&lt;/code&gt; ni el de &lt;code&gt;size&lt;/code&gt;—.&lt;/p&gt;
-&lt;p&gt;El otro tipo de fragmento son las listas:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;listType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;      &lt;span class="c1"&gt;// contiene otros Chunk o List&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;que son aquellos que contienen una colección de otros fragmentos o listas:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Las listas se identifican y distinguen de otros fragmentos porque su campo
-&lt;code&gt;type&lt;/code&gt; contiene o los 4 caracteres de &lt;code&gt;RIFF&lt;/code&gt; o de &lt;code&gt;LIST&lt;/code&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;Para este tipo de fragmentos el tamaño en el campo &lt;code&gt;size&lt;/code&gt; incluye tanto el
- de los datos almacenados dentro del fragmento como el del campo &lt;code&gt;listType&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Dentro de la lista los fragmentos que contiene se disponen unos detrás de
-otros, pero siempre asegurando que cada fragmento comienza en una dirección
-par —es decir, que se alinean a 16 bits—.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;El archivo contenedor en si mismo es una gran fragmento de lista tipo &lt;code&gt;RIFF&lt;/code&gt; que
-contiene otros fragmentos. Estos pueden ser &lt;em&gt;chunks&lt;/em&gt; o listas de tipo &lt;code&gt;LIST&lt;/code&gt;.
-Por lo tanto en una archivo RIFF sólo existe una lista de este tipo, que hace
-las veces de contenedor de todos los fragmentos del archivo. El valor del campo
-&lt;code&gt;listType&lt;/code&gt; del fragmento &lt;code&gt;RIFF&lt;/code&gt; es una secuencia de 4 bytes que identifica el
-formato del archivo y se lo conoce como el &lt;a href="http://www.fourcc.org/codecs.php" title="FourCC"&gt;FourCC&lt;/a&gt; del mismo.&lt;/p&gt;
-&lt;h1&gt;Estructura general&lt;/h1&gt;
-&lt;p&gt;Para hacernos una idea del formato este sería el esquema de un archivo AVI
-convencional:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;RIFF &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;AVI &amp;#39;&lt;/span&gt;
-      LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hdr1&amp;#39;&lt;/span&gt;
-            AVIH &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;cabecera principal del AVI&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
-            LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;str1&amp;#39;&lt;/span&gt;
-                  STRH &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;cabecera del flujo&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
-                  STRF &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;formato del flujo&amp;gt;&lt;span class="o"&gt;)&lt;/span&gt;
-                  ...
-                 &lt;span class="o"&gt;)&lt;/span&gt;
-            ...
-           &lt;span class="o"&gt;)&lt;/span&gt;
-      LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;movi&amp;#39;&lt;/span&gt;
-            &lt;span class="o"&gt;{&lt;/span&gt;Chunk | LIST &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rec &amp;#39;&lt;/span&gt;
-                           Chunk1
-                           Chunk2
-                           ...
-                          &lt;span class="o"&gt;)&lt;/span&gt;
-             ...
-            &lt;span class="o"&gt;}&lt;/span&gt;
-            ...
-           &lt;span class="o"&gt;)&lt;/span&gt;
-      &lt;span class="o"&gt;[&lt;/span&gt;IDX1 &lt;span class="o"&gt;(&lt;/span&gt;&amp;lt;índice AVI&amp;gt;&lt;span class="o"&gt;)]&lt;/span&gt;
-     &lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Donde los identificadores en mayúsculas denotan el valor del campo &lt;code&gt;type&lt;/code&gt; al
-comienzo de un fragmento. Este siempre es seguido por el campo &lt;code&gt;size&lt;/code&gt;, que no se
-muestra en el esquema anterior. Por otro lado el valor de los campos &lt;code&gt;listType&lt;/code&gt;
-de los fragmentos de tipo lista se indica entre comillas simples.&lt;/p&gt;
-&lt;p&gt;Para observar una estructura real de archivo RIFF se puede utilizar el
-programa &lt;a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.html" title="Ubuntu Manpage: rifftree"&gt;rifftree&lt;/a&gt; del paquete &lt;code&gt;gigtools&lt;/code&gt; con cualquier archivo &lt;code&gt;.avi&lt;/code&gt; o
-&lt;code&gt;.wav&lt;/code&gt; que tengamos a mano.&lt;/p&gt;
-&lt;h1&gt;Rifftree&lt;/h1&gt;
-&lt;p&gt;Para ilustrar lo comentado sobre los archivos RIFF, he publicado en GitHub mi
-propia versión de &lt;code&gt;rifftree&lt;/code&gt;. Está desarrollada con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y hace uso del mapeo
-de archivos en memoria para facilitar el acceso al archivo RIFF.&lt;/p&gt;
-&lt;h1&gt;Referencias&lt;/h1&gt;
-&lt;ol&gt;
-&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;MSDN - &lt;a href="http://msdn.microsoft.com/en-us/library/ms779636(VS.85).aspx"&gt;AVI RIFF File Reference&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.alexander-noe.com/video/documentation/avi.pdf"&gt;AVI File Format&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.fourcc.org/codecs.php" title="FourCC"&gt;FourCC&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="footnote"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn:1"&gt;
-&lt;p&gt;Si bien en el archivo se almacenan los caracteres &lt;code&gt;'R'&lt;/code&gt;, &lt;code&gt;'R'&lt;/code&gt;, &lt;code&gt;'I'&lt;/code&gt;, &lt;code&gt;'F'&lt;/code&gt;
-en ese orden, hay que tener en cuenta que al interpretarlo como &lt;code&gt;uint32_t&lt;/code&gt; en
-una máquina &lt;em&gt;little-endian&lt;/em&gt; no veremos el número 0x52494646 sino 0x46464952.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</summary><category term="RIFF"></category><category term="AVI"></category><category term="WAV"></category></entry><entry><title>Make install con qmake</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/make-install-con-qmake.html" rel="alternate"></link><updated>2013-04-22T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-22:make-install-con-qmake.html</id><summary type="html">&lt;p&gt;Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios
+&lt;/div&gt;</summary><category term="typecast"></category><category term="c++"></category><category term="cpp"></category><category term="static_cast"></category><category term="dynamic_cast"></category><category term="const_cast"></category><category term="reinterpret_cast"></category></entry><entry><title>Make install con qmake</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/make-install-con-qmake.html" rel="alternate"></link><updated>2013-04-22T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-22:make-install-con-qmake.html</id><summary type="html">&lt;p&gt;Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios
 medios la manera de definir un proyecto de software y el proceso de construcción
 del mismo. Sin embargo &lt;a href="&amp;quot;http://es.wikipedia.org/wiki/Make&amp;quot;" title="make"&gt;make&lt;/a&gt; sigue siendo ámpliamente utilizado para este
 propósito, especialmente en los sistemas UNIX y derivados.&lt;/p&gt;
