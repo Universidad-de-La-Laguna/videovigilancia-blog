@@ -232,8 +232,8 @@ otros elementos que comentaremos a continuación.
 
             private:
                 // Pares de sockets. Un par por señal a manejar
-                static qintptr sigHupSd[2];
-                static qintptr sigTermSd[2];
+                static int sigHupSd[2];
+                static int sigTermSd[2];
 
                 // Objetos para monitorizar los pares de sockets
                 QSocketNotifier *sigHupNotifier;
