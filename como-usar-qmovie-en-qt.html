@@ -72,7 +72,7 @@ multimedia, es mejor utilizar el <em>framework</em> <a href="http://qt-project.o
 <h2>Primeros pasos</h2>
 <p>La forma más sencilla de usar <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> es asignar un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> a un
 control <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> usando el método <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()">setMovie</a>():</p>
-<div class="codehilite"><pre><span class="n">QMovie</span> <span class="o">*</span><span class="n">movie</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QMovie</span><span class="p">(</span><span class="s">&quot;video.mjpeg&quot;</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="n">QMovie</span> <span class="o">*</span><span class="n">movie</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QMovie</span><span class="p">(</span><span class="s">&quot;video.mjpeg&quot;</span><span class="p">);</span>
 <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie</span><span class="p">);</span>
 </pre></div>
 
@@ -88,13 +88,13 @@ escoja de entre los disponibles en su disco duro podemos:</p>
 <p>Crear un objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>, guardarlo en un miembro de la clase (manteniendo
  así un puntero al mismo que nos permita referenciarlo más adelante<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>) y asignar
  dicho objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> a <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>:</p>
-<div class="codehilite"><pre><span class="nn">MovieViewerWindow::</span><span class="n">MovieViewerWindow</span><span class="p">(</span><span class="n">QWidget</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span>
-    <span class="p">:</span> <span class="n">QMainWindow</span><span class="p">(</span><span class="n">parent</span><span class="p">),</span>
-      <span class="n">ui</span><span class="p">(</span><span class="k">new</span> <span class="nn">Ui::</span><span class="n">MovieViewerWindow</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="n">MovieViewerWindow</span><span class="o">::</span><span class="n">MovieViewerWindow</span><span class="p">(</span><span class="n">QWidget</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">QMainWindow</span><span class="p">(</span><span class="n">parent</span><span class="p">),</span>
+      <span class="n">ui</span><span class="p">(</span><span class="n">new</span> <span class="n">Ui</span><span class="o">::</span><span class="n">MovieViewerWindow</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="sr">//</span> <span class="n">Aqu</span><span class="err">í</span> <span class="n">otro</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">de</span> <span class="n">inicializaci</span><span class="err">ó</span><span class="n">n</span> <span class="n">de</span> <span class="n">la</span> <span class="n">instancia</span><span class="o">...</span>
+    <span class="c1">// Aquí otro código de inicialización de la instancia...</span>
 
-    <span class="n">movie_</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QMovie</span><span class="p">();</span>
+    <span class="n">movie_</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QMovie</span><span class="p">();</span>
     <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie_</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
@@ -105,24 +105,24 @@ escoja de entre los disponibles en su disco duro podemos:</p>
 <p>En el slot de la acción que abre el cuadro de diálogo <em>abrir archivo</em>,
  asignar al objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> el nombre escogido por el usuario mediante el
  método <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#setFileName" title="QMovie::setFileName()">setFileName</a>():</p>
-<div class="codehilite"><pre><span class="n">void</span> <span class="nn">MovieViewerWindow::</span><span class="n">on_actionOpen_triggered</span><span class="p">()</span>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">MovieViewerWindow</span><span class="o">::</span><span class="n">on_actionOpen_triggered</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="sr">//</span> <span class="n">Aqu</span><span class="err">í</span> <span class="n">el</span> <span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">que</span> <span class="n">abre</span> <span class="n">el</span> <span class="n">cuadro</span> <span class="n">de</span> <span class="n">di</span><span class="err">á</span><span class="n">logo</span> <span class="n">y</span> <span class="n">comprueba</span> <span class="n">si</span>
-    <span class="sr">//</span> <span class="n">el</span> <span class="n">usuario</span> <span class="n">seleccion</span><span class="err">ó</span> <span class="n">alg</span><span class="err">ú</span><span class="n">n</span> <span class="n">archivo</span><span class="o">...</span>
-    <span class="sr">//</span>
-    <span class="sr">//</span> <span class="n">QString</span> <span class="n">fileName</span> <span class="o">=</span> <span class="nn">QFileDialog::</span><span class="n">getFileName</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-    <span class="sr">//</span>
-    <span class="sr">//</span> <span class="o">...</span>
-    <span class="sr">//</span>
+    <span class="c1">// Aquí el código que abre el cuadro de diálogo y comprueba si</span>
+    <span class="c1">// el usuario seleccionó algún archivo...</span>
+    <span class="c1">//</span>
+    <span class="c1">// QString fileName = QFileDialog::getFileName(...);</span>
+    <span class="c1">//</span>
+    <span class="c1">// ...</span>
+    <span class="c1">//</span>
 
     <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">setFileName</span><span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">movie_</span><span class="o">-&gt;</span><span class="n">isValid</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nn">QMessageBox::</span><span class="n">critical</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="nb">tr</span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">),</span>
-            <span class="nb">tr</span><span class="p">(</span><span class="s">&quot;No se pudo abrir el archivo o el formato&quot;</span>
+        <span class="n">QMessageBox</span><span class="o">::</span><span class="n">critical</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">tr</span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">),</span>
+            <span class="n">tr</span><span class="p">(</span><span class="s">&quot;No se pudo abrir el archivo o el formato&quot;</span>
                <span class="s">&quot; es inválido&quot;</span><span class="p">));</span>
         <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>    <span class="sr">//</span> <span class="n">Iniciar</span> <span class="n">la</span> <span class="n">reproducci</span><span class="err">ó</span><span class="n">n</span> <span class="n">de</span> <span class="n">la</span> <span class="n">animaci</span><span class="err">ó</span><span class="n">n</span>
+    <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>    <span class="c1">// Iniciar la reproducción de la animación</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -147,7 +147,7 @@ desarrolladores de <a href="./proyecto-qt-framework-de-desarrollo-de-aplicacione
 método nos permitiría conectarlo a una señal emitida desde otro control.</p>
 <p>Por ejemplo, si tuvieramos un botón de <em>play</em> podríamos conectar su señal
 <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qabstractbutton.html#clicked" title="QAbstractButton::clicked">clicked</a>() al slot <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>() de la siguiente manera:</p>
-<div class="codehilite"><pre><span class="nb">connect</span><span class="p">(</span><span class="n">ui</span><span class="o">-&gt;</span><span class="n">playButton</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">clicked</span><span class="p">()),</span> <span class="n">movie_</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">start</span><span class="p">()));</span>
+<div class="codehilite"><pre><span class="n">connect</span><span class="p">(</span><span class="n">ui</span><span class="o">-&gt;</span><span class="n">playButton</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">clicked</span><span class="p">()),</span> <span class="n">movie_</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">start</span><span class="p">()));</span>
 </pre></div>
 
 
@@ -167,9 +167,9 @@ la reproducción, este nunca funcionaría porque la aplicación no volvería al 
 de mensajes hasta que la reproducción no hubiera terminado.</p>
 <p>Podemos comprobar esto añadiendo una espera justo después de invocar el
 <em>slot</em> <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()">start</a>():</p>
-<div class="codehilite"><pre><span class="n">QWaitCondition</span> <span class="nb">sleep</span><span class="p">;</span>
+<div class="codehilite"><pre><span class="n">QWaitCondition</span> <span class="n">sleep</span><span class="p">;</span>
 <span class="n">QMutex</span> <span class="n">mutex</span><span class="p">;</span>
-<span class="nb">sleep</span><span class="o">.</span><span class="nb">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span>    <span class="sr">//</span> <span class="n">Espera</span> <span class="n">de</span> <span class="mi">2</span> <span class="n">segundos</span>
+<span class="n">sleep</span><span class="p">.</span><span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span>    <span class="c1">// Espera de 2 segundos</span>
 </pre></div>
 
 
@@ -186,14 +186,14 @@ actual cambia.</p>
 <ol>
 <li>
 <p>Declaramos un <em>slot</em> para que reciba la señal <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()">updated</a>():</p>
-<div class="codehilite"><pre><span class="n">private</span> <span class="n">slots:</span>
-    <span class="sr">//</span> <span class="n">Otros</span> <span class="n">slots</span><span class="o">...</span>
-    <span class="sr">//</span>
-    <span class="sr">//</span> <span class="n">void</span> <span class="n">on_actionOpen_triggered</span><span class="p">();</span>
-    <span class="sr">//</span>
-    <span class="sr">//</span> <span class="o">...</span>
-    <span class="sr">//</span>
-    <span class="n">void</span> <span class="n">on_movie_updated</span><span class="p">(</span><span class="n">const</span> <span class="n">QRect</span><span class="o">&amp;</span> <span class="n">rect</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="n">private</span> <span class="n">slots</span><span class="o">:</span>
+    <span class="c1">// Otros slots...</span>
+    <span class="c1">//</span>
+    <span class="c1">// void on_actionOpen_triggered();</span>
+    <span class="c1">//</span>
+    <span class="c1">// ...</span>
+    <span class="c1">//</span>
+    <span class="kt">void</span> <span class="n">on_movie_updated</span><span class="p">(</span><span class="k">const</span> <span class="n">QRect</span><span class="o">&amp;</span> <span class="n">rect</span><span class="p">);</span>
 </pre></div>
 
 
@@ -204,7 +204,7 @@ imagen mostrada por el control <a href="http://qt-project.org/doc/qt-5.0/qtwidge
 <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setPixmap" title="QLabel::setPixmap()">setPixmap</a>() permite indicar al objeto <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> que imagen queremos
 mostrar. Mientras que <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#currentPixmap" title="QMovie::currentPixmap()">currentPixmap</a>() nos permite obtener el último
 <em>frame</em> del objeto <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a> en formato <a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap">QPixmap</a>:</p>
-<div class="codehilite"><pre><span class="n">void</span> <span class="nn">MovieViewerWindow::</span><span class="n">on_movie_updated</span><span class="p">(</span><span class="n">const</span> <span class="n">QRect</span><span class="o">&amp;</span> <span class="n">rect</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">MovieViewerWindow</span><span class="o">::</span><span class="n">on_movie_updated</span><span class="p">(</span><span class="k">const</span> <span class="n">QRect</span><span class="o">&amp;</span> <span class="n">rect</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">QPixmap</span> <span class="n">pixmap</span> <span class="o">=</span> <span class="n">movie_</span><span class="o">-&gt;</span><span class="n">currentPixmap</span><span class="p">();</span>
     <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">pixmap</span><span class="p">);</span>
@@ -217,10 +217,10 @@ mostrar. Mientras que <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.htm
 <p>Suprimimos el uso del método <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a>::<a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()">setMovie</a>(), para que el
 objeto <a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel">QLabel</a> no sepa nada de nuestra animación, y conectamos la señal
 <a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie">QMovie</a>::<a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()">updated</a>() con nuestro nuevo slot:</p>
-<div class="codehilite"><pre>    <span class="n">movie_</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QMovie</span><span class="p">();</span>
-    <span class="sr">//</span> <span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setMovie</span><span class="p">(</span><span class="n">movie_</span><span class="p">);</span>
-    <span class="nb">connect</span><span class="p">(</span><span class="n">movie_</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">updated</span><span class="p">(</span><span class="n">const</span> <span class="n">QRect</span><span class="o">&amp;</span><span class="p">)),</span>
-            <span class="n">this</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">on_movie_updated</span><span class="p">(</span><span class="n">const</span> <span class="n">QRect</span><span class="o">&amp;</span><span class="p">)));</span>
+<div class="codehilite"><pre>    <span class="n">movie_</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QMovie</span><span class="p">();</span>
+    <span class="c1">// ui-&gt;label-&gt;setMovie(movie_);</span>
+    <span class="n">connect</span><span class="p">(</span><span class="n">movie_</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">updated</span><span class="p">(</span><span class="k">const</span> <span class="n">QRect</span><span class="o">&amp;</span><span class="p">)),</span>
+            <span class="n">this</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">on_movie_updated</span><span class="p">(</span><span class="k">const</span> <span class="n">QRect</span><span class="o">&amp;</span><span class="p">)));</span>
 <span class="p">}</span>
 </pre></div>
 

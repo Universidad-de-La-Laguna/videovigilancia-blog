@@ -8,7 +8,7 @@ sea respondiendo a las peticiones que llegan a través de la red o atendiendo a
 procesos que se ejecutan en el mismo sistema, así como responder ante cierta
 actividad del hardware —por ejemplo &lt;code&gt;acpid&lt;/code&gt;&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt; maneja el apagado del sistema
 cuando el usuario pulsa el botón de encendido del equipo—. Algunos demonios
-sirven para configuar hardware —como es el caso de &lt;code&gt;udevd&lt;/code&gt; en algunos sistemas
+sirven para configurar hardware —como es el caso de &lt;code&gt;udevd&lt;/code&gt; en algunos sistemas
 GNU/Linux— ejecutar tareas planificadas —como hace &lt;code&gt;cron&lt;/code&gt;— o realizar otras
 funciones similares.&lt;/p&gt;
 &lt;h1&gt;Crear demonios del sistema&lt;/h1&gt;
@@ -22,7 +22,7 @@ ejecutado. Dicha &lt;em&gt;shell&lt;/em&gt; conoce su PID y puede bloquearse esp
 comando termine, antes de volver a mostrar el &lt;em&gt;prompt&lt;/em&gt;&lt;sup id="fnref:3"&gt;&lt;a class="footnote-ref" href="#fn:3" rel="footnote"&gt;3&lt;/a&gt;&lt;/sup&gt; para indicar al
 usuario que puede introducir un nuevo comando. Incluso si la &lt;em&gt;shell&lt;/em&gt; decide no
 esperar a que el comando termine —por ejemplo cuando en &lt;code&gt;bash&lt;/code&gt; el usuario lo
-indica utilizando el caracter &lt;code&gt;&amp;amp;&lt;/code&gt;— permitindo la ejecución en segundo plano,
+indica utilizando el caracter &lt;code&gt;&amp;amp;&lt;/code&gt;— permitiendo la ejecución en segundo plano,
 esta será notificada cuando el proceso hijo termine mediante una señal,
 pudiendo así controlar el estado de los distintos comandos en ejecución.
 Además la &lt;em&gt;shell&lt;/em&gt; tiene acceso al motivo por el que el proceso hijo terminó,
@@ -36,7 +36,7 @@ esta se ejecutaba.&lt;/p&gt;
 &lt;h2&gt;Crear un proceso hijo&lt;/h2&gt;
 &lt;p&gt;El primer paso para que un proceso se convierta en un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; es crear un
 proceso hijo y a continuación terminar el proceso padre:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="c1"&gt;// Nos clonamos a nosotros mismos creando un proceso hijo&lt;/span&gt;
 &lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fork&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -54,7 +54,7 @@ proceso hijo y a continuación terminar el proceso padre:&lt;/p&gt;
     &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
-&lt;span class="c1"&gt;// Si la ejeución llega a este punto, estamos en el hijo&lt;/span&gt;
+&lt;span class="c1"&gt;// Si la ejecución llega a este punto, estamos en el hijo&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -121,7 +121,7 @@ de clases que añaden funcionalidades multiplataforma que no están disponibles
 en el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Entre dichas funcionalidades adicionales está la clase &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt;, que permite
 enviar mensajes al registro de eventos del sistema de forma más apropiada
-para una apliación en C++.&lt;/p&gt;
+para una aplicación en C++.&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;QxtLogger&amp;gt;&lt;/span&gt;
 
 &lt;span class="p"&gt;...&lt;/span&gt;
@@ -135,16 +135,16 @@ para una apliación en C++.&lt;/p&gt;
 
 
 &lt;h2&gt;Crear una nueva sesión&lt;/h2&gt;
-&lt;p&gt;Cada proceso es miembro de un grupo y estos a su vez se reunen en sesiones. En
-cada una de estas hay un proceso que hace las veces de lider, de tal forma que
+&lt;p&gt;Cada proceso es miembro de un grupo y estos a su vez se reúnen en sesiones. En
+cada una de estas hay un proceso que hace las veces de líder, de tal forma que
 si muere todos los procesos de la sesión reciben una señal &lt;code&gt;SIGHUP&lt;/code&gt;. La idea
-es que el lider muere cuando se quiere dar la sesión por terminada, por lo que
-mediate &lt;code&gt;SIGHUP&lt;/code&gt; se notifica al resto de procesos esta circunstancia para que
+es que el líder muere cuando se quiere dar la sesión por terminada, por lo que
+mediante &lt;code&gt;SIGHUP&lt;/code&gt; se notifica al resto de procesos esta circunstancia para que
 puedan terminar ordenadamente.&lt;/p&gt;
 &lt;p&gt;Obviamente no estamos interesados en que el &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; termine cuando la sesión
 desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
-sesión de la que dicho [deminio] será el lider:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;sid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+sesión de la que dicho &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; será el lider:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;sid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="c1"&gt;// Intentar crear una nueva sesión&lt;/span&gt;
 &lt;span class="n"&gt;sid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;setsid&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -173,11 +173,11 @@ directorio raiz, ya que podemos estar seguros de que siempre existirá:&lt;/p&gt
 
 
 &lt;p&gt;Otra opción es cambiar el directorio de trabajo a donde se almacenan los datos
-de nuestra aplicación o a algún otro directorio similar, siempre segun el
+de nuestra aplicación o a algún otro directorio similar, siempre según el
 &lt;a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard"&gt;Filesystem Hierarchy Standard&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Reabrir los descriptores estándar&lt;/h2&gt;
-&lt;p&gt;Como ya hemos comentado, un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; no interactua directamente con los
-usuarios, por lo que no necesita usar la entrada / salidad estándar, así que
+&lt;p&gt;Como ya hemos comentado, un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; no interactúa directamente con los
+usuarios, por lo que no necesita usar la entrada / salida estándar, así que
 podemos cerrar sus descriptores:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cerrar los descriptores de la E/S estándar&lt;/span&gt;
 &lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDIN_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;            &lt;span class="c1"&gt;// fd 0&lt;/span&gt;
@@ -187,7 +187,7 @@ podemos cerrar sus descriptores:&lt;/p&gt;
 
 
 &lt;p&gt;Sin embargo esto puede no ser lo más conveniente porque los siguientes
-archivos que se habran —archivos de registro, &lt;em&gt;sockets&lt;/em&gt;, etc— usarán esos mismos
+archivos que se abran —archivos de registro, &lt;em&gt;sockets&lt;/em&gt;, etc— usarán esos mismos
 descriptores, lo que puede ser un problema si se utiliza alguna
 librería que los use de forma inesperada para su E/S. En su lugar puede ser
 preferible mantenerlos abiertos pero conectados al archivo &lt;code&gt;/dev/null&lt;/code&gt;:&lt;/p&gt;
@@ -217,23 +217,23 @@ comportamiento diferente.&lt;/p&gt;
 &lt;h1&gt;Cambiar la personalidad del proceso&lt;/h1&gt;
 &lt;p&gt;Los demonios son generalmente lanzados por el usuario &lt;code&gt;root&lt;/code&gt;, lo que les da
 acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
-atacante se saltara las medidas de seguridad incoporadas en el programa y
+atacante se saltara las medidas de seguridad incorporadas en el programa y
 fuera capaz de hacer que ejecutara código arbitrario.&lt;/p&gt;
-&lt;p&gt;Para evitarlo es muy común que los demominos cambien su personalidad a un
+&lt;p&gt;Para evitarlo es muy común que los demonis cambien su personalidad a un
 usuario y grupo convencional del sistema:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cambiar el usuario efectivo del proceso a &amp;#39;mydaemon&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;passwd&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getpwnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;mydaemon&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cambiar el usuario efectivo del proceso a &amp;#39;midemonio&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;passwd&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getpwnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;midemonio&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;seteuid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;pw_uid&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-&lt;span class="c1"&gt;// Cambiar el grupo efectivo del proceso a &amp;#39;mydaemon&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getgrnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;mydaemon&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="c1"&gt;// Cambiar el grupo efectivo del proceso a &amp;#39;midemonio&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getgrnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;midemonio&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;setegid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;gr_gid&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h1&gt;Señales&lt;/h1&gt;
 &lt;p&gt;Una vez el demonio está en ejecución las señales ser convierten en un
-mencanismo muy potente para comunicarnos con él:&lt;/p&gt;
+mecanismo muy potente para comunicarnos con él:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Debe atender la señal &lt;code&gt;SIGTERM&lt;/code&gt; para terminar en condiciones de seguridad.&lt;/li&gt;
 &lt;li&gt;Es muy común que intercepte la señal &lt;code&gt;SIGHUP&lt;/code&gt; ya que así se le suele indicar
@@ -245,7 +245,7 @@ Qt&lt;/a&gt; ya que allí se explican las
 particularidades del uso de señales POSIX en este tipo de aplicaciones.&lt;/p&gt;
 &lt;h1&gt;Arranque del servicio&lt;/h1&gt;
 &lt;p&gt;Los demonios &lt;code&gt;init&lt;/code&gt; de muchos sistemas operativos operan en base a &lt;em&gt;niveles de
-ejecuión&lt;/em&gt;. Cada &lt;a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución"&gt;nivel de ejecución&lt;/a&gt; define un estado de la máquina después
+ejecución&lt;/em&gt;. Cada &lt;a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución"&gt;nivel de ejecución&lt;/a&gt; define un estado de la máquina después
 del arranque, estableciendo que demonios deben ser iniciados y/o detenidos
 para alcanzarlo. Por lo tanto en cada momento sólo puede haber un &lt;a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución"&gt;nivel de
 ejecución&lt;/a&gt; activo.&lt;/p&gt;
@@ -260,26 +260,53 @@ para:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;Para iniciar o detener los demonios según el nivel de ejecución, estos suelen
 ir acompañados de un &lt;em&gt;script&lt;/em&gt; de inicio que por lo general se almacena en el
-directorio &lt;code&gt;/etc/init.d&lt;/code&gt; y que suele tener una estructura muy similar a la
+directorio &lt;code&gt;/etc/init.d&lt;/code&gt;. En aquellas distribuciones de Linux que siguen el
+estándar LSB&lt;sup id="fnref:5"&gt;&lt;a class="footnote-ref" href="#fn:5" rel="footnote"&gt;5&lt;/a&gt;&lt;/sup&gt; la estructura de este &lt;em&gt;script&lt;/em&gt; suele ser muy similar a la
 siguiente:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/sh&lt;/span&gt;
 &lt;span class="c"&gt;#&lt;/span&gt;
-&lt;span class="c"&gt;# Script de inicio de mydaemond&lt;/span&gt;
+&lt;span class="c"&gt;# midemoniod    /etc/init.d initscript para MiDemonio&lt;/span&gt;
 &lt;span class="c"&gt;#&lt;/span&gt;
 
-&lt;span class="nv"&gt;DAEMON&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;mydaemond
-&lt;span class="nv"&gt;PIDFILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/run/&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;DAEMON&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;.pid
+&lt;span class="c"&gt;### BEGIN INIT INFO&lt;/span&gt;
+&lt;span class="c"&gt;# Provides:          midemonio&lt;/span&gt;
+&lt;span class="c"&gt;# Required-Start:    $network $local_fs $remote_fs&lt;/span&gt;
+&lt;span class="c"&gt;# Required-Stop:     $network $local_fs $remote_fs&lt;/span&gt;
+&lt;span class="c"&gt;# Default-Start:     2 3 4 5&lt;/span&gt;
+&lt;span class="c"&gt;# Default-Stop:      0 1 6&lt;/span&gt;
+&lt;span class="c"&gt;# Short-Description: inicia y detiene midemonio&lt;/span&gt;
+&lt;span class="c"&gt;# Description:       MiDemonio es el mejor demonio. Y este archivo&lt;/span&gt;
+&lt;span class="c"&gt;#                    es un ejemplo de como crear un script de inicio.&lt;/span&gt;
+&lt;span class="c"&gt;### END INIT INFO&lt;/span&gt;
 
-start&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Starting : &amp;quot;&lt;/span&gt;
-        &lt;span class="c"&gt;# Aquí va el código que ejecuta el demonio $DAEMON&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt;
+&lt;span class="c"&gt;# Salir inmediatamente si un comando falla&lt;/span&gt;
+&lt;span class="c"&gt;# http://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin&lt;/span&gt;
+&lt;span class="nb"&gt;set&lt;/span&gt; -e
+
+&lt;span class="c"&gt;# Importar funciones LSB:&lt;/span&gt;
+&lt;span class="c"&gt;# start_daemon, killproc, status_of_proc, log_*, etc.&lt;/span&gt;
+. /lib/lsb/init-functions
+
+&lt;span class="nv"&gt;NAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;midemoniod
+&lt;span class="nv"&gt;PIDFILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/run/&lt;span class="nv"&gt;$NAME&lt;/span&gt;.pid
+&lt;span class="nv"&gt;DAEMON&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/sbin/&lt;span class="nv"&gt;$NAME&lt;/span&gt;
+&lt;span class="nv"&gt;DAEMON_OPTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;--daemon&amp;quot;&lt;/span&gt;
+
+&lt;span class="c"&gt;# Si el demonio no existe, salir.&lt;/span&gt;
+&lt;span class="nb"&gt;test&lt;/span&gt; -x &lt;span class="nv"&gt;$DAEMON&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;exit &lt;/span&gt;5
+
+start&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;{&lt;/span&gt;
+    log_daemon_msg &lt;span class="s2"&gt;&amp;quot;Starting the $NAME process&amp;quot;&lt;/span&gt;
+    start_daemon -p &lt;span class="nv"&gt;$PIDFILE&lt;/span&gt; -- &lt;span class="nv"&gt;$DAEMON&lt;/span&gt; &lt;span class="nv"&gt;$DAEMON_OPTS&lt;/span&gt;
+    log_end_msg &lt;span class="nv"&gt;$?&lt;/span&gt;
 &lt;span class="o"&gt;}&lt;/span&gt;
 
-stop&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Shutting down : &amp;quot;&lt;/span&gt;
-        &lt;span class="c"&gt;# Aquí va el código que detiene el demonio $DAEMON&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt;
+stop&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;{&lt;/span&gt;
+    log_daemon_msg &lt;span class="s2"&gt;&amp;quot;Stoppping the $NAME process&amp;quot;&lt;/span&gt;
+    killproc -p &lt;span class="nv"&gt;$PIDFILE&lt;/span&gt;
+    log_end_msg &lt;span class="nv"&gt;$?&lt;/span&gt;
 &lt;span class="o"&gt;}&lt;/span&gt;
 
 &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; in
@@ -290,48 +317,72 @@ stop&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
         stop
         ;;
     status&lt;span class="o"&gt;)&lt;/span&gt;
-        &lt;span class="c"&gt;# Aquí va el código que indica si el demonio se está ejecutando&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; -e &lt;span class="nv"&gt;$PIDFILE&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;            &lt;/span&gt;status_of_proc -p &lt;span class="nv"&gt;$PIDFILE&lt;/span&gt; &lt;span class="nv"&gt;$DAEMON&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$NAME process&amp;quot;&lt;/span&gt;
+        &lt;span class="k"&gt;else&lt;/span&gt;
+&lt;span class="k"&gt;            &lt;/span&gt;log_failure_msg &lt;span class="s2"&gt;&amp;quot;$NAME process is not running&amp;quot;&lt;/span&gt;
+            log_end_msg 0
+        &lt;span class="k"&gt;fi&lt;/span&gt;
         ;;
     restart&lt;span class="o"&gt;)&lt;/span&gt;
         stop
         start
         ;;
     reload|force-reload&lt;span class="o"&gt;)&lt;/span&gt;
-        &lt;span class="c"&gt;# Aquí va el código que recarga la configuración&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; -e &lt;span class="nv"&gt;$PIDFILE&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;            &lt;/span&gt;killproc -p &lt;span class="nv"&gt;$PIDFILE&lt;/span&gt; -SIGHUP
+            log_success_msg &lt;span class="s2"&gt;&amp;quot;$NAME process reloaded successfully&amp;quot;&lt;/span&gt;
+        &lt;span class="k"&gt;else&lt;/span&gt;
+&lt;span class="k"&gt;            &lt;/span&gt;log_failure_msg &lt;span class="s2"&gt;&amp;quot;$NAME process is not running&amp;quot;&lt;/span&gt;
+            log_end_msg 0
+        &lt;span class="k"&gt;fi&lt;/span&gt;
         ;;
     *&lt;span class="o"&gt;)&lt;/span&gt;
         &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Usage:  {start|stop|status|reload|force-reload|restart]&amp;quot;&lt;/span&gt;
-        &lt;span class="nb"&gt;exit &lt;/span&gt;1
+        &lt;span class="nb"&gt;exit &lt;/span&gt;2
         ;;
 &lt;span class="k"&gt;esac&lt;/span&gt;
-&lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Como se puede observar, la mayor parte de las opciones del script necesitan poner
-comunicarse con el demonio en ejecución. Para eso el demonio suele crear una
-archivo con extensión &lt;code&gt;.pid&lt;/code&gt; en el directorio &lt;code&gt;/var/run&lt;/code&gt; donde almacena su
-propio identificador de proceso. Así el &lt;em&gt;script&lt;/em&gt; de inicio puede:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Comprobar si está en ejecución cuando el usuario solicita un &lt;code&gt;status&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Enviarle una señal &lt;code&gt;SIGHUP&lt;/code&gt; para que vuelva a leer los archivos de
- configuración cuando el usuario solicita un &lt;code&gt;reload&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Terminar en condiciones de seguridad al recibir la señal &lt;code&gt;SIGTERM&lt;/code&gt; cuando
-el usuario solicita un &lt;code&gt;stop&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Como se puede observar, la mayor parte de las opciones del &lt;em&gt;script&lt;/em&gt; necesitan poner
+comunicarse con el demonio en ejecución:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;strong&gt;start&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Necesita poder determinar si el demonio ya ha sido iniciado para no hacerlo
+por segunda vez&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;status&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;También necesita poder determinar si el demonio ya ha sido iniciado o no.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;stop&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Necesita poder enviar la señal &lt;code&gt;SIGTERM&lt;/code&gt; al proceso.&lt;/dd&gt;
+&lt;dt&gt;&lt;strong&gt;reload&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;Necesita poder enviar la señal &lt;code&gt;SIGHUP&lt;/code&gt; al proceso.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;Para eso el demonio suele crear una archivo con extensión &lt;code&gt;.pid&lt;/code&gt; en el
+directorio &lt;code&gt;/var/run&lt;/code&gt;. En el almacena únicamente su propio identificador de
+proceso, del tal forma que las funciones LSB &lt;code&gt;start_daemon&lt;/code&gt;, &lt;code&gt;killproc&lt;/code&gt;,
+&lt;code&gt;pidofproc&lt;/code&gt; y &lt;code&gt;status_of_proc&lt;/code&gt; asumen que:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Si el archivo no existe, el demonio no se está ejecutando.&lt;/li&gt;
+&lt;li&gt;En otro caso y si contiene uno o más valores numéricos separados por
+espacios en la primera línea, estos valores son considerados los PID de los
+procesos del demonio. Las funciones anteriores considerarán que el demonio está
+en ejecución si existen procesos con esos PID y enviarán las señales que
+correspondan.&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h1&gt;Opciones de línea de comandos&lt;/h1&gt;
 &lt;p&gt;Los demonios, igual que cualquier otro programa, pueden recibir opciones de
 línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo
-es muy común que ofrezcan opciones para sobreescribir los parámetros indicados
+es muy común que ofrezcan opciones para sobrescribir los parámetros indicados
 en el archivo de configuración. También es habitual que un proceso de un programa
 diseñado para ejecutarse como un demonio no se convierta en tal si no es
 especificada en la línea de comandos una opción del estilo de &lt;code&gt;-d&lt;/code&gt; o &lt;code&gt;--daemon&lt;/code&gt;.
-Esto es así, por ejemplo, poque es más sencillo depurar el programa y comprobar
+Esto es así, por ejemplo, porque es más sencillo depurar el programa y comprobar
 su funcionamiento cuando éste no se ejecuta en segundo plano.&lt;/p&gt;
 &lt;p&gt;En el código del proyecto &lt;a href="http://github.com/aplatanado/rifftree"&gt;rifftree&lt;/a&gt;,
 que ya comentamos en el artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html"&gt;Resource Interchange File
 Format&lt;/a&gt;, se puede observar como se utiliza la
-familia de funciones &lt;a href="http://linux.die.net/man/3/getopt" title="getopt(3)"&gt;getopt&lt;/a&gt; para procesar adecuadalmente la línea de
+familia de funciones &lt;a href="http://linux.die.net/man/3/getopt" title="getopt(3)"&gt;getopt&lt;/a&gt; para procesar adecuadamente la línea de
 comandos de un programa cualquiera.&lt;/p&gt;
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
@@ -341,6 +392,7 @@ comandos de un programa cualquiera.&lt;/p&gt;
 &lt;li&gt;Proyecto &lt;a href="http://libqxt.org"&gt;LibQxt&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;The GNU C Library - &lt;a href="http://www.gnu.org/software/libc/manual/html_node/Users-and-Groups.html#Users-and-Groups"&gt;Users and Groups&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Runlevel"&gt;Runlevel&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Linux Standard Base Core Specification 3.2 - &lt;a href="http://refspecs.linuxfoundation.org/LSB_3.2.0/LSB-Core-generic/LSB-Core-generic/tocsysinit.html"&gt;System Initialization&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class="footnote"&gt;
 &lt;hr /&gt;
@@ -368,8 +420,13 @@ principal es lanzar el resto de demonios necesarios para el funcionamiento del
 sistema. Generalmente también lanza los procesos encargados de solicitar el
 inicio de sesión a los usuarios.&amp;#160;&lt;a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
+&lt;li id="fn:5"&gt;
+&lt;p&gt;LSB o Linux System Standard es una iniciativa de la Linux Foundation para
+reducir las diferencias entre las distintas distribuciones de Linux, limitando
+así los costes derivados de portar las aplicaciones de unas distribuciones a otras.&amp;#160;&lt;a class="footnote-backref" href="#fnref:5" rev="footnote" title="Jump back to footnote 5 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Sat, 18 May 2013 00:00:00 +0100</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</guid><category>demonios</category><category>servicios</category><category>init</category><category>syslog</category><category>fhs getopt</category></item><item><title>Resource Interchange File Format</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html</link><description>&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
+&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Sat, 18 May 2013 00:00:00 +0100</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</guid><category>demonio</category><category>servicio</category><category>init</category><category>syslog</category><category>FHS</category><category>getopt</category><category>daemon</category><category>umask</category><category>Qxt</category><category>setsid</category><category>LSB</category><category>runlevel</category><category>nivel de ejecución</category><category>/etc/init.d</category><category>/var/run</category></item><item><title>Resource Interchange File Format</title><link>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html</link><description>&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
 de fragmentos etiquetados o &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt;. Siendo usado en la actualidad como formato
 contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
 indudable que resulta especialmente útil para almacenar contenidos multimedia,
@@ -379,9 +436,9 @@ aunque realmente puede almacenar cualquier tipo de información.&lt;/p&gt;
 &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt; o fragmentos de datos propiamente dichos:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Chunk&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;        &lt;span class="c1"&gt;// contiene datos en general&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;        &lt;span class="c1"&gt;// contiene datos en general&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -392,10 +449,10 @@ tamaño del campo &lt;code&gt;type&lt;/code&gt; ni el de &lt;code&gt;size&lt;/co
 &lt;p&gt;El otro tipo de fragmento son las listas:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;listType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;      &lt;span class="c1"&gt;// contiene otros Chunk o List&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint32_t&lt;/span&gt; &lt;span class="n"&gt;listType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kt"&gt;uint8_t&lt;/span&gt;  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;      &lt;span class="c1"&gt;// contiene otros Chunk o List&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -771,7 +828,7 @@ pasadas al compilador.&lt;/p&gt;
 &lt;p&gt;Así, por ejemplo, dentro del código fuente se puede usar la macro &lt;code&gt;APP_CONFFILE&lt;/code&gt;
 con la ruta al archivo de configuración de la aplicación para acceder a él
 mediante &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsettings.html" title="QSettings"&gt;QSettings&lt;/a&gt;:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSettings&lt;/span&gt; &lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;APP_CONFFILE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;QSettings&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;IniFormat&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSettings&lt;/span&gt; &lt;span class="nf"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;APP_CONFFILE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;QSettings&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;IniFormat&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -817,7 +874,7 @@ aplicaciones de linea de comandos.&lt;/p&gt;
 crea un archivo &lt;code&gt;main.cpp&lt;/code&gt; con un contenido similar al siguiente:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;QCoreApplication&amp;gt;&lt;/span&gt;
 
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;QCoreApplication&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
@@ -853,7 +910,7 @@ estándar de C++:&lt;/p&gt;
 
 
 &lt;p&gt;como los flujos de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QTextStream&lt;/span&gt; &lt;span class="n"&gt;qtin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QTextStream&lt;/span&gt; &lt;span class="nf"&gt;qtin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;QString&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;qtin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;readLine&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -907,7 +964,7 @@ que el programa termine en condiciones seguras. Por ejemplo: borrar archivos
 temporales, asegurar que los datos se escriben en disco y su estructura es
 consistente, terminar procesos hijo a los que se les haya delegado parte del
 trabajo, etc.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;signum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;signum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Señal (&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;signum&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;) recibida.&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
@@ -940,31 +997,31 @@ al programa principal que ha ocurrido una señal, con el objeto de que éste úl
 ejecute las acciones necesarias, debemos especificar al compilador que no
 utilice con esas variables optimizaciones que puedan dar problemas de la
 concurrencia.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;volatile&lt;/span&gt; &lt;span class="n"&gt;informa&lt;/span&gt; &lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;compilador&lt;/span&gt; &lt;span class="n"&gt;que&lt;/span&gt; &lt;span class="nb"&gt;no&lt;/span&gt; &lt;span class="n"&gt;optimice&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;acceso&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt;
-&lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;variable&lt;/span&gt; &lt;span class="n"&gt;porque&lt;/span&gt; &lt;span class="n"&gt;su&lt;/span&gt; &lt;span class="n"&gt;valor&lt;/span&gt; &lt;span class="n"&gt;puede&lt;/span&gt; &lt;span class="n"&gt;cambiar&lt;/span&gt; &lt;span class="n"&gt;en&lt;/span&gt; &lt;span class="n"&gt;cualquier&lt;/span&gt; &lt;span class="n"&gt;momento&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// volatile informa al compilador que no optimice el acceso a la&lt;/span&gt;
+&lt;span class="c1"&gt;// variable porque su valor puede cambiar en cualquier momento.&lt;/span&gt;
 &lt;span class="n"&gt;volatile&lt;/span&gt; &lt;span class="n"&gt;sig_atomic_t&lt;/span&gt; &lt;span class="n"&gt;waitingForQuit&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt; &lt;span class="n"&gt;signum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;signum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Indicar&lt;/span&gt; &lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;programa&lt;/span&gt; &lt;span class="n"&gt;principal&lt;/span&gt; &lt;span class="n"&gt;que&lt;/span&gt; &lt;span class="n"&gt;debe&lt;/span&gt; &lt;span class="n"&gt;terminar&lt;/span&gt;
-    &lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="c1"&gt;// Indicar al programa principal que debe terminar&lt;/span&gt;
+    &lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
-&lt;span class="nb"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="o"&gt;...&lt;/span&gt;
-    &lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;...&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Configurar&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;manejador&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt;
-    &lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SIGINT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SIGTERM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="o"&gt;...&lt;/span&gt;
-    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="o"&gt;...&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Terminar&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;proceso&lt;/span&gt; &lt;span class="n"&gt;en&lt;/span&gt; &lt;span class="n"&gt;condiciones&lt;/span&gt; &lt;span class="n"&gt;seguras&lt;/span&gt;
-            &lt;span class="o"&gt;...&lt;/span&gt;
-            &lt;span class="nb"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="c1"&gt;// Configurar el manejador de señal&lt;/span&gt;
+    &lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SIGINT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SIGTERM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;signalHandler&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="p"&gt;...&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;waitingForQuit&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="c1"&gt;// Terminar el proceso en condiciones seguras&lt;/span&gt;
+            &lt;span class="p"&gt;...&lt;/span&gt;
+            &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
         &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -999,29 +1056,29 @@ se propone lo siguiente:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Declarar una clase que contenga los &lt;em&gt;manejadores de señal&lt;/em&gt;, los &lt;em&gt;slots&lt;/em&gt; y
 otros elementos que comentaremos a continuación.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
-    &lt;span class="n"&gt;public:&lt;/span&gt;
+    &lt;span class="nl"&gt;public:&lt;/span&gt;
         &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
         &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
-        &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Manejadores&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;POSIX&lt;/span&gt;
-        &lt;span class="n"&gt;static&lt;/span&gt; &lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt; &lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-        &lt;span class="n"&gt;static&lt;/span&gt; &lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt; &lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="c1"&gt;// Manejadores de señal POSIX&lt;/span&gt;
+        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;slots:&lt;/span&gt;
-        &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Slots&lt;/span&gt; &lt;span class="n"&gt;Qt&lt;/span&gt; &lt;span class="n"&gt;donde&lt;/span&gt; &lt;span class="n"&gt;atender&lt;/span&gt; &lt;span class="n"&gt;las&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;ales&lt;/span&gt; &lt;span class="n"&gt;POSIX&lt;/span&gt;
-        &lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;handleSigHup&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-        &lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;handleSigTerm&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Slots Qt donde atender las señales POSIX&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;handleSigHup&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;handleSigTerm&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
-    &lt;span class="n"&gt;private:&lt;/span&gt;
-        &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Pares&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;sockets&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Un&lt;/span&gt; &lt;span class="n"&gt;par&lt;/span&gt; &lt;span class="n"&gt;por&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;manejar&lt;/span&gt;
-        &lt;span class="n"&gt;static&lt;/span&gt; &lt;span class="n"&gt;qintptr&lt;/span&gt; &lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-        &lt;span class="n"&gt;static&lt;/span&gt; &lt;span class="n"&gt;qintptr&lt;/span&gt; &lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="nl"&gt;private:&lt;/span&gt;
+        &lt;span class="c1"&gt;// Pares de sockets. Un par por señal a manejar&lt;/span&gt;
+        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 
-        &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Objetos&lt;/span&gt; &lt;span class="n"&gt;para&lt;/span&gt; &lt;span class="n"&gt;monitorizar&lt;/span&gt; &lt;span class="n"&gt;los&lt;/span&gt; &lt;span class="n"&gt;pares&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;sockets&lt;/span&gt;
+        &lt;span class="c1"&gt;// Objetos para monitorizar los pares de sockets&lt;/span&gt;
         &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;sigHupNotifier&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;sigTermNotifier&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
@@ -1038,31 +1095,31 @@ en uno de los &lt;em&gt;sockets&lt;/em&gt; de la pareja se puede leer en el otro
 objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier"&gt;QSocketNotifier&lt;/a&gt; para uno de los sockets de cada pareja, con el objeto de
 monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso envía
 la señal &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier"&gt;QSocketNotifier&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()"&gt;activated&lt;/a&gt;().&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nn"&gt;MyDaemon::&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Crear&lt;/span&gt; &lt;span class="n"&gt;las&lt;/span&gt; &lt;span class="n"&gt;parejas&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;sockets&lt;/span&gt; &lt;span class="n"&gt;UNIX&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nb"&gt;socketpair&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AF_UNIX&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SOCK_STREAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="c1"&gt;// Crear las parejas de sockets UNIX&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;socketpair&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AF_UNIX&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SOCK_STREAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
         &lt;span class="n"&gt;qFatal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Couldn&amp;#39;t create HUP socketpair&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nb"&gt;socketpair&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AF_UNIX&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SOCK_STREAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;socketpair&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AF_UNIX&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SOCK_STREAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
         &lt;span class="n"&gt;qFatal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Couldn&amp;#39;t create TERM socketpair&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Crear&lt;/span&gt; &lt;span class="n"&gt;los&lt;/span&gt; &lt;span class="n"&gt;objetos&lt;/span&gt; &lt;span class="n"&gt;para&lt;/span&gt; &lt;span class="n"&gt;monitorizar&lt;/span&gt; &lt;span class="n"&gt;uno&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;los&lt;/span&gt; &lt;span class="nb"&gt;socket&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;cada&lt;/span&gt; &lt;span class="n"&gt;pareja&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-    &lt;span class="n"&gt;sigHupNotifier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupFd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
-        &lt;span class="nn"&gt;QSocketNotifier::&lt;/span&gt;&lt;span class="n"&gt;Read&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;sigTermNotifier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
-        &lt;span class="nn"&gt;QSocketNotifier::&lt;/span&gt;&lt;span class="n"&gt;Read&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// Crear los objetos para monitorizar uno de los socket&lt;/span&gt;
+    &lt;span class="c1"&gt;// de cada pareja.&lt;/span&gt;
+    &lt;span class="n"&gt;sigHupNotifier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupFd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Read&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;sigTermNotifier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Read&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Conectar&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;activated&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;cada&lt;/span&gt; &lt;span class="n"&gt;objeto&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;QSocketNotifier&lt;/span&gt; &lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;slot&lt;/span&gt; &lt;span class="n"&gt;correspondiente&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Esta&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;ser&lt;/span&gt;&lt;span class="err"&gt;á&lt;/span&gt; &lt;span class="n"&gt;emitida&lt;/span&gt; &lt;span class="n"&gt;cuando&lt;/span&gt; &lt;span class="n"&gt;hayan&lt;/span&gt; &lt;span class="n"&gt;datos&lt;/span&gt; &lt;span class="n"&gt;para&lt;/span&gt; &lt;span class="n"&gt;ser&lt;/span&gt; &lt;span class="n"&gt;leidos&lt;/span&gt; &lt;span class="n"&gt;en&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="nb"&gt;socket&lt;/span&gt; &lt;span class="n"&gt;monitorizado&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-    &lt;span class="nb"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupNotifier&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;activated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="c1"&gt;// Conectar la señal activated() de cada objeto&lt;/span&gt;
+    &lt;span class="c1"&gt;// QSocketNotifier con el slot correspondiente. Esta señal&lt;/span&gt;
+    &lt;span class="c1"&gt;// será emitida cuando hayan datos para ser leidos en el&lt;/span&gt;
+    &lt;span class="c1"&gt;// socket monitorizado.&lt;/span&gt;
+    &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupNotifier&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;activated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;handleSigHup&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
-    &lt;span class="nb"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermNotifier&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;activated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermNotifier&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;activated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;handleSigTerm&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
 
-    &lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1074,49 +1131,49 @@ invocados es escribir &lt;em&gt;algo&lt;/em&gt; en el &lt;em&gt;socket&lt;/em&gt
 métodos de los manejadores se declaran como &lt;code&gt;static&lt;/code&gt; para que puedan ser pasados
 como un puntero de función de C a la llamada al sistema &lt;a href="http://linux.die.net/man/2/sigaction" title="sigaction(2)"&gt;sigaction&lt;/a&gt;(), cuando
 va a ser establecido el manejador de cada señal concreta:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="sr"&gt;//&lt;/span&gt;
-&lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Manejador&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;SIGHUP&lt;/span&gt;
-&lt;span class="sr"&gt;//&lt;/span&gt;
-&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="nn"&gt;MyDaemon::&lt;/span&gt;&lt;span class="n"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// Manejador de la señal SIGHUP&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nb"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
-&lt;span class="sr"&gt;//&lt;/span&gt;
-&lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Manejador&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;SIGTERM&lt;/span&gt;
-&lt;span class="sr"&gt;//&lt;/span&gt;
-&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="nn"&gt;MyDaemon::&lt;/span&gt;&lt;span class="n"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// Manejador de la señal SIGTERM&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
 
-    &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nb"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
-&lt;span class="sr"&gt;//&lt;/span&gt;
-&lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Configurar&lt;/span&gt; &lt;span class="n"&gt;los&lt;/span&gt; &lt;span class="n"&gt;manejadores&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt;
-&lt;span class="sr"&gt;//&lt;/span&gt;
-&lt;span class="nb"&gt;int&lt;/span&gt; &lt;span class="n"&gt;setupUnixSignalHandlers&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// Configurar los manejadores de señal&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="k"&gt;int&lt;/span&gt; &lt;span class="n"&gt;setupUnixSignalHandlers&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;struct&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt; &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt; &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-    &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_handler&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nn"&gt;MyDaemon::&lt;/span&gt;&lt;span class="n"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigemptyset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_mask&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_flags&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;SA_RESTART&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_handler&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;hupSignalHandler&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigemptyset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_mask&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_flags&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;SA_RESTART&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Establecer&lt;/span&gt; &lt;span class="n"&gt;manejador&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;SIGHUP&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SIGHUP&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="c1"&gt;// Establecer manejador de la señal SIGHUP&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SIGHUP&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;hup&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-    &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_handler&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nn"&gt;MyDaemon::&lt;/span&gt;&lt;span class="n"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigemptyset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_mask&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_flags&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;SA_RESTART&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_handler&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;termSignalHandler&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigemptyset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_mask&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sa_flags&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;SA_RESTART&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Establecer&lt;/span&gt; &lt;span class="n"&gt;manejador&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;se&lt;/span&gt;&lt;span class="err"&gt;ñ&lt;/span&gt;&lt;span class="n"&gt;al&lt;/span&gt; &lt;span class="n"&gt;SIGTERM&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SIGTERM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="c1"&gt;// Establecer manejador de la señal SIGTERM&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;sigaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SIGTERM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1126,26 +1183,26 @@ va a ser establecido el manejador de cada señal concreta:&lt;/p&gt;
 &lt;p&gt;Finalmente en los &lt;em&gt;slots&lt;/em&gt; a los que conectamos la señal &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier"&gt;QSocketNotifier&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()"&gt;activated&lt;/a&gt;()
 se lee &lt;em&gt;lo escrito&lt;/em&gt; desde el &lt;em&gt;manejador de señal&lt;/em&gt;, para después hacer todo
 aquello que no se puede hacer desde dicho manejador de señal POSIX.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="nn"&gt;MyDaemon::&lt;/span&gt;&lt;span class="n"&gt;handleSigHup&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;handleSigHup&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;hupNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nb"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="n"&gt;hupNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigHupSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="n"&gt;tu&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;digo&lt;/span&gt; &lt;span class="n"&gt;aqu&lt;/span&gt;&lt;span class="err"&gt;í&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...tu código aquí...&lt;/span&gt;
 
-    &lt;span class="n"&gt;hupNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;hupNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
-&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="nn"&gt;MyDaemon::&lt;/span&gt;&lt;span class="n"&gt;handleSigTerm&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyDaemon&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;handleSigTerm&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;termNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nb"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="n"&gt;termNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigTermSd&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="n"&gt;tu&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;digo&lt;/span&gt; &lt;span class="n"&gt;aqu&lt;/span&gt;&lt;span class="err"&gt;í&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...tu código aquí...&lt;/span&gt;
 
-    &lt;span class="n"&gt;termNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;termNotifier&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1602,7 +1659,7 @@ Por defecto los objetos de &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/q
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QByteArray&lt;/span&gt; &lt;span class="n"&gt;bytes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
 &lt;span class="c1"&gt;// Guardamos en un string los primeros 6 bytes de la imagen en PNG&lt;/span&gt;
-&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;pngHeader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;constData&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="nf"&gt;pngHeader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;constData&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;pngHeader&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1617,7 +1674,7 @@ sobre las opciones del formato en cuestión. Si por el contrario queremos
 controlar el nivel de compresión, el de gamma o algunos otros parámetros
 específicos del formato, tendremos que emplear un objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter"&gt;QImageWriter&lt;/a&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QBuffer&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;QImageWriter&lt;/span&gt; &lt;span class="n"&gt;writer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;QImageWriter&lt;/span&gt; &lt;span class="nf"&gt;writer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;writer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setFormat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;jpeg&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;writer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setCompression&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;70&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;writer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
@@ -1631,7 +1688,7 @@ PNG y queremos cargarla en un objeto &lt;code&gt;QImage&lt;/code&gt;, sólo tene
 datos a un objeto &lt;code&gt;QBuffer&lt;/code&gt; y leer desde el:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QBuffer&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="nf"&gt;image&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setDevice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setFormat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;png&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -1639,8 +1696,8 @@ datos a un objeto &lt;code&gt;QBuffer&lt;/code&gt; y leer desde el:&lt;/p&gt;
 
 
 &lt;p&gt;o lo que es equivalente y mucho más simple:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QByteArray&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QByteArray&lt;/span&gt; &lt;span class="nf"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="nf"&gt;image&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loadFromData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;png&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1686,26 +1743,26 @@ movimiento, etc. Cada &lt;a href="http://www.arduino.cc/" title="Arduino"&gt;Ard
 es leer el estado de dichos sensores, a intervalos regulares, y enviar mensajes
 con los datos de los mismos a un servidor.&lt;/p&gt;
 &lt;p&gt;Teniendo esto presente, el archivo &lt;code&gt;.proto&lt;/code&gt; podría ser el siguiente:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;sensorsreport&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;proto&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Protocolo&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;comunicaciones&lt;/span&gt; &lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="n"&gt;Arduino&lt;/span&gt;
-&lt;span class="sr"&gt;//&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// sensorsreport.proto - Protocolo de comunicaciones con Arduino&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
 &lt;span class="n"&gt;message&lt;/span&gt; &lt;span class="n"&gt;SensorsReport&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;deviceName&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Nombre&lt;/span&gt; &lt;span class="n"&gt;del&lt;/span&gt; &lt;span class="n"&gt;Arduino&lt;/span&gt;
-    &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;uint64&lt;/span&gt; &lt;span class="n"&gt;timestamp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Seg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;desde&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="sr"&gt;/1/&lt;/span&gt;&lt;span class="mi"&gt;1970&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="k"&gt;string&lt;/span&gt; &lt;span class="n"&gt;deviceName&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="c1"&gt;// Nombre del Arduino&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;uint64&lt;/span&gt; &lt;span class="n"&gt;timestamp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// Seg. desde 1/1/1970&lt;/span&gt;
 
-    &lt;span class="n"&gt;enum&lt;/span&gt; &lt;span class="n"&gt;SensorType&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;HUMIDITY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="n"&gt;LUMINOSITY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="n"&gt;MOTION&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="n"&gt;TEMPERATURE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;enum&lt;/span&gt; &lt;span class="n"&gt;SensorType&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="no"&gt;HUMIDITY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="no"&gt;LUMINOSITY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="no"&gt;MOTION&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="no"&gt;TEMPERATURE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 
     &lt;span class="n"&gt;message&lt;/span&gt; &lt;span class="n"&gt;SensorStatus&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;SensorType&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;int32&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;SensorType&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="n"&gt;int32&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 
-    &lt;span class="n"&gt;repeated&lt;/span&gt; &lt;span class="n"&gt;SensorStatus&lt;/span&gt; &lt;span class="n"&gt;sensors&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Vector&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;estados&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;los&lt;/span&gt;
-                                        &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;sensores&lt;/span&gt;
+    &lt;span class="n"&gt;repeated&lt;/span&gt; &lt;span class="n"&gt;SensorStatus&lt;/span&gt; &lt;span class="n"&gt;sensors&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// Vector de estados de los&lt;/span&gt;
+                                        &lt;span class="c1"&gt;// sensores&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1797,8 +1854,8 @@ LIBS += -lprotobuf
  del proyecto.&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Abrir el archivo &lt;code&gt;.pro&lt;/code&gt; del proyecto y añadir las líneas:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;PROTOS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sensorsreport&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;proto&lt;/span&gt;
-&lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pri&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;PROTOS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sensorsreport&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;proto&lt;/span&gt;
+&lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pri&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1809,23 +1866,23 @@ LIBS += -lprotobuf
 nos ofrece los siguientes &lt;em&gt;accesores&lt;/em&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// required string deviceName = 1;&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;has_devicename&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;clear_devicename&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;clear_devicename&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;devicename&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;set_devicename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;mutable_devicename&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;release_devicename&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
 &lt;span class="c1"&gt;// required uint64 timestamp = 2;&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;has_timestamp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;clear_timestamp&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;clear_timestamp&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;uint64&lt;/span&gt; &lt;span class="n"&gt;timestamp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;set_timestamp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;uint64&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;set_timestamp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;protobuf&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;uint64&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
 &lt;span class="c1"&gt;// repeated .SensorsReport.SensorStatus sensors = 3;&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sensors_size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;clear_sensors&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;clear_sensors&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SensorsReport_SensorStatus&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;sensors&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SensorsReport_SensorStatus&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;mutable_sensors&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="kr"&gt;inline&lt;/span&gt; &lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;SensorsReport_SensorStatus&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;add_sensors&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -2367,7 +2424,7 @@ el proyecto &lt;a href="https://github.com/dbzhang800/QtOpenCV" title="QtOpenCV"
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Abrir el archivo &lt;code&gt;.pro&lt;/code&gt; del proyecto y añadir al final la línea:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QtOpenCV&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pri&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QtOpenCV&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pri&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2386,7 +2443,7 @@ se definen dos funciones:&lt;/p&gt;
                       &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;channels&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
                       &lt;span class="n"&gt;MatChannelOrder&lt;/span&gt; &lt;span class="n"&gt;rgbOrder&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;MCO_BGR&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="c1"&gt;// format == QImage::Format_Invalid significa autodetección&lt;/span&gt;
-    &lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;mat2Image&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;cv&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Mat&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="nf"&gt;mat2Image&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;cv&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Mat&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mat&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
                      &lt;span class="n"&gt;QImage&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format&lt;/span&gt; &lt;span class="n"&gt;format&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;QImage&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format_Invalid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
                      &lt;span class="n"&gt;MatChannelOrder&lt;/span&gt; &lt;span class="n"&gt;rgbOrder&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;MCO_BGR&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -2528,7 +2585,7 @@ según como los ajustemos.&lt;/p&gt;
 &lt;span class="n"&gt;cv&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;BackgroundSubtractorMOG2&lt;/span&gt; &lt;span class="n"&gt;backgroundSubtractor&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;backgroundSubtractor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nmixtures&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="c1"&gt;// Desactivar la detección de sombras&lt;/span&gt;
-&lt;span class="n"&gt;backgroundSubtractor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bShadowDetection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  
+&lt;span class="n"&gt;backgroundSubtractor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bShadowDetection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  
 
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ImagesTypes&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;const_iterator&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;images&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;images&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="c1"&gt;// Sustracción del fondo:&lt;/span&gt;
@@ -2616,22 +2673,22 @@ clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigil
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
-    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="nl"&gt;public:&lt;/span&gt;
         &lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
         &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
         &lt;span class="c1"&gt;// Ordenar asíncronamente un vector en el hilo de trabajo&lt;/span&gt;
-        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;sortAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;sortAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
     &lt;span class="nl"&gt;signals:&lt;/span&gt;
         &lt;span class="c1"&gt;// Señal para comunicarnos con el hilo de trabajo&lt;/span&gt;
-        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="nl"&gt;slots:&lt;/span&gt;
+    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
         &lt;span class="c1"&gt;// Slot para saber cuando el vector ha sido ordenado&lt;/span&gt;
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="k"&gt;private&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="nl"&gt;private:&lt;/span&gt;
         &lt;span class="c1"&gt;// Clase del hilo de trabajo&lt;/span&gt;
         &lt;span class="n"&gt;QThread&lt;/span&gt; &lt;span class="n"&gt;workingThread_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="c1"&gt;// Clase que hace el ordenamiento&lt;/span&gt;
@@ -2684,7 +2741,7 @@ notificados cuando el ordenamiento haya finalizado con éxito.&lt;/p&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;Q_FUNC_INFO&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;currentThreadId&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
-    &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="n"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="nf"&gt;sortingRequested&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Sorter&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2713,14 +2770,14 @@ lo que podría dejar los datos en uso en un estado indeterminado.&lt;/p&gt;
         &lt;span class="c1"&gt;// Señal emitida cuando el vector ha sido ordenado&lt;/span&gt;
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nl"&gt;slots:&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
         &lt;span class="c1"&gt;// Método encargado del ordenamiento&lt;/span&gt;
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;doSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
             &lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;Q_FUNC_INFO&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;currentThreadId&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
             &lt;span class="n"&gt;QVector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;list_sorted&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
             &lt;span class="n"&gt;qSort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list_sorted&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="n"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list_sorted&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="n"&gt;emit&lt;/span&gt; &lt;span class="nf"&gt;vectorSorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list_sorted&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
         &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -2729,7 +2786,7 @@ lo que podría dejar los datos en uso en un estado indeterminado.&lt;/p&gt;
 &lt;h2&gt;Como usar el ejemplo&lt;/h2&gt;
 &lt;p&gt;Para usar el ejemplo sólo necesitamos crear una instancia de &lt;code&gt;Sorter&lt;/code&gt; y
 llamar a su método &lt;code&gt;sortAsync()&lt;/code&gt; para pedir que ordene el vector especificado.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;QCoreApplication&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
@@ -2772,7 +2829,7 @@ En este sentido el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/q
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
-    &lt;span class="k"&gt;protected&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="nl"&gt;protected:&lt;/span&gt;
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 
@@ -2930,7 +2987,7 @@ al del productor:&lt;/p&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
-    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="nl"&gt;public:&lt;/span&gt;
 
         &lt;span class="n"&gt;FrameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
             &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2973,7 +3030,7 @@ al del productor:&lt;/p&gt;
 &lt;p&gt;Finalmente es en la función principal del programa &lt;code&gt;main()&lt;/code&gt; donde debe crearse
 el hilo encargado del procesamiento de los &lt;em&gt;frames&lt;/em&gt;. Es decir, nuestro
 consumidor.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;QApplication&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="n"&gt;FrameProcessingThread&lt;/span&gt; &lt;span class="n"&gt;frameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -3120,7 +3177,7 @@ multimedia, es mejor utilizar el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http
 &lt;h2&gt;Primeros pasos&lt;/h2&gt;
 &lt;p&gt;La forma más sencilla de usar &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; es asignar un objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; a un
 control &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt; usando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()"&gt;setMovie&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QMovie&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;movie&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;video.mjpeg&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QMovie&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;movie&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;video.mjpeg&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -3136,13 +3193,13 @@ escoja de entre los disponibles en su disco duro podemos:&lt;/p&gt;
 &lt;p&gt;Crear un objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;, guardarlo en un miembro de la clase (manteniendo
  así un puntero al mismo que nos permita referenciarlo más adelante&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;) y asignar
  dicho objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; a &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nn"&gt;MovieViewerWindow::&lt;/span&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QWidget&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QMainWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-      &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nn"&gt;Ui::&lt;/span&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QWidget&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QMainWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+      &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Ui&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Aqu&lt;/span&gt;&lt;span class="err"&gt;í&lt;/span&gt; &lt;span class="n"&gt;otro&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;digo&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;inicializaci&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;instancia&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
+    &lt;span class="c1"&gt;// Aquí otro código de inicialización de la instancia...&lt;/span&gt;
 
-    &lt;span class="n"&gt;movie_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;movie_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
     &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -3153,24 +3210,24 @@ escoja de entre los disponibles en su disco duro podemos:&lt;/p&gt;
 &lt;p&gt;En el slot de la acción que abre el cuadro de diálogo &lt;em&gt;abrir archivo&lt;/em&gt;,
  asignar al objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; el nombre escogido por el usuario mediante el
  método &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#setFileName" title="QMovie::setFileName()"&gt;setFileName&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="nn"&gt;MovieViewerWindow::&lt;/span&gt;&lt;span class="n"&gt;on_actionOpen_triggered&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;on_actionOpen_triggered&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Aqu&lt;/span&gt;&lt;span class="err"&gt;í&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;digo&lt;/span&gt; &lt;span class="n"&gt;que&lt;/span&gt; &lt;span class="n"&gt;abre&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;cuadro&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;di&lt;/span&gt;&lt;span class="err"&gt;á&lt;/span&gt;&lt;span class="n"&gt;logo&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;comprueba&lt;/span&gt; &lt;span class="n"&gt;si&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;el&lt;/span&gt; &lt;span class="n"&gt;usuario&lt;/span&gt; &lt;span class="n"&gt;seleccion&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt; &lt;span class="n"&gt;alg&lt;/span&gt;&lt;span class="err"&gt;ú&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;archivo&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;QString&lt;/span&gt; &lt;span class="n"&gt;fileName&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nn"&gt;QFileDialog::&lt;/span&gt;&lt;span class="n"&gt;getFileName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt;
+    &lt;span class="c1"&gt;// Aquí el código que abre el cuadro de diálogo y comprueba si&lt;/span&gt;
+    &lt;span class="c1"&gt;// el usuario seleccionó algún archivo...&lt;/span&gt;
+    &lt;span class="c1"&gt;//&lt;/span&gt;
+    &lt;span class="c1"&gt;// QString fileName = QFileDialog::getFileName(...);&lt;/span&gt;
+    &lt;span class="c1"&gt;//&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+    &lt;span class="c1"&gt;//&lt;/span&gt;
 
     &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setFileName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fileName&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;isValid&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="nn"&gt;QMessageBox::&lt;/span&gt;&lt;span class="n"&gt;critical&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-            &lt;span class="nb"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;No se pudo abrir el archivo o el formato&amp;quot;&lt;/span&gt;
+        &lt;span class="n"&gt;QMessageBox&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;critical&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+            &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;No se pudo abrir el archivo o el formato&amp;quot;&lt;/span&gt;
                &lt;span class="s"&gt;&amp;quot; es inválido&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Iniciar&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;reproducci&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;animaci&lt;/span&gt;&lt;span class="err"&gt;ó&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;
+    &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;    &lt;span class="c1"&gt;// Iniciar la reproducción de la animación&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -3195,7 +3252,7 @@ desarrolladores de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/v
 método nos permitiría conectarlo a una señal emitida desde otro control.&lt;/p&gt;
 &lt;p&gt;Por ejemplo, si tuvieramos un botón de &lt;em&gt;play&lt;/em&gt; podríamos conectar su señal
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qabstractbutton.html#clicked" title="QAbstractButton::clicked"&gt;clicked&lt;/a&gt;() al slot &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()"&gt;start&lt;/a&gt;() de la siguiente manera:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nb"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;playButton&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clicked&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;playButton&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clicked&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -3215,9 +3272,9 @@ la reproducción, este nunca funcionaría porque la aplicación no volvería al 
 de mensajes hasta que la reproducción no hubiera terminado.&lt;/p&gt;
 &lt;p&gt;Podemos comprobar esto añadiendo una espera justo después de invocar el
 &lt;em&gt;slot&lt;/em&gt; &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()"&gt;start&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QWaitCondition&lt;/span&gt; &lt;span class="nb"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QWaitCondition&lt;/span&gt; &lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;QMutex&lt;/span&gt; &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="nb"&gt;sleep&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Espera&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="n"&gt;segundos&lt;/span&gt;
+&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// Espera de 2 segundos&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -3234,14 +3291,14 @@ actual cambia.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Declaramos un &lt;em&gt;slot&lt;/em&gt; para que reciba la señal &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()"&gt;updated&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;private&lt;/span&gt; &lt;span class="n"&gt;slots:&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;Otros&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;on_actionOpen_triggered&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt;
-    &lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;private&lt;/span&gt; &lt;span class="n"&gt;slots&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="c1"&gt;// Otros slots...&lt;/span&gt;
+    &lt;span class="c1"&gt;//&lt;/span&gt;
+    &lt;span class="c1"&gt;// void on_actionOpen_triggered();&lt;/span&gt;
+    &lt;span class="c1"&gt;//&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+    &lt;span class="c1"&gt;//&lt;/span&gt;
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -3252,7 +3309,7 @@ imagen mostrada por el control &lt;a href="http://qt-project.org/doc/qt-5.0/qtwi
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setPixmap" title="QLabel::setPixmap()"&gt;setPixmap&lt;/a&gt;() permite indicar al objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt; que imagen queremos
 mostrar. Mientras que &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#currentPixmap" title="QMovie::currentPixmap()"&gt;currentPixmap&lt;/a&gt;() nos permite obtener el último
 &lt;em&gt;frame&lt;/em&gt; del objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; en formato &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qpixmap.html" title="QPixmap"&gt;QPixmap&lt;/a&gt;:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;void&lt;/span&gt; &lt;span class="nn"&gt;MovieViewerWindow::&lt;/span&gt;&lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MovieViewerWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;QPixmap&lt;/span&gt; &lt;span class="n"&gt;pixmap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;currentPixmap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
     &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setPixmap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pixmap&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -3265,10 +3322,10 @@ mostrar. Mientras que &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.
 &lt;p&gt;Suprimimos el uso del método &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html#setMovie" title="QLabel::setMovie()"&gt;setMovie&lt;/a&gt;(), para que el
 objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qlabel.html" title="QLabel"&gt;QLabel&lt;/a&gt; no sepa nada de nuestra animación, y conectamos la señal
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#updated" title="QMovie::updated()"&gt;updated&lt;/a&gt;() con nuestro nuevo slot:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;    &lt;span class="n"&gt;movie_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-    &lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setMovie&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="nb"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
-            &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;    &lt;span class="n"&gt;movie_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QMovie&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="c1"&gt;// ui-&amp;gt;label-&amp;gt;setMovie(movie_);&lt;/span&gt;
+    &lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SIGNAL&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+            &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SLOT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;on_movie_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -3433,7 +3490,7 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;p&gt;Buscar la variable &lt;code&gt;BBLAYERS&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/bblayers.conf&lt;/code&gt; y añadir
 al final la ruta hasta el repositorio de la capa &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; para incluirla
 en el proceso de construcción. Por ejemplo:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="o"&gt;?=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto-bsp \&lt;/span&gt;
@@ -3446,7 +3503,7 @@ en el proceso de construcción. Por ejemplo:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Buscar la variable &lt;code&gt;MACHINE&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/local.conf&lt;/code&gt; e indicar que
 la máquina de destino de la imagen es &lt;code&gt;raspberrypi&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="o"&gt;?=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 

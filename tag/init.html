@@ -77,7 +77,7 @@ sea respondiendo a las peticiones que llegan a través de la red o atendiendo a
 procesos que se ejecutan en el mismo sistema, así como responder ante cierta
 actividad del hardware —por ejemplo <code>acpid</code><sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> maneja el apagado del sistema
 cuando el usuario pulsa el botón de encendido del equipo—. Algunos demonios
-sirven para configuar hardware —como es el caso de <code>udevd</code> en algunos sistemas
+sirven para configurar hardware —como es el caso de <code>udevd</code> en algunos sistemas
 GNU/Linux— ejecutar tareas planificadas —como hace <code>cron</code>— o realizar otras
 funciones similares.</p>
 <h1>Crear demonios del sistema</h1>
@@ -91,7 +91,7 @@ ejecutado. Dicha <em>shell</em> conoce su PID y puede bloquearse esperando a que
 comando termine, antes de volver a mostrar el <em>prompt</em><sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup> para indicar al
 usuario que puede introducir un nuevo comando. Incluso si la <em>shell</em> decide no
 esperar a que el comando termine —por ejemplo cuando en <code>bash</code> el usuario lo
-indica utilizando el caracter <code>&amp;</code>— permitindo la ejecución en segundo plano,
+indica utilizando el caracter <code>&amp;</code>— permitiendo la ejecución en segundo plano,
 esta será notificada cuando el proceso hijo termine mediante una señal,
 pudiendo así controlar el estado de los distintos comandos en ejecución.
 Además la <em>shell</em> tiene acceso al motivo por el que el proceso hijo terminó,
@@ -105,7 +105,7 @@ esta se ejecutaba.</p>
 <h2>Crear un proceso hijo</h2>
 <p>El primer paso para que un proceso se convierta en un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> es crear un
 proceso hijo y a continuación terminar el proceso padre:</p>
-<div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+<div class="codehilite"><pre><span class="kt">pid_t</span> <span class="n">pid</span><span class="p">;</span>
 
 <span class="c1">// Nos clonamos a nosotros mismos creando un proceso hijo</span>
 <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
@@ -123,7 +123,7 @@ proceso hijo y a continuación terminar el proceso padre:</p>
     <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="c1">// Si la ejeución llega a este punto, estamos en el hijo</span>
+<span class="c1">// Si la ejecución llega a este punto, estamos en el hijo</span>
 </pre></div>
 
 
@@ -190,7 +190,7 @@ de clases que añaden funcionalidades multiplataforma que no están disponibles
 en el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
 <p>Entre dichas funcionalidades adicionales está la clase <a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a>, que permite
 enviar mensajes al registro de eventos del sistema de forma más apropiada
-para una apliación en C++.</p>
+para una aplicación en C++.</p>
 <div class="codehilite"><pre><span class="cp">#include &lt;QxtLogger&gt;</span>
 
 <span class="p">...</span>
@@ -204,16 +204,16 @@ para una apliación en C++.</p>
 
 
 <h2>Crear una nueva sesión</h2>
-<p>Cada proceso es miembro de un grupo y estos a su vez se reunen en sesiones. En
-cada una de estas hay un proceso que hace las veces de lider, de tal forma que
+<p>Cada proceso es miembro de un grupo y estos a su vez se reúnen en sesiones. En
+cada una de estas hay un proceso que hace las veces de líder, de tal forma que
 si muere todos los procesos de la sesión reciben una señal <code>SIGHUP</code>. La idea
-es que el lider muere cuando se quiere dar la sesión por terminada, por lo que
-mediate <code>SIGHUP</code> se notifica al resto de procesos esta circunstancia para que
+es que el líder muere cuando se quiere dar la sesión por terminada, por lo que
+mediante <code>SIGHUP</code> se notifica al resto de procesos esta circunstancia para que
 puedan terminar ordenadamente.</p>
 <p>Obviamente no estamos interesados en que el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> termine cuando la sesión
 desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
-sesión de la que dicho [deminio] será el lider:</p>
-<div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">sid</span><span class="p">;</span>
+sesión de la que dicho <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> será el lider:</p>
+<div class="codehilite"><pre><span class="kt">pid_t</span> <span class="n">sid</span><span class="p">;</span>
 
 <span class="c1">// Intentar crear una nueva sesión</span>
 <span class="n">sid</span> <span class="o">=</span> <span class="n">setsid</span><span class="p">();</span>
@@ -242,11 +242,11 @@ directorio raiz, ya que podemos estar seguros de que siempre existirá:</p>
 
 
 <p>Otra opción es cambiar el directorio de trabajo a donde se almacenan los datos
-de nuestra aplicación o a algún otro directorio similar, siempre segun el
+de nuestra aplicación o a algún otro directorio similar, siempre según el
 <a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard">Filesystem Hierarchy Standard</a>.</p>
 <h2>Reabrir los descriptores estándar</h2>
-<p>Como ya hemos comentado, un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> no interactua directamente con los
-usuarios, por lo que no necesita usar la entrada / salidad estándar, así que
+<p>Como ya hemos comentado, un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> no interactúa directamente con los
+usuarios, por lo que no necesita usar la entrada / salida estándar, así que
 podemos cerrar sus descriptores:</p>
 <div class="codehilite"><pre><span class="c1">// Cerrar los descriptores de la E/S estándar</span>
 <span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>            <span class="c1">// fd 0</span>
@@ -256,7 +256,7 @@ podemos cerrar sus descriptores:</p>
 
 
 <p>Sin embargo esto puede no ser lo más conveniente porque los siguientes
-archivos que se habran —archivos de registro, <em>sockets</em>, etc— usarán esos mismos
+archivos que se abran —archivos de registro, <em>sockets</em>, etc— usarán esos mismos
 descriptores, lo que puede ser un problema si se utiliza alguna
 librería que los use de forma inesperada para su E/S. En su lugar puede ser
 preferible mantenerlos abiertos pero conectados al archivo <code>/dev/null</code>:</p>
@@ -286,23 +286,23 @@ comportamiento diferente.</p>
 <h1>Cambiar la personalidad del proceso</h1>
 <p>Los demonios son generalmente lanzados por el usuario <code>root</code>, lo que les da
 acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
-atacante se saltara las medidas de seguridad incoporadas en el programa y
+atacante se saltara las medidas de seguridad incorporadas en el programa y
 fuera capaz de hacer que ejecutara código arbitrario.</p>
-<p>Para evitarlo es muy común que los demominos cambien su personalidad a un
+<p>Para evitarlo es muy común que los demonis cambien su personalidad a un
 usuario y grupo convencional del sistema:</p>
-<div class="codehilite"><pre><span class="c1">// Cambiar el usuario efectivo del proceso a &#39;mydaemon&#39;</span>
-<span class="n">passwd</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="n">getpwnam</span><span class="p">(</span><span class="s">&quot;mydaemon&quot;</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="c1">// Cambiar el usuario efectivo del proceso a &#39;midemonio&#39;</span>
+<span class="n">passwd</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="n">getpwnam</span><span class="p">(</span><span class="s">&quot;midemonio&quot;</span><span class="p">);</span>
 <span class="n">seteuid</span><span class="p">(</span><span class="n">user</span><span class="o">-&gt;</span><span class="n">pw_uid</span><span class="p">);</span>
 
-<span class="c1">// Cambiar el grupo efectivo del proceso a &#39;mydaemon&#39;</span>
-<span class="n">group</span><span class="o">*</span> <span class="n">group</span> <span class="o">=</span> <span class="n">getgrnam</span><span class="p">(</span><span class="s">&quot;mydaemon&quot;</span><span class="p">);</span>
+<span class="c1">// Cambiar el grupo efectivo del proceso a &#39;midemonio&#39;</span>
+<span class="n">group</span><span class="o">*</span> <span class="n">group</span> <span class="o">=</span> <span class="n">getgrnam</span><span class="p">(</span><span class="s">&quot;midemonio&quot;</span><span class="p">);</span>
 <span class="n">setegid</span><span class="p">(</span><span class="n">group</span><span class="o">-&gt;</span><span class="n">gr_gid</span><span class="p">);</span>
 </pre></div>
 
 
 <h1>Señales</h1>
 <p>Una vez el demonio está en ejecución las señales ser convierten en un
-mencanismo muy potente para comunicarnos con él:</p>
+mecanismo muy potente para comunicarnos con él:</p>
 <ul>
 <li>Debe atender la señal <code>SIGTERM</code> para terminar en condiciones de seguridad.</li>
 <li>Es muy común que intercepte la señal <code>SIGHUP</code> ya que así se le suele indicar
@@ -314,7 +314,7 @@ Qt</a> ya que allí se explican las
 particularidades del uso de señales POSIX en este tipo de aplicaciones.</p>
 <h1>Arranque del servicio</h1>
 <p>Los demonios <code>init</code> de muchos sistemas operativos operan en base a <em>niveles de
-ejecuión</em>. Cada <a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución">nivel de ejecución</a> define un estado de la máquina después
+ejecución</em>. Cada <a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución">nivel de ejecución</a> define un estado de la máquina después
 del arranque, estableciendo que demonios deben ser iniciados y/o detenidos
 para alcanzarlo. Por lo tanto en cada momento sólo puede haber un <a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución">nivel de
 ejecución</a> activo.</p>
@@ -329,26 +329,53 @@ para:</p>
 </ul>
 <p>Para iniciar o detener los demonios según el nivel de ejecución, estos suelen
 ir acompañados de un <em>script</em> de inicio que por lo general se almacena en el
-directorio <code>/etc/init.d</code> y que suele tener una estructura muy similar a la
+directorio <code>/etc/init.d</code>. En aquellas distribuciones de Linux que siguen el
+estándar LSB<sup id="fnref:5"><a class="footnote-ref" href="#fn:5" rel="footnote">5</a></sup> la estructura de este <em>script</em> suele ser muy similar a la
 siguiente:</p>
-<div class="codehilite"><pre><span class="c">#!/bin/bash</span>
+<div class="codehilite"><pre><span class="c">#!/bin/sh</span>
 <span class="c">#</span>
-<span class="c"># Script de inicio de mydaemond</span>
+<span class="c"># midemoniod    /etc/init.d initscript para MiDemonio</span>
 <span class="c">#</span>
 
-<span class="nv">DAEMON</span><span class="o">=</span>mydaemond
-<span class="nv">PIDFILE</span><span class="o">=</span>/var/run/<span class="k">${</span><span class="nv">DAEMON</span><span class="k">}</span>.pid
+<span class="c">### BEGIN INIT INFO</span>
+<span class="c"># Provides:          midemonio</span>
+<span class="c"># Required-Start:    $network $local_fs $remote_fs</span>
+<span class="c"># Required-Stop:     $network $local_fs $remote_fs</span>
+<span class="c"># Default-Start:     2 3 4 5</span>
+<span class="c"># Default-Stop:      0 1 6</span>
+<span class="c"># Short-Description: inicia y detiene midemonio</span>
+<span class="c"># Description:       MiDemonio es el mejor demonio. Y este archivo</span>
+<span class="c">#                    es un ejemplo de como crear un script de inicio.</span>
+<span class="c">### END INIT INFO</span>
 
-start<span class="o">()</span> <span class="o">{</span>
-        <span class="nb">echo</span> -n <span class="s2">&quot;Starting : &quot;</span>
-        <span class="c"># Aquí va el código que ejecuta el demonio $DAEMON</span>
-        <span class="k">return</span>
+<span class="c"># Salir inmediatamente si un comando falla</span>
+<span class="c"># http://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin</span>
+<span class="nb">set</span> -e
+
+<span class="c"># Importar funciones LSB:</span>
+<span class="c"># start_daemon, killproc, status_of_proc, log_*, etc.</span>
+. /lib/lsb/init-functions
+
+<span class="nv">NAME</span><span class="o">=</span>midemoniod
+<span class="nv">PIDFILE</span><span class="o">=</span>/var/run/<span class="nv">$NAME</span>.pid
+<span class="nv">DAEMON</span><span class="o">=</span>/usr/sbin/<span class="nv">$NAME</span>
+<span class="nv">DAEMON_OPTS</span><span class="o">=</span><span class="s2">&quot;--daemon&quot;</span>
+
+<span class="c"># Si el demonio no existe, salir.</span>
+<span class="nb">test</span> -x <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">exit </span>5
+
+start<span class="o">()</span>
+<span class="o">{</span>
+    log_daemon_msg <span class="s2">&quot;Starting the $NAME process&quot;</span>
+    start_daemon -p <span class="nv">$PIDFILE</span> -- <span class="nv">$DAEMON</span> <span class="nv">$DAEMON_OPTS</span>
+    log_end_msg <span class="nv">$?</span>
 <span class="o">}</span>
 
-stop<span class="o">()</span> <span class="o">{</span>
-        <span class="nb">echo</span> -n <span class="s2">&quot;Shutting down : &quot;</span>
-        <span class="c"># Aquí va el código que detiene el demonio $DAEMON</span>
-        <span class="k">return</span>
+stop<span class="o">()</span>
+<span class="o">{</span>
+    log_daemon_msg <span class="s2">&quot;Stoppping the $NAME process&quot;</span>
+    killproc -p <span class="nv">$PIDFILE</span>
+    log_end_msg <span class="nv">$?</span>
 <span class="o">}</span>
 
 <span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
@@ -359,48 +386,72 @@ stop<span class="o">()</span> <span class="o">{</span>
         stop
         ;;
     status<span class="o">)</span>
-        <span class="c"># Aquí va el código que indica si el demonio se está ejecutando</span>
+        <span class="k">if</span> <span class="o">[</span> -e <span class="nv">$PIDFILE</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">            </span>status_of_proc -p <span class="nv">$PIDFILE</span> <span class="nv">$DAEMON</span> <span class="s2">&quot;$NAME process&quot;</span>
+        <span class="k">else</span>
+<span class="k">            </span>log_failure_msg <span class="s2">&quot;$NAME process is not running&quot;</span>
+            log_end_msg 0
+        <span class="k">fi</span>
         ;;
     restart<span class="o">)</span>
         stop
         start
         ;;
     reload|force-reload<span class="o">)</span>
-        <span class="c"># Aquí va el código que recarga la configuración</span>
+        <span class="k">if</span> <span class="o">[</span> -e <span class="nv">$PIDFILE</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">            </span>killproc -p <span class="nv">$PIDFILE</span> -SIGHUP
+            log_success_msg <span class="s2">&quot;$NAME process reloaded successfully&quot;</span>
+        <span class="k">else</span>
+<span class="k">            </span>log_failure_msg <span class="s2">&quot;$NAME process is not running&quot;</span>
+            log_end_msg 0
+        <span class="k">fi</span>
         ;;
     *<span class="o">)</span>
         <span class="nb">echo</span> <span class="s2">&quot;Usage:  {start|stop|status|reload|force-reload|restart]&quot;</span>
-        <span class="nb">exit </span>1
+        <span class="nb">exit </span>2
         ;;
 <span class="k">esac</span>
-<span class="nb">exit</span> <span class="nv">$?</span>
 </pre></div>
 
 
-<p>Como se puede observar, la mayor parte de las opciones del script necesitan poner
-comunicarse con el demonio en ejecución. Para eso el demonio suele crear una
-archivo con extensión <code>.pid</code> en el directorio <code>/var/run</code> donde almacena su
-propio identificador de proceso. Así el <em>script</em> de inicio puede:</p>
-<ul>
-<li>Comprobar si está en ejecución cuando el usuario solicita un <code>status</code>.</li>
-<li>Enviarle una señal <code>SIGHUP</code> para que vuelva a leer los archivos de
- configuración cuando el usuario solicita un <code>reload</code>.</li>
-<li>Terminar en condiciones de seguridad al recibir la señal <code>SIGTERM</code> cuando
-el usuario solicita un <code>stop</code>.</li>
-</ul>
+<p>Como se puede observar, la mayor parte de las opciones del <em>script</em> necesitan poner
+comunicarse con el demonio en ejecución:</p>
+<dl>
+<dt><strong>start</strong></dt>
+<dd>Necesita poder determinar si el demonio ya ha sido iniciado para no hacerlo
+por segunda vez</dd>
+<dt><strong>status</strong></dt>
+<dd>También necesita poder determinar si el demonio ya ha sido iniciado o no.</dd>
+<dt><strong>stop</strong></dt>
+<dd>Necesita poder enviar la señal <code>SIGTERM</code> al proceso.</dd>
+<dt><strong>reload</strong></dt>
+<dd>Necesita poder enviar la señal <code>SIGHUP</code> al proceso.</dd>
+</dl>
+<p>Para eso el demonio suele crear una archivo con extensión <code>.pid</code> en el
+directorio <code>/var/run</code>. En el almacena únicamente su propio identificador de
+proceso, del tal forma que las funciones LSB <code>start_daemon</code>, <code>killproc</code>,
+<code>pidofproc</code> y <code>status_of_proc</code> asumen que:</p>
+<ol>
+<li>Si el archivo no existe, el demonio no se está ejecutando.</li>
+<li>En otro caso y si contiene uno o más valores numéricos separados por
+espacios en la primera línea, estos valores son considerados los PID de los
+procesos del demonio. Las funciones anteriores considerarán que el demonio está
+en ejecución si existen procesos con esos PID y enviarán las señales que
+correspondan.</li>
+</ol>
 <h1>Opciones de línea de comandos</h1>
 <p>Los demonios, igual que cualquier otro programa, pueden recibir opciones de
 línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo
-es muy común que ofrezcan opciones para sobreescribir los parámetros indicados
+es muy común que ofrezcan opciones para sobrescribir los parámetros indicados
 en el archivo de configuración. También es habitual que un proceso de un programa
 diseñado para ejecutarse como un demonio no se convierta en tal si no es
 especificada en la línea de comandos una opción del estilo de <code>-d</code> o <code>--daemon</code>.
-Esto es así, por ejemplo, poque es más sencillo depurar el programa y comprobar
+Esto es así, por ejemplo, porque es más sencillo depurar el programa y comprobar
 su funcionamiento cuando éste no se ejecuta en segundo plano.</p>
 <p>En el código del proyecto <a href="http://github.com/aplatanado/rifftree">rifftree</a>,
 que ya comentamos en el artículo <a href="../resource-interchange-file-format.html">Resource Interchange File
 Format</a>, se puede observar como se utiliza la
-familia de funciones <a href="http://linux.die.net/man/3/getopt" title="getopt(3)">getopt</a> para procesar adecuadalmente la línea de
+familia de funciones <a href="http://linux.die.net/man/3/getopt" title="getopt(3)">getopt</a> para procesar adecuadamente la línea de
 comandos de un programa cualquiera.</p>
 <h1>Referencias</h1>
 <ol>
@@ -410,6 +461,7 @@ comandos de un programa cualquiera.</p>
 <li>Proyecto <a href="http://libqxt.org">LibQxt</a>.</li>
 <li>The GNU C Library - <a href="http://www.gnu.org/software/libc/manual/html_node/Users-and-Groups.html#Users-and-Groups">Users and Groups</a></li>
 <li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Runlevel">Runlevel</a></li>
+<li>Linux Standard Base Core Specification 3.2 - <a href="http://refspecs.linuxfoundation.org/LSB_3.2.0/LSB-Core-generic/LSB-Core-generic/tocsysinit.html">System Initialization</a></li>
 </ol>
 <div class="footnote">
 <hr />
@@ -436,6 +488,11 @@ el primer proceso que se inicia durante el arranque del sistema y su función
 principal es lanzar el resto de demonios necesarios para el funcionamiento del
 sistema. Generalmente también lanza los procesos encargados de solicitar el
 inicio de sesión a los usuarios.&#160;<a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>LSB o Linux System Standard es una iniciativa de la Linux Foundation para
+reducir las diferencias entre las distintas distribuciones de Linux, limitando
+así los costes derivados de portar las aplicaciones de unas distribuciones a otras.&#160;<a class="footnote-backref" href="#fnref:5" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
