@@ -180,10 +180,10 @@ eventos centralizados o filtrados.</p>
 <h3>Registro de eventos en aplicaciones Qt</h3>
 <p>Cuando se desarrolla con <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> puede ser interesante echar un vistazo a las
 funcionalidades de la librería <a href="http://libqxt.org" title="LibQxt">LibQxt</a>. Este proyecto proporciona un conjunto
-de clases que añaden funcionalidad multiplraforma que no está disponible en el
-<em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
-<p>Entre dicha funcionalidad adicional está la clase <a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a> que permite
-enviar mensajes al registro de eventos del sistema de una forma más apropiada
+de clases que añaden funcionalidades multiplataforma que no están disponibles
+en el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
+<p>Entre dichas funcionalidades adicionales está la clase <a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a>, que permite
+enviar mensajes al registro de eventos del sistema de forma más apropiada
 para una apliación en C++.</p>
 <div class="codehilite"><pre><span class="cp">#include &lt;QxtLogger&gt;</span>
 
@@ -198,12 +198,12 @@ para una apliación en C++.</p>
 
 
 <h2>Crear una nueva sesión</h2>
-<p>Cada proceso es miembro de un grupo y los grupos se reunen en sesiones. En
+<p>Cada proceso es miembro de un grupo y estos a su vez se reunen en sesiones. En
 cada una de estas hay un proceso que hace las veces de lider, de tal forma que
 si muere todos los procesos de la sesión reciben una señal <code>SIGHUP</code>. La idea
 es que el lider muere cuando se quiere dar la sesión por terminada, por lo que
 mediate <code>SIGHUP</code> se notifica al resto de procesos esta circunstancia para que
-terminen ordenadamente.</p>
+puedan terminar ordenadamente.</p>
 <p>Obviamente no estamos interesados en que el [demonio] termine cuando la sesión
 desde la que fue creado finalice, por lo que necesitamos crear nuestro propia
 sesión de la que el [deminio] será el lider:</p>
