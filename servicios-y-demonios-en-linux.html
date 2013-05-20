@@ -99,7 +99,7 @@ esta se ejecutaba.</p>
 <h2>Crear un proceso hijo</h2>
 <p>El primer paso para que un proceso se convierta en un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> es crear un
 proceso hijo y a continuación terminar el proceso padre:</p>
-<div class="codehilite"><pre><span class="kt">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+<div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
 
 <span class="c1">// Nos clonamos a nosotros mismos creando un proceso hijo</span>
 <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
@@ -207,7 +207,7 @@ puedan terminar ordenadamente.</p>
 <p>Obviamente no estamos interesados en que el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> termine cuando la sesión
 desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
 sesión de la que dicho <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> será el lider:</p>
-<div class="codehilite"><pre><span class="kt">pid_t</span> <span class="n">sid</span><span class="p">;</span>
+<div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">sid</span><span class="p">;</span>
 
 <span class="c1">// Intentar crear una nueva sesión</span>
 <span class="n">sid</span> <span class="o">=</span> <span class="n">setsid</span><span class="p">();</span>
@@ -240,8 +240,8 @@ de nuestra aplicación o a algún otro directorio similar, siempre según el
 <a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard">Filesystem Hierarchy Standard</a>.</p>
 <h2>Reabrir los descriptores estándar</h2>
 <p>Como ya hemos comentado, un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> no interactúa directamente con los
-usuarios, por lo que no necesita usar la entrada / salida estándar, así que
-podemos cerrar sus descriptores:</p>
+usuarios, por lo que no necesita usar la E/S estándar, así que podemos cerrar
+sus descriptores:</p>
 <div class="codehilite"><pre><span class="c1">// Cerrar los descriptores de la E/S estándar</span>
 <span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>            <span class="c1">// fd 0</span>
 <span class="n">close</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">);</span>           <span class="c1">// fd 1</span>
@@ -250,9 +250,9 @@ podemos cerrar sus descriptores:</p>
 
 
 <p>Sin embargo esto puede no ser lo más conveniente porque los siguientes
-archivos que se abran —archivos de registro, <em>sockets</em>, etc— usarán esos mismos
-descriptores, lo que puede ser un problema si se utiliza alguna
-librería que los use de forma inesperada para su E/S. En su lugar puede ser
+archivos que se abran —archivos de registro, <em>sockets</em>, etc— reusarán esos
+mismos descriptores, lo que puede ser un problema si se utiliza alguna
+librería que pueda intentar hacer uso de la E/S estándar. En su lugar puede ser
 preferible mantenerlos abiertos pero conectados al archivo <code>/dev/null</code>:</p>
 <div class="codehilite"><pre><span class="c1">// Cerrar los descriptores de la E/S estándar</span>
 <span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>                    <span class="c1">// fd 0</span>
@@ -282,7 +282,7 @@ comportamiento diferente.</p>
 acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
 atacante se saltara las medidas de seguridad incorporadas en el programa y
 fuera capaz de hacer que ejecutara código arbitrario.</p>
-<p>Para evitarlo es muy común que los demonis cambien su personalidad a un
+<p>Para evitarlo es muy común que los demonios cambien su personalidad a un
 usuario y grupo convencional del sistema:</p>
 <div class="codehilite"><pre><span class="c1">// Cambiar el usuario efectivo del proceso a &#39;midemonio&#39;</span>
 <span class="n">passwd</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="n">getpwnam</span><span class="p">(</span><span class="s">&quot;midemonio&quot;</span><span class="p">);</span>
@@ -495,7 +495,14 @@ así los costes derivados de portar las aplicaciones de unas distribuciones a ot
         <hr>
     	   
         <h2>Comentarios</h2>
-			    </div>
+			    <div class="g-comments-for z12pednixrvnhzu3e22egliyvmyrubrkf"></div>
+    <script src="https://github.com/timrwood/moment/raw/1.7.2/min/moment.min.js"></script>
+    <script src="./theme/pluscomments.js"></script>
+    <script type="text/javascript">
+    function pluscommentsLoad() { pluscomments.load('AIzaSyClPfZd7RRcX9e3eYiOLV__FyRO9RmJzmg'); }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=pluscommentsLoad"></script>
+    </div>
         </div>
         
         <div class="span3">

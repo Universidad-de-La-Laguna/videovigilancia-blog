@@ -36,7 +36,7 @@ esta se ejecutaba.&lt;/p&gt;
 &lt;h2&gt;Crear un proceso hijo&lt;/h2&gt;
 &lt;p&gt;El primer paso para que un proceso se convierta en un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; es crear un
 proceso hijo y a continuación terminar el proceso padre:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="c1"&gt;// Nos clonamos a nosotros mismos creando un proceso hijo&lt;/span&gt;
 &lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fork&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -144,7 +144,7 @@ puedan terminar ordenadamente.&lt;/p&gt;
 &lt;p&gt;Obviamente no estamos interesados en que el &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; termine cuando la sesión
 desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
 sesión de la que dicho &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; será el lider:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;sid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;sid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="c1"&gt;// Intentar crear una nueva sesión&lt;/span&gt;
 &lt;span class="n"&gt;sid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;setsid&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -177,8 +177,8 @@ de nuestra aplicación o a algún otro directorio similar, siempre según el
 &lt;a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard"&gt;Filesystem Hierarchy Standard&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Reabrir los descriptores estándar&lt;/h2&gt;
 &lt;p&gt;Como ya hemos comentado, un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; no interactúa directamente con los
-usuarios, por lo que no necesita usar la entrada / salida estándar, así que
-podemos cerrar sus descriptores:&lt;/p&gt;
+usuarios, por lo que no necesita usar la E/S estándar, así que podemos cerrar
+sus descriptores:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cerrar los descriptores de la E/S estándar&lt;/span&gt;
 &lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDIN_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;            &lt;span class="c1"&gt;// fd 0&lt;/span&gt;
 &lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDOUT_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;           &lt;span class="c1"&gt;// fd 1&lt;/span&gt;
@@ -187,9 +187,9 @@ podemos cerrar sus descriptores:&lt;/p&gt;
 
 
 &lt;p&gt;Sin embargo esto puede no ser lo más conveniente porque los siguientes
-archivos que se abran —archivos de registro, &lt;em&gt;sockets&lt;/em&gt;, etc— usarán esos mismos
-descriptores, lo que puede ser un problema si se utiliza alguna
-librería que los use de forma inesperada para su E/S. En su lugar puede ser
+archivos que se abran —archivos de registro, &lt;em&gt;sockets&lt;/em&gt;, etc— reusarán esos
+mismos descriptores, lo que puede ser un problema si se utiliza alguna
+librería que pueda intentar hacer uso de la E/S estándar. En su lugar puede ser
 preferible mantenerlos abiertos pero conectados al archivo &lt;code&gt;/dev/null&lt;/code&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cerrar los descriptores de la E/S estándar&lt;/span&gt;
 &lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDIN_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;                    &lt;span class="c1"&gt;// fd 0&lt;/span&gt;
@@ -219,7 +219,7 @@ comportamiento diferente.&lt;/p&gt;
 acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
 atacante se saltara las medidas de seguridad incorporadas en el programa y
 fuera capaz de hacer que ejecutara código arbitrario.&lt;/p&gt;
-&lt;p&gt;Para evitarlo es muy común que los demonis cambien su personalidad a un
+&lt;p&gt;Para evitarlo es muy común que los demonios cambien su personalidad a un
 usuario y grupo convencional del sistema:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cambiar el usuario efectivo del proceso a &amp;#39;midemonio&amp;#39;&lt;/span&gt;
 &lt;span class="n"&gt;passwd&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getpwnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;midemonio&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -537,7 +537,7 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 &lt;p&gt;Buscar la variable &lt;code&gt;BBLAYERS&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/bblayers.conf&lt;/code&gt; y añadir
 al final la ruta hasta el repositorio de la capa &lt;strong&gt;meta-raspberrypi&lt;/strong&gt; para incluirla
 en el proceso de construcción. Por ejemplo:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="o"&gt;?=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;BBLAYERS&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto \&lt;/span&gt;
 &lt;span class="s"&gt;  /home/usuario/poky-danny-8.0/meta-yocto-bsp \&lt;/span&gt;
@@ -550,7 +550,7 @@ en el proceso de construcción. Por ejemplo:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Buscar la variable &lt;code&gt;MACHINE&lt;/code&gt; en &lt;code&gt;raspberry-pi-build/conf/local.conf&lt;/code&gt; e indicar que
 la máquina de destino de la imagen es &lt;code&gt;raspberrypi&lt;/code&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="o"&gt;?=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MACHINE&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;raspberrypi&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
