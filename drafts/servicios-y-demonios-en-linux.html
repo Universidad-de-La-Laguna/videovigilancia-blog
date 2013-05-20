@@ -62,7 +62,7 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
 
         </div>
 	
-        <div><p>Un [demonio]<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> o servicio es un programa que se ejecuta en segundo plano,
+        <div><p>Un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> o servicio es un programa que se ejecuta en segundo plano,
 fuera del control interactivo de los usuarios del sistema ya que carecen de
 interfaz con estos.</p>
 <p>El sistema generalmente inicia los demonios durante el arranque, siendo las
@@ -91,13 +91,13 @@ pudiendo así controlar el estado de los distintos comandos en ejecución.
 Además la <em>shell</em> tiene acceso al motivo por el que el proceso hijo terminó,
 así como al código de estado devuelto por este a través de la llamada al
 sistema <a href="http://linux.die.net/man/3/exit" title="exit(3)">exit</a>().</p>
-<p>Por lo tanto los procesos que quieren convertirse en un [demonio] deben
+<p>Por lo tanto los procesos que quieren convertirse en un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> deben
 asegurarse que siempre se ejecutan en segundo plano, desvinculándose del
 proceso de la <em>shell</em> que los invocó y de la <a href="http://en.wikipedia.org/wiki/POSIX_terminal_interface">terminal del
 sistema</a> desde la que
 esta se ejecutaba.</p>
 <h2>Crear un proceso hijo</h2>
-<p>El primer paso para que un proceso se convierta en un [demonio] es crear un
+<p>El primer paso para que un proceso se convierta en un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> es crear un
 proceso hijo y a continuación terminar el proceso padre:</p>
 <div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
 
@@ -132,7 +132,7 @@ sistema como <a href="http://linux.die.net/man/2/open" title="open(2)">open</a>(
 máscara, desactivando de manera efectiva los que en ella se indiquen.</p>
 <p>La máscara —denominada <a href="http://linux.die.net/man/2/umask" title="umask(2)">umask</a>()— es heredada de padres a hijos por los
 procesos, por lo que su valor por defecto será el mismo que el que tenía
-configurada la <em>shell</em> que lanzó el demonio. Esto significa que el [demonio]
+configurada la <em>shell</em> que lanzó el demonio. Esto significa que el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a>
 no sabe que permisos acabarán tenido los archivos que intente crear. Para
 evitarlo simplemente podemos autorizar todos los permisos:</p>
 <div class="codehilite"><pre><span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -142,7 +142,7 @@ evitarlo simplemente podemos autorizar todos los permisos:</p>
 <p>o establecer específicamente para <a href="http://linux.die.net/man/2/umask" title="umask(2)">umask</a>() otro valor más seguro según nuestra
 conveniencia. Incluso algunos desarrolladores permiten que los administradores
 del sistema especifiquen la máscara deseada a través del archivo de
-configuración del [demonio].</p>
+configuración del <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a>.</p>
 <h2>Abrir conexión con el registro de eventos</h2>
 <p>Puesto que un demonio se ejecuta en segundo plano no debe estar conectado a
 ninguna terminal. Sin embargo esto plantea la cuestión de cómo indicar
@@ -204,7 +204,7 @@ si muere todos los procesos de la sesión reciben una señal <code>SIGHUP</code>
 es que el lider muere cuando se quiere dar la sesión por terminada, por lo que
 mediate <code>SIGHUP</code> se notifica al resto de procesos esta circunstancia para que
 puedan terminar ordenadamente.</p>
-<p>Obviamente no estamos interesados en que el [demonio] termine cuando la sesión
+<p>Obviamente no estamos interesados en que el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> termine cuando la sesión
 desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
 sesión de la que dicho [deminio] será el lider:</p>
 <div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">sid</span><span class="p">;</span>
@@ -239,7 +239,7 @@ directorio raiz, ya que podemos estar seguros de que siempre existirá:</p>
 de nuestra aplicación o a algún otro directorio similar, siempre segun el
 <a href="">Filesystem Hierarchy Standard</a>.</p>
 <h2>Reabrir los descriptores estándar</h2>
-<p>Como ya hemos comentado, un [demonio] no interactua directamente con los
+<p>Como ya hemos comentado, un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> no interactua directamente con los
 usuarios, por lo que no necesita usar la entrada / salidad estándar, así que
 podemos cerrar sus descriptores:</p>
 <div class="codehilite"><pre><span class="c1">// Cerrar los descriptores de la E/S estándar</span>
@@ -412,15 +412,12 @@ html#Users-and-Groups">Users and
 Groups</a></li>
 <li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Runlevel">Runlevel</a></li>
 </ol>
-<p>[demonio]: http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica) "Demonio
-(informática)"
-http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard "Filesystem
-Hierarchy Standard"</p>
+<p>http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard "Filesystem Hierarchy Standard"</p>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>El término [demonio] se usa fundamentalmente en sistemas UNIX y basados
+<p>El término <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> se usa fundamentalmente en sistemas UNIX y basados
 en UNIX, como GNU/Linux o Mac OS X. En Windows y otros sistemas operativos se
 denominan servicios porque fundamentalmente son programas que ofrecen
 servicios al resto del sistema.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
@@ -436,7 +433,7 @@ muestra en la línea de comandos para indicar que está a la espera de nuevos
 comandos.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:4">
-<p><code>init</code> es el [demonio] antepasado de todos los procesos del sistema. Es
+<p><code>init</code> es el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> antepasado de todos los procesos del sistema. Es
 el primer proceso que se inicia durante el arranque del sistema y su función
 principal es lanzar el resto de demonios necesarios para el funcionamiento del
 sistema. Generalmente también lanza los procesos encargados de solicitar el
