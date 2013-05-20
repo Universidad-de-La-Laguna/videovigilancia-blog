@@ -208,8 +208,8 @@ de nuestra aplicación o a algún otro directorio similar, siempre según el
 ## Reabrir los descriptores estándar
 
 Como ya hemos comentado, un [demonio] no interactúa directamente con los
-usuarios, por lo que no necesita usar la entrada / salida estándar, así que
-podemos cerrar sus descriptores:
+usuarios, por lo que no necesita usar la E/S estándar, así que podemos cerrar
+sus descriptores:
 
 ~~~~.cpp
 // Cerrar los descriptores de la E/S estándar
@@ -219,9 +219,9 @@ close(STDERR_FILENO);           // fd 2
 ~~~~
 
 Sin embargo esto puede no ser lo más conveniente porque los siguientes
-archivos que se abran —archivos de registro, _sockets_, etc— usarán esos mismos
-descriptores, lo que puede ser un problema si se utiliza alguna
-librería que los use de forma inesperada para su E/S. En su lugar puede ser
+archivos que se abran —archivos de registro, _sockets_, etc— reusarán esos
+mismos descriptores, lo que puede ser un problema si se utiliza alguna
+librería que pueda intentar hacer uso de la E/S estándar. En su lugar puede ser
 preferible mantenerlos abiertos pero conectados al archivo `/dev/null`:
 
 ~~~~.cpp
@@ -256,7 +256,7 @@ acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
 atacante se saltara las medidas de seguridad incorporadas en el programa y
 fuera capaz de hacer que ejecutara código arbitrario.
 
-Para evitarlo es muy común que los demonis cambien su personalidad a un
+Para evitarlo es muy común que los demonios cambien su personalidad a un
 usuario y grupo convencional del sistema:
 
 ~~~~.cpp
