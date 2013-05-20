@@ -108,7 +108,7 @@ proceso hijo y a continuación terminar el proceso padre:</p>
 <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Mostrar la descripción del error y terminar</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">strerror</span><span class="p">(</span><span class="n">errono</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="c1">// Si pid es &gt; 0, estamos en el proceso padre</span>
@@ -205,15 +205,15 @@ es que el lider muere cuando se quiere dar la sesión por terminada, por lo que
 mediate <code>SIGHUP</code> se notifica al resto de procesos esta circunstancia para que
 puedan terminar ordenadamente.</p>
 <p>Obviamente no estamos interesados en que el [demonio] termine cuando la sesión
-desde la que fue creado finalice, por lo que necesitamos crear nuestro propia
-sesión de la que el [deminio] será el lider:</p>
+desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
+sesión de la que dicho [deminio] será el lider:</p>
 <div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">sid</span><span class="p">;</span>
 
 <span class="c1">// Intentar crear una nueva sesión</span>
 <span class="n">sid</span> <span class="o">=</span> <span class="n">setsid</span><span class="p">();</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">sid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">syslog</span><span class="p">(</span><span class="n">LOG_ERR</span><span class="p">,</span> <span class="s">&quot;No fue posible crear una nueva sesión</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">11</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -224,21 +224,22 @@ sesión de la que el [deminio] será el lider:</p>
 dentro de un punto de montaje cualquiera del sistema, por lo que no tenemos
 garantías de que vaya a seguir estando disponible durante la ejecución del
 proceso.</p>
-<p>Por eso es probable que prefiramos cambiar el directorio de trabaja al
+<p>Por eso es probable que prefiramos cambiar el directorio de trabajo al
 directorio raiz, ya que podemos estar seguros de que siempre existirá:</p>
-<div class="codehilite"><pre><span class="c1">// Cambiar el directorio de trabajo</span>
+<div class="codehilite"><pre><span class="c1">// Cambiar el directorio de trabajo de proceso</span>
 <span class="k">if</span> <span class="p">((</span><span class="n">chdir</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">syslog</span><span class="p">(</span><span class="n">LOG_ERR</span><span class="p">,</span> <span class="s">&quot;No fue posible cambiar el directorio de trabajo a /</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">syslog</span><span class="p">(</span><span class="n">LOG_ERR</span><span class="p">,</span> <span class="s">&quot;No fue posible cambiar el directorio de &quot;</span>
+                    <span class="s">&quot;trabajo a /</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <p>Otra opción es cambiar el directorio de trabajo a donde se almacenan los datos
-de nuestra aplicación o a algún otro directorio similar, segun el <a href="">Filesystem
-Hierarchy Standard</a>.</p>
+de nuestra aplicación o a algún otro directorio similar, siempre segun el
+<a href="">Filesystem Hierarchy Standard</a>.</p>
 <h2>Reabrir los descriptores estándar</h2>
-<p>Como ya hemos comentado un [demonio] no interactua directamente con los
+<p>Como ya hemos comentado, un [demonio] no interactua directamente con los
 usuarios, por lo que no necesita usar la entrada / salidad estándar, así que
 podemos cerrar sus descriptores:</p>
 <div class="codehilite"><pre><span class="c1">// Cerrar los descriptores de la E/S estándar</span>
@@ -248,84 +249,88 @@ podemos cerrar sus descriptores:</p>
 </pre></div>
 
 
-<p>Sin embargo esto puede no ser conveniente porque los siguientes archivos que
-se habran —archivos d registro, <em>sockets</em>, etc— usarán esos mismos
-descriptores de archivos, lo que puede ser un problema si se utiliza alguna
-librería que los use de forma inesperada para hacer E/S. En su lugar puede ser
+<p>Sin embargo esto puede no ser lo más conveniente porque los siguientes
+archivos que se habran —archivos de registro, <em>sockets</em>, etc— usarán esos mismos
+descriptores, lo que puede ser un problema si se utiliza alguna
+librería que los use de forma inesperada para su E/S. En su lugar puede ser
 preferible mantenerlos abiertos pero conectados al archivo <code>/dev/null</code>:</p>
 <div class="codehilite"><pre><span class="c1">// Cerrar los descriptores de la E/S estándar</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>            <span class="c1">// fd 0</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">);</span>           <span class="c1">// fd 1</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDERR_FILENO</span><span class="p">);</span>           <span class="c1">// fd 2</span>
+<span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>                    <span class="c1">// fd 0</span>
+<span class="n">close</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">);</span>                   <span class="c1">// fd 1</span>
+<span class="n">close</span><span class="p">(</span><span class="n">STDERR_FILENO</span><span class="p">);</span>                   <span class="c1">// fd 2</span>
 
-<span class="kt">int</span> <span class="n">fd0</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span>          <span class="c1">// fd0 == 0</span>
-<span class="kt">int</span> <span class="n">fd1</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="p">);</span>          <span class="c1">// fd0 == 1</span>
-<span class="kt">int</span> <span class="n">fd2</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="p">);</span>          <span class="c1">// fd0 == 2</span>
+<span class="kt">int</span> <span class="n">fd0</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span>  <span class="c1">// fd0 == 0</span>
+<span class="kt">int</span> <span class="n">fd1</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="p">);</span>  <span class="c1">// fd0 == 1</span>
+<span class="kt">int</span> <span class="n">fd2</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="p">);</span>  <span class="c1">// fd0 == 2</span>
 </pre></div>
 
 
+<h1>Usar daemon()</h1>
+<p>Algunos de los pasos comentados anteriormente se pueden hacer de una sola vez
+mediante la función <a href="http://linux.die.net/man/3/daemon" title="daemon(3)">daemon</a>():</p>
+<ol>
+<li>Hace el [fork]<a href=""></a> y termina el proceso padre.</li>
+<li>Opcionalmente puede cambiar el directorio de trabajo pero sólo al directorio raíz.</li>
+<li>No ajusta <a href="http://linux.die.net/man/2/umask" title="umask(2)">umask</a>().</li>
+<li>Opcionalmente reabre los descriptores de archivo estándar a <code>/dev/null</code>.</li>
+</ol>
+<p>En todo caso el principal inconveniente es que no es una función del estándar
+POSIX, por lo que en algunas plataformas puede no existir o tener un
+comportamiento diferente.</p>
 <h1>Cambiar la personalidad del proceso</h1>
-<p>Los [demonios] son generalmente lanzados por el usuario <code>root</code>, lo que les da
+<p>Los demonios son generalmente lanzados por el usuario <code>root</code>, lo que les da
 acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
-atacante se saltara las medidas de seguridad que hayamos incoporado al
-programa y fuera capaz de hacer que ejecutara código arbitrario.</p>
+atacante se saltara las medidas de seguridad incoporadas en el programa y
+fuera capaz de hacer que ejecutara código arbitrario.</p>
 <p>Para evitarlo es muy común que los demominos cambien su personalidad a un
 usuario y grupo convencional del sistema:</p>
-<div class="codehilite"><pre><span class="c1">// Cambiar el usuario efectivo del proceso a &#39;daemond&#39;</span>
-<span class="n">passwd</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="n">getpwnam</span><span class="p">(</span><span class="s">&quot;daemond&quot;</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="c1">// Cambiar el usuario efectivo del proceso a &#39;mydaemon&#39;</span>
+<span class="n">passwd</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="n">getpwnam</span><span class="p">(</span><span class="s">&quot;mydaemon&quot;</span><span class="p">);</span>
 <span class="n">seteuid</span><span class="p">(</span><span class="n">user</span><span class="o">-&gt;</span><span class="n">pw_uid</span><span class="p">);</span>
 
-<span class="c1">// Cambiar el grupo efectivo del proceso a &#39;daemond&#39;</span>
-<span class="n">group</span><span class="o">*</span> <span class="n">group</span> <span class="o">=</span> <span class="n">getgrnam</span><span class="p">(</span><span class="s">&quot;daemond&quot;</span><span class="p">);</span>
+<span class="c1">// Cambiar el grupo efectivo del proceso a &#39;mydaemon&#39;</span>
+<span class="n">group</span><span class="o">*</span> <span class="n">group</span> <span class="o">=</span> <span class="n">getgrnam</span><span class="p">(</span><span class="s">&quot;mydaemon&quot;</span><span class="p">);</span>
 <span class="n">setegid</span><span class="p">(</span><span class="n">group</span><span class="o">-&gt;</span><span class="n">gr_gid</span><span class="p">);</span>
 </pre></div>
 
 
-<h2>Usar daemon()</h2>
-<p>Algunos de los pasos comentados anteriormente se pueden hacer de una sola vez
-usando la función <a href="http://linux.die.net/man/3/daemon" title="daemon(3)">daemon</a>():</p>
-<ol>
-<li>Hace el [fork]<a href=""></a> y termina el proceso padre.</li>
-<li>Opcionalmente puede cambiar el directorio pero sólo al directorio raíz.</li>
-<li>No ajusta <a href="http://linux.die.net/man/2/umask" title="umask(2)">umask</a>().</li>
-<li>Opcionalmente reabre los descriptores de archivo estándares a
-<code>/dev/null</code>.</li>
-</ol>
-<p>En todo caso el principal inconveniente es que no es una función del estándar
-POSIX, por lo que en alguna plataformas puede no existir o tener un
-comportamiento diferente.</p>
 <h1>Señales</h1>
-<p>Una vez el demonio está en ejecución, las señales ser convierten en un
-mencanismo muy potente para comunicarnos con él. Por ejemplo debe atender la
-señal <code>SIGTERM</code> para terminar en condiciones de seguridad. Sin embargo también
-es muy común que intercepte <code>SIGHUP</code> ya que así se le suele indicar que
-recargue los archivos de configuración sin tener que reiniciarlo.</p>
+<p>Una vez el demonio está en ejecución las señales ser convierten en un
+mencanismo muy potente para comunicarnos con él:</p>
+<ul>
+<li>Debe atender la señal <code>SIGTERM</code> para terminar en condiciones de seguridad.</li>
+<li>Es muy común que intercepte la señal <code>SIGHUP</code> ya que así se le suele indicar
+ que recargue los archivos de configuración sin tener que reiniciarlo.</li>
+</ul>
 <p>Si estamos desarrollando nuestra aplicación con <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, lo más conveniente es
-echar un vistazo al artículo <a href="../aplicaciones-de-consola-con-qt.html">Aplicaciones de consola con
+echar un vistazo al final del artículo <a href="../aplicaciones-de-consola-con-qt.html">Aplicaciones de consola con
 Qt</a> ya que allí se explican las
 particularidades del uso de señales POSIX en este tipo de aplicaciones.</p>
 <h1>Arranque del servicio</h1>
 <p>Los demonios <code>init</code> de muchos sistemas operativos operan en base a <em>niveles de
 ejecuión</em>. Cada <a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución">nivel de ejecución</a> define un estado de la máquina después
-del arranque, estableciendo que [demonios] deben ser iniciados y detenidos
-para alcanzarlo, por lo que en cada momento sólo puede haber un [nivel de
-ejecución activo].</p>
-<p>Por lo general existen 7 niveles —del 0 al 6— alguno de los cuales suele ser
+del arranque, estableciendo que demonios deben ser iniciados y/o detenidos
+para alcanzarlo. Por lo tanto en cada momento sólo puede haber un <a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución">nivel de
+ejecución</a> activo.</p>
+<p>Por lo general existen 7 niveles —del 0 al 6— alguno de los cuales suelen ser
 para:</p>
 <ul>
-<li>Modo monousuario (generalmente el 1 o S).</li>
-<li>Modo multiusuario sin soporte de red.</li>
-<li>Modo multiusuario con soporte de red.</li>
+<li>Entrar en modo monousuario (generalmente el 1 o S).</li>
+<li>Entrar en modo multiusuario sin soporte de red.</li>
+<li>Entrar en modo multiusuario con soporte de red.</li>
 <li>Apagar el sistema (generalmente el 0).</li>
 <li>Reiniciar el sistema (generalmente el 6).</li>
 </ul>
 <p>Para iniciar o detener los demonios según el nivel de ejecución, estos suelen
-ir acompañados de un script de inicio que por lo general se almacena en el
+ir acompañados de un <em>script</em> de inicio que por lo general se almacena en el
 directorio <code>/etc/init.d</code> y que suele tener una estructura muy similar a la
 siguiente:</p>
 <div class="codehilite"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#</span>
+<span class="c"># Script de inicio de mydaemond</span>
+<span class="c">#</span>
 
-<span class="nv">DAEMON</span><span class="o">=</span>daemon
+<span class="nv">DAEMON</span><span class="o">=</span>mydaemond
 <span class="nv">PIDFILE</span><span class="o">=</span>/var/run/<span class="k">${</span><span class="nv">DAEMON</span><span class="k">}</span>.pid
 
 start<span class="o">()</span> <span class="o">{</span>
@@ -336,7 +341,7 @@ start<span class="o">()</span> <span class="o">{</span>
 
 stop<span class="o">()</span> <span class="o">{</span>
         <span class="nb">echo</span> -n <span class="s2">&quot;Shutting down : &quot;</span>
-        <span class="c"># Aquí va el código que detiene el demonio</span>
+        <span class="c"># Aquí va el código que detiene el demonio $DAEMON</span>
         <span class="k">return</span>
 <span class="o">}</span>
 
@@ -348,7 +353,7 @@ stop<span class="o">()</span> <span class="o">{</span>
         stop
         ;;
     status<span class="o">)</span>
-        <span class="c"># Aquí va el código que indica si el deminio se está ejecutando</span>
+        <span class="c"># Aquí va el código que indica si el demonio se está ejecutando</span>
         ;;
     restart<span class="o">)</span>
         stop
@@ -366,44 +371,42 @@ stop<span class="o">()</span> <span class="o">{</span>
 </pre></div>
 
 
-<p>Como se puede observar, la mayor parte de los comandos necesitan poner
+<p>Como se puede observar, la mayor parte de las opciones del script necesitan poner
 comunicarse con el demonio en ejecución. Para eso el demonio suele crear una
-archivo en <code>/var/run</code> con extensión <code>.pid</code> donde almacena su propio
-identificador de proceso. Así el <em>script</em> de inicio puede:</p>
+archivo con extensión <code>.pid</code> en el directorio <code>/var/run</code> donde almacena su
+propio identificador de proceso. Así el <em>script</em> de inicio puede:</p>
 <ul>
-<li>Comprobar si está en ejecución cuando el usuario solicita un <em>status</em>.</li>
-<li>Enviarle una señal <code>SIGHUP</code> para que relea la configuración cuando el
-usuario solicita un <code>reload</code>.</li>
-<li>Terminar en condiciones de seguridad mediante una señale <code>SIGTERM^ cuando
-el usuario solicita un</code>stop`.</li>
+<li>Comprobar si está en ejecución cuando el usuario solicita un <code>status</code>.</li>
+<li>Enviarle una señal <code>SIGHUP</code> para que vuelva a leer los archivos de
+ configuración cuando el usuario solicita un <code>reload</code>.</li>
+<li>Terminar en condiciones de seguridad al recibir la señal <code>SIGTERM</code> cuando
+el usuario solicita un <code>stop</code>.</li>
 </ul>
 <h1>Opciones de línea de comandos</h1>
-<p>Los demonios, cuales quiera otros programas, pueden recibir opciones de línea
-de comandos para configurarlos o alterar su comportamiento. Por ejemplo, es
-muy común un proceso no se convierta en un demonio si no es especifica en la
-línea de comandos una opción del estilo de <code>-d</code> o <code>--daemon</code>. Esto es así
-poque en ocasiones es más sencillo depurar el programa cuando éste no se
-ejecuta en segundo plano.</p>
-<p>En el código del proyecto <a href="http://github.com/aplatanado/rifftree">rifftree</a>
-que comentamos en el artículo <a href="../resource-interchange-file-format.html">Resource Interchange File
-Format</a> se puede observar como se utiliza la
+<p>Los demonios, igual que cualquier otro programa, pueden recibir opciones de
+línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo
+es muy común que ofrezcan opciones para sobreescribir los parámetros indicados
+en el archivo de configuración. También es habitual que un proceso de un programa
+diseñado para ejecutarse como un demonio no se convierta en tal si no es
+especificada en la línea de comandos una opción del estilo de <code>-d</code> o <code>--daemon</code>.
+Esto es así, por ejemplo, poque es más sencillo depurar el programa y comprobar
+su funcionamiento cuando éste no se ejecuta en segundo plano.</p>
+<p>En el código del proyecto <a href="http://github.com/aplatanado/rifftree">rifftree</a>,
+que ya comentamos en el artículo <a href="../resource-interchange-file-format.html">Resource Interchange File
+Format</a>, se puede observar como se utiliza la
 familia de funciones <a href="http://linux.die.net/man/3/getopt" title="getopt(3)">getopt</a> para procesar adecuadalmente la línea de
 comandos de un programa cualquiera.</p>
 <h1>Referencias</h1>
 <ol>
 <li>Wikipedia -
-<a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)">Demonio</a></li>
+<a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)">Demonio</a>.</li>
 <li><a href="http://www.danielhall.me/2010/01/writing-a-daemon-in-c/">Writing a Daemon in
 C</a></li>
-<li><a href="http://libqxt.org">LibQxt</a></li>
-<li><a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html">QxtLogger Class
-Reference</a></li>
-<li>Wikipedia - <a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard">Filesystem Hierarchy
-Standard</a></li>
 <li><a href="http://stackoverflow.com/questions/7645378/whats-the-difference-between
 -calling-daemon-and-calling-fork-setsid-for">What's the difference between calling daemon() and calling fork(),
 setsid(), fork(),
 etc.?</a></li>
+<li>Proyecto <a href="http://libqxt.org">LibQxt</a>.</li>
 <li>The GNU C Library - <a href="http://www.gnu.org/software/libc/manual/html_node/Users-and-Groups.
 html#Users-and-Groups">Users and
 Groups</a></li>
