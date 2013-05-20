@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sistema de Videovigilancia from Scratch</title>
+    <title>syslog - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="./theme/html5.js"></script>
+    <script src="../theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="./theme/bootstrap.min.css" rel="stylesheet">
-    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="./theme/local.css" rel="stylesheet">
-    <link href="./theme/pygments.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,13 +32,13 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
-                    <li><a href="./pages/seminarios.html">Seminarios</a></li>
+                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
                         </ul>
         </div>
         
@@ -58,10 +58,10 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./servicios-y-demonios-en-linux.html"><h1>Servicios y demonios en Linux</h1></a>
+            <a href="../servicios-y-demonios-en-linux.html"><h1>Servicios y demonios en Linux</h1></a>
             sáb 18 mayo 2013
 
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
@@ -184,10 +184,10 @@ recurso y el nivel de severidad. Por ejemplo pueden ser escritos a un archivo
 concreto en disco, mostrados por una consola, enviados por red a registro de
 eventos centralizados o filtrados.</p>
 <h3>Registro de eventos en aplicaciones Qt</h3>
-<p>Cuando se desarrolla con <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> puede ser interesante echar un vistazo a las
+<p>Cuando se desarrolla con <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> puede ser interesante echar un vistazo a las
 funcionalidades de la librería <a href="http://libqxt.org" title="LibQxt">LibQxt</a>. Este proyecto proporciona un conjunto
 de clases que añaden funcionalidades multiplataforma que no están disponibles
-en el <em>framework</em> <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
+en el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
 <p>Entre dichas funcionalidades adicionales está la clase <a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a>, que permite
 enviar mensajes al registro de eventos del sistema de forma más apropiada
 para una apliación en C++.</p>
@@ -308,8 +308,8 @@ mencanismo muy potente para comunicarnos con él:</p>
 <li>Es muy común que intercepte la señal <code>SIGHUP</code> ya que así se le suele indicar
  que recargue los archivos de configuración sin tener que reiniciarlo.</li>
 </ul>
-<p>Si estamos desarrollando nuestra aplicación con <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, lo más conveniente es
-echar un vistazo al final del artículo <a href="./aplicaciones-de-consola-con-qt.html">Aplicaciones de consola con
+<p>Si estamos desarrollando nuestra aplicación con <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, lo más conveniente es
+echar un vistazo al final del artículo <a href="../aplicaciones-de-consola-con-qt.html">Aplicaciones de consola con
 Qt</a> ya que allí se explican las
 particularidades del uso de señales POSIX en este tipo de aplicaciones.</p>
 <h1>Arranque del servicio</h1>
@@ -398,7 +398,7 @@ especificada en la línea de comandos una opción del estilo de <code>-d</code> 
 Esto es así, por ejemplo, poque es más sencillo depurar el programa y comprobar
 su funcionamiento cuando éste no se ejecuta en segundo plano.</p>
 <p>En el código del proyecto <a href="http://github.com/aplatanado/rifftree">rifftree</a>,
-que ya comentamos en el artículo <a href="./resource-interchange-file-format.html">Resource Interchange File
+que ya comentamos en el artículo <a href="../resource-interchange-file-format.html">Resource Interchange File
 Format</a>, se puede observar como se utiliza la
 familia de funciones <a href="http://linux.die.net/man/3/getopt" title="getopt(3)">getopt</a> para procesar adecuadalmente la línea de
 comandos de un programa cualquiera.</p>
@@ -442,62 +442,13 @@ inicio de sesión a los usuarios.&#160;<a class="footnote-backref" href="#fnref:
         <hr />
     </div>
 		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./resource-interchange-file-format.html"><h2>Resource Interchange File Format</h2></a>
-        <div class= "well small"> dom 12 mayo 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>El <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format</a> o <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format">RIFF</a> es un formato contenedor genérico diseñado para almacenar datos en forma
-de fragmentos etiquetados o <a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a>. Siendo usado en la actualidad como formato
-contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
-indudable que resulta especialmente útil para ...</p> <a class="btn btn-info xsmall" href="./resource-interchange-file-format.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./conversion-de-tipos-en-c.html"><h2>Conversión de tipos en C++</h2></a>
-        <div class= "well small"> dom 05 mayo 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>En C, cuando una conversión entre dos tipos no es realizada por el compilador de
-forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
-<code>char</code> a <code>int</code> o de éste a <code>float</code>— se puede forzar utilizando una expresión de
-<em>typecast</em> de la forma <code>(type)object</code> —o ...</p> <a class="btn btn-info xsmall" href="./conversion-de-tipos-en-c.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
-    <li class="active"><a href="./index.html">1</a></li>
-    <li class=""><a href="./index2.html">2</a></li>
-    <li class=""><a href="./index3.html">3</a></li>
-    <li class=""><a href="./index4.html">4</a></li>
-    <li class=""><a href="./index5.html">5</a></li>
-    <li class=""><a href="./index6.html">6</a></li>
-    <li class=""><a href="./index7.html">7</a></li>
-    <li class=""><a href="./index8.html">8</a></li>
+    <li class="active"><a href="../tag/syslog.html">1</a></li>
 
-    <li class="next"><a href="./index2.html">Next &rarr;</a></li>
+    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 
 </ul>
 </div>    
@@ -514,8 +465,8 @@ forma automática —esto sólo ocurre cuando la conversión es segura, como ir 
                 Sitio
                 </li>
             
-                <li><a href="./archives.html">Archivos</a>
-                <li><a href="./tags.html">Etiquetas</a>
+                <li><a href="../archives.html">Archivos</a>
+                <li><a href="../tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -528,13 +479,13 @@ forma automática —esto sólo ocurre cuando la conversión es segura, como ir 
                 Categorias
                 </li>
                 
-                                <li><a href="./category/comunicaciones.html">Comunicaciones</a></li>
-                                <li><a href="./category/desarrollo.html">Desarrollo</a></li>
-                                <li><a href="./category/hardware.html">Hardware</a></li>
-                                <li><a href="./category/linux.html">Linux</a></li>
-                                <li><a href="./category/overviews.html">Overviews</a></li>
-                                <li><a href="./category/qt.html">Qt</a></li>
-                                <li><a href="./category/vision.html">Visión</a></li>
+                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="../category/desarrollo.html">Desarrollo</a></li>
+                                <li><a href="../category/hardware.html">Hardware</a></li>
+                                <li><a href="../category/linux.html">Linux</a></li>
+                                <li><a href="../category/overviews.html">Overviews</a></li>
+                                <li><a href="../category/qt.html">Qt</a></li>
+                                <li><a href="../category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>

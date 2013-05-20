@@ -1,5 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-05-12T00:00:00+01:00</updated><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-05-12T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-12:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/all-es.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-05-18T00:00:00+01:00</updated><entry><title>Servicios y demonios en Linux</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/servicios-y-demonios-en-linux.html" rel="alternate"></link><updated>2013-05-18T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</id><summary type="html">&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
+fuera del control interactivo de los usuarios del sistema ya que carecen de
+interfaz con estos.&lt;/p&gt;
+&lt;p&gt;El sistema generalmente inicia los demonios durante el arranque, siendo las
+funciones más comunes de estos las de ofrecer servicios a otros programas, ya
+sea respondiendo a las peticiones que llegan a través de la red o atendiendo a
+procesos que se ejecutan en el mismo sistema, así como responder ante cierta
+actividad del hardware —por ejemplo &lt;code&gt;acpid&lt;/code&gt;&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt; maneja el apagado del sistema
+cuando el usuario pulsa el botón de encendido del equipo—. Algunos demonios
+sirven para configuar hardware —como es el caso de &lt;code&gt;udevd&lt;/code&gt; en algunos sistemas
+GNU/Linux— ejecutar tareas planificadas —como hace &lt;code&gt;cron&lt;/code&gt;— o realizar otras
+funciones similares.&lt;/p&gt;
+&lt;h1&gt;Crear demonios del sistema&lt;/h1&gt;
+&lt;p&gt;En Linux, cuando ejecutamos un comando cualquiera, como &lt;code&gt;ls&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ls
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;el nuevo proceso &lt;code&gt;ls&lt;/code&gt; es hijo del proceso de la &lt;em&gt;shell&lt;/em&gt; desde la que lo hemos
+ejecutado. Dicha &lt;em&gt;shell&lt;/em&gt; conoce su PID y puede bloquearse esperando a que el
+comando termine, antes de volver a mostrar el &lt;em&gt;prompt&lt;/em&gt;&lt;sup id="fnref:3"&gt;&lt;a class="footnote-ref" href="#fn:3" rel="footnote"&gt;3&lt;/a&gt;&lt;/sup&gt; para indicar al
+usuario que puede introducir un nuevo comando. Incluso si la &lt;em&gt;shell&lt;/em&gt; decide no
+esperar a que el comando termine —por ejemplo cuando en &lt;code&gt;bash&lt;/code&gt; el usuario lo
+indica utilizando el caracter &lt;code&gt;&amp;amp;&lt;/code&gt;— permitindo la ejecución en segundo plano,
+esta será notificada cuando el proceso hijo termine mediante una señal,
+pudiendo así controlar el estado de los distintos comandos en ejecución.
+Además la &lt;em&gt;shell&lt;/em&gt; tiene acceso al motivo por el que el proceso hijo terminó,
+así como al código de estado devuelto por este a través de la llamada al
+sistema &lt;a href="http://linux.die.net/man/3/exit" title="exit(3)"&gt;exit&lt;/a&gt;().&lt;/p&gt;
+&lt;p&gt;Por lo tanto los procesos que quieren convertirse en un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; deben
+asegurarse que siempre se ejecutan en segundo plano, desvinculándose del
+proceso de la &lt;em&gt;shell&lt;/em&gt; que los invocó y de la &lt;a href="http://en.wikipedia.org/wiki/POSIX_terminal_interface"&gt;terminal del
+sistema&lt;/a&gt; desde la que
+esta se ejecutaba.&lt;/p&gt;
+&lt;h2&gt;Crear un proceso hijo&lt;/h2&gt;
+&lt;p&gt;El primer paso para que un proceso se convierta en un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; es crear un
+proceso hijo y a continuación terminar el proceso padre:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;pid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Nos clonamos a nosotros mismos creando un proceso hijo&lt;/span&gt;
+&lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fork&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Si pid es &amp;lt; 0, fork() falló&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// Mostrar la descripción del error y terminar&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cerr&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;strerror&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;errono&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Si pid es &amp;gt; 0, estamos en el proceso padre&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// Terminar el proceso&lt;/span&gt;
+    &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Si la ejeución llega a este punto, estamos en el hijo&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Al finalizar el proceso padre el proceso hijo es adoptado por &lt;code&gt;init&lt;/code&gt;&lt;sup id="fnref:4"&gt;&lt;a class="footnote-ref" href="#fn:4" rel="footnote"&gt;4&lt;/a&gt;&lt;/sup&gt;. El
+resultado es que la &lt;em&gt;shell&lt;/em&gt; piensa que el comando terminó con éxito,
+permitiendo que el proceso hijo se ejecute de manera independiente en segundo
+plano.&lt;/p&gt;
+&lt;h2&gt;Cambiar umask&lt;/h2&gt;
+&lt;p&gt;Todos los procesos tiene una máscara que indica que permisos no deben
+establecerse al crear nuevos archivos. Así cuando se utilizan llamadas al
+sistema como &lt;a href="http://linux.die.net/man/2/open" title="open(2)"&gt;open&lt;/a&gt;() los permisos especificados se comparan con esta
+máscara, desactivando de manera efectiva los que en ella se indiquen.&lt;/p&gt;
+&lt;p&gt;La máscara —denominada &lt;a href="http://linux.die.net/man/2/umask" title="umask(2)"&gt;umask&lt;/a&gt;()— es heredada de padres a hijos por los
+procesos, por lo que su valor por defecto será el mismo que el que tenía
+configurada la &lt;em&gt;shell&lt;/em&gt; que lanzó el demonio. Esto significa que el &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;
+no sabe que permisos acabarán tenido los archivos que intente crear. Para
+evitarlo simplemente podemos autorizar todos los permisos:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;umask&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;o establecer específicamente para &lt;a href="http://linux.die.net/man/2/umask" title="umask(2)"&gt;umask&lt;/a&gt;() otro valor más seguro según nuestra
+conveniencia. Incluso algunos desarrolladores permiten que los administradores
+del sistema especifiquen la máscara deseada a través del archivo de
+configuración del &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Abrir conexión con el registro de eventos&lt;/h2&gt;
+&lt;p&gt;Puesto que un demonio se ejecuta en segundo plano no debe estar conectado a
+ninguna terminal. Sin embargo esto plantea la cuestión de cómo indicar
+condiciones de error, advertencias u otro tipo de sucesos del programa.&lt;/p&gt;
+&lt;p&gt;Algunos demonios almacenan estos mensajes en archivos específicos o en su
+propia base de datos de sucesos. Sin embargo en muchos sistemas existe un
+servicio especifico para registrar estos eventos. En lo sistemas basados en
+UNIX este servicio lo ofrece el demonio &lt;a href="http://linux.die.net/man/3/syslog" title="syslog(3)"&gt;Syslog&lt;/a&gt;, al que otros procesos
+pueden enviar mensajes a través de la función &lt;a href="http://linux.die.net/man/3/syslog" title="syslog(3)"&gt;syslog&lt;/a&gt;().&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Abrir una conexión al demonio syslog&lt;/span&gt;
+&lt;span class="n"&gt;openlog&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;LOG_NOWAIT&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;LOG_PID&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;LOG_USER&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;...&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Enviar un mensaje al demonio syslog&lt;/span&gt;
+&lt;span class="n"&gt;syslog&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;LOG_NOTICE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Demonio iniciado con éxito&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;...&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Cuando el demonio termine, cerrar la conexión con&lt;/span&gt;
+&lt;span class="c1"&gt;// el servicio syslog&lt;/span&gt;
+&lt;span class="n"&gt;closelog&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Al crear la conexión se especifica un código de recurso —en el ejemplo
+anterior &lt;code&gt;LOG_USER&lt;/code&gt; indica mensajes genéricos de nivel de usuario— que indica
+el tipo de software que genera los mensajes. Además cada mensaje se envía
+acompañado de un nivel de severidad —&lt;code&gt;LOG_NOTICE&lt;/code&gt; especifica que nuestro
+mensaje no es más que una aviso—. El administrador del sistema puede configurar
+&lt;a href="http://linux.die.net/man/3/syslog" title="syslog(3)"&gt;Syslog&lt;/a&gt; para que haga cosas diferentes con los mensajes según el código de
+recurso y el nivel de severidad. Por ejemplo pueden ser escritos a un archivo
+concreto en disco, mostrados por una consola, enviados por red a registro de
+eventos centralizados o filtrados.&lt;/p&gt;
+&lt;h3&gt;Registro de eventos en aplicaciones Qt&lt;/h3&gt;
+&lt;p&gt;Cuando se desarrolla con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; puede ser interesante echar un vistazo a las
+funcionalidades de la librería &lt;a href="http://libqxt.org" title="LibQxt"&gt;LibQxt&lt;/a&gt;. Este proyecto proporciona un conjunto
+de clases que añaden funcionalidades multiplataforma que no están disponibles
+en el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Entre dichas funcionalidades adicionales está la clase &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt;, que permite
+enviar mensajes al registro de eventos del sistema de forma más apropiada
+para una apliación en C++.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;QxtLogger&amp;gt;&lt;/span&gt;
+
+&lt;span class="p"&gt;...&lt;/span&gt;
+
+&lt;span class="n"&gt;qxtLog&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Demonio iniciado con éxito&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;...&lt;/span&gt;
+
+&lt;span class="n"&gt;qxtLog&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QTime&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;currentTime&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Algo ha ocurrido&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.14&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Crear una nueva sesión&lt;/h2&gt;
+&lt;p&gt;Cada proceso es miembro de un grupo y estos a su vez se reunen en sesiones. En
+cada una de estas hay un proceso que hace las veces de lider, de tal forma que
+si muere todos los procesos de la sesión reciben una señal &lt;code&gt;SIGHUP&lt;/code&gt;. La idea
+es que el lider muere cuando se quiere dar la sesión por terminada, por lo que
+mediate &lt;code&gt;SIGHUP&lt;/code&gt; se notifica al resto de procesos esta circunstancia para que
+puedan terminar ordenadamente.&lt;/p&gt;
+&lt;p&gt;Obviamente no estamos interesados en que el &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; termine cuando la sesión
+desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
+sesión de la que dicho [deminio] será el lider:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;sid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Intentar crear una nueva sesión&lt;/span&gt;
+&lt;span class="n"&gt;sid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;setsid&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sid&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;syslog&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;LOG_ERR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;No fue posible crear una nueva sesión&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Cambiar el directorio de trabajo&lt;/h2&gt;
+&lt;p&gt;Hasta el momento el directorio de trabajo del proceso es el mismo que el de la
+&lt;em&gt;shell&lt;/em&gt; en el momento en el que se ejecutó el comando. Este podría estar
+dentro de un punto de montaje cualquiera del sistema, por lo que no tenemos
+garantías de que vaya a seguir estando disponible durante la ejecución del
+proceso.&lt;/p&gt;
+&lt;p&gt;Por eso es probable que prefiramos cambiar el directorio de trabajo al
+directorio raiz, ya que podemos estar seguros de que siempre existirá:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cambiar el directorio de trabajo de proceso&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;chdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;syslog&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;LOG_ERR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;No fue posible cambiar el directorio de &amp;quot;&lt;/span&gt;
+                    &lt;span class="s"&gt;&amp;quot;trabajo a /&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Otra opción es cambiar el directorio de trabajo a donde se almacenan los datos
+de nuestra aplicación o a algún otro directorio similar, siempre segun el
+&lt;a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard"&gt;Filesystem Hierarchy Standard&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Reabrir los descriptores estándar&lt;/h2&gt;
+&lt;p&gt;Como ya hemos comentado, un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; no interactua directamente con los
+usuarios, por lo que no necesita usar la entrada / salidad estándar, así que
+podemos cerrar sus descriptores:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cerrar los descriptores de la E/S estándar&lt;/span&gt;
+&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDIN_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;            &lt;span class="c1"&gt;// fd 0&lt;/span&gt;
+&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDOUT_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;           &lt;span class="c1"&gt;// fd 1&lt;/span&gt;
+&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDERR_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;           &lt;span class="c1"&gt;// fd 2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Sin embargo esto puede no ser lo más conveniente porque los siguientes
+archivos que se habran —archivos de registro, &lt;em&gt;sockets&lt;/em&gt;, etc— usarán esos mismos
+descriptores, lo que puede ser un problema si se utiliza alguna
+librería que los use de forma inesperada para su E/S. En su lugar puede ser
+preferible mantenerlos abiertos pero conectados al archivo &lt;code&gt;/dev/null&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cerrar los descriptores de la E/S estándar&lt;/span&gt;
+&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDIN_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;                    &lt;span class="c1"&gt;// fd 0&lt;/span&gt;
+&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDOUT_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;                   &lt;span class="c1"&gt;// fd 1&lt;/span&gt;
+&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;STDERR_FILENO&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;                   &lt;span class="c1"&gt;// fd 2&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd0&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/dev/null&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;O_RDONLY&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// fd0 == 0&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/dev/null&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;O_WRONLY&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// fd0 == 1&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/dev/null&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;O_WRONLY&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// fd0 == 2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Usar daemon()&lt;/h1&gt;
+&lt;p&gt;Algunos de los pasos comentados anteriormente se pueden hacer de una sola vez
+mediante la función &lt;a href="http://linux.die.net/man/3/daemon" title="daemon(3)"&gt;daemon&lt;/a&gt;():&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hace el [fork]&lt;a href=""&gt;&lt;/a&gt; y termina el proceso padre.&lt;/li&gt;
+&lt;li&gt;Opcionalmente puede cambiar el directorio de trabajo pero sólo al directorio raíz.&lt;/li&gt;
+&lt;li&gt;No ajusta &lt;a href="http://linux.die.net/man/2/umask" title="umask(2)"&gt;umask&lt;/a&gt;().&lt;/li&gt;
+&lt;li&gt;Opcionalmente reabre los descriptores de archivo estándar a &lt;code&gt;/dev/null&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;En todo caso el principal inconveniente es que no es una función del estándar
+POSIX, por lo que en algunas plataformas puede no existir o tener un
+comportamiento diferente.&lt;/p&gt;
+&lt;h1&gt;Cambiar la personalidad del proceso&lt;/h1&gt;
+&lt;p&gt;Los demonios son generalmente lanzados por el usuario &lt;code&gt;root&lt;/code&gt;, lo que les da
+acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
+atacante se saltara las medidas de seguridad incoporadas en el programa y
+fuera capaz de hacer que ejecutara código arbitrario.&lt;/p&gt;
+&lt;p&gt;Para evitarlo es muy común que los demominos cambien su personalidad a un
+usuario y grupo convencional del sistema:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Cambiar el usuario efectivo del proceso a &amp;#39;mydaemon&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;passwd&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getpwnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;mydaemon&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;seteuid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;pw_uid&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Cambiar el grupo efectivo del proceso a &amp;#39;mydaemon&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getgrnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;mydaemon&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;setegid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;gr_gid&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Señales&lt;/h1&gt;
+&lt;p&gt;Una vez el demonio está en ejecución las señales ser convierten en un
+mencanismo muy potente para comunicarnos con él:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Debe atender la señal &lt;code&gt;SIGTERM&lt;/code&gt; para terminar en condiciones de seguridad.&lt;/li&gt;
+&lt;li&gt;Es muy común que intercepte la señal &lt;code&gt;SIGHUP&lt;/code&gt; ya que así se le suele indicar
+ que recargue los archivos de configuración sin tener que reiniciarlo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si estamos desarrollando nuestra aplicación con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, lo más conveniente es
+echar un vistazo al final del artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/aplicaciones-de-consola-con-qt.html"&gt;Aplicaciones de consola con
+Qt&lt;/a&gt; ya que allí se explican las
+particularidades del uso de señales POSIX en este tipo de aplicaciones.&lt;/p&gt;
+&lt;h1&gt;Arranque del servicio&lt;/h1&gt;
+&lt;p&gt;Los demonios &lt;code&gt;init&lt;/code&gt; de muchos sistemas operativos operan en base a &lt;em&gt;niveles de
+ejecuión&lt;/em&gt;. Cada &lt;a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución"&gt;nivel de ejecución&lt;/a&gt; define un estado de la máquina después
+del arranque, estableciendo que demonios deben ser iniciados y/o detenidos
+para alcanzarlo. Por lo tanto en cada momento sólo puede haber un &lt;a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución"&gt;nivel de
+ejecución&lt;/a&gt; activo.&lt;/p&gt;
+&lt;p&gt;Por lo general existen 7 niveles —del 0 al 6— alguno de los cuales suelen ser
+para:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Entrar en modo monousuario (generalmente el 1 o S).&lt;/li&gt;
+&lt;li&gt;Entrar en modo multiusuario sin soporte de red.&lt;/li&gt;
+&lt;li&gt;Entrar en modo multiusuario con soporte de red.&lt;/li&gt;
+&lt;li&gt;Apagar el sistema (generalmente el 0).&lt;/li&gt;
+&lt;li&gt;Reiniciar el sistema (generalmente el 6).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para iniciar o detener los demonios según el nivel de ejecución, estos suelen
+ir acompañados de un &lt;em&gt;script&lt;/em&gt; de inicio que por lo general se almacena en el
+directorio &lt;code&gt;/etc/init.d&lt;/code&gt; y que suele tener una estructura muy similar a la
+siguiente:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+&lt;span class="c"&gt;# Script de inicio de mydaemond&lt;/span&gt;
+&lt;span class="c"&gt;#&lt;/span&gt;
+
+&lt;span class="nv"&gt;DAEMON&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;mydaemond
+&lt;span class="nv"&gt;PIDFILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/run/&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;DAEMON&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;.pid
+
+start&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Starting : &amp;quot;&lt;/span&gt;
+        &lt;span class="c"&gt;# Aquí va el código que ejecuta el demonio $DAEMON&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+stop&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Shutting down : &amp;quot;&lt;/span&gt;
+        &lt;span class="c"&gt;# Aquí va el código que detiene el demonio $DAEMON&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; in
+    start&lt;span class="o"&gt;)&lt;/span&gt;
+        start
+        ;;
+    stop&lt;span class="o"&gt;)&lt;/span&gt;
+        stop
+        ;;
+    status&lt;span class="o"&gt;)&lt;/span&gt;
+        &lt;span class="c"&gt;# Aquí va el código que indica si el demonio se está ejecutando&lt;/span&gt;
+        ;;
+    restart&lt;span class="o"&gt;)&lt;/span&gt;
+        stop
+        start
+        ;;
+    reload|force-reload&lt;span class="o"&gt;)&lt;/span&gt;
+        &lt;span class="c"&gt;# Aquí va el código que recarga la configuración&lt;/span&gt;
+        ;;
+    *&lt;span class="o"&gt;)&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Usage:  {start|stop|status|reload|force-reload|restart]&amp;quot;&lt;/span&gt;
+        &lt;span class="nb"&gt;exit &lt;/span&gt;1
+        ;;
+&lt;span class="k"&gt;esac&lt;/span&gt;
+&lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Como se puede observar, la mayor parte de las opciones del script necesitan poner
+comunicarse con el demonio en ejecución. Para eso el demonio suele crear una
+archivo con extensión &lt;code&gt;.pid&lt;/code&gt; en el directorio &lt;code&gt;/var/run&lt;/code&gt; donde almacena su
+propio identificador de proceso. Así el &lt;em&gt;script&lt;/em&gt; de inicio puede:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Comprobar si está en ejecución cuando el usuario solicita un &lt;code&gt;status&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Enviarle una señal &lt;code&gt;SIGHUP&lt;/code&gt; para que vuelva a leer los archivos de
+ configuración cuando el usuario solicita un &lt;code&gt;reload&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Terminar en condiciones de seguridad al recibir la señal &lt;code&gt;SIGTERM&lt;/code&gt; cuando
+el usuario solicita un &lt;code&gt;stop&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Opciones de línea de comandos&lt;/h1&gt;
+&lt;p&gt;Los demonios, igual que cualquier otro programa, pueden recibir opciones de
+línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo
+es muy común que ofrezcan opciones para sobreescribir los parámetros indicados
+en el archivo de configuración. También es habitual que un proceso de un programa
+diseñado para ejecutarse como un demonio no se convierta en tal si no es
+especificada en la línea de comandos una opción del estilo de &lt;code&gt;-d&lt;/code&gt; o &lt;code&gt;--daemon&lt;/code&gt;.
+Esto es así, por ejemplo, poque es más sencillo depurar el programa y comprobar
+su funcionamiento cuando éste no se ejecuta en segundo plano.&lt;/p&gt;
+&lt;p&gt;En el código del proyecto &lt;a href="http://github.com/aplatanado/rifftree"&gt;rifftree&lt;/a&gt;,
+que ya comentamos en el artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html"&gt;Resource Interchange File
+Format&lt;/a&gt;, se puede observar como se utiliza la
+familia de funciones &lt;a href="http://linux.die.net/man/3/getopt" title="getopt(3)"&gt;getopt&lt;/a&gt; para procesar adecuadalmente la línea de
+comandos de un programa cualquiera.&lt;/p&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)"&gt;Demonio&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.danielhall.me/2010/01/writing-a-daemon-in-c/"&gt;Writing a Daemon in C&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/7645378/whats-the-difference-between-calling-daemon-and-calling-fork-setsid-for"&gt;What's the difference between calling daemon() and calling fork(), setsid(), fork(), etc.?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Proyecto &lt;a href="http://libqxt.org"&gt;LibQxt&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The GNU C Library - &lt;a href="http://www.gnu.org/software/libc/manual/html_node/Users-and-Groups.html#Users-and-Groups"&gt;Users and Groups&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Runlevel"&gt;Runlevel&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;El término &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; se usa fundamentalmente en sistemas UNIX y basados
+en UNIX, como GNU/Linux o Mac OS X. En Windows y otros sistemas operativos se
+denominan servicios porque fundamentalmente son programas que ofrecen
+servicios al resto del sistema.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:2"&gt;
+&lt;p&gt;Tradicionalmente los nombres de los demonios terminan con la letra &lt;em&gt;d&lt;/em&gt;.
+Por ejemplo &lt;code&gt;syslogd&lt;/code&gt; es el demonio que implementa el registro de eventos del
+sistema, mientras que &lt;code&gt;sshd&lt;/code&gt; es el que sirve a las conexiones SSH entrantes.&amp;#160;&lt;a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:3"&gt;
+&lt;p&gt;Se denomina &lt;em&gt;prompt&lt;/em&gt; al carácter o conjunto de caracteres que la &lt;em&gt;shell&lt;/em&gt;
+muestra en la línea de comandos para indicar que está a la espera de nuevos
+comandos.&amp;#160;&lt;a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:4"&gt;
+&lt;p&gt;&lt;code&gt;init&lt;/code&gt; es el &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; antepasado de todos los procesos del sistema. Es
+el primer proceso que se inicia durante el arranque del sistema y su función
+principal es lanzar el resto de demonios necesarios para el funcionamiento del
+sistema. Generalmente también lanza los procesos encargados de solicitar el
+inicio de sesión a los usuarios.&amp;#160;&lt;a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</summary><category term="demonios"></category><category term="servicios"></category><category term="init"></category><category term="syslog"></category><category term="fhs getopt"></category></entry><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-05-12T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-12:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
 de fragmentos etiquetados o &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt;. Siendo usado en la actualidad como formato
 contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
 indudable que resulta especialmente útil para almacenar contenidos multimedia,
