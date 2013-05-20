@@ -276,7 +276,8 @@ siguiente:&lt;/p&gt;
 &lt;span class="c"&gt;# Default-Stop:      0 1 6&lt;/span&gt;
 &lt;span class="c"&gt;# Short-Description: inicia y detiene midemonio&lt;/span&gt;
 &lt;span class="c"&gt;# Description:       MiDemonio es el mejor demonio. Y este archivo&lt;/span&gt;
-&lt;span class="c"&gt;#                    es un ejemplo de como crear un script de inicio.&lt;/span&gt;
+&lt;span class="c"&gt;#                    es un ejemplo de como crear un script de&lt;/span&gt;
+&lt;span class="c"&gt;#                    inicio.&lt;/span&gt;
 &lt;span class="c"&gt;### END INIT INFO&lt;/span&gt;
 
 &lt;span class="c"&gt;# Salir inmediatamente si un comando falla&lt;/span&gt;
@@ -338,7 +339,7 @@ stop&lt;span class="o"&gt;()&lt;/span&gt;
         &lt;span class="k"&gt;fi&lt;/span&gt;
         ;;
     *&lt;span class="o"&gt;)&lt;/span&gt;
-        &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Usage:  {start|stop|status|reload|force-reload|restart]&amp;quot;&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Usage:  $0 {start|stop|status|reload|force-reload|restart}&amp;quot;&lt;/span&gt;
         &lt;span class="nb"&gt;exit &lt;/span&gt;2
         ;;
 &lt;span class="k"&gt;esac&lt;/span&gt;
@@ -358,18 +359,18 @@ por segunda vez&lt;/dd&gt;
 &lt;dt&gt;&lt;strong&gt;reload&lt;/strong&gt;&lt;/dt&gt;
 &lt;dd&gt;Necesita poder enviar la señal &lt;code&gt;SIGHUP&lt;/code&gt; al proceso.&lt;/dd&gt;
 &lt;/dl&gt;
-&lt;p&gt;Para eso el demonio suele crear una archivo con extensión &lt;code&gt;.pid&lt;/code&gt; en el
-directorio &lt;code&gt;/var/run&lt;/code&gt;. En el almacena únicamente su propio identificador de
-proceso, del tal forma que las funciones LSB &lt;code&gt;start_daemon&lt;/code&gt;, &lt;code&gt;killproc&lt;/code&gt;,
-&lt;code&gt;pidofproc&lt;/code&gt; y &lt;code&gt;status_of_proc&lt;/code&gt; asumen que:&lt;/p&gt;
+&lt;p&gt;Para que todo esto sea posible el demonio suele crear una archivo con extensión
+&lt;code&gt;.pid&lt;/code&gt; en el directorio &lt;code&gt;/var/run&lt;/code&gt;. En el almacena únicamente su propio
+identificador de proceso, del tal forma que las funciones LSB &lt;code&gt;start_daemon&lt;/code&gt;,
+&lt;code&gt;killproc&lt;/code&gt;, &lt;code&gt;pidofproc&lt;/code&gt; y &lt;code&gt;status_of_proc&lt;/code&gt; asumen que:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Si el archivo no existe, el demonio no se está ejecutando.&lt;/li&gt;
 &lt;li&gt;En otro caso y si contiene uno o más valores numéricos separados por
 espacios en la primera línea, estos valores son considerados los PID de los
-procesos del demonio. Las funciones anteriores considerarán que el demonio está
-en ejecución si existen procesos con esos PID y enviarán las señales que
-correspondan.&lt;/li&gt;
+procesos del demonio.&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;Las funciones anteriores considerarán que el demonio está en ejecución si
+existen procesos con esos PID y enviarán las señales que correspondan.&lt;/p&gt;
 &lt;h1&gt;Opciones de línea de comandos&lt;/h1&gt;
 &lt;p&gt;Los demonios, igual que cualquier otro programa, pueden recibir opciones de
 línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo

@@ -339,7 +339,8 @@ siguiente:</p>
 <span class="c"># Default-Stop:      0 1 6</span>
 <span class="c"># Short-Description: inicia y detiene midemonio</span>
 <span class="c"># Description:       MiDemonio es el mejor demonio. Y este archivo</span>
-<span class="c">#                    es un ejemplo de como crear un script de inicio.</span>
+<span class="c">#                    es un ejemplo de como crear un script de</span>
+<span class="c">#                    inicio.</span>
 <span class="c">### END INIT INFO</span>
 
 <span class="c"># Salir inmediatamente si un comando falla</span>
@@ -401,7 +402,7 @@ stop<span class="o">()</span>
         <span class="k">fi</span>
         ;;
     *<span class="o">)</span>
-        <span class="nb">echo</span> <span class="s2">&quot;Usage:  {start|stop|status|reload|force-reload|restart]&quot;</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Usage:  $0 {start|stop|status|reload|force-reload|restart}&quot;</span>
         <span class="nb">exit </span>2
         ;;
 <span class="k">esac</span>
@@ -421,18 +422,18 @@ por segunda vez</dd>
 <dt><strong>reload</strong></dt>
 <dd>Necesita poder enviar la señal <code>SIGHUP</code> al proceso.</dd>
 </dl>
-<p>Para eso el demonio suele crear una archivo con extensión <code>.pid</code> en el
-directorio <code>/var/run</code>. En el almacena únicamente su propio identificador de
-proceso, del tal forma que las funciones LSB <code>start_daemon</code>, <code>killproc</code>,
-<code>pidofproc</code> y <code>status_of_proc</code> asumen que:</p>
+<p>Para que todo esto sea posible el demonio suele crear una archivo con extensión
+<code>.pid</code> en el directorio <code>/var/run</code>. En el almacena únicamente su propio
+identificador de proceso, del tal forma que las funciones LSB <code>start_daemon</code>,
+<code>killproc</code>, <code>pidofproc</code> y <code>status_of_proc</code> asumen que:</p>
 <ol>
 <li>Si el archivo no existe, el demonio no se está ejecutando.</li>
 <li>En otro caso y si contiene uno o más valores numéricos separados por
 espacios en la primera línea, estos valores son considerados los PID de los
-procesos del demonio. Las funciones anteriores considerarán que el demonio está
-en ejecución si existen procesos con esos PID y enviarán las señales que
-correspondan.</li>
+procesos del demonio.</li>
 </ol>
+<p>Las funciones anteriores considerarán que el demonio está en ejecución si
+existen procesos con esos PID y enviarán las señales que correspondan.</p>
 <h1>Opciones de línea de comandos</h1>
 <p>Los demonios, igual que cualquier otro programa, pueden recibir opciones de
 línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo
