@@ -1,5 +1,5 @@
 Title: Servicios y demonios en Linux
-Tags: demonios, servicios, init, syslog, fhs getopt
+Tags: demonio, servicio, init, syslog, FHS, getopt, daemon, umask, Qxt, setsid, LSB, runlevel, nivel de ejecución, /etc/init.d, /var/run
 Date: 2013-05-18
 
 Un [demonio][^1] o servicio es un programa que se ejecuta en segundo plano,
@@ -12,7 +12,7 @@ sea respondiendo a las peticiones que llegan a través de la red o atendiendo a
 procesos que se ejecutan en el mismo sistema, así como responder ante cierta
 actividad del hardware —por ejemplo `acpid`[^2] maneja el apagado del sistema
 cuando el usuario pulsa el botón de encendido del equipo—. Algunos demonios
-sirven para configuar hardware —como es el caso de `udevd` en algunos sistemas
+sirven para configurar hardware —como es el caso de `udevd` en algunos sistemas
 GNU/Linux— ejecutar tareas planificadas —como hace `cron`— o realizar otras
 funciones similares.
 
@@ -29,7 +29,7 @@ ejecutado. Dicha _shell_ conoce su PID y puede bloquearse esperando a que el
 comando termine, antes de volver a mostrar el _prompt_[^3] para indicar al
 usuario que puede introducir un nuevo comando. Incluso si la _shell_ decide no
 esperar a que el comando termine —por ejemplo cuando en `bash` el usuario lo
-indica utilizando el caracter `&`— permitindo la ejecución en segundo plano,
+indica utilizando el caracter `&`— permitiendo la ejecución en segundo plano,
 esta será notificada cuando el proceso hijo termine mediante una señal,
 pudiendo así controlar el estado de los distintos comandos en ejecución.
 Además la _shell_ tiene acceso al motivo por el que el proceso hijo terminó,
@@ -66,7 +66,7 @@ if (pid > 0) {
     exit(0);
 }
 
-// Si la ejeución llega a este punto, estamos en el hijo
+// Si la ejecución llega a este punto, estamos en el hijo
 ~~~~
 
 Al finalizar el proceso padre el proceso hijo es adoptado por `init`[^4]. El
@@ -143,7 +143,7 @@ en el _framework_ [Qt].
 
 Entre dichas funcionalidades adicionales está la clase [QxtLogger], que permite
 enviar mensajes al registro de eventos del sistema de forma más apropiada
-para una apliación en C++.
+para una aplicación en C++.
 
 ~~~~.cpp
 #include <QxtLogger>
@@ -159,16 +159,16 @@ qxtLog->info(QTime::currentTime(), "Algo ha ocurrido", 3.14);
 
 ## Crear una nueva sesión
 
-Cada proceso es miembro de un grupo y estos a su vez se reunen en sesiones. En
-cada una de estas hay un proceso que hace las veces de lider, de tal forma que
+Cada proceso es miembro de un grupo y estos a su vez se reúnen en sesiones. En
+cada una de estas hay un proceso que hace las veces de líder, de tal forma que
 si muere todos los procesos de la sesión reciben una señal `SIGHUP`. La idea
-es que el lider muere cuando se quiere dar la sesión por terminada, por lo que
-mediate `SIGHUP` se notifica al resto de procesos esta circunstancia para que
+es que el líder muere cuando se quiere dar la sesión por terminada, por lo que
+mediante `SIGHUP` se notifica al resto de procesos esta circunstancia para que
 puedan terminar ordenadamente.
 
 Obviamente no estamos interesados en que el [demonio] termine cuando la sesión
 desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
-sesión de la que dicho [deminio] será el lider:
+sesión de la que dicho [demonio] será el lider:
 
 ~~~~.cpp
 pid_t sid;
@@ -202,13 +202,13 @@ if ((chdir("/")) < 0) {
 ~~~~
 
 Otra opción es cambiar el directorio de trabajo a donde se almacenan los datos
-de nuestra aplicación o a algún otro directorio similar, siempre segun el
+de nuestra aplicación o a algún otro directorio similar, siempre según el
 [Filesystem Hierarchy Standard].
 
 ## Reabrir los descriptores estándar
 
-Como ya hemos comentado, un [demonio] no interactua directamente con los
-usuarios, por lo que no necesita usar la entrada / salidad estándar, así que
+Como ya hemos comentado, un [demonio] no interactúa directamente con los
+usuarios, por lo que no necesita usar la entrada / salida estándar, así que
 podemos cerrar sus descriptores:
 
 ~~~~.cpp
@@ -219,7 +219,7 @@ close(STDERR_FILENO);           // fd 2
 ~~~~
 
 Sin embargo esto puede no ser lo más conveniente porque los siguientes
-archivos que se habran —archivos de registro, _sockets_, etc— usarán esos mismos
+archivos que se abran —archivos de registro, _sockets_, etc— usarán esos mismos
 descriptores, lo que puede ser un problema si se utiliza alguna
 librería que los use de forma inesperada para su E/S. En su lugar puede ser
 preferible mantenerlos abiertos pero conectados al archivo `/dev/null`:
@@ -253,26 +253,26 @@ comportamiento diferente.
 
 Los demonios son generalmente lanzados por el usuario `root`, lo que les da
 acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
-atacante se saltara las medidas de seguridad incoporadas en el programa y
+atacante se saltara las medidas de seguridad incorporadas en el programa y
 fuera capaz de hacer que ejecutara código arbitrario.
 
-Para evitarlo es muy común que los demominos cambien su personalidad a un
+Para evitarlo es muy común que los demonis cambien su personalidad a un
 usuario y grupo convencional del sistema:
 
 ~~~~.cpp
-// Cambiar el usuario efectivo del proceso a 'mydaemon'
-passwd* user = getpwnam("mydaemon");
+// Cambiar el usuario efectivo del proceso a 'midemonio'
+passwd* user = getpwnam("midemonio");
 seteuid(user->pw_uid);
 
-// Cambiar el grupo efectivo del proceso a 'mydaemon'
-group* group = getgrnam("mydaemon");
+// Cambiar el grupo efectivo del proceso a 'midemonio'
+group* group = getgrnam("midemonio");
 setegid(group->gr_gid);
 ~~~~
 
 # Señales
 
 Una vez el demonio está en ejecución las señales ser convierten en un
-mencanismo muy potente para comunicarnos con él:
+mecanismo muy potente para comunicarnos con él:
 
  * Debe atender la señal `SIGTERM` para terminar en condiciones de seguridad.
  * Es muy común que intercepte la señal `SIGHUP` ya que así se le suele indicar
@@ -286,7 +286,7 @@ particularidades del uso de señales POSIX en este tipo de aplicaciones.
 # Arranque del servicio
 
 Los demonios `init` de muchos sistemas operativos operan en base a _niveles de
-ejecuión_. Cada [nivel de ejecución] define un estado de la máquina después
+ejecución_. Cada [nivel de ejecución] define un estado de la máquina después
 del arranque, estableciendo que demonios deben ser iniciados y/o detenidos
 para alcanzarlo. Por lo tanto en cada momento sólo puede haber un [nivel de
 ejecución] activo.
@@ -302,28 +302,56 @@ para:
 
 Para iniciar o detener los demonios según el nivel de ejecución, estos suelen
 ir acompañados de un _script_ de inicio que por lo general se almacena en el
-directorio `/etc/init.d` y que suele tener una estructura muy similar a la
+directorio `/etc/init.d`. En aquellas distribuciones de Linux que siguen el
+estándar LSB[^5] la estructura de este _script_ suele ser muy similar a la
 siguiente:
 
-~~~~.bash
-#!/bin/bash
+~~~~.sh
+#!/bin/sh
 #
-# Script de inicio de mydaemond
+# midemoniod    /etc/init.d initscript para MiDemonio
 #
 
-DAEMON=mydaemond
-PIDFILE=/var/run/${DAEMON}.pid
+### BEGIN INIT INFO
+# Provides:          midemonio
+# Required-Start:    $network $local_fs $remote_fs
+# Required-Stop:     $network $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: inicia y detiene midemonio
+# Description:       MiDemonio es el mejor demonio. Y este archivo
+#                    es un ejemplo de como crear un script de
+#                    inicio.
+### END INIT INFO
 
-start() {
-        echo -n "Starting : "
-        # Aquí va el código que ejecuta el demonio $DAEMON
-        return
+# Salir inmediatamente si un comando falla
+# http://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin
+set -e
+
+# Importar funciones LSB:
+# start_daemon, killproc, status_of_proc, log_*, etc.
+. /lib/lsb/init-functions
+
+NAME=midemoniod
+PIDFILE=/var/run/$NAME.pid
+DAEMON=/usr/sbin/$NAME
+DAEMON_OPTS="--daemon"
+
+# Si el demonio no existe, salir.
+test -x $DAEMON || exit 5
+
+start()
+{
+    log_daemon_msg "Starting the $NAME process"
+    start_daemon -p $PIDFILE -- $DAEMON $DAEMON_OPTS
+    log_end_msg $?
 }
 
-stop() {
-        echo -n "Shutting down : "
-        # Aquí va el código que detiene el demonio $DAEMON
-        return
+stop()
+{
+    log_daemon_msg "Stoppping the $NAME process"
+    killproc -p $PIDFILE
+    log_end_msg $?
 }
 
 case "$1" in
@@ -334,49 +362,77 @@ case "$1" in
         stop
         ;;
     status)
-        # Aquí va el código que indica si el demonio se está ejecutando
+        if [ -e $PIDFILE ]; then
+            status_of_proc -p $PIDFILE $DAEMON "$NAME process"
+        else
+            log_failure_msg "$NAME process is not running"
+            log_end_msg 0
+        fi
         ;;
     restart)
         stop
         start
         ;;
     reload|force-reload)
-        # Aquí va el código que recarga la configuración
+        if [ -e $PIDFILE ]; then
+            killproc -p $PIDFILE -SIGHUP
+            log_success_msg "$NAME process reloaded successfully"
+        else
+            log_failure_msg "$NAME process is not running"
+            log_end_msg 0
+        fi
         ;;
     *)
-        echo "Usage:  {start|stop|status|reload|force-reload|restart]"
-        exit 1
+        echo "Usage:  $0 {start|stop|status|reload|force-reload|restart}"
+        exit 2
         ;;
 esac
-exit $?
 ~~~~
 
-Como se puede observar, la mayor parte de las opciones del script necesitan poner
-comunicarse con el demonio en ejecución. Para eso el demonio suele crear una
-archivo con extensión `.pid` en el directorio `/var/run` donde almacena su
-propio identificador de proceso. Así el _script_ de inicio puede:
+Como se puede observar, la mayor parte de las opciones del _script_ necesitan poner
+comunicarse con el demonio en ejecución:
 
- * Comprobar si está en ejecución cuando el usuario solicita un `status`.
- * Enviarle una señal `SIGHUP` para que vuelva a leer los archivos de
- configuración cuando el usuario solicita un `reload`.
- * Terminar en condiciones de seguridad al recibir la señal `SIGTERM` cuando
-el usuario solicita un `stop`.
+**start**
+: Necesita poder determinar si el demonio ya ha sido iniciado para no hacerlo
+por segunda vez
+
+**status**
+: También necesita poder determinar si el demonio ya ha sido iniciado o no.
+
+**stop**
+: Necesita poder enviar la señal `SIGTERM` al proceso.
+
+**reload**
+: Necesita poder enviar la señal `SIGHUP` al proceso.
+
+Para que todo esto sea posible el demonio suele crear una archivo con extensión
+`.pid` en el directorio `/var/run`. En el almacena únicamente su propio
+identificador de proceso, del tal forma que las funciones LSB `start_daemon`,
+`killproc`, `pidofproc` y `status_of_proc` asumen que:
+
+ 1. Si el archivo no existe, el demonio no se está ejecutando.
+ 2. En otro caso y si contiene uno o más valores numéricos separados por
+espacios en la primera línea, estos valores son considerados los PID de los
+procesos del demonio.
+
+Las funciones anteriores considerarán que el demonio está en ejecución si
+existen procesos con esos PID y enviarán las señales que correspondan.
  
 # Opciones de línea de comandos
 
 Los demonios, igual que cualquier otro programa, pueden recibir opciones de
 línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo
-es muy común que ofrezcan opciones para sobreescribir los parámetros indicados
+es muy común que ofrezcan opciones para sobrescribir los parámetros indicados
 en el archivo de configuración. También es habitual que un proceso de un programa
 diseñado para ejecutarse como un demonio no se convierta en tal si no es
 especificada en la línea de comandos una opción del estilo de `-d` o `--daemon`.
-Esto es así, por ejemplo, poque es más sencillo depurar el programa y comprobar
+Esto es así, por ejemplo, porque es más sencillo depurar el programa y comprobar
 su funcionamiento cuando éste no se ejecuta en segundo plano.
 
 En el código del proyecto [rifftree](http://github.com/aplatanado/rifftree),
 que ya comentamos en el artículo [Resource Interchange File
 Format](|filename|/Overviews/riff.md), se puede observar como se utiliza la
-familia de funciones [getopt] para procesar adecuadalmente la línea de
+familia de funciones [getopt] para procesar adecuadamente la línea de
 comandos de un programa cualquiera.
 
 # Referencias
@@ -387,6 +443,7 @@ comandos de un programa cualquiera.
  1. Proyecto [LibQxt](http://libqxt.org).
  4. The GNU C Library - [Users and Groups](http://www.gnu.org/software/libc/manual/html_node/Users-and-Groups.html#Users-and-Groups)
  5. Wikipedia - [Runlevel](http://en.wikipedia.org/wiki/Runlevel)
+ 6. Linux Standard Base Core Specification 3.2 - [System Initialization](http://refspecs.linuxfoundation.org/LSB_3.2.0/LSB-Core-generic/LSB-Core-generic/tocsysinit.html)
 
 [Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
 [demonio]: http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica) "Demonio (informática)"
@@ -418,3 +475,6 @@ el primer proceso que se inicia durante el arranque del sistema y su función
 principal es lanzar el resto de demonios necesarios para el funcionamiento del
 sistema. Generalmente también lanza los procesos encargados de solicitar el
 inicio de sesión a los usuarios.
+[^5]: LSB o Linux System Standard es una iniciativa de la Linux Foundation para
+reducir las diferencias entre las distintas distribuciones de Linux, limitando
+así los costes derivados de portar las aplicaciones de unas distribuciones a otras.
