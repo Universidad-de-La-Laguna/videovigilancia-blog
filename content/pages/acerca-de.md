@@ -91,8 +91,8 @@ la pantalla LCD SPI de forma transparente como un [framebuffer].
  * Desarrollar una aplicación multihilo que capture las imágenes de la cámara
 y las muestre en la pantalla LCD, así como otra información relevante, como por
 ejemplo la dirección IP del dispositivo. Para el desarrollo de esta aplicación
-se utilizaría [Qt for Embedded Linux] como framework ya que puede funcionar sobre
-el dispositivo [framebuffer] de la pantalla LCD.
+se utilizaría [Qt] como framework ya que puede funcionar sobre el dispositivo
+[framebuffer] de la pantalla LCD.
 
 ## Servidor de videovigilancia
 En un buen sistema de videovigilancia las imágenes recogidas desde las
@@ -105,8 +105,9 @@ cámaras y el servidor adecuado a la tarea que se va a realizar. Con el
 objeto de aprovechar el trabajo que otros ya han hecho, los mensajes de dicho
 protocolo se serializarán y formatearan para su transmisión con
 [Protocol Buffers]. Mientras que en la capa de transporte, para la
-transmisión de los mensajes propiamente dicha, se utilizará TCP através de la
-interfaz que sobre la del sistema operativo provee [Boost.Asio].
+transmisión de mensajes propiamente dicha, se utilizará TCP a través de alguna
+librería de red implementada sobre la interfaz que el sistema operativo
+provee, como por ejemplo [Boost.Asio] o [Qt Network].
 
 Obviamente no nos olvidamos de otras alternativas a la solución propuesta, como:
 [Apache Thrift](http://en.wikipedia.org/wiki/Apache_Thrift) o
@@ -174,11 +175,12 @@ de bloqueos. Además el desarrollo se pude realizar en un lenguaje de programaci
 diferente a C++.
 
 Aplicación web en servidor empotrado
-: Se puede empotrar un servidor web, como [Mongoose](http://code.google.com/p/mongoose/),
-en el propio proceso del servidor de videovigilancia. Esta sería la solución más
-compacta, aunque tal vez también la menos interesante al incorporar menos novedades.
+: Se puede empotrar un servidor web, como [mongoose](http://code.google.com/p/mongoose/)
+o [libevent](http://libevent.org/), en el propio proceso del servidor de
+videovigilancia. Esta sería la solución más compacta, aunque tal vez también
+la menos interesante al incorporar menos novedades.
 
-Sea cual sea la solución finalmente elegida el frontal debe soportar que el
+Sea cual sea la solución finalmente elegida, el frontal debe soportar que el
 usuario pueda realizar las siguientes acciones:
 
  * Consultar el estado de las cámaras. Por ejemplo, si están en
@@ -272,6 +274,7 @@ cuestión no dudes en ponerse en contacto [conmigo](jmtorres@ull.es).
 [QEMU]: http://wiki.qemu.org/ "QEMU"
 [CF7670C-V2]: |filename|/Hardware/camara-cf7670c.md "CF7670C-V2 (OV7670+AL422)"
 [V4L]: http://en.wikipedia.org/wiki/Video4Linux "Video for Linux"
-[Qt for Embedded Linux]: http://doc.qt.digia.com/qt/qt-embedded-linux.html "Qt for Embedded Linux"
+[Qt]: https://qt-project.org/doc/qt-5.0/qtdoc/index.html "QtDoc 5.0"
 [framebuffer]: http://es.wikipedia.org/wiki/Framebuffer "Framebuffer"
 [Boost.Asio]: http://www.boost.org/doc/libs/1_52_0/doc/html/boost_asio/overview.html "Boost.Asio"
+[Qt Network]: http://qt-project.org/doc/qt-5.0/qtnetwork/qtnetwork-index.html "Qt Network"
