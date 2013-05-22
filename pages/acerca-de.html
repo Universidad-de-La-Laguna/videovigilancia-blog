@@ -146,8 +146,9 @@ cámaras y el servidor adecuado a la tarea que se va a realizar. Con el
 objeto de aprovechar el trabajo que otros ya han hecho, los mensajes de dicho
 protocolo se serializarán y formatearan para su transmisión con
 <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>. Mientras que en la capa de transporte, para la
-transmisión de los mensajes propiamente dicha, se utilizará TCP através de la
-interfaz que sobre la del sistema operativo provee <a href="http://www.boost.org/doc/libs/1_52_0/doc/html/boost_asio/overview.html" title="Boost.Asio">Boost.Asio</a>.</p>
+transmisión de mensajes propiamente dicha, se utilizará TCP a través de alguna
+librería de red implementada sobre la interfaz que el sistema operativo
+provee, como por ejemplo <a href="http://www.boost.org/doc/libs/1_52_0/doc/html/boost_asio/overview.html" title="Boost.Asio">Boost.Asio</a> o <a href="http://qt-project.org/doc/qt-5.0/qtnetwork/qtnetwork-index.html" title="Qt Network">Qt Network</a>.</p>
 <p>Obviamente no nos olvidamos de otras alternativas a la solución propuesta, como:
 <a href="http://en.wikipedia.org/wiki/Apache_Thrift">Apache Thrift</a> o
 <a href="http://en.wikipedia.org/wiki/Apache_Avro">Apache Avro</a>. Sin embargo <a href="../protocol-buffers.html" title="Protocol Buffers">Protocol Buffers</a>
@@ -212,11 +213,12 @@ sería necesario controlar el acceso a los archivos compartidos mediante el uso
 de bloqueos. Además el desarrollo se pude realizar en un lenguaje de programación
 diferente a C++.</dd>
 <dt>Aplicación web en servidor empotrado</dt>
-<dd>Se puede empotrar un servidor web, como <a href="http://code.google.com/p/mongoose/">Mongoose</a>,
-en el propio proceso del servidor de videovigilancia. Esta sería la solución más
-compacta, aunque tal vez también la menos interesante al incorporar menos novedades.</dd>
+<dd>Se puede empotrar un servidor web, como <a href="http://code.google.com/p/mongoose/">Mongoose</a>
+o <a href="http://libevent.org/">libevent</a>, en el propio proceso del servidor de
+videovigilancia. Esta sería la solución más compacta, aunque tal vez también
+la menos interesante al incorporar menos novedades.</dd>
 </dl>
-<p>Sea cual sea la solución finalmente elegida el frontal debe soportar que el
+<p>Sea cual sea la solución finalmente elegida, el frontal debe soportar que el
 usuario pueda realizar las siguientes acciones:</p>
 <ul>
 <li>Consultar el estado de las cámaras. Por ejemplo, si están en
