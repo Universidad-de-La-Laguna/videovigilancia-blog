@@ -1,7 +1,6 @@
 Title: Qt Network
 Tags: qt, comunicaciones, sockets
 Date: 2013-03-4
-PlusActivityId: z12edlvhkv3sfni1p22egliyvmyrubrkf
 
 [Qt] proporciona un conjunto de API de comunicaciones a través del módulo
 [Qt Network]. Este ofrece tanto clases de bajo nivel para comunicación

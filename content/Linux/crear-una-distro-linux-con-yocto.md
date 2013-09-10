@@ -1,7 +1,6 @@
 Title: Crea tu propia distro de Linux con Yocto
 Tags: yocto, poky, distribución
 Date: 2013-01-22
-PlusActivityId: z13agjmr0tazhfwft22egliyvmyrubrkf
 
 El objetivo de este artículo es explicar paso a paso como se puede utilizar
 el proyecto [Yocto] para crear nuestra propia distribución de Linux. Primero
