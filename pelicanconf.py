@@ -14,6 +14,9 @@ DEFAULT_LANG = u'es'
 FILENAME_METADATA = '(?P<date>\d{4}-\d{2}-\d{2})_(?P<slug>.*)'
 SUMMARY_MAX_LENGTH = 50
 
+GOOGLE_CUSTOM_SEARCH_SIDEBAR = '013894742475483232300:q2-5a1zlira'
+DISQUS_SITENAME = 'sistema-de-videovigilancia-from-scratch'
+
 # Feeds
 FEED_DOMAIN = SITEURL
 FEED_ATOM='feeds/atom.xml'
@@ -38,6 +41,3 @@ DEFAULT_PAGINATION = 3
 
 # Theme
 THEME = u'themes/tuxlite_tbs'
-
-# Google
-GOOGLE_CUSTOM_SEARCH_SIDEBAR = '013894742475483232300:q2-5a1zlira'
