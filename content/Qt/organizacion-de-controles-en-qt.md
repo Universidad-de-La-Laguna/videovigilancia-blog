@@ -1,7 +1,6 @@
 Title: Layouts en Qt. Organización de controles
 Tags: qt, gui, layouts
 Date: 2013-02-15
-PlusActivityId: z12pgdewywrqx30ej22egliyvmyrubrkf
 
 El sistema de _layouts_ de [Qt] proporcionar una manera sencilla de organizar
 los controles dentro de otros controles o ventanas, asegurando el mejor

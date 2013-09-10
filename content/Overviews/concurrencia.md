@@ -1,7 +1,6 @@
 Title: Concurrencia
 Tags: concurrencia, hilos, bucle de mensajes, multiproceso, multihilo, callbacks, qthreadpool
 Date: 2013-04-06
-PlusActivityId: z12rtbxb3vznxlg1z22egliyvmyrubrkf
 
 La concurrencia tiene que ver con manejar múltiples eventos que se superponen
 en el tiempo fuera del control del programa. Por lo tanto debe preocuparse de

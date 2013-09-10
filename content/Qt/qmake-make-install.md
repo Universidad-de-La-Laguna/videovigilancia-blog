@@ -1,7 +1,6 @@
 Title: Make install con qmake
 Tags: qt, make, qmake, INSTALLS, DEFINES
 Date: 2013-04-22
-PlusActivityId: z12fvdn4syuctdye022egliyvmyrubrkf
 
 Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios
 medios la manera de definir un proyecto de software y el proceso de construcción

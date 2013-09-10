@@ -1,7 +1,6 @@
 Title: Detección de movimiento
 Tags: visión, imágenes, opencv, qt, qimage
 Date: 2013-02-19
-PlusActivityId: z12mjdhzwsaftzum422egliyvmyrubrkf
 
 Detectar movimiento en una secuencia de vídeo es una tarea relativamente simple
 que puede abordarse en unos pocos pasos:

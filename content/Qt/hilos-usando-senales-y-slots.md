@@ -1,7 +1,6 @@
 Title: Hilos de trabajo usando señales y slots
 Tags: qt, hilos, señales, slots
 Date: 2013-02-18
-PlusActivityId: z13vh13yhw3dtz2bs04cddm5vvifuzcyy1g
 
 [Qt] proporciona clases para hilos y mecanismos de sincronización que facilitan
 sacar las tareas de larga duración del hilo principal de la aplicación, lo que

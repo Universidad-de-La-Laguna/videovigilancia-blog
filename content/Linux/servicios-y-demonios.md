@@ -1,7 +1,6 @@
 Title: Servicios y demonios en Linux
 Tags: demonio, servicio, init, syslog, FHS, getopt, daemon, umask, Qxt, setsid, LSB, runlevel, nivel de ejecución, /etc/init.d, /var/run
 Date: 2013-05-18
-PlusActivityId: z12pednixrvnhzu3e22egliyvmyrubrkf
 
 Un [demonio][^1] o servicio es un programa que se ejecuta en segundo plano,
 fuera del control interactivo de los usuarios del sistema ya que carecen de

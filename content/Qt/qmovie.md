@@ -1,7 +1,6 @@
 Title: Como usar QMovie en Qt
 Tags: qt, gui, qmovie
 Date: 2013-02-13
-PlusActivityId: z12lircxwpqhspnbp04cddm5vvifuzcyy1g
 
 [Qt] trae una clase denominada [QMovie] que facilita mostrar pequeñas
 animaciones sin mucho esfuerzo.

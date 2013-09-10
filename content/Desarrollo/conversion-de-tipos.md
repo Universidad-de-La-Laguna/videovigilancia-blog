@@ -1,7 +1,6 @@
 Title: Conversión de tipos en C++
 Tags: typecast, c++, cpp, static_cast, dynamic_cast, const_cast, reinterpret_cast
 Date: 2013-05-05
-PlusActivityId: z12xyhsoqxqlh5r5w04cddm5vvifuzcyy1g
 
 En C, cuando una conversión entre dos tipos no es realizada por el compilador de
 forma automática —esto sólo ocurre cuando la conversión es segura, como ir de

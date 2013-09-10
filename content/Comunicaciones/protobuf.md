@@ -1,7 +1,6 @@
 Title: Implementando un protocolo con Protocol Buffers
 Tags: protobuf, serialización
 Date: 2013-03-5
-PlusActivityId: z13si3rxdnejjlhvf22egliyvmyrubrkf
 
 [Protocol Buffers] es un mecanismo sencillo para serializar estructuras de
 datos, de tal forma que los datos así codificados pueden ser almacenados
