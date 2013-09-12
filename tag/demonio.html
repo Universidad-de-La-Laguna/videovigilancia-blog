@@ -105,7 +105,7 @@ esta se ejecutaba.</p>
 <h2>Crear un proceso hijo</h2>
 <p>El primer paso para que un proceso se convierta en un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> es crear un
 proceso hijo y a continuación terminar el proceso padre:</p>
-<div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+<div class="codehilite"><pre><span class="kt">pid_t</span> <span class="n">pid</span><span class="p">;</span>
 
 <span class="c1">// Nos clonamos a nosotros mismos creando un proceso hijo</span>
 <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
@@ -213,7 +213,7 @@ puedan terminar ordenadamente.</p>
 <p>Obviamente no estamos interesados en que el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> termine cuando la sesión
 desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
 sesión de la que dicho <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> será el lider:</p>
-<div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">sid</span><span class="p">;</span>
+<div class="codehilite"><pre><span class="kt">pid_t</span> <span class="n">sid</span><span class="p">;</span>
 
 <span class="c1">// Intentar crear una nueva sesión</span>
 <span class="n">sid</span> <span class="o">=</span> <span class="n">setsid</span><span class="p">();</span>

@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./servicios-y-demonios-en-linux.html"><h1>Servicios y demonios en Linux</h1></a>
-            sáb 18 mayo 2013
+            <a href="./almacenar-datos-en-sqlite.html"><h1>Almacenar datos en SQLite</h1></a>
+            mié 11 septiembre 2013
 
 by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,438 +68,190 @@ by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torre
  
         </div>
         
-        <div><p>Un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> o servicio es un programa que se ejecuta en segundo plano,
-fuera del control interactivo de los usuarios del sistema ya que carecen de
-interfaz con estos.</p>
-<p>El sistema generalmente inicia los demonios durante el arranque, siendo las
-funciones más comunes de estos las de ofrecer servicios a otros programas, ya
-sea respondiendo a las peticiones que llegan a través de la red o atendiendo a
-procesos que se ejecutan en el mismo sistema, así como responder ante cierta
-actividad del hardware —por ejemplo <code>acpid</code><sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> maneja el apagado del sistema
-cuando el usuario pulsa el botón de encendido del equipo—. Algunos demonios
-sirven para configurar hardware —como es el caso de <code>udevd</code> en algunos sistemas
-GNU/Linux— ejecutar tareas planificadas —como hace <code>cron</code>— o realizar otras
-funciones similares.</p>
-<h1>Crear demonios del sistema</h1>
-<p>En Linux, cuando ejecutamos un comando cualquiera, como <code>ls</code>:</p>
-<div class="codehilite"><pre><span class="nv">$ </span>ls
+        <div><p>Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
+son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
+Es decir, que están compuestos por un programa servidor —que es quien tiene
+acceso local a los datos— de forma que uno o más programas cliente pueden
+solicitarle operaciones sobre dichos datos —generalmente mediante lenguaje SQL—.</p>
+<p>Esta arquitectura puede no ser la adecuada en cierto tipo de aplicaciones. Por
+ejemplo, si desarrollamos un software de agenda de contactos para sistemas de
+escritorio, el uso de bases de datos relacionales para almacenar la información
+puede resultar natural, pero distribuir nuestra aplicación junto a un sistema de
+gestión de bases de datos tradicional —como MySQL— seguramente sea un tanto
+excesivo.</p>
+<p>Para estos casos existen otros gestores que no hacen uso de este tipo de
+arquitectura. Por ejemplo <a href="http://www.sqlite.org/" title="SQLite">SQLite</a>, que es una sencilla librería que contiene
+en si misma un completo sistema de gestión de bases de datos; de tal forma que
+las aplicaciones que la utilizan pueden acceder a los archivos y manipular los
+datos por si mismas, mediante consultas SQL, si necesitar la intermediación de
+un programa servidor.</p>
+<h1>Casos de uso de SQLite</h1>
+<p><a href="http://www.sqlite.org/" title="SQLite">SQLite</a> es usada por muchos <em>frameworks</em> —por ejemplo Django o
+Ruby On Rails— como base de datos por defecto durante el desarrollo de nuevos
+proyectos. La ventaja de esto es que así se puede trabajar desde el primero
+momento con bases de datos relacionales, sin tener que preocuparnos por
+configurar adecuadamente ningún sistema gestor tradicional.</p>
+<p>Como estos <em>frameworks</em> suelen proveer soporte para diversos gestores
+en el momento de desplegar la aplicación se puede cambiar, prácticamentre sin
+cambios en el código, a otro sistema gestor, si las necesidades de la aplicación
+así lo indican.</p>
+<p>Además <a href="http://www.sqlite.org/" title="SQLite">SQLite</a> se adapta perfectamente a las necesidades de muchas aplicaciones
+de escritorio y de dispositivos móviles. Por ese motivo es utilizada ámpliamente
+en los archivos de datos de apliaciones como Mozilla Firefox o Google Chrome
+y se incluye por defecto en cualquier dispositivo Android, permitiendo que las
+aplicaciones creen sus propias bases de datos sin necesitar ningún tipo de
+configuración.</p>
+<h1>Acceso a bases de datos mediante Qt SQL</h1>
+<p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> integra el módulo <a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL">Qt SQL</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que provee acceso a diferentes gestores
+de bases de datos SQL, entre los que podemos destacar MySQL, PostgreSQL, Oracle, gestores
+compatibles con <a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC">ODBC</a> y <a href="http://www.sqlite.org/" title="SQLite">SQLite</a>.</p>
+<p>Para todos estos casos lo primero es instanciar un objeto de la clase <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>
+indicando el gestor al que nos queremos conectar:</p>
+<div class="codehilite"><pre><span class="n">QSqlDatabase</span> <span class="o">*</span><span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QSqlDatabase</span><span class="p">(</span><span class="s">&quot;QSQLITE&quot;</span><span class="p">);</span>
 </pre></div>
 
 
-<p>el nuevo proceso <code>ls</code> es hijo del proceso de la <em>shell</em> desde la que lo hemos
-ejecutado. Dicha <em>shell</em> conoce su PID y puede bloquearse esperando a que el
-comando termine, antes de volver a mostrar el <em>prompt</em><sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup> para indicar al
-usuario que puede introducir un nuevo comando. Incluso si la <em>shell</em> decide no
-esperar a que el comando termine —por ejemplo cuando en <code>bash</code> el usuario lo
-indica utilizando el caracter <code>&amp;</code>— permitiendo la ejecución en segundo plano,
-esta será notificada cuando el proceso hijo termine mediante una señal,
-pudiendo así controlar el estado de los distintos comandos en ejecución.
-Además la <em>shell</em> tiene acceso al motivo por el que el proceso hijo terminó,
-así como al código de estado devuelto por este a través de la llamada al
-sistema <a href="http://linux.die.net/man/3/exit" title="exit(3)">exit</a>().</p>
-<p>Por lo tanto los procesos que quieren convertirse en un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> deben
-asegurarse que siempre se ejecutan en segundo plano, desvinculándose del
-proceso de la <em>shell</em> que los invocó y de la <a href="http://en.wikipedia.org/wiki/POSIX_terminal_interface">terminal del
-sistema</a> desde la que
-esta se ejecutaba.</p>
-<h2>Crear un proceso hijo</h2>
-<p>El primer paso para que un proceso se convierta en un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> es crear un
-proceso hijo y a continuación terminar el proceso padre:</p>
-<div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
-
-<span class="c1">// Nos clonamos a nosotros mismos creando un proceso hijo</span>
-<span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-
-<span class="c1">// Si pid es &lt; 0, fork() falló</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Mostrar la descripción del error y terminar</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">strerror</span><span class="p">(</span><span class="n">errono</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// Si pid es &gt; 0, estamos en el proceso padre</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Terminar el proceso</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// Si la ejecución llega a este punto, estamos en el hijo</span>
+<p>para después indicar el nombre de la base de datos que nos interesa:</p>
+<div class="codehilite"><pre><span class="n">db</span><span class="o">-&gt;</span><span class="n">setDatabaseName</span><span class="p">(</span><span class="s">&quot;data.sqlite&quot;</span><span class="p">);</span>
 </pre></div>
 
 
-<p>Al finalizar el proceso padre el proceso hijo es adoptado por <code>init</code><sup id="fnref:4"><a class="footnote-ref" href="#fn:4" rel="footnote">4</a></sup>. El
-resultado es que la <em>shell</em> piensa que el comando terminó con éxito,
-permitiendo que el proceso hijo se ejecute de manera independiente en segundo
-plano.</p>
-<h2>Cambiar umask</h2>
-<p>Todos los procesos tiene una máscara que indica que permisos no deben
-establecerse al crear nuevos archivos. Así cuando se utilizan llamadas al
-sistema como <a href="http://linux.die.net/man/2/open" title="open(2)">open</a>() los permisos especificados se comparan con esta
-máscara, desactivando de manera efectiva los que en ella se indiquen.</p>
-<p>La máscara —denominada <a href="http://linux.die.net/man/2/umask" title="umask(2)">umask</a>()— es heredada de padres a hijos por los
-procesos, por lo que su valor por defecto será el mismo que el que tenía
-configurada la <em>shell</em> que lanzó el demonio. Esto significa que el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a>
-no sabe que permisos acabarán tenido los archivos que intente crear. Para
-evitarlo simplemente podemos autorizar todos los permisos:</p>
-<div class="codehilite"><pre><span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-
-<p>o establecer específicamente para <a href="http://linux.die.net/man/2/umask" title="umask(2)">umask</a>() otro valor más seguro según nuestra
-conveniencia. Incluso algunos desarrolladores permiten que los administradores
-del sistema especifiquen la máscara deseada a través del archivo de
-configuración del <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a>.</p>
-<h2>Abrir conexión con el registro de eventos</h2>
-<p>Puesto que un demonio se ejecuta en segundo plano no debe estar conectado a
-ninguna terminal. Sin embargo esto plantea la cuestión de cómo indicar
-condiciones de error, advertencias u otro tipo de sucesos del programa.</p>
-<p>Algunos demonios almacenan estos mensajes en archivos específicos o en su
-propia base de datos de sucesos. Sin embargo en muchos sistemas existe un
-servicio especifico para registrar estos eventos. En lo sistemas basados en
-UNIX este servicio lo ofrece el demonio <a href="http://linux.die.net/man/3/syslog" title="syslog(3)">Syslog</a>, al que otros procesos
-pueden enviar mensajes a través de la función <a href="http://linux.die.net/man/3/syslog" title="syslog(3)">syslog</a>().</p>
-<div class="codehilite"><pre><span class="c1">// Abrir una conexión al demonio syslog</span>
-<span class="n">openlog</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">LOG_NOWAIT</span> <span class="o">|</span> <span class="n">LOG_PID</span><span class="p">,</span> <span class="n">LOG_USER</span><span class="p">);</span>
-
-<span class="p">...</span>
-
-<span class="c1">// Enviar un mensaje al demonio syslog</span>
-<span class="n">syslog</span><span class="p">(</span><span class="n">LOG_NOTICE</span><span class="p">,</span> <span class="s">&quot;Demonio iniciado con éxito</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-
-<span class="p">...</span>
-
-<span class="c1">// Cuando el demonio termine, cerrar la conexión con</span>
-<span class="c1">// el servicio syslog</span>
-<span class="n">closelog</span><span class="p">();</span>
-</pre></div>
-
-
-<p>Al crear la conexión se especifica un código de recurso —en el ejemplo
-anterior <code>LOG_USER</code> indica mensajes genéricos de nivel de usuario— que indica
-el tipo de software que genera los mensajes. Además cada mensaje se envía
-acompañado de un nivel de severidad —<code>LOG_NOTICE</code> especifica que nuestro
-mensaje no es más que una aviso—. El administrador del sistema puede configurar
-<a href="http://linux.die.net/man/3/syslog" title="syslog(3)">Syslog</a> para que haga cosas diferentes con los mensajes según el código de
-recurso y el nivel de severidad. Por ejemplo pueden ser escritos a un archivo
-concreto en disco, mostrados por una consola, enviados por red a registro de
-eventos centralizados o filtrados.</p>
-<h3>Registro de eventos en aplicaciones Qt</h3>
-<p>Cuando se desarrolla con <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> puede ser interesante echar un vistazo a las
-funcionalidades de la librería <a href="http://libqxt.org" title="LibQxt">LibQxt</a>. Este proyecto proporciona un conjunto
-de clases que añaden funcionalidades multiplataforma que no están disponibles
-en el <em>framework</em> <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
-<p>Entre dichas funcionalidades adicionales está la clase <a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a>, que permite
-enviar mensajes al registro de eventos del sistema de forma más apropiada
-para una aplicación en C++.</p>
-<div class="codehilite"><pre><span class="cp">#include &lt;QxtLogger&gt;</span>
-
-<span class="p">...</span>
-
-<span class="n">qxtLog</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Demonio iniciado con éxito&quot;</span><span class="p">);</span>
-
-<span class="p">...</span>
-
-<span class="n">qxtLog</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="n">QTime</span><span class="o">::</span><span class="n">currentTime</span><span class="p">(),</span> <span class="s">&quot;Algo ha ocurrido&quot;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">);</span>
-</pre></div>
-
-
-<h2>Crear una nueva sesión</h2>
-<p>Cada proceso es miembro de un grupo y estos a su vez se reúnen en sesiones. En
-cada una de estas hay un proceso que hace las veces de líder, de tal forma que
-si muere todos los procesos de la sesión reciben una señal <code>SIGHUP</code>. La idea
-es que el líder muere cuando se quiere dar la sesión por terminada, por lo que
-mediante <code>SIGHUP</code> se notifica al resto de procesos esta circunstancia para que
-puedan terminar ordenadamente.</p>
-<p>Obviamente no estamos interesados en que el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> termine cuando la sesión
-desde la que fue creado finalice, por lo que necesitamos crear nuestra propia
-sesión de la que dicho <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> será el lider:</p>
-<div class="codehilite"><pre><span class="n">pid_t</span> <span class="n">sid</span><span class="p">;</span>
-
-<span class="c1">// Intentar crear una nueva sesión</span>
-<span class="n">sid</span> <span class="o">=</span> <span class="n">setsid</span><span class="p">();</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">sid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">syslog</span><span class="p">(</span><span class="n">LOG_ERR</span><span class="p">,</span> <span class="s">&quot;No fue posible crear una nueva sesión</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">11</span><span class="p">);</span>
+<p>El formato del nombre de la base de datos depende del controlador del gestor que
+hayamos escogido. Por ejemplo, para el driver <code>QODBC</code> el nombre puede ser un
+<a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name">DSN</a>, un archivo <a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name">DSN</a> (en cuyo caso su nombre debe terminar en extensión <code>.dsn</code>)
+o una cadena de conexión <a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC">ODBC</a>. Mientras que para <a href="http://www.sqlite.org/" title="SQLite">SQLite</a> el nombre de la base
+de datos es directamente el del archivo que la contiene —<code>data.sqlite</code> en nuestro ejemplo—.</p>
+<p>Finalmente es necesario abrir la conexión a la base de datos usando el método
+<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html#open" title="QSqlDatabase::open()">open</a>(), del que es conveniente comprobar el valor de retorno
+para determinar si hemos tenido éxito.</p>
+<div class="codehilite"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">QMessageBox</span><span class="o">::</span><span class="n">critical</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">tr</span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">),</span>
+        <span class="n">tr</span><span class="p">(</span><span class="s">&quot;No se pudo acceder a los datos.&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<h2>Cambiar el directorio de trabajo</h2>
-<p>Hasta el momento el directorio de trabajo del proceso es el mismo que el de la
-<em>shell</em> en el momento en el que se ejecutó el comando. Este podría estar
-dentro de un punto de montaje cualquiera del sistema, por lo que no tenemos
-garantías de que vaya a seguir estando disponible durante la ejecución del
-proceso.</p>
-<p>Por eso es probable que prefiramos cambiar el directorio de trabajo al
-directorio raiz, ya que podemos estar seguros de que siempre existirá:</p>
-<div class="codehilite"><pre><span class="c1">// Cambiar el directorio de trabajo de proceso</span>
-<span class="k">if</span> <span class="p">((</span><span class="n">chdir</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">syslog</span><span class="p">(</span><span class="n">LOG_ERR</span><span class="p">,</span> <span class="s">&quot;No fue posible cambiar el directorio de &quot;</span>
-                    <span class="s">&quot;trabajo a /</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
-<span class="p">}</span>
+<h1>Haciendo consultas SQL</h1>
+<p>La conexión creada de la manera que hemos descrito anteriormente se configura
+automáticamente como la conexión a base de datos por defecto de nuestra aplicación.
+Así que hacer una consulta es tan sencillo como instanciar la clase <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> y
+proporcionarle la sentencia SQL a dicho objeto a través del método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#exec" title="QSqlQuery::exec()">exec</a>():</p>
+<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
+<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;SELECT * FROM TABLE contactos);</span>
 </pre></div>
 
 
-<p>Otra opción es cambiar el directorio de trabajo a donde se almacenan los datos
-de nuestra aplicación o a algún otro directorio similar, siempre según el
-<a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard">Filesystem Hierarchy Standard</a>.</p>
-<h2>Reabrir los descriptores estándar</h2>
-<p>Como ya hemos comentado, un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> no interactúa directamente con los
-usuarios, por lo que no necesita usar la E/S estándar, así que podemos cerrar
-sus descriptores:</p>
-<div class="codehilite"><pre><span class="c1">// Cerrar los descriptores de la E/S estándar</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>            <span class="c1">// fd 0</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">);</span>           <span class="c1">// fd 1</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDERR_FILENO</span><span class="p">);</span>           <span class="c1">// fd 2</span>
+<p>De esta forma <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> puede utilizarse tanto para ejecutar sentencias de
+manipulación —como <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code>— como de definición
+—por ejemplo <code>CREATE TABLE</code> y similares—.</p>
+<div class="codehilite"><pre><span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;CREATE TABLE IF NOT EXISTS contactos &quot;</span>
+            <span class="s">&quot;(id INTEGER PRIMARY KEY AUTOINCREMENT,&quot;</span>
+            <span class="s">&quot; nombre VARCHAR(50))&quot;</span><span class="p">);</span>
 </pre></div>
 
 
-<p>Sin embargo esto puede no ser lo más conveniente porque los siguientes
-archivos que se abran —archivos de registro, <em>sockets</em>, etc— reusarán esos
-mismos descriptores, lo que puede ser un problema si se utiliza alguna
-librería que pueda intentar hacer uso de la E/S estándar. En su lugar puede ser
-preferible mantenerlos abiertos pero conectados al archivo <code>/dev/null</code>:</p>
-<div class="codehilite"><pre><span class="c1">// Cerrar los descriptores de la E/S estándar</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>                    <span class="c1">// fd 0</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">);</span>                   <span class="c1">// fd 1</span>
-<span class="n">close</span><span class="p">(</span><span class="n">STDERR_FILENO</span><span class="p">);</span>                   <span class="c1">// fd 2</span>
-
-<span class="kt">int</span> <span class="n">fd0</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span>  <span class="c1">// fd0 == 0</span>
-<span class="kt">int</span> <span class="n">fd1</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="p">);</span>  <span class="c1">// fd0 == 1</span>
-<span class="kt">int</span> <span class="n">fd2</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/null&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="p">);</span>  <span class="c1">// fd0 == 2</span>
-</pre></div>
-
-
-<h1>Usar daemon()</h1>
-<p>Algunos de los pasos comentados anteriormente se pueden hacer de una sola vez
-mediante la función <a href="http://linux.die.net/man/3/daemon" title="daemon(3)">daemon</a>():</p>
-<ol>
-<li>Hace el [fork]<a href=""></a> y termina el proceso padre.</li>
-<li>Opcionalmente puede cambiar el directorio de trabajo pero sólo al directorio raíz.</li>
-<li>No ajusta <a href="http://linux.die.net/man/2/umask" title="umask(2)">umask</a>().</li>
-<li>Opcionalmente reabre los descriptores de archivo estándar a <code>/dev/null</code>.</li>
-</ol>
-<p>En todo caso el principal inconveniente es que no es una función del estándar
-POSIX, por lo que en algunas plataformas puede no existir o tener un
-comportamiento diferente.</p>
-<h1>Cambiar la personalidad del proceso</h1>
-<p>Los demonios son generalmente lanzados por el usuario <code>root</code>, lo que les da
-acceso a todos los recursos del sistema. Esto puede ser muy peligroso si un
-atacante se saltara las medidas de seguridad incorporadas en el programa y
-fuera capaz de hacer que ejecutara código arbitrario.</p>
-<p>Para evitarlo es muy común que los demonios cambien su personalidad a un
-usuario y grupo convencional del sistema:</p>
-<div class="codehilite"><pre><span class="c1">// Cambiar el usuario efectivo del proceso a &#39;midemonio&#39;</span>
-<span class="n">passwd</span><span class="o">*</span> <span class="n">user</span> <span class="o">=</span> <span class="n">getpwnam</span><span class="p">(</span><span class="s">&quot;midemonio&quot;</span><span class="p">);</span>
-<span class="n">seteuid</span><span class="p">(</span><span class="n">user</span><span class="o">-&gt;</span><span class="n">pw_uid</span><span class="p">);</span>
-
-<span class="c1">// Cambiar el grupo efectivo del proceso a &#39;midemonio&#39;</span>
-<span class="n">group</span><span class="o">*</span> <span class="n">group</span> <span class="o">=</span> <span class="n">getgrnam</span><span class="p">(</span><span class="s">&quot;midemonio&quot;</span><span class="p">);</span>
-<span class="n">setegid</span><span class="p">(</span><span class="n">group</span><span class="o">-&gt;</span><span class="n">gr_gid</span><span class="p">);</span>
-</pre></div>
-
-
-<h1>Señales</h1>
-<p>Una vez el demonio está en ejecución las señales ser convierten en un
-mecanismo muy potente para comunicarnos con él:</p>
-<ul>
-<li>Debe atender la señal <code>SIGTERM</code> para terminar en condiciones de seguridad.</li>
-<li>Es muy común que intercepte la señal <code>SIGHUP</code> ya que así se le suele indicar
- que recargue los archivos de configuración sin tener que reiniciarlo.</li>
-</ul>
-<p>Si estamos desarrollando nuestra aplicación con <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>, lo más conveniente es
-echar un vistazo al final del artículo <a href="./aplicaciones-de-consola-con-qt.html">Aplicaciones de consola con
-Qt</a> ya que allí se explican las
-particularidades del uso de señales POSIX en este tipo de aplicaciones.</p>
-<h1>Arranque del servicio</h1>
-<p>Los demonios <code>init</code> de muchos sistemas operativos operan en base a <em>niveles de
-ejecución</em>. Cada <a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución">nivel de ejecución</a> define un estado de la máquina después
-del arranque, estableciendo que demonios deben ser iniciados y/o detenidos
-para alcanzarlo. Por lo tanto en cada momento sólo puede haber un <a href="http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n" title="Nivel de ejecución">nivel de
-ejecución</a> activo.</p>
-<p>Por lo general existen 7 niveles —del 0 al 6— alguno de los cuales suelen ser
-para:</p>
-<ul>
-<li>Entrar en modo monousuario (generalmente el 1 o S).</li>
-<li>Entrar en modo multiusuario sin soporte de red.</li>
-<li>Entrar en modo multiusuario con soporte de red.</li>
-<li>Apagar el sistema (generalmente el 0).</li>
-<li>Reiniciar el sistema (generalmente el 6).</li>
-</ul>
-<p>Para iniciar o detener los demonios según el nivel de ejecución, estos suelen
-ir acompañados de un <em>script</em> de inicio que por lo general se almacena en el
-directorio <code>/etc/init.d</code>. En aquellas distribuciones de Linux que siguen el
-estándar LSB<sup id="fnref:5"><a class="footnote-ref" href="#fn:5" rel="footnote">5</a></sup> la estructura de este <em>script</em> suele ser muy similar a la
-siguiente:</p>
-<div class="codehilite"><pre><span class="c">#!/bin/sh</span>
-<span class="c">#</span>
-<span class="c"># midemoniod    /etc/init.d initscript para MiDemonio</span>
-<span class="c">#</span>
-
-<span class="c">### BEGIN INIT INFO</span>
-<span class="c"># Provides:          midemonio</span>
-<span class="c"># Required-Start:    $network $local_fs $remote_fs</span>
-<span class="c"># Required-Stop:     $network $local_fs $remote_fs</span>
-<span class="c"># Default-Start:     2 3 4 5</span>
-<span class="c"># Default-Stop:      0 1 6</span>
-<span class="c"># Short-Description: inicia y detiene midemonio</span>
-<span class="c"># Description:       MiDemonio es el mejor demonio. Y este archivo</span>
-<span class="c">#                    es un ejemplo de como crear un script de</span>
-<span class="c">#                    inicio.</span>
-<span class="c">### END INIT INFO</span>
-
-<span class="c"># Salir inmediatamente si un comando falla</span>
-<span class="c"># http://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin</span>
-<span class="nb">set</span> -e
-
-<span class="c"># Importar funciones LSB:</span>
-<span class="c"># start_daemon, killproc, status_of_proc, log_*, etc.</span>
-. /lib/lsb/init-functions
-
-<span class="nv">NAME</span><span class="o">=</span>midemoniod
-<span class="nv">PIDFILE</span><span class="o">=</span>/var/run/<span class="nv">$NAME</span>.pid
-<span class="nv">DAEMON</span><span class="o">=</span>/usr/sbin/<span class="nv">$NAME</span>
-<span class="nv">DAEMON_OPTS</span><span class="o">=</span><span class="s2">&quot;--daemon&quot;</span>
-
-<span class="c"># Si el demonio no existe, salir.</span>
-<span class="nb">test</span> -x <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">exit </span>5
-
-start<span class="o">()</span>
-<span class="o">{</span>
-    log_daemon_msg <span class="s2">&quot;Starting the $NAME process&quot;</span>
-    start_daemon -p <span class="nv">$PIDFILE</span> -- <span class="nv">$DAEMON</span> <span class="nv">$DAEMON_OPTS</span>
-    log_end_msg <span class="nv">$?</span>
-<span class="o">}</span>
-
-stop<span class="o">()</span>
-<span class="o">{</span>
-    log_daemon_msg <span class="s2">&quot;Stoppping the $NAME process&quot;</span>
-    killproc -p <span class="nv">$PIDFILE</span>
-    log_end_msg <span class="nv">$?</span>
-<span class="o">}</span>
-
-<span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
-    start<span class="o">)</span>
-        start
-        ;;
-    stop<span class="o">)</span>
-        stop
-        ;;
-    status<span class="o">)</span>
-        <span class="k">if</span> <span class="o">[</span> -e <span class="nv">$PIDFILE</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">            </span>status_of_proc -p <span class="nv">$PIDFILE</span> <span class="nv">$DAEMON</span> <span class="s2">&quot;$NAME process&quot;</span>
-        <span class="k">else</span>
-<span class="k">            </span>log_failure_msg <span class="s2">&quot;$NAME process is not running&quot;</span>
-            log_end_msg 0
-        <span class="k">fi</span>
-        ;;
-    restart<span class="o">)</span>
-        stop
-        start
-        ;;
-    reload|force-reload<span class="o">)</span>
-        <span class="k">if</span> <span class="o">[</span> -e <span class="nv">$PIDFILE</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">            </span>killproc -p <span class="nv">$PIDFILE</span> -SIGHUP
-            log_success_msg <span class="s2">&quot;$NAME process reloaded successfully&quot;</span>
-        <span class="k">else</span>
-<span class="k">            </span>log_failure_msg <span class="s2">&quot;$NAME process is not running&quot;</span>
-            log_end_msg 0
-        <span class="k">fi</span>
-        ;;
-    *<span class="o">)</span>
-        <span class="nb">echo</span> <span class="s2">&quot;Usage:  $0 {start|stop|status|reload|force-reload|restart}&quot;</span>
-        <span class="nb">exit </span>2
-        ;;
-<span class="k">esac</span>
-</pre></div>
-
-
-<p>Como se puede observar, la mayor parte de las opciones del <em>script</em> necesitan poner
-comunicarse con el demonio en ejecución:</p>
+<p>Además también pueden ejectuarse comandos específicos del gestor de base de
+datos que no formen parte del estándar SQL.</p>
+<h2>SELECT</h2>
+<p>Al hacer una consulta que devuelve datos —como es el caso de los <code>SELECT</code>— se
+pueden usar los siguientes métodos sobre el mismo objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> para posicionar
+la consulta en las distintas filas de resultados:</p>
 <dl>
-<dt><strong>start</strong></dt>
-<dd>Necesita poder determinar si el demonio ya ha sido iniciado para no hacerlo
-por segunda vez</dd>
-<dt><strong>status</strong></dt>
-<dd>También necesita poder determinar si el demonio ya ha sido iniciado o no.</dd>
-<dt><strong>stop</strong></dt>
-<dd>Necesita poder enviar la señal <code>SIGTERM</code> al proceso.</dd>
-<dt><strong>reload</strong></dt>
-<dd>Necesita poder enviar la señal <code>SIGHUP</code> al proceso.</dd>
+<dt><code>bool next()</code></dt>
+<dd>Recupera la siguiente fila en la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
+<dt><code>bool previous()</code></dt>
+<dd>Recupera la fila previa en la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
+<dt><code>bool first()</code></dt>
+<dd>Recupera la primera fila de la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
+<dt><code>bool last()</code></dt>
+<dd>Recupera la última fila de la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
+<dt><code>seek(int index, bool relative = false)</code></dt>
+<dd>Recupera la fila en la posición <code>index</code> y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>. La primera fila es la 0.</dd>
 </dl>
-<p>Para que todo esto sea posible el demonio suele crear una archivo con extensión
-<code>.pid</code> en el directorio <code>/var/run</code>. En el almacena únicamente su propio
-identificador de proceso, del tal forma que las funciones LSB <code>start_daemon</code>,
-<code>killproc</code>, <code>pidofproc</code> y <code>status_of_proc</code> asumen que:</p>
-<ol>
-<li>Si el archivo no existe, el demonio no se está ejecutando.</li>
-<li>En otro caso y si contiene uno o más valores numéricos separados por
-espacios en la primera línea, estos valores son considerados los PID de los
-procesos del demonio.</li>
-</ol>
-<p>Las funciones anteriores considerarán que el demonio está en ejecución si
-existen procesos con esos PID y enviarán las señales que correspondan.</p>
-<h1>Opciones de línea de comandos</h1>
-<p>Los demonios, igual que cualquier otro programa, pueden recibir opciones de
-línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo
-es muy común que ofrezcan opciones para sobrescribir los parámetros indicados
-en el archivo de configuración. También es habitual que un proceso de un programa
-diseñado para ejecutarse como un demonio no se convierta en tal si no es
-especificada en la línea de comandos una opción del estilo de <code>-d</code> o <code>--daemon</code>.
-Esto es así, por ejemplo, porque es más sencillo depurar el programa y comprobar
-su funcionamiento cuando éste no se ejecuta en segundo plano.</p>
-<p>En el código del proyecto <a href="http://github.com/aplatanado/rifftree">rifftree</a>,
-que ya comentamos en el artículo <a href="./resource-interchange-file-format.html">Resource Interchange File
-Format</a>, se puede observar como se utiliza la
-familia de funciones <a href="http://linux.die.net/man/3/getopt" title="getopt(3)">getopt</a> para procesar adecuadamente la línea de
-comandos de un programa cualquiera.</p>
+<p>Una vez el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> ha sido posicionado en la fila que nos interesa,
+podemos recuperar el dato en la columna <code>index</code> empleando el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#value" title="QSqlQuery::value()">value</a>(index).</p>
+<div class="codehilite"><pre><span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;SELECT nombre FROM contactos&quot;</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">next</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">QString</span> <span class="n">nombre</span> <span class="o">=</span> <span class="n">query</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">toString</span><span class="p">();</span>
+    <span class="n">doSomething</span><span class="p">(</span><span class="n">nombre</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Todos los datos recuperados de esta manera se devuelven usando instancias de
+la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qvariant.html" title="QVariant">QVariant</a>, por lo que se pueden convertir al tipo que nos interese
+usando los métodos <code>QVariant::to*</code>.</p>
+<h2>INPUT y UPDATE</h2>
+<p><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> permite preparar la ejecución de la consulta para después sustituir
+parámetros en ciertos marcadores de posición antes de ejecutarla finalmente.
+Esto es especialmente útil cuando se pretenden hacer inserciones y
+actualizaciones en la base de datos.</p>
+<p>La sustitución puede indicarse tanto mediante nombres:</p>
+<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
+<span class="n">query</span><span class="p">.</span><span class="n">prepare</span><span class="p">(</span><span class="s">&quot;INSERT INTO contactos (nombre, apellido) &quot;</span>
+              <span class="s">&quot;VALUES (:nombre, :apellido)&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s">&quot;:nombre&quot;</span><span class="p">,</span> <span class="s">&quot;Jesús&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s">&quot;:apellido&quot;</span><span class="p">,</span> <span class="s">&quot;Torres&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+</pre></div>
+
+
+<p>como usando posiciones:</p>
+<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
+<span class="n">query</span><span class="p">.</span><span class="n">prepare</span><span class="p">(</span><span class="s">&quot;INSERT INTO contactos (nombre, apellido) &quot;</span>
+              <span class="s">&quot;VALUES (?, ?)&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Jesús&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Torres&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+</pre></div>
+
+
+<p>Finalmente el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#numRowsAffected" title="QSqlQuery::numRowsAffected()">numRowsAffected</a>() puede utilizarse
+para conocer cuantas filas se han visto afectadas por una sentencia no <code>SELECT</code>.
+Mientras que para sentencias <code>SELECT</code> se puede determinar cuantas filas han sido
+recuperadas utilizando el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#size" title="QSqlQuery::size()">size</a>().</p>
 <h1>Referencias</h1>
 <ol>
-<li>Wikipedia - <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)">Demonio</a>.</li>
-<li><a href="http://www.danielhall.me/2010/01/writing-a-daemon-in-c/">Writing a Daemon in C</a></li>
-<li><a href="http://stackoverflow.com/questions/7645378/whats-the-difference-between-calling-daemon-and-calling-fork-setsid-for">What's the difference between calling daemon() and calling fork(), setsid(), fork(), etc.?</a></li>
-<li>Proyecto <a href="http://libqxt.org">LibQxt</a>.</li>
-<li>The GNU C Library - <a href="http://www.gnu.org/software/libc/manual/html_node/Users-and-Groups.html#Users-and-Groups">Users and Groups</a></li>
-<li>Wikipedia - <a href="http://en.wikipedia.org/wiki/Runlevel">Runlevel</a></li>
-<li>Linux Standard Base Core Specification 3.2 - <a href="http://refspecs.linuxfoundation.org/LSB_3.2.0/LSB-Core-generic/LSB-Core-generic/tocsysinit.html">System Initialization</a></li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL">Qt SQL</a></li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</li>
 </ol>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>El término <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> se usa fundamentalmente en sistemas UNIX y basados
-en UNIX, como GNU/Linux o Mac OS X. En Windows y otros sistemas operativos se
-denominan servicios porque fundamentalmente son programas que ofrecen
-servicios al resto del sistema.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:2">
-<p>Tradicionalmente los nombres de los demonios terminan con la letra <em>d</em>.
-Por ejemplo <code>syslogd</code> es el demonio que implementa el registro de eventos del
-sistema, mientras que <code>sshd</code> es el que sirve a las conexiones SSH entrantes.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-<li id="fn:3">
-<p>Se denomina <em>prompt</em> al carácter o conjunto de caracteres que la <em>shell</em>
-muestra en la línea de comandos para indicar que está a la espera de nuevos
-comandos.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
-</li>
-<li id="fn:4">
-<p><code>init</code> es el <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a> antepasado de todos los procesos del sistema. Es
-el primer proceso que se inicia durante el arranque del sistema y su función
-principal es lanzar el resto de demonios necesarios para el funcionamiento del
-sistema. Generalmente también lanza los procesos encargados de solicitar el
-inicio de sesión a los usuarios.&#160;<a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
-</li>
-<li id="fn:5">
-<p>LSB o Linux System Standard es una iniciativa de la Linux Foundation para
-reducir las diferencias entre las distintas distribuciones de Linux, limitando
-así los costes derivados de portar las aplicaciones de unas distribuciones a otras.&#160;<a class="footnote-backref" href="#fnref:5" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p>Ya hemos comentado en diversas ocasiones en otros artículos que Qt está
+formado por diversos módulos —como Qt Core, Qt GUI y Qt Network— y hemos hablado
+de alguno de ellos.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="./servicios-y-demonios-en-linux.html"><h2>Servicios y demonios en Linux</h2></a>
+        <div class= "well small"> sáb 18 mayo 2013
+
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> o servicio es un programa que se ejecuta en segundo plano,
+fuera del control interactivo de los usuarios del sistema ya que carecen de
+interfaz con estos.</p>
+<p>El sistema generalmente inicia los demonios durante el arranque, siendo las
+funciones más comunes de estos las de ofrecer servicios ...</p> <a class="btn btn-info xsmall" href="./servicios-y-demonios-en-linux.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -519,27 +271,6 @@ by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torre
 de fragmentos etiquetados o <a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a>. Siendo usado en la actualidad como formato
 contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
 indudable que resulta especialmente útil para ...</p> <a class="btn btn-info xsmall" href="./resource-interchange-file-format.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./conversion-de-tipos-en-c.html"><h2>Conversión de tipos en C++</h2></a>
-        <div class= "well small"> dom 05 mayo 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>En C, cuando una conversión entre dos tipos no es realizada por el compilador de
-forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
-<code>char</code> a <code>int</code> o de éste a <code>float</code>— se puede forzar utilizando una expresión de
-<em>typecast</em> de la forma <code>(type)object</code> —o ...</p> <a class="btn btn-info xsmall" href="./conversion-de-tipos-en-c.html">leer más</a></div>
     </div>	
 				
             <div class="pagination">
