@@ -329,6 +329,7 @@ en C++.&lt;/p&gt;
 que sea posible extenderlo con el objeto de usar el registro del sistema
 —a través de la función &lt;a href="http://linux.die.net/man/3/syslog" title="syslog(3)"&gt;syslog&lt;/a&gt;()— en lugar de nuestros propios archivos,
 si estuviéramos interesados en ello.&lt;/p&gt;
+&lt;p&gt;Una librería alternativa a &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt; es &lt;a href="http://bitbucket.org/razvanpetru/qt-components/wiki/QsLog" title="QsLog"&gt;QsLog&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Crear una nueva sesión&lt;/h2&gt;
 &lt;p&gt;Cada proceso es miembro de un grupo y estos a su vez se reúnen en sesiones. En
 cada una de estas hay un proceso que hace las veces de líder, de tal forma que
