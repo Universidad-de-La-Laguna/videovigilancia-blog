@@ -195,6 +195,8 @@ que sea posible extenderlo con el objeto de usar el registro del sistema
 —a través de la función [syslog][]()— en lugar de nuestros propios archivos,
 si estuviéramos interesados en ello.
 
+Una librería alternativa a [QxtLogger] es [QsLog].
+
 ## Crear una nueva sesión
 
 Cada proceso es miembro de un grupo y estos a su vez se reúnen en sesiones. En
@@ -495,6 +497,7 @@ comandos de un programa cualquiera.
 [QxtLogger]: http://libqxt.bitbucket.org/doc/tip/qxtlogger.html "QxtLogger"
 [nivel de ejecución]: http://es.wikipedia.org/wiki/Nivel_de_ejecuci%C3%B3n "Nivel de ejecución"
 [LibQxt]: http://libqxt.org "LibQxt"
+[QsLog]: http://bitbucket.org/razvanpetru/qt-components/wiki/QsLog "QsLog"
 [setsid]: http://linux.die.net/man/2/setsid "setsid(2)"
 [getopt]: http://linux.die.net/man/3/getopt "getopt(3)"
 
