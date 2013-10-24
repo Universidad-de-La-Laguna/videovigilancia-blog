@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-09-11T00:00:00+01:00</updated><entry><title>Almacenar datos en SQLite</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/almacenar-datos-en-sqlite.html" rel="alternate"></link><updated>2013-09-11T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-09-11:almacenar-datos-en-sqlite.html</id><summary type="html">&lt;p&gt;Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-09-18T00:00:00+01:00</updated><entry><title>Capturando secuencias de vídeo</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/capturando-secuencias-de-video.html" rel="alternate"></link><updated>2013-09-18T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-09-18:capturando-secuencias-de-video.html</id><summary type="html"></summary><category term="qt"></category><category term="multimedia"></category><category term="opencv"></category></entry><entry><title>Almacenar datos en SQLite</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/almacenar-datos-en-sqlite.html" rel="alternate"></link><updated>2013-09-11T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-09-11:almacenar-datos-en-sqlite.html</id><summary type="html">&lt;p&gt;Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
 son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
 Es decir, que están compuestos por un programa servidor —que es quien tiene
 acceso local a los datos— de forma que uno o más programas cliente pueden
@@ -277,13 +277,46 @@ eventos centralizados o filtrados.&lt;/p&gt;
 funcionalidades de la librería &lt;a href="http://libqxt.org" title="LibQxt"&gt;LibQxt&lt;/a&gt;. Este proyecto proporciona un conjunto
 de clases que añaden funcionalidades multiplataforma que no están disponibles
 en el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Entre dichas funcionalidades adicionales está la clase &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt;, que permite
-enviar mensajes al registro de eventos del sistema de forma más apropiada
-para una aplicación en C++.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;QxtLogger&amp;gt;&lt;/span&gt;
+&lt;p&gt;Entre dichas funcionalidades adicionales está la clase &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt;, que facilita
+que el demonio registre los eventos en sus propios archivos de sucesos
+&lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt; —por ejemplo &lt;code&gt;/var/log/midemonio/info.log&lt;/code&gt;,
+&lt;code&gt;/var/log/midemonio/debug.log&lt;/code&gt;, etc.— de forma más apropiada para una aplicación
+en C++.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;QxtBasicFileLoggerEngine&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;QxtLogger&amp;gt;&lt;/span&gt;
 
 &lt;span class="p"&gt;...&lt;/span&gt;
 
+&lt;span class="c1"&gt;// Configurar QtLogger para usar dos archivos de registro. Uno para&lt;/span&gt;
+&lt;span class="c1"&gt;// los niveles de severidad de INFO en adelante y otro para los&lt;/span&gt;
+&lt;span class="c1"&gt;// niveles de DEBUG en adelante.&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Primero se crea un engine por archivo de registro&lt;/span&gt;
+&lt;span class="n"&gt;QxtBasicFileLoggerEngine&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+    &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QxtBasicFileLoggerEngine&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;debug.log&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;QxtBasicFileLoggerEngine&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+    &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QxtBasicFileLoggerEngine&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;info.log&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Cada engine se registra en el objeto QtLogger asignándole&lt;/span&gt;
+&lt;span class="c1"&gt;// un nombre diferente&lt;/span&gt;
+&lt;span class="n"&gt;qxtLog&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;addLoggerEngine&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;dbg&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;qxtLog&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;addLoggerEngine&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;app&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;info&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Finalmente se indica que niveles de severidad se envían a cada&lt;/span&gt;
+&lt;span class="c1"&gt;// engine y, por tanto, a cada archivo de registro&lt;/span&gt;
+&lt;span class="n"&gt;qxtLog&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;disableAllLogLevels&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="n"&gt;qxtLog&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;enableLogLevels&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;dbg&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;QxtLogger&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;AllLevels&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;qxtLog&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;enableLogLevels&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;app&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="n"&gt;QxtLogger&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;InfoLevel&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;
+                                &lt;span class="n"&gt;QxtLogger&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;WarningLevel&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;
+                                &lt;span class="n"&gt;QxtLogger&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;ErrorLevel&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;
+                                &lt;span class="n"&gt;QxtLogger&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;CriticalLevel&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;
+                                &lt;span class="n"&gt;QxtLogger&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;FatalLevel&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;
+                                &lt;span class="n"&gt;QxtLogger&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;WriteLevel&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;...&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Y ya podemos registar los distintos sucesos.&lt;/span&gt;
 &lt;span class="n"&gt;qxtLog&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Demonio iniciado con éxito&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
 &lt;span class="p"&gt;...&lt;/span&gt;
@@ -292,6 +325,10 @@ para una aplicación en C++.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;En teoría el mecanismo usado por &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt; es lo bastante flexible como para
+que sea posible extenderlo con el objeto de usar el registro del sistema
+—a través de la función &lt;a href="http://linux.die.net/man/3/syslog" title="syslog(3)"&gt;syslog&lt;/a&gt;()— en lugar de nuestros propios archivos,
+si estuviéramos interesados en ello.&lt;/p&gt;
 &lt;h2&gt;Crear una nueva sesión&lt;/h2&gt;
 &lt;p&gt;Cada proceso es miembro de un grupo y estos a su vez se reúnen en sesiones. En
 cada una de estas hay un proceso que hace las veces de líder, de tal forma que

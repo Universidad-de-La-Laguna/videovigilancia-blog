@@ -188,13 +188,46 @@ eventos centralizados o filtrados.</p>
 funcionalidades de la librería <a href="http://libqxt.org" title="LibQxt">LibQxt</a>. Este proyecto proporciona un conjunto
 de clases que añaden funcionalidades multiplataforma que no están disponibles
 en el <em>framework</em> <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>.</p>
-<p>Entre dichas funcionalidades adicionales está la clase <a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a>, que permite
-enviar mensajes al registro de eventos del sistema de forma más apropiada
-para una aplicación en C++.</p>
-<div class="codehilite"><pre><span class="cp">#include &lt;QxtLogger&gt;</span>
+<p>Entre dichas funcionalidades adicionales está la clase <a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a>, que facilita
+que el demonio registre los eventos en sus propios archivos de sucesos
+<a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a> —por ejemplo <code>/var/log/midemonio/info.log</code>,
+<code>/var/log/midemonio/debug.log</code>, etc.— de forma más apropiada para una aplicación
+en C++.</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;QxtBasicFileLoggerEngine&gt;</span>
+<span class="cp">#include &lt;QxtLogger&gt;</span>
 
 <span class="p">...</span>
 
+<span class="c1">// Configurar QtLogger para usar dos archivos de registro. Uno para</span>
+<span class="c1">// los niveles de severidad de INFO en adelante y otro para los</span>
+<span class="c1">// niveles de DEBUG en adelante.</span>
+
+<span class="c1">// Primero se crea un engine por archivo de registro</span>
+<span class="n">QxtBasicFileLoggerEngine</span> <span class="o">*</span><span class="n">debug</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="n">QxtBasicFileLoggerEngine</span><span class="p">(</span><span class="s">&quot;debug.log&quot;</span><span class="p">);</span>
+<span class="n">QxtBasicFileLoggerEngine</span> <span class="o">*</span><span class="n">info</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="n">QxtBasicFileLoggerEngine</span><span class="p">(</span><span class="s">&quot;info.log&quot;</span><span class="p">);</span>
+
+<span class="c1">// Cada engine se registra en el objeto QtLogger asignándole</span>
+<span class="c1">// un nombre diferente</span>
+<span class="n">qxtLog</span><span class="o">-&gt;</span><span class="n">addLoggerEngine</span><span class="p">(</span><span class="s">&quot;dbg&quot;</span><span class="p">,</span> <span class="n">debug</span><span class="p">);</span>
+<span class="n">qxtLog</span><span class="o">-&gt;</span><span class="n">addLoggerEngine</span><span class="p">(</span><span class="s">&quot;app&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">);</span>
+
+<span class="c1">// Finalmente se indica que niveles de severidad se envían a cada</span>
+<span class="c1">// engine y, por tanto, a cada archivo de registro</span>
+<span class="n">qxtLog</span><span class="o">-&gt;</span><span class="n">disableAllLogLevels</span><span class="p">();</span>
+
+<span class="n">qxtLog</span><span class="o">-&gt;</span><span class="n">enableLogLevels</span><span class="p">(</span><span class="s">&quot;dbg&quot;</span><span class="p">,</span> <span class="n">QxtLogger</span><span class="o">::</span><span class="n">AllLevels</span><span class="p">);</span>
+<span class="n">qxtLog</span><span class="o">-&gt;</span><span class="n">enableLogLevels</span><span class="p">(</span><span class="s">&quot;app&quot;</span><span class="p">,</span>  <span class="n">QxtLogger</span><span class="o">::</span><span class="n">InfoLevel</span> <span class="o">|</span>
+                                <span class="n">QxtLogger</span><span class="o">::</span><span class="n">WarningLevel</span> <span class="o">|</span>
+                                <span class="n">QxtLogger</span><span class="o">::</span><span class="n">ErrorLevel</span> <span class="o">|</span>
+                                <span class="n">QxtLogger</span><span class="o">::</span><span class="n">CriticalLevel</span> <span class="o">|</span>
+                                <span class="n">QxtLogger</span><span class="o">::</span><span class="n">FatalLevel</span> <span class="o">|</span>
+                                <span class="n">QxtLogger</span><span class="o">::</span><span class="n">WriteLevel</span> <span class="p">);</span>
+
+<span class="p">...</span>
+
+<span class="c1">// Y ya podemos registar los distintos sucesos.</span>
 <span class="n">qxtLog</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Demonio iniciado con éxito&quot;</span><span class="p">);</span>
 
 <span class="p">...</span>
@@ -203,6 +236,10 @@ para una aplicación en C++.</p>
 </pre></div>
 
 
+<p>En teoría el mecanismo usado por <a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger">QxtLogger</a> es lo bastante flexible como para
+que sea posible extenderlo con el objeto de usar el registro del sistema
+—a través de la función <a href="http://linux.die.net/man/3/syslog" title="syslog(3)">syslog</a>()— en lugar de nuestros propios archivos,
+si estuviéramos interesados en ello.</p>
 <h2>Crear una nueva sesión</h2>
 <p>Cada proceso es miembro de un grupo y estos a su vez se reúnen en sesiones. En
 cada una de estas hay un proceso que hace las veces de líder, de tal forma que
