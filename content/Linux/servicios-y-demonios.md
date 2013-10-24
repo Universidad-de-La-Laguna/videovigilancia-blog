@@ -141,21 +141,59 @@ funcionalidades de la librería [LibQxt]. Este proyecto proporciona un conjunto
 de clases que añaden funcionalidades multiplataforma que no están disponibles
 en el _framework_ [Qt].
 
-Entre dichas funcionalidades adicionales está la clase [QxtLogger], que permite
-enviar mensajes al registro de eventos del sistema de forma más apropiada
-para una aplicación en C++.
+Entre dichas funcionalidades adicionales está la clase [QxtLogger], que facilita
+que el demonio registre los eventos en sus propios archivos de sucesos
+[QxtLogger] —por ejemplo `/var/log/midemonio/info.log`,
+`/var/log/midemonio/debug.log`, etc.— de forma más apropiada para una aplicación
+en C++.
 
 ~~~~.cpp
+#include <QxtBasicFileLoggerEngine>
 #include <QxtLogger>
 
 ...
 
+// Configurar QtLogger para usar dos archivos de registro. Uno para
+// los niveles de severidad de INFO en adelante y otro para los
+// niveles de DEBUG en adelante.
+
+// Primero se crea un engine por archivo de registro
+QxtBasicFileLoggerEngine *debug =
+    new QxtBasicFileLoggerEngine("debug.log");
+QxtBasicFileLoggerEngine *info =
+    new QxtBasicFileLoggerEngine("info.log");
+
+// Cada engine se registra en el objeto QtLogger asignándole
+// un nombre diferente
+qxtLog->addLoggerEngine("dbg", debug);
+qxtLog->addLoggerEngine("app", info);
+
+// Finalmente se indica que niveles de severidad se envían a cada
+// engine y, por tanto, a cada archivo de registro
+qxtLog->disableAllLogLevels();
+
+qxtLog->enableLogLevels("dbg", QxtLogger::AllLevels);
+qxtLog->enableLogLevels("app",  QxtLogger::InfoLevel |
+                                QxtLogger::WarningLevel |
+                                QxtLogger::ErrorLevel |
+                                QxtLogger::CriticalLevel |
+                                QxtLogger::FatalLevel |
+                                QxtLogger::WriteLevel );
+
+...
+
+// Y ya podemos registar los distintos sucesos.
 qxtLog->info("Demonio iniciado con éxito");
 
 ...
 
 qxtLog->info(QTime::currentTime(), "Algo ha ocurrido", 3.14);
 ~~~~
+
+En teoría el mecanismo usado por [QxtLogger] es lo bastante flexible como para
+que sea posible extenderlo con el objeto de usar el registro del sistema
+—a través de la función [syslog][]()— en lugar de nuestros propios archivos,
+si estuviéramos interesados en ello.
 
 ## Crear una nueva sesión
 
