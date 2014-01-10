@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./capturando-secuencias-de-video.html"><h1>Capturando secuencias de vídeo</h1></a>
-            mié 18 septiembre 2013
+            <a href="./almacenar-datos-en-sqlite.html"><h1>Almacenar datos en SQLite</h1></a>
+            mié 11 septiembre 2013
 
 by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,31 +68,168 @@ by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torre
  
         </div>
         
-        <div></div>
+        <div><p>Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
+son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
+Es decir, que están compuestos por un programa servidor —que es quien tiene
+acceso local a los datos— de forma que uno o más programas cliente pueden
+solicitarle operaciones sobre dichos datos —generalmente mediante lenguaje SQL—.</p>
+<p>Esta arquitectura puede no ser la adecuada en cierto tipo de aplicaciones. Por
+ejemplo, si desarrollamos un software de agenda de contactos para sistemas de
+escritorio, el uso de bases de datos relacionales para almacenar la información
+puede resultar natural, pero distribuir nuestra aplicación junto a un sistema de
+gestión de bases de datos tradicional —como MySQL— seguramente sea un tanto
+excesivo.</p>
+<p>Para estos casos existen otros gestores que no hacen uso de este tipo de
+arquitectura. Por ejemplo <a href="http://www.sqlite.org/" title="SQLite">SQLite</a>, que es una sencilla librería que contiene
+en si misma un completo sistema de gestión de bases de datos; de tal forma que
+las aplicaciones que la utilizan pueden acceder a los archivos y manipular los
+datos por si mismas, mediante consultas SQL, si necesitar la intermediación de
+un programa servidor.</p>
+<h1>Casos de uso de SQLite</h1>
+<p><a href="http://www.sqlite.org/" title="SQLite">SQLite</a> es usada por muchos <em>frameworks</em> —por ejemplo Django o
+Ruby On Rails— como base de datos por defecto durante el desarrollo de nuevos
+proyectos. La ventaja de esto es que así se puede trabajar desde el primero
+momento con bases de datos relacionales, sin tener que preocuparnos por
+configurar adecuadamente ningún sistema gestor tradicional.</p>
+<p>Como estos <em>frameworks</em> suelen proveer soporte para diversos gestores
+en el momento de desplegar la aplicación se puede cambiar, prácticamentre sin
+cambios en el código, a otro sistema gestor, si las necesidades de la aplicación
+así lo indican.</p>
+<p>Además <a href="http://www.sqlite.org/" title="SQLite">SQLite</a> se adapta perfectamente a las necesidades de muchas aplicaciones
+de escritorio y de dispositivos móviles. Por ese motivo es utilizada ámpliamente
+en los archivos de datos de apliaciones como Mozilla Firefox o Google Chrome
+y se incluye por defecto en cualquier dispositivo Android, permitiendo que las
+aplicaciones creen sus propias bases de datos sin necesitar ningún tipo de
+configuración.</p>
+<h1>Acceso a bases de datos mediante Qt SQL</h1>
+<p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> integra el módulo <a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL">Qt SQL</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que provee acceso a diferentes gestores
+de bases de datos SQL, entre los que podemos destacar MySQL, PostgreSQL, Oracle, gestores
+compatibles con <a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC">ODBC</a> y <a href="http://www.sqlite.org/" title="SQLite">SQLite</a>.</p>
+<p>Para todos estos casos lo primero es instanciar un objeto de la clase <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>
+indicando el gestor al que nos queremos conectar:</p>
+<div class="codehilite"><pre><span class="n">QSqlDatabase</span> <span class="o">*</span><span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QSqlDatabase</span><span class="p">(</span><span class="s">&quot;QSQLITE&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>para después indicar el nombre de la base de datos que nos interesa:</p>
+<div class="codehilite"><pre><span class="n">db</span><span class="o">-&gt;</span><span class="n">setDatabaseName</span><span class="p">(</span><span class="s">&quot;data.sqlite&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>El formato del nombre de la base de datos depende del controlador del gestor que
+hayamos escogido. Por ejemplo, para el driver <code>QODBC</code> el nombre puede ser un
+<a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name">DSN</a>, un archivo <a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name">DSN</a> (en cuyo caso su nombre debe terminar en extensión <code>.dsn</code>)
+o una cadena de conexión <a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC">ODBC</a>. Mientras que para <a href="http://www.sqlite.org/" title="SQLite">SQLite</a> el nombre de la base
+de datos es directamente el del archivo que la contiene —<code>data.sqlite</code> en nuestro ejemplo—.</p>
+<p>Finalmente es necesario abrir la conexión a la base de datos usando el método
+<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html#open" title="QSqlDatabase::open()">open</a>(), del que es conveniente comprobar el valor de retorno
+para determinar si hemos tenido éxito.</p>
+<div class="codehilite"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">QMessageBox</span><span class="o">::</span><span class="n">critical</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">tr</span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">),</span>
+        <span class="n">tr</span><span class="p">(</span><span class="s">&quot;No se pudo acceder a los datos.&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h1>Haciendo consultas SQL</h1>
+<p>La conexión creada de la manera que hemos descrito anteriormente se configura
+automáticamente como la conexión a base de datos por defecto de nuestra aplicación.
+Así que hacer una consulta es tan sencillo como instanciar la clase <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> y
+proporcionarle la sentencia SQL a dicho objeto a través del método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#exec" title="QSqlQuery::exec()">exec</a>():</p>
+<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
+<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;SELECT * FROM TABLE contactos);</span>
+</pre></div>
+
+
+<p>De esta forma <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> puede utilizarse tanto para ejecutar sentencias de
+manipulación —como <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code>— como de definición
+—por ejemplo <code>CREATE TABLE</code> y similares—.</p>
+<div class="codehilite"><pre><span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;CREATE TABLE IF NOT EXISTS contactos &quot;</span>
+            <span class="s">&quot;(id INTEGER PRIMARY KEY AUTOINCREMENT,&quot;</span>
+            <span class="s">&quot; nombre VARCHAR(50))&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Además también pueden ejectuarse comandos específicos del gestor de base de
+datos que no formen parte del estándar SQL.</p>
+<h2>SELECT</h2>
+<p>Al hacer una consulta que devuelve datos —como es el caso de los <code>SELECT</code>— se
+pueden usar los siguientes métodos sobre el mismo objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> para posicionar
+la consulta en las distintas filas de resultados:</p>
+<dl>
+<dt><code>bool next()</code></dt>
+<dd>Recupera la siguiente fila en la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
+<dt><code>bool previous()</code></dt>
+<dd>Recupera la fila previa en la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
+<dt><code>bool first()</code></dt>
+<dd>Recupera la primera fila de la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
+<dt><code>bool last()</code></dt>
+<dd>Recupera la última fila de la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
+<dt><code>seek(int index, bool relative = false)</code></dt>
+<dd>Recupera la fila en la posición <code>index</code> y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>. La primera fila es la 0.</dd>
+</dl>
+<p>Una vez el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> ha sido posicionado en la fila que nos interesa,
+podemos recuperar el dato en la columna <code>index</code> empleando el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#value" title="QSqlQuery::value()">value</a>(index).</p>
+<div class="codehilite"><pre><span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;SELECT nombre FROM contactos&quot;</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">next</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">QString</span> <span class="n">nombre</span> <span class="o">=</span> <span class="n">query</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">toString</span><span class="p">();</span>
+    <span class="n">doSomething</span><span class="p">(</span><span class="n">nombre</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Todos los datos recuperados de esta manera se devuelven usando instancias de
+la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qvariant.html" title="QVariant">QVariant</a>, por lo que se pueden convertir al tipo que nos interese
+usando los métodos <code>QVariant::to*</code>.</p>
+<h2>INPUT y UPDATE</h2>
+<p><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> permite preparar la ejecución de la consulta para después sustituir
+parámetros en ciertos marcadores de posición antes de ejecutarla finalmente.
+Esto es especialmente útil cuando se pretenden hacer inserciones y
+actualizaciones en la base de datos.</p>
+<p>La sustitución puede indicarse tanto mediante nombres:</p>
+<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
+<span class="n">query</span><span class="p">.</span><span class="n">prepare</span><span class="p">(</span><span class="s">&quot;INSERT INTO contactos (nombre, apellido) &quot;</span>
+              <span class="s">&quot;VALUES (:nombre, :apellido)&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s">&quot;:nombre&quot;</span><span class="p">,</span> <span class="s">&quot;Jesús&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s">&quot;:apellido&quot;</span><span class="p">,</span> <span class="s">&quot;Torres&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+</pre></div>
+
+
+<p>como usando posiciones:</p>
+<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
+<span class="n">query</span><span class="p">.</span><span class="n">prepare</span><span class="p">(</span><span class="s">&quot;INSERT INTO contactos (nombre, apellido) &quot;</span>
+              <span class="s">&quot;VALUES (?, ?)&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Jesús&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Torres&quot;</span><span class="p">);</span>
+<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+</pre></div>
+
+
+<p>Finalmente el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#numRowsAffected" title="QSqlQuery::numRowsAffected()">numRowsAffected</a>() puede utilizarse
+para conocer cuantas filas se han visto afectadas por una sentencia no <code>SELECT</code>.
+Mientras que para sentencias <code>SELECT</code> se puede determinar cuantas filas han sido
+recuperadas utilizando el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#size" title="QSqlQuery::size()">size</a>().</p>
+<h1>Referencias</h1>
+<ol>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL">Qt SQL</a></li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Ya hemos comentado en diversas ocasiones en otros artículos que Qt está
+formado por diversos módulos —como Qt Core, Qt GUI y Qt Network— y hemos hablado
+de alguno de ellos.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
         <hr />
     </div>
 		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./almacenar-datos-en-sqlite.html"><h2>Almacenar datos en SQLite</h2></a>
-        <div class= "well small"> mié 11 septiembre 2013
-
-by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
-son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
-Es decir, que están compuestos por un programa servidor —que es quien tiene
-acceso local a los datos— de forma que uno o más programas cliente pueden ...</p> <a class="btn btn-info xsmall" href="./almacenar-datos-en-sqlite.html">leer más</a></div>
-    </div>	
-				
     
  
         
@@ -115,6 +252,27 @@ interfaz con estos.</p>
 funciones más comunes de estos las de ofrecer servicios ...</p> <a class="btn btn-info xsmall" href="./servicios-y-demonios-en-linux.html">leer más</a></div>
     </div>	
 				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="./resource-interchange-file-format.html"><h2>Resource Interchange File Format</h2></a>
+        <div class= "well small"> dom 12 mayo 2013
+
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>El <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format</a> o <a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format">RIFF</a> es un formato contenedor genérico diseñado para almacenar datos en forma
+de fragmentos etiquetados o <a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)">chunks</a>. Siendo usado en la actualidad como formato
+contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
+indudable que resulta especialmente útil para ...</p> <a class="btn btn-info xsmall" href="./resource-interchange-file-format.html">leer más</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
@@ -127,7 +285,6 @@ funciones más comunes de estos las de ofrecer servicios ...</p> <a class="btn b
     <li class=""><a href="./index6.html">6</a></li>
     <li class=""><a href="./index7.html">7</a></li>
     <li class=""><a href="./index8.html">8</a></li>
-    <li class=""><a href="./index9.html">9</a></li>
 
     <li class="next"><a href="./index2.html">Next &rarr;</a></li>
 
