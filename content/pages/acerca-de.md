@@ -175,10 +175,10 @@ de bloqueos. Además el desarrollo se pude realizar en un lenguaje de programaci
 diferente a C++.
 
 Aplicación web en servidor empotrado
-: Se puede empotrar un servidor web, como [mongoose](http://code.google.com/p/mongoose/)
-o [libevent](http://libevent.org/), en el propio proceso del servidor de
-videovigilancia. Esta sería la solución más compacta, aunque tal vez también
-la menos interesante al incorporar menos novedades.
+: Se puede empotrar un servidor web, como [mongoose](http://code.google.com/p/mongoose/),
+[libevent](http://libevent.org/) o [pillow](https://github.com/acossette/pillow),
+en el propio proceso del servidor de videovigilancia. Esta sería la solución más
+compacta, aunque tal vez también la menos interesante al incorporar menos novedades.
 
 Sea cual sea la solución finalmente elegida, el frontal debe soportar que el
 usuario pueda realizar las siguientes acciones:
