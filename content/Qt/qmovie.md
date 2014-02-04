@@ -139,7 +139,7 @@ Para aprovechar eso:
             //
             // ...
             //
-            void on_movie_updated(const QRect& rect);
+            void showFrame(const QRect& rect);
 
  2. Definimos el código del _slot_ para que al ser invocado actualice la
 imagen mostrada por el control [QLabel]. En ese sentido el método
@@ -147,7 +147,7 @@ imagen mostrada por el control [QLabel]. En ese sentido el método
 mostrar. Mientras que [QMovie]::[currentPixmap][]() nos permite obtener el último
 _frame_ del objeto [QMovie] en formato [QPixmap]:
 
-        void MovieViewerWindow::on_movie_updated(const QRect& rect)
+        void MovieViewerWindow::showFrame(const QRect& rect)
         {
             QPixmap pixmap = movie_->currentPixmap();
             ui->label->setPixmap(pixmap);
@@ -160,7 +160,7 @@ objeto [QLabel] no sepa nada de nuestra animación, y conectamos la señal
             movie_ = new QMovie();
             // ui->label->setMovie(movie_);
             connect(movie_, SIGNAL(updated(const QRect&)),
-                    this, SLOT(on_movie_updated(const QRect&)));
+                    this, SLOT(showFrame(const QRect&)));
         }
 
 Ahora podríamos introducir en el _slot_ todo aquello que nos interese hacer
