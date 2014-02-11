@@ -58,8 +58,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../almacenar-datos-en-sqlite.html"><h1>Almacenar datos en SQLite</h1></a>
-            mié 11 septiembre 2013
+            <a href="../capturando-secuencias-de-video-qt.html"><h1>Capturando secuencias de vídeo Qt</h1></a>
+            mar 11 febrero 2014
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
@@ -68,168 +68,134 @@ by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torr
  
         </div>
         
-        <div><p>Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
-son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
-Es decir, que están compuestos por un programa servidor —que es quien tiene
-acceso local a los datos— de forma que uno o más programas cliente pueden
-solicitarle operaciones sobre dichos datos —generalmente mediante lenguaje SQL—.</p>
-<p>Esta arquitectura puede no ser la adecuada en cierto tipo de aplicaciones. Por
-ejemplo, si desarrollamos un software de agenda de contactos para sistemas de
-escritorio, el uso de bases de datos relacionales para almacenar la información
-puede resultar natural, pero distribuir nuestra aplicación junto a un sistema de
-gestión de bases de datos tradicional —como MySQL— seguramente sea un tanto
-excesivo.</p>
-<p>Para estos casos existen otros gestores que no hacen uso de este tipo de
-arquitectura. Por ejemplo <a href="http://www.sqlite.org/" title="SQLite">SQLite</a>, que es una sencilla librería que contiene
-en si misma un completo sistema de gestión de bases de datos; de tal forma que
-las aplicaciones que la utilizan pueden acceder a los archivos y manipular los
-datos por si mismas, mediante consultas SQL, si necesitar la intermediación de
-un programa servidor.</p>
-<h1>Casos de uso de SQLite</h1>
-<p><a href="http://www.sqlite.org/" title="SQLite">SQLite</a> es usada por muchos <em>frameworks</em> —por ejemplo Django o
-Ruby On Rails— como base de datos por defecto durante el desarrollo de nuevos
-proyectos. La ventaja de esto es que así se puede trabajar desde el primero
-momento con bases de datos relacionales, sin tener que preocuparnos por
-configurar adecuadamente ningún sistema gestor tradicional.</p>
-<p>Como estos <em>frameworks</em> suelen proveer soporte para diversos gestores
-en el momento de desplegar la aplicación se puede cambiar, prácticamentre sin
-cambios en el código, a otro sistema gestor, si las necesidades de la aplicación
-así lo indican.</p>
-<p>Además <a href="http://www.sqlite.org/" title="SQLite">SQLite</a> se adapta perfectamente a las necesidades de muchas aplicaciones
-de escritorio y de dispositivos móviles. Por ese motivo es utilizada ámpliamente
-en los archivos de datos de apliaciones como Mozilla Firefox o Google Chrome
-y se incluye por defecto en cualquier dispositivo Android, permitiendo que las
-aplicaciones creen sus propias bases de datos sin necesitar ningún tipo de
-configuración.</p>
-<h1>Acceso a bases de datos mediante Qt SQL</h1>
-<p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> integra el módulo <a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL">Qt SQL</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> que provee acceso a diferentes gestores
-de bases de datos SQL, entre los que podemos destacar MySQL, PostgreSQL, Oracle, gestores
-compatibles con <a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC">ODBC</a> y <a href="http://www.sqlite.org/" title="SQLite">SQLite</a>.</p>
-<p>Para todos estos casos lo primero es instanciar un objeto de la clase <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>
-indicando el gestor al que nos queremos conectar:</p>
-<div class="codehilite"><pre><span class="n">QSqlDatabase</span> <span class="o">*</span><span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QSqlDatabase</span><span class="p">(</span><span class="s">&quot;QSQLITE&quot;</span><span class="p">);</span>
+        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> incluye el módulo <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia">Qt Multimedia</a> para facilitar la manipulación de
+contenidos multimedia. Entre otras cosas permite reproducir audio y vídeo y
+capturar desde dispositivos de adquisición soportados por el sistema operativo.</p>
+<p>Como por defecto no viene activado es necesaro abrir el archivo <code>.pro</code> del
+proyecto y añadir la línea</p>
+<div class="codehilite"><pre><span class="n">QT</span>       <span class="o">+=</span> <span class="n">multimedia</span> <span class="n">multimediawidgets</span>
 </pre></div>
 
 
-<p>para después indicar el nombre de la base de datos que nos interesa:</p>
-<div class="codehilite"><pre><span class="n">db</span><span class="o">-&gt;</span><span class="n">setDatabaseName</span><span class="p">(</span><span class="s">&quot;data.sqlite&quot;</span><span class="p">);</span>
+<h2>Primeros pasos con la webcam</h2>
+<p>Capturar de una webcam es tan sencillo como crear un objeto <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a> e iniciar
+la captura mediante el método <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#start" title="QCamera::start()">start</a>():</p>
+<div class="codehilite"><pre><span class="n">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QCamera</span><span class="p">;</span>
+<span class="n">camera</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>
 </pre></div>
 
 
-<p>El formato del nombre de la base de datos depende del controlador del gestor que
-hayamos escogido. Por ejemplo, para el driver <code>QODBC</code> el nombre puede ser un
-<a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name">DSN</a>, un archivo <a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name">DSN</a> (en cuyo caso su nombre debe terminar en extensión <code>.dsn</code>)
-o una cadena de conexión <a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC">ODBC</a>. Mientras que para <a href="http://www.sqlite.org/" title="SQLite">SQLite</a> el nombre de la base
-de datos es directamente el del archivo que la contiene —<code>data.sqlite</code> en nuestro ejemplo—.</p>
-<p>Finalmente es necesario abrir la conexión a la base de datos usando el método
-<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html#open" title="QSqlDatabase::open()">open</a>(), del que es conveniente comprobar el valor de retorno
-para determinar si hemos tenido éxito.</p>
-<div class="codehilite"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">open</span><span class="p">())</span> <span class="p">{</span>
-    <span class="n">QMessageBox</span><span class="o">::</span><span class="n">critical</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">tr</span><span class="p">(</span><span class="s">&quot;Error&quot;</span><span class="p">),</span>
-        <span class="n">tr</span><span class="p">(</span><span class="s">&quot;No se pudo acceder a los datos.&quot;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-<span class="p">}</span>
+<p>Por lo general suele ser interesante incorporar un visor en el que mostrar
+al usuario lo que la cámara está capturando. Para simplifcar esta tarea <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>
+nos ofrece el control <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcameraviewfinder.html" title="QCameraViewfinder">QCameraViewfinder</a> que hereda del más generico <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideowidget.html" title="QVideoWidget">QVideoWidget</a>:</p>
+<div class="codehilite"><pre><span class="n">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QCamera</span><span class="p">;</span>
+<span class="n">viewfinder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QCameraViewfinder</span><span class="p">;</span>
+<span class="n">camera</span><span class="o">-&gt;</span><span class="n">setViewfinder</span><span class="p">(</span><span class="n">viewfinder</span><span class="p">);</span>
 </pre></div>
 
 
-<h1>Haciendo consultas SQL</h1>
-<p>La conexión creada de la manera que hemos descrito anteriormente se configura
-automáticamente como la conexión a base de datos por defecto de nuestra aplicación.
-Así que hacer una consulta es tan sencillo como instanciar la clase <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> y
-proporcionarle la sentencia SQL a dicho objeto a través del método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#exec" title="QSqlQuery::exec()">exec</a>():</p>
-<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
-<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;SELECT * FROM TABLE contactos);</span>
+<p>Como <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcameraviewfinder.html" title="QCameraViewfinder">QCameraViewfinder</a> —al igual que otros controles de <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia">Qt Multimedia</a>— no
+está disponible en Qt Designer, tendremos que colocarlo en nuestra ventana
+desde el propio código. Por ejemplo, como el control central de la misma:</p>
+<div class="codehilite"><pre><span class="n">viewfinder</span><span class="o">-&gt;</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">::</span><span class="n">Maximum</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">::</span><span class="n">Maximum</span><span class="p">);</span>
+<span class="n">setCentralWidget</span><span class="p">(</span><span class="n">viewfinder</span><span class="p">);</span>
 </pre></div>
 
 
-<p>De esta forma <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> puede utilizarse tanto para ejecutar sentencias de
-manipulación —como <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code>— como de definición
-—por ejemplo <code>CREATE TABLE</code> y similares—.</p>
-<div class="codehilite"><pre><span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;CREATE TABLE IF NOT EXISTS contactos &quot;</span>
-            <span class="s">&quot;(id INTEGER PRIMARY KEY AUTOINCREMENT,&quot;</span>
-            <span class="s">&quot; nombre VARCHAR(50))&quot;</span><span class="p">);</span>
+<p><img src="http://qt-project.org/doc/qt-5/images/mainwindowlayout.png" alt="Organización de controles en la ventana principal" class="centered"></p>
+<p>Hecho esto, finalmente podemos iniciar la cámara:</p>
+<div class="codehilite"><pre><span class="c1">// camera-&gt;setCaptureMode(QCamera::CaptureVideo);</span>
+<span class="n">camera</span><span class="o">-&gt;</span><span class="n">setCaptureMode</span><span class="p">(</span><span class="n">QCamera</span><span class="o">::</span><span class="n">CaptureViewfinder</span><span class="p">);</span>
+<span class="n">camera</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>
 </pre></div>
 
 
-<p>Además también pueden ejectuarse comandos específicos del gestor de base de
-datos que no formen parte del estándar SQL.</p>
-<h2>SELECT</h2>
-<p>Al hacer una consulta que devuelve datos —como es el caso de los <code>SELECT</code>— se
-pueden usar los siguientes métodos sobre el mismo objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> para posicionar
-la consulta en las distintas filas de resultados:</p>
-<dl>
-<dt><code>bool next()</code></dt>
-<dd>Recupera la siguiente fila en la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
-<dt><code>bool previous()</code></dt>
-<dd>Recupera la fila previa en la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
-<dt><code>bool first()</code></dt>
-<dd>Recupera la primera fila de la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
-<dt><code>bool last()</code></dt>
-<dd>Recupera la última fila de la lista de resultados y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</dd>
-<dt><code>seek(int index, bool relative = false)</code></dt>
-<dd>Recupera la fila en la posición <code>index</code> y posiciona allí el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>. La primera fila es la 0.</dd>
-</dl>
-<p>Una vez el objeto <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> ha sido posicionado en la fila que nos interesa,
-podemos recuperar el dato en la columna <code>index</code> empleando el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#value" title="QSqlQuery::value()">value</a>(index).</p>
-<div class="codehilite"><pre><span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="s">&quot;SELECT nombre FROM contactos&quot;</span><span class="p">);</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">next</span><span class="p">())</span> <span class="p">{</span>
-    <span class="n">QString</span> <span class="n">nombre</span> <span class="o">=</span> <span class="n">query</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">toString</span><span class="p">();</span>
-    <span class="n">doSomething</span><span class="p">(</span><span class="n">nombre</span><span class="p">);</span>
-<span class="p">}</span>
+<h2>Acceder a un dispositivo específico</h2>
+<p>En un mismo sistema pueden haber varios dispositivos de captura, de tal forma
+que puede ser necesario crear un objeto <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a> para un dispositivo
+concreto. En ese caso simplemente tenemos que indicarlo en el constructor:</p>
+<div class="codehilite"><pre><span class="n">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QCamera</span><span class="p">(</span><span class="s">&quot;/dev/video0&quot;</span><span class="p">);</span>
 </pre></div>
 
 
-<p>Todos los datos recuperados de esta manera se devuelven usando instancias de
-la clase <a href="http://qt-project.org/doc/qt-5.0/qtcore/qvariant.html" title="QVariant">QVariant</a>, por lo que se pueden convertir al tipo que nos interese
-usando los métodos <code>QVariant::to*</code>.</p>
-<h2>INPUT y UPDATE</h2>
-<p><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a> permite preparar la ejecución de la consulta para después sustituir
-parámetros en ciertos marcadores de posición antes de ejecutarla finalmente.
-Esto es especialmente útil cuando se pretenden hacer inserciones y
-actualizaciones en la base de datos.</p>
-<p>La sustitución puede indicarse tanto mediante nombres:</p>
-<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
-<span class="n">query</span><span class="p">.</span><span class="n">prepare</span><span class="p">(</span><span class="s">&quot;INSERT INTO contactos (nombre, apellido) &quot;</span>
-              <span class="s">&quot;VALUES (:nombre, :apellido)&quot;</span><span class="p">);</span>
-<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s">&quot;:nombre&quot;</span><span class="p">,</span> <span class="s">&quot;Jesús&quot;</span><span class="p">);</span>
-<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s">&quot;:apellido&quot;</span><span class="p">,</span> <span class="s">&quot;Torres&quot;</span><span class="p">);</span>
-<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+<p>Obviamente para hacerlo necesitamos conocer la lista de los dispositivos
+disponibles en el sistema. Esto se puede hacer a través del método <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#availableDevices" title="QCamera::availableDevices">availableDevices</a>(). Al igual que se puede obtener para cada uno de ellos un
+texto más descriptivo para los usuarios usando <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#deviceDescription" title="QCamera::deviceDescription">deviceDescription</a>().</p>
+<div class="codehilite"><pre><span class="n">QList</span><span class="o">&lt;</span><span class="n">QByteArray</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="n">QCamera</span><span class="o">::</span><span class="n">availableDevices</span><span class="p">();</span>
+<span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usando &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">QCamera</span><span class="o">::</span><span class="n">deviceDescription</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QCamera</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
 </pre></div>
 
 
-<p>como usando posiciones:</p>
-<div class="codehilite"><pre><span class="n">QSqlQuery</span> <span class="n">query</span><span class="p">;</span>
-<span class="n">query</span><span class="p">.</span><span class="n">prepare</span><span class="p">(</span><span class="s">&quot;INSERT INTO contactos (nombre, apellido) &quot;</span>
-              <span class="s">&quot;VALUES (?, ?)&quot;</span><span class="p">);</span>
-<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Jesús&quot;</span><span class="p">);</span>
-<span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Torres&quot;</span><span class="p">);</span>
-<span class="n">query</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+<h2>Accediendo a los frames individualmente</h2>
+<p>Si estamos interesados en procesar los <em>frames</em> capturados, la forma más sencilla
+—aunque no la única— es crear nuestra propia clase <em>viewfinder</em>. El método
+<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#setViewfinder" title="QCamera::setViewfinder()">setViewfinder</a>() admite un puntero a objetos de la clase <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qabstractvideosurface.html" title="QAbstractVideoSurface">QAbstractVideoSurface</a>, por lo que es de esa clase de la que debemos heredar
+la nuestra:</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">MyVideoSurface</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QAbstractVideoSurface</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
+
+<span class="nl">public:</span>
+    <span class="n">QList</span><span class="o">&lt;</span><span class="n">QVideoFrame</span><span class="o">::</span><span class="n">PixelFormat</span><span class="o">&gt;</span> <span class="n">supportedPixelFormats</span><span class="p">(</span>
+        <span class="n">QAbstractVideoBuffer</span><span class="o">::</span><span class="n">HandleType</span> <span class="n">handleType</span> <span class="o">=</span>
+            <span class="n">QAbstractVideoBuffer</span><span class="o">::</span><span class="n">NoHandle</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="c1">// Indicar los formatos que soportamos</span>
+        <span class="n">QList</span><span class="o">&lt;</span><span class="n">QVideoFrame</span><span class="o">::</span><span class="n">PixelFormat</span><span class="o">&gt;</span><span class="p">()</span> <span class="n">formats</span><span class="p">;</span>
+        <span class="n">formats</span> <span class="o">&lt;&lt;</span> <span class="n">QVideoFrame</span><span class="o">::</span><span class="n">Format_RGB565</span><span class="p">;</span>
+        <span class="n">formats</span> <span class="o">&lt;&lt;</span> <span class="n">QVideoFrame</span><span class="o">::</span><span class="n">Format_RGB555</span><span class="p">;</span>
+        <span class="n">formats</span> <span class="o">&lt;&lt;</span> <span class="n">QVideoFrame</span><span class="o">::</span><span class="n">Format_RGB24</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="n">formats</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="n">present</span><span class="p">(</span><span class="k">const</span> <span class="n">QVideoFrame</span> <span class="o">&amp;</span><span class="n">frame</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Aquí el código para manipular el frame...</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 
 
-<p>Finalmente el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#numRowsAffected" title="QSqlQuery::numRowsAffected()">numRowsAffected</a>() puede utilizarse
-para conocer cuantas filas se han visto afectadas por una sentencia no <code>SELECT</code>.
-Mientras que para sentencias <code>SELECT</code> se puede determinar cuantas filas han sido
-recuperadas utilizando el método <a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>::<a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#size" title="QSqlQuery::size()">size</a>().</p>
-<h1>Referencias</h1>
+<p>De tal forma que sólo tenemos que instanciarla y configurarla como visor de
+nuestra cámara.</p>
+<div class="codehilite"><pre><span class="n">MyVideoSurface</span> <span class="o">*</span><span class="n">videoSurface</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyVideoSurface</span><span class="p">;</span>
+<span class="n">camera</span><span class="o">-&gt;</span><span class="n">setViewfinder</span><span class="p">(</span><span class="n">videoSurface</span><span class="p">);</span>
+</pre></div>
+
+
+<h2>Referencias</h2>
 <ol>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL">Qt SQL</a></li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase">QSqlDatabase</a>.</li>
-<li><a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery">QSqlQuery</a>.</li>
-</ol>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>Ya hemos comentado en diversas ocasiones en otros artículos que Qt está
-formado por diversos módulos —como Qt Core, Qt GUI y Qt Network— y hemos hablado
-de alguno de ellos.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div></div>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia">Qt Multimedia</a></li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a> Class Reference.</li>
+<li><a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/videooverview.html">Video Overview</a></li>
+</ol></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../almacenar-datos-en-sqlite.html"><h2>Almacenar datos en SQLite</h2></a>
+        <div class= "well small"> mié 11 septiembre 2013
+
+by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
+son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
+Es decir, que están compuestos por un programa servidor —que es quien tiene
+acceso local a los datos— de forma que uno o más programas cliente pueden ...</p> <a class="btn btn-info xsmall" href="../almacenar-datos-en-sqlite.html">leer más</a></div>
+    </div>	
+				
     
  
         
@@ -253,29 +219,6 @@ propósito, especialmente en los sistemas UNIX y derivados.</p>
 <p>Para usar <a href="&quot;http://es.wikipedia.org/wiki/Make&quot;" title="make">make ...</a></p> <a class="btn btn-info xsmall" href="../make-install-con-qmake.html">leer más</a></div>
     </div>	
 				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../aplicaciones-de-consola-con-qt.html"><h2>Aplicaciones de consola con Qt</h2></a>
-        <div class= "well small"> jue 11 abril 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> es un <em>framework</em> utilizado fundamentalmente para desarrollar aplicaciones
-con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
-aplicaciones de linea de comandos.</p>
-<h1>QCoreApplication</h1>
-<p>Al crear un proyecto de aplicación para consola, el asistente de Qt Creator
-crea un archivo <code>main.cpp</code> con un contenido similar ...</p> <a class="btn btn-info xsmall" href="../aplicaciones-de-consola-con-qt.html">leer más</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
@@ -283,6 +226,7 @@ crea un archivo <code>main.cpp</code> con un contenido similar ...</p> <a class=
     <li class="active"><a href="../category/qt.html">1</a></li>
     <li class=""><a href="../category/qt2.html">2</a></li>
     <li class=""><a href="../category/qt3.html">3</a></li>
+    <li class=""><a href="../category/qt4.html">4</a></li>
 
     <li class="next"><a href="../category/qt2.html">Next &rarr;</a></li>
 
