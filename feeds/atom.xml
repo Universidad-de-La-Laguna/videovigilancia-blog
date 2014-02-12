@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2014-02-11T00:00:00+00:00</updated><entry><title>Capturando secuencias de vídeo Qt</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/capturando-secuencias-de-video-qt.html" rel="alternate"></link><updated>2014-02-11T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2014-02-11:capturando-secuencias-de-video-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incluye el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt; para facilitar la manipulación de
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2014-02-11T00:00:00+00:00</updated><entry><title>Capturando secuencias de vídeo con Qt</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/capturando-secuencias-de-video-con-qt.html" rel="alternate"></link><updated>2014-02-11T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2014-02-11:capturando-secuencias-de-video-con-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incluye el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt; para facilitar la manipulación de
 contenidos multimedia. Entre otras cosas permite reproducir audio y vídeo y
 capturar desde dispositivos de adquisición soportados por el sistema operativo.&lt;/p&gt;
-&lt;p&gt;Como por defecto no viene activado es necesaro abrir el archivo &lt;code&gt;.pro&lt;/code&gt; del
+&lt;p&gt;Como por defecto no viene activado, es necesaro abrir el archivo &lt;code&gt;.pro&lt;/code&gt; del
 proyecto y añadir la línea&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QT&lt;/span&gt;       &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;multimedia&lt;/span&gt; &lt;span class="n"&gt;multimediawidgets&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -17,7 +17,7 @@ la captura mediante el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtmu
 
 
 &lt;p&gt;Por lo general suele ser interesante incorporar un visor en el que mostrar
-al usuario lo que la cámara está capturando. Para simplifcar esta tarea &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;
+al usuario lo que la cámara está capturando. Para simplifcar esta tarea, &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;
 nos ofrece el control &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcameraviewfinder.html" title="QCameraViewfinder"&gt;QCameraViewfinder&lt;/a&gt; que hereda del más generico &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideowidget.html" title="QVideoWidget"&gt;QVideoWidget&lt;/a&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;camera&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QCamera&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;viewfinder&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QCameraViewfinder&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -27,14 +27,14 @@ nos ofrece el control &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/
 
 &lt;p&gt;Como &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcameraviewfinder.html" title="QCameraViewfinder"&gt;QCameraViewfinder&lt;/a&gt; —al igual que otros controles de &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt;— no
 está disponible en Qt Designer, tendremos que colocarlo en nuestra ventana
-desde el propio código. Por ejemplo, como el control central de la misma:&lt;/p&gt;
+desde el propio código. Por ejemplo como el control central de la misma:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;viewfinder&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setSizePolicy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QSizePolicy&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Maximum&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;QSizePolicy&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Maximum&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;setCentralWidget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;viewfinder&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;img src="http://qt-project.org/doc/qt-5/images/mainwindowlayout.png" alt="Organización de controles en la ventana principal" class="centered"&gt;&lt;/p&gt;
-&lt;p&gt;Hecho esto, finalmente podemos iniciar la cámara:&lt;/p&gt;
+&lt;p&gt;Hecho esto, finalmente, podemos iniciar la cámara:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// camera-&amp;gt;setCaptureMode(QCamera::CaptureVideo);&lt;/span&gt;
 &lt;span class="n"&gt;camera&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setCaptureMode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QCamera&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;CaptureViewfinder&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;camera&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
@@ -50,40 +50,77 @@ concreto. En ese caso simplemente tenemos que indicarlo en el constructor:&lt;/p
 
 
 &lt;p&gt;Obviamente para hacerlo necesitamos conocer la lista de los dispositivos
-disponibles en el sistema. Esto se puede hacer a través del método &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#availableDevices" title="QCamera::availableDevices"&gt;availableDevices&lt;/a&gt;(). Al igual que se puede obtener para cada uno de ellos un
-texto más descriptivo para los usuarios usando &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#deviceDescription" title="QCamera::deviceDescription"&gt;deviceDescription&lt;/a&gt;().&lt;/p&gt;
+disponibles en el sistema. Esto se puede hacer a través del método
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#availableDevices" title="QCamera::availableDevices()"&gt;availableDevices&lt;/a&gt;(). Al igual que se puede obtener para cada uno
+de ellos un texto más descriptivo, principalmente de cara a los usuarios, usando &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#deviceDescription" title="QCamera::deviceDescription()"&gt;deviceDescription&lt;/a&gt;()&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QList&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;QByteArray&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;devices&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;QCamera&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;availableDevices&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Usando &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QCamera&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;deviceDescription&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;devices&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+&lt;span class="n"&gt;qDebug&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Capturando de... &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QCamera&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;deviceDescription&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;devices&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
 &lt;span class="n"&gt;camera&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QCamera&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;devices&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Accediendo a los frames individualmente&lt;/h2&gt;
+&lt;p&gt;En el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt; cada objeto de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; representa un
+&lt;em&gt;frame&lt;/em&gt; de vídeo.&lt;/p&gt;
+&lt;h3&gt;La clase QVideoFrame&lt;/h3&gt;
+&lt;p&gt;El motivo por el que no se usa para esto la clase &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt; es
+porque &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; no siempre contiene los datos de los píxeles del &lt;em&gt;frame&lt;/em&gt;,
+como sí ocurre con la clase &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Cada sistema operativo tiene su propio API multimedia que tiene una manera
+particular de gestionar los &lt;em&gt;buffers&lt;/em&gt; de memoria —por ejemplo, como una textura
+en OpenGL, como un &lt;em&gt;buffer&lt;/em&gt; de memoria compartida en XVideo, como una CImage en
+MacOS X, etc—. Estos &lt;em&gt;buffers&lt;/em&gt; suelen ser internos al API, así que las
+aplicaciones los identifican a través de manejadores o &lt;em&gt;handlers&lt;/em&gt;. Copiar los
+datos de los píxeles desde los &lt;em&gt;buffers&lt;/em&gt; internos a la memoria del programa
+suele tener cierto coste, por lo que &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; evita hacerlo, a menos que el
+programador lo solicite. Esto tiene una serie de implicaciones para nuestros fines:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Por lo general &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; no contiene los datos de los píxeles sino un
+manejador al &lt;em&gt;buffer&lt;/em&gt; interno del API donde están almacenados. Dicho manejador
+se puede obtener a través del método &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#handle" title="QVideoFrame::handle()"&gt;handle&lt;/a&gt;().&lt;/li&gt;
+&lt;li&gt;Para conocer el tipo de manejador —algo que depende del API nativo que esté
+usando el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt;— se puede usar el método&lt;/li&gt;
+&lt;li&gt;Para acceder al contenido de los píxeles se puede usar el método
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#bits" title="QVideoFrame::bits()"&gt;bits&lt;/a&gt;() pero primero hay que asegurarse de que dichos datos son
+copiados desde el &lt;em&gt;buffer&lt;/em&gt; interno a la memoria del programa. Eso se hace
+invocando previamente el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#map" title="QVideoFrame::map()"&gt;map&lt;/a&gt;(). Cuando el acceso a
+estos datos ya no es necesario se debe usar el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#unmap" title="QVideoFrame::unmap()"&gt;unmap&lt;/a&gt;()
+para liberar la memoria.&lt;/li&gt;
+&lt;li&gt;El contenido de los objetos &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; se comparte explícitamente, por lo
+que cualquier cambio en un &lt;em&gt;frame&lt;/em&gt; será visible en todas las copias.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Ganar acceso a los frames&lt;/h3&gt;
 &lt;p&gt;Si estamos interesados en procesar los &lt;em&gt;frames&lt;/em&gt; capturados, la forma más sencilla
-—aunque no la única— es crear nuestra propia clase &lt;em&gt;viewfinder&lt;/em&gt;. El método
-&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#setViewfinder" title="QCamera::setViewfinder()"&gt;setViewfinder&lt;/a&gt;() admite un puntero a objetos de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qabstractvideosurface.html" title="QAbstractVideoSurface"&gt;QAbstractVideoSurface&lt;/a&gt;, por lo que es de esa clase de la que debemos heredar
+—aunque no la única— es crear nuestro propio visor para la cámara. El método
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#setViewfinder" title="QCamera::setViewfinder()"&gt;setViewfinder&lt;/a&gt;() admite un puntero a objetos de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qabstractvideosurface.html" title="QAbstractVideoSurface"&gt;QAbstractVideoSurface&lt;/a&gt;, que define la interfaz genérica para las superficies
+que saben como mostrar vídeo. Por lo que será esa la clase de la que heredaremos
 la nuestra:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyVideoSurface&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QAbstractVideoSurface&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CaptureBuffer&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QAbstractVideoSurface&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
 &lt;span class="nl"&gt;public:&lt;/span&gt;
     &lt;span class="n"&gt;QList&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PixelFormat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;supportedPixelFormats&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-        &lt;span class="n"&gt;QAbstractVideoBuffer&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;HandleType&lt;/span&gt; &lt;span class="n"&gt;handleType&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+            &lt;span class="n"&gt;QAbstractVideoBuffer&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;HandleType&lt;/span&gt; &lt;span class="n"&gt;handleType&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
             &lt;span class="n"&gt;QAbstractVideoBuffer&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;NoHandle&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;
     &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="c1"&gt;// Indicar los formatos que soportamos&lt;/span&gt;
-        &lt;span class="n"&gt;QList&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PixelFormat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="n"&gt;formats&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="c1"&gt;// A través de este método nos preguntan que formatos de vídeo&lt;/span&gt;
+        &lt;span class="c1"&gt;// soportamos. Como vamos a guardar los frames en objetos QImage&lt;/span&gt;
+        &lt;span class="c1"&gt;// nos sirve cualquiera de los formatos sorportados por dicha clase:&lt;/span&gt;
+        &lt;span class="c1"&gt;// http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#PixelFormat-enum&lt;/span&gt;
+        &lt;span class="n"&gt;QList&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;PixelFormat&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;formats&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;formats&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format_ARGB32&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;formats&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format_ARGB32_Premultiplied&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;formats&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format_RGB32&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;formats&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format_RGB24&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="n"&gt;formats&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format_RGB565&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="n"&gt;formats&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format_RGB555&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="n"&gt;formats&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format_RGB24&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;formats&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 
     &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;present&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QVideoFrame&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="c1"&gt;// Aquí el código para manipular el frame...&lt;/span&gt;
+        &lt;span class="c1"&gt;// A través de este método nos darán el frame para que lo mostremos.&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
@@ -92,15 +129,61 @@ la nuestra:&lt;/p&gt;
 
 &lt;p&gt;De tal forma que sólo tenemos que instanciarla y configurarla como visor de
 nuestra cámara.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MyVideoSurface&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;videoSurface&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;MyVideoSurface&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;camera&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setViewfinder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;videoSurface&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;CaptureBuffer&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;captureBuffer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;CaptureBuffer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;camera&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setViewfinder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;captureBuffer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;h3&gt;Convertir objetos QVideoFrame en QImage&lt;/h3&gt;
+&lt;p&gt;A través del método &lt;code&gt;present()&lt;/code&gt; de nuestra clase &lt;code&gt;CaptureBuffer&lt;/code&gt; obtenemos
+los &lt;em&gt;frames&lt;/em&gt; capturados. Sin embargo estos son de poca utilidad si no podemos
+acceder al contenido de los píxeles. Así que vamos a convertir el objeto
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; en un objeto &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Como ya sabemos, &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt; tiene diversos constructores. Entre ellos el siguiente:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;uchar&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;width&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;height&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;bytesPerLine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;QImage&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Format&lt;/span&gt; &lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;que permite crear un objeto &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt; si tenemos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;El ancho —width— y el alto —height— del frame. Esto lo podemos obtener a
+través de los métodos &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#width" title="QVideoFrame::width()"&gt;width&lt;/a&gt;() y &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#width" title="QVideoFrame::width()"&gt;width&lt;/a&gt;().&lt;/li&gt;
+&lt;li&gt;El número de bytes por línea —bytesPerLine—. Para lo que tenemos el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#bytesperline" title="QVideoFrame::bytesPerLine()"&gt;bytesPerLine&lt;/a&gt;().&lt;/li&gt;
+&lt;li&gt;El formato de los píxeles —format—. En este caso el método
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#pixelformat" title="QVideoFrame::pixelFormat()"&gt;pixelFormat&lt;/a&gt;() proporciona dicho formato para el &lt;em&gt;frame&lt;/em&gt; y
+podemos convertirlo en uno equivalente de &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt; usando &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#imageformatfrompixelformat" title="QVideoFrame::imageFormatFromPixelFormat()"&gt;imageFormatFromPixelFormat&lt;/a&gt;().&lt;/li&gt;
+&lt;li&gt;Un puntero al &lt;em&gt;buffer&lt;/em&gt; en memoria que contiene los datos de los píxeles.
+Como comentamos anteriormente, &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#bits" title="QVideoFrame::bits()"&gt;bits&lt;/a&gt;() nos proporciona esa
+información pero primero tenemos que invocar al método &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#map" title="QVideoFrame::map()"&gt;map&lt;/a&gt;()
+para que dichos datos sean copiados desde el &lt;em&gt;buffer&lt;/em&gt; interno a la memoria
+del programa.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QAbstractVideoBuffer&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;ReadOnly&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;frameAsImage&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;QImage&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bits&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;width&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;
+    &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;height&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bytesPerLine&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;
+    &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;imageFormatFromPixelFormat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pixelFormat&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// Aquí hacemos lo que queramos hacer con la imagen&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="c1"&gt;// ...&lt;/span&gt;
+&lt;span class="c1"&gt;//&lt;/span&gt;
+&lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unmap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Hay que tener en cuenta que cuando se crea un objeto &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt; de esta manera,
+no se hace una copia del contenido de los píxeles, por lo que es importante
+asegurarse de que el puntero devuelto por &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#bits" title="QVideoFrame::bits()"&gt;bits&lt;/a&gt;() es válido
+mientras se esté haciendo uso del objeto. Por eso se invoca al método
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#unmap" title="QVideoFrame::unmap()"&gt;unmap&lt;/a&gt;() después de manipularlo y no antes.&lt;/p&gt;
+&lt;p&gt;Si se quiere conservar la imagen del objeto &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt; después de invocar a
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#unmap" title="QVideoFrame::unmap()"&gt;unmap&lt;/a&gt;() es necesario hacer una copia usando, por ejemplo, &lt;a href="http://qt-project.org/doc/qt-5/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5/qimage.html#copy" title="QImage::copy()"&gt;copy&lt;/a&gt;().&lt;/p&gt;
 &lt;h2&gt;Referencias&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt; Class Reference.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; Class Reference.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/videooverview.html"&gt;Video Overview&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;</summary><category term="qt"></category><category term="multimedia"></category><category term="qcamera"></category></entry><entry><title>Almacenar datos en SQLite</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/almacenar-datos-en-sqlite.html" rel="alternate"></link><updated>2013-09-11T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-09-11:almacenar-datos-en-sqlite.html</id><summary type="html">&lt;p&gt;Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
 son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.

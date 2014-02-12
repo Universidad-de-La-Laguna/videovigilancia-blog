@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>qcamera - Sistema de Videovigilancia from Scratch</title>
+    <title>Capturando secuencias de vídeo con Qt - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="../theme/html5.js"></script>
+    <script src="./theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../theme/bootstrap.min.css" rel="stylesheet">
-    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="../theme/local.css" rel="stylesheet">
-    <link href="../theme/pygments.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="./theme/local.css" rel="stylesheet">
+    <link href="./theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,13 +32,13 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
-                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
+                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="./pages/seminarios.html">Seminarios</a></li>
                         </ul>
         </div>
         
@@ -51,24 +51,18 @@
     <div class="row">
 
         <div class="span9">
-                
-
-        
-
-
-    <div class='article'>
+            <div class='article'>
         <div class="content-title">
-            <a href="../capturando-secuencias-de-video-con-qt.html"><h1>Capturando secuencias de vídeo con Qt</h1></a>
+            <h1>Capturando secuencias de vídeo con Qt</h1>
             mar 11 febrero 2014
 
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- 
         </div>
-        
-        <div><p><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> incluye el módulo <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia">Qt Multimedia</a> para facilitar la manipulación de
+	
+        <div><p><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a> incluye el módulo <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia">Qt Multimedia</a> para facilitar la manipulación de
 contenidos multimedia. Entre otras cosas permite reproducir audio y vídeo y
 capturar desde dispositivos de adquisición soportados por el sistema operativo.</p>
 <p>Como por defecto no viene activado, es necesaro abrir el archivo <code>.pro</code> del
@@ -86,7 +80,7 @@ la captura mediante el método <a href="http://qt-project.org/doc/qt-5.0/qtmulti
 
 
 <p>Por lo general suele ser interesante incorporar un visor en el que mostrar
-al usuario lo que la cámara está capturando. Para simplifcar esta tarea, <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>
+al usuario lo que la cámara está capturando. Para simplifcar esta tarea, <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt">Qt</a>
 nos ofrece el control <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcameraviewfinder.html" title="QCameraViewfinder">QCameraViewfinder</a> que hereda del más generico <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideowidget.html" title="QVideoWidget">QVideoWidget</a>:</p>
 <div class="codehilite"><pre><span class="n">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QCamera</span><span class="p">;</span>
 <span class="n">viewfinder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QCameraViewfinder</span><span class="p">;</span>
@@ -255,21 +249,22 @@ mientras se esté haciendo uso del objeto. Por eso se invoca al método
 <li><a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame">QVideoFrame</a> Class Reference.</li>
 <li><a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/videooverview.html">Video Overview</a></li>
 </ol></div>
-        <hr />
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'sistema-de-videovigilancia-from-scratch'; 
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
-		
-            <div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
-
-    <li class="active"><a href="../tag/qcamera.html">1</a></li>
-
-    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
-
-</ul>
-</div>    
- 
-  
         </div>
         
         <div class="span3">
@@ -281,8 +276,8 @@ mientras se esté haciendo uso del objeto. Por eso se invoca al método
                 Sitio
                 </li>
             
-                <li><a href="../archives.html">Archivos</a>
-                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="./archives.html">Archivos</a>
+                <li><a href="./tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -295,13 +290,13 @@ mientras se esté haciendo uso del objeto. Por eso se invoca al método
                 Categorias
                 </li>
                 
-                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
-                                <li><a href="../category/desarrollo.html">Desarrollo</a></li>
-                                <li><a href="../category/hardware.html">Hardware</a></li>
-                                <li><a href="../category/linux.html">Linux</a></li>
-                                <li><a href="../category/overviews.html">Overviews</a></li>
-                                <li><a href="../category/qt.html">Qt</a></li>
-                                <li><a href="../category/vision.html">Visión</a></li>
+                                <li><a href="./category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="./category/desarrollo.html">Desarrollo</a></li>
+                                <li><a href="./category/hardware.html">Hardware</a></li>
+                                <li><a href="./category/linux.html">Linux</a></li>
+                                <li><a href="./category/overviews.html">Overviews</a></li>
+                                <li><a href="./category/qt.html">Qt</a></li>
+                                <li><a href="./category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>
