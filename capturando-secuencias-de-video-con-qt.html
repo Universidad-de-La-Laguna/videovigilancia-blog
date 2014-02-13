@@ -91,7 +91,8 @@ nos ofrece el control <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qca
 <p>Como <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcameraviewfinder.html" title="QCameraViewfinder">QCameraViewfinder</a> —al igual que otros controles de <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia">Qt Multimedia</a>— no
 está disponible en Qt Designer, tendremos que colocarlo en nuestra ventana
 desde el propio código. Por ejemplo como el control central de la misma:</p>
-<div class="codehilite"><pre><span class="n">viewfinder</span><span class="o">-&gt;</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">::</span><span class="n">Maximum</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">::</span><span class="n">Maximum</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="n">viewfinder</span><span class="o">-&gt;</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">::</span><span class="n">Maximum</span><span class="p">,</span>
+                          <span class="n">QSizePolicy</span><span class="o">::</span><span class="n">Maximum</span><span class="p">);</span>
 <span class="n">setCentralWidget</span><span class="p">(</span><span class="n">viewfinder</span><span class="p">);</span>
 </pre></div>
 
@@ -117,7 +118,8 @@ disponibles en el sistema. Esto se puede hacer a través del método
 <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#availableDevices" title="QCamera::availableDevices()">availableDevices</a>(). Al igual que se puede obtener para cada uno
 de ellos un texto más descriptivo, principalmente de cara a los usuarios, usando <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera">QCamera</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html#deviceDescription" title="QCamera::deviceDescription()">deviceDescription</a>()</p>
 <div class="codehilite"><pre><span class="n">QList</span><span class="o">&lt;</span><span class="n">QByteArray</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="n">QCamera</span><span class="o">::</span><span class="n">availableDevices</span><span class="p">();</span>
-<span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Capturando de... &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">QCamera</span><span class="o">::</span><span class="n">deviceDescription</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="n">qDebug</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Capturando de... &quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="n">QCamera</span><span class="o">::</span><span class="n">deviceDescription</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
 <span class="n">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QCamera</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
 </pre></div>
 
@@ -142,7 +144,7 @@ programador lo solicite. Esto tiene una serie de implicaciones para nuestros fin
 manejador al <em>buffer</em> interno del API donde están almacenados. Dicho manejador
 se puede obtener a través del método <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame">QVideoFrame</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#handle" title="QVideoFrame::handle()">handle</a>().</li>
 <li>Para conocer el tipo de manejador —algo que depende del API nativo que esté
-usando el módulo <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia">Qt Multimedia</a>— se puede usar el método</li>
+usando el módulo <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia">Qt Multimedia</a>— se puede usar el método <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame">QVideoFrame</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#handletype" title="QVideoFrame::handleType()">handleType</a>().</li>
 <li>Para acceder al contenido de los píxeles se puede usar el método
 <a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame">QVideoFrame</a>::<a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#bits" title="QVideoFrame::bits()">bits</a>() pero primero hay que asegurarse de que dichos datos son
 copiados desde el <em>buffer</em> interno a la memoria del programa. Eso se hace
@@ -167,10 +169,10 @@ la nuestra:</p>
             <span class="n">QAbstractVideoBuffer</span><span class="o">::</span><span class="n">HandleType</span> <span class="n">handleType</span> <span class="o">=</span>
             <span class="n">QAbstractVideoBuffer</span><span class="o">::</span><span class="n">NoHandle</span><span class="p">)</span> <span class="k">const</span>
     <span class="p">{</span>
-        <span class="c1">// A través de este método nos preguntan que formatos de vídeo</span>
-        <span class="c1">// soportamos. Como vamos a guardar los frames en objetos QImage</span>
-        <span class="c1">// nos sirve cualquiera de los formatos sorportados por dicha clase:</span>
-        <span class="c1">// http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#PixelFormat-enum</span>
+        <span class="c1">// A través de este método nos preguntan que formatos de</span>
+        <span class="c1">// vídeo soportamos. Como vamos a guardar los frames en</span>
+        <span class="c1">// objetos QImage nos sirve cualquiera de los formatos</span>
+        <span class="c1">// sorportados por dicha clase: http://kcy.me/z6pa</span>
         <span class="n">QList</span><span class="o">&lt;</span><span class="n">QVideoFrame</span><span class="o">::</span><span class="n">PixelFormat</span><span class="o">&gt;</span> <span class="n">formats</span><span class="p">;</span>
         <span class="n">formats</span> <span class="o">&lt;&lt;</span> <span class="n">QVideoFrame</span><span class="o">::</span><span class="n">Format_ARGB32</span><span class="p">;</span>
         <span class="n">formats</span> <span class="o">&lt;&lt;</span> <span class="n">QVideoFrame</span><span class="o">::</span><span class="n">Format_ARGB32_Premultiplied</span><span class="p">;</span>
@@ -183,7 +185,8 @@ la nuestra:</p>
 
     <span class="kt">bool</span> <span class="n">present</span><span class="p">(</span><span class="k">const</span> <span class="n">QVideoFrame</span> <span class="o">&amp;</span><span class="n">frame</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="c1">// A través de este método nos darán el frame para que lo mostremos.</span>
+        <span class="c1">// A través de este método nos darán el frame para que</span>
+        <span class="c1">// lo mostremos.</span>
         <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
@@ -226,11 +229,9 @@ del programa.</li>
 <span class="n">QImage</span> <span class="n">frameAsImage</span> <span class="o">=</span> <span class="n">QImage</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">bits</span><span class="p">(),</span> <span class="n">frame</span><span class="p">.</span><span class="n">width</span><span class="p">(),</span>
     <span class="n">frame</span><span class="p">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">frame</span><span class="p">.</span><span class="n">bytesPerLine</span><span class="p">(),</span>
     <span class="n">QVideoFrame</span><span class="o">::</span><span class="n">imageFormatFromPixelFormat</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">pixelFormat</span><span class="p">()));</span>
-<span class="c1">//</span>
-<span class="c1">// Aquí hacemos lo que queramos hacer con la imagen</span>
-<span class="c1">//</span>
-<span class="c1">// ...</span>
-<span class="c1">//</span>
+
+<span class="c1">// Aquí hacemos lo que queramos hacer con la imagen...</span>
+
 <span class="n">frame</span><span class="p">.</span><span class="n">unmap</span><span class="p">();</span>
 </pre></div>
 
