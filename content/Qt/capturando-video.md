@@ -36,7 +36,8 @@ está disponible en Qt Designer, tendremos que colocarlo en nuestra ventana
 desde el propio código. Por ejemplo como el control central de la misma:
 
 ~~~~.cpp
-viewfinder->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+viewfinder->setSizePolicy(QSizePolicy::Maximum,
+                          QSizePolicy::Maximum);
 setCentralWidget(viewfinder);
 ~~~~
 
@@ -67,7 +68,8 @@ de ellos un texto más descriptivo, principalmente de cara a los usuarios, usand
 
 ~~~~.cpp
 QList<QByteArray> devices = QCamera::availableDevices();
-qDebug() << "Capturando de... " << QCamera::deviceDescription(devices[0]);
+qDebug() << "Capturando de... "
+         << QCamera::deviceDescription(devices[0]);
 camera = new QCamera(devices[0]);
 ~~~~
 
@@ -95,8 +97,7 @@ programador lo solicite. Esto tiene una serie de implicaciones para nuestros fin
 manejador al _buffer_ interno del API donde están almacenados. Dicho manejador
 se puede obtener a través del método [QVideoFrame]::[handle][]().
  * Para conocer el tipo de manejador —algo que depende del API nativo que esté
-usando el módulo [Qt Multimedia]— se puede usar el método
-[QVideoFrame]::[handleType][]().
+usando el módulo [Qt Multimedia]— se puede usar el método [QVideoFrame]::[handleType][]().
  * Para acceder al contenido de los píxeles se puede usar el método
 [QVideoFrame]::[bits][]() pero primero hay que asegurarse de que dichos datos son
 copiados desde el _buffer_ interno a la memoria del programa. Eso se hace
@@ -124,10 +125,10 @@ public:
             QAbstractVideoBuffer::HandleType handleType =
             QAbstractVideoBuffer::NoHandle) const
     {
-        // A través de este método nos preguntan que formatos de vídeo
-        // soportamos. Como vamos a guardar los frames en objetos QImage
-        // nos sirve cualquiera de los formatos sorportados por dicha clase:
-        // http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html#PixelFormat-enum
+        // A través de este método nos preguntan que formatos de
+        // vídeo soportamos. Como vamos a guardar los frames en
+        // objetos QImage nos sirve cualquiera de los formatos
+        // sorportados por dicha clase: http://kcy.me/z6pa
         QList<QVideoFrame::PixelFormat> formats;
         formats << QVideoFrame::Format_ARGB32;
         formats << QVideoFrame::Format_ARGB32_Premultiplied;
@@ -140,7 +141,8 @@ public:
 
     bool present(const QVideoFrame &frame)
     {
-        // A través de este método nos darán el frame para que lo mostremos.
+        // A través de este método nos darán el frame para que
+        // lo mostremos.
         return true;
     }
 };
@@ -187,11 +189,9 @@ frame.map(QAbstractVideoBuffer::ReadOnly);
 QImage frameAsImage = QImage(frame.bits(), frame.width(),
     frame.height(), frame.bytesPerLine(),
     QVideoFrame::imageFormatFromPixelFormat(frame.pixelFormat()));
-//
-// Aquí hacemos lo que queramos hacer con la imagen
-//
-// ...
-//
+
+// Aquí el código que manipula frameAsImage...
+
 frame.unmap();
 ~~~~
 
