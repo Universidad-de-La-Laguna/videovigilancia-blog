@@ -167,7 +167,7 @@ del programa.&lt;/li&gt;
     &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;height&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bytesPerLine&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;
     &lt;span class="n"&gt;QVideoFrame&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;imageFormatFromPixelFormat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pixelFormat&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt;
 
-&lt;span class="c1"&gt;// Aquí hacemos lo que queramos hacer con la imagen...&lt;/span&gt;
+&lt;span class="c1"&gt;// Aquí el código que manipula frameAsImage...&lt;/span&gt;
 
 &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unmap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
