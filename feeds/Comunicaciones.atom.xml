@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Comunicaciones.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-03-05T00:00:00+00:00</updated><entry><title>Implementando un protocolo con Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/implementando-un-protocolo-con-protocol-buffers.html" rel="alternate"></link><updated>2013-03-05T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-05:implementando-un-protocolo-con-protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; es un mecanismo sencillo para serializar estructuras de
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Comunicaciones.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</id><updated>2013-03-05T00:00:00+00:00</updated><entry><title>Implementando un protocolo con Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/implementando-un-protocolo-con-protocol-buffers.html" rel="alternate"></link><updated>2013-03-05T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-03-05:implementando-un-protocolo-con-protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; es un mecanismo sencillo para serializar estructuras de
 datos, de tal forma que los datos así codificados pueden ser almacenados
 o enviados a través de una red de comunicaciones. Esto nos ofrece una forma
 sencilla de crear nuestro propio protocolo de comunicaciones, adaptado a las
 necesidades de un problema concreto.  &lt;/p&gt;
-&lt;p&gt;Los pasos concretos para usar &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; son lo siguientes:&lt;/p&gt;
+&lt;p&gt;Los pasos concretos para usar &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; son lo siguientes:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Especificar la estructura de datos del mensaje del nuevo protocolo en un
  archivo &lt;code&gt;.proto&lt;/code&gt;. Estos archivos se escriben utilizando un &lt;a href="https://developers.google.com/protocol-buffers/docs/proto"&gt;lenguaje de
  descripción de interfaz&lt;/a&gt;
- que es propio de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;.&lt;/p&gt;
+ que es propio de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ejecutar el compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;, para el lenguaje de la
+&lt;p&gt;Ejecutar el compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;, para el lenguaje de la
  aplicación, sobre el archivo &lt;code&gt;.proto&lt;/code&gt; con el objeto de generar las clases
  de acceso a los datos. Estas proporcionan &lt;em&gt;accesores&lt;/em&gt; para cada campo, así
  como métodos para serializar y deserializar los mensajes a y desde
@@ -61,11 +61,11 @@ con los datos de los mismos a un servidor.&lt;/p&gt;
 sencillo. Solamente hay que indicar el nombre y el tipo de cada campo,
 así como si es opcional (&lt;em&gt;optional&lt;/em&gt;), requerido (&lt;em&gt;required&lt;/em&gt;) o se repite
 (&lt;em&gt;repeated&lt;/em&gt;).&lt;/p&gt;
-&lt;p&gt;En &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; los campos se etiquetan de manera única con un entero
+&lt;p&gt;En &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; los campos se etiquetan de manera única con un entero
 que después es utilizado en la codificación binaria para identificarlos.&lt;/p&gt;
 &lt;h2&gt;Clases de acceso a los datos&lt;/h2&gt;
 &lt;p&gt;Una vez tenemos la definición de la estructura del mensaje, podemos invocar
-al compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso a los
+al compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso a los
 datos.&lt;/p&gt;
 &lt;h3&gt;Desde línea de comandos&lt;/h3&gt;
 &lt;p&gt;Desde línea de comandos generar las clases es tan sencillo como:&lt;/p&gt;
@@ -95,7 +95,7 @@ directorio actual.&lt;/p&gt;
 &lt;h3&gt;Con qmake&lt;/h3&gt;
 &lt;p&gt;Si estamos usando &lt;code&gt;qmake&lt;/code&gt; para construir nuestro proyecto (como es el caso cuando
 desarrollamos con el IDE Qt Creator) lo más cómodo es que este se encargue de
-invocar al compilador &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso
+invocar al compilador &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso
 de forma automática.&lt;/p&gt;
 &lt;p&gt;En este sentido el archivo &lt;code&gt;protobuf.pri&lt;/code&gt; del proyecto &lt;a href="http://code.google.com/p/ostinato"&gt;ostinato&lt;/a&gt;
 puede ser de gran ayuda con algunos cambios:&lt;/p&gt;
@@ -260,7 +260,7 @@ clase &lt;code&gt;std::string&lt;/code&gt; se usa como un mero contenedor.&lt;/d
 &lt;dd&gt;Deserializa un mensaje leido del flujo &lt;code&gt;istream&lt;/code&gt; indicado.&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;h2&gt;Almacenamiento y transmisión por red de múltiples mensajes&lt;/h2&gt;
-&lt;p&gt;El formato de codificación de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; no está auto-limitado. Es decir,
+&lt;p&gt;El formato de codificación de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; no está auto-limitado. Es decir,
 no incluye marcas que permitan identificar el principio y fin de los mensajes.
 Esto es un problema si se quieren almacenar o enviar varios mensajes en un mismo
 flujo de datos.&lt;/p&gt;

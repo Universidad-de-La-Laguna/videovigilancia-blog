@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Linux.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-05-18T00:00:00+01:00</updated><entry><title>Servicios y demonios en Linux</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/servicios-y-demonios-en-linux.html" rel="alternate"></link><updated>2013-05-18T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</id><summary type="html">&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Linux.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</id><updated>2013-05-18T00:00:00+01:00</updated><entry><title>Servicios y demonios en Linux</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/servicios-y-demonios-en-linux.html" rel="alternate"></link><updated>2013-05-18T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</id><summary type="html">&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
 fuera del control interactivo de los usuarios del sistema ya que carecen de
 interfaz con estos.&lt;/p&gt;
 &lt;p&gt;El sistema generalmente inicia los demonios durante el arranque, siendo las
@@ -115,10 +115,10 @@ recurso y el nivel de severidad. Por ejemplo pueden ser escritos a un archivo
 concreto en disco, mostrados por una consola, enviados por red a registro de
 eventos centralizados o filtrados.&lt;/p&gt;
 &lt;h3&gt;Registro de eventos en aplicaciones Qt&lt;/h3&gt;
-&lt;p&gt;Cuando se desarrolla con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; puede ser interesante echar un vistazo a las
+&lt;p&gt;Cuando se desarrolla con &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; puede ser interesante echar un vistazo a las
 funcionalidades de la librería &lt;a href="http://libqxt.org" title="LibQxt"&gt;LibQxt&lt;/a&gt;. Este proyecto proporciona un conjunto
 de clases que añaden funcionalidades multiplataforma que no están disponibles
-en el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
+en el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Entre dichas funcionalidades adicionales está la clase &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt;, que facilita
 que el demonio registre los eventos en sus propios archivos de sucesos
 &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt; —por ejemplo &lt;code&gt;/var/log/midemonio/info.log&lt;/code&gt;,
@@ -277,8 +277,8 @@ mecanismo muy potente para comunicarnos con él:&lt;/p&gt;
 &lt;li&gt;Es muy común que intercepte la señal &lt;code&gt;SIGHUP&lt;/code&gt; ya que así se le suele indicar
  que recargue los archivos de configuración sin tener que reiniciarlo.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Si estamos desarrollando nuestra aplicación con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, lo más conveniente es
-echar un vistazo al final del artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/aplicaciones-de-consola-con-qt.html"&gt;Aplicaciones de consola con
+&lt;p&gt;Si estamos desarrollando nuestra aplicación con &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, lo más conveniente es
+echar un vistazo al final del artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/aplicaciones-de-consola-con-qt.html"&gt;Aplicaciones de consola con
 Qt&lt;/a&gt; ya que allí se explican las
 particularidades del uso de señales POSIX en este tipo de aplicaciones.&lt;/p&gt;
 &lt;h1&gt;Arranque del servicio&lt;/h1&gt;
@@ -419,7 +419,7 @@ especificada en la línea de comandos una opción del estilo de &lt;code&gt;-d&l
 Esto es así, por ejemplo, porque es más sencillo depurar el programa y comprobar
 su funcionamiento cuando éste no se ejecuta en segundo plano.&lt;/p&gt;
 &lt;p&gt;En el código del proyecto &lt;a href="http://github.com/aplatanado/rifftree"&gt;rifftree&lt;/a&gt;,
-que ya comentamos en el artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html"&gt;Resource Interchange File
+que ya comentamos en el artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/resource-interchange-file-format.html"&gt;Resource Interchange File
 Format&lt;/a&gt;, se puede observar como se utiliza la
 familia de funciones &lt;a href="http://linux.die.net/man/3/getopt" title="getopt(3)"&gt;getopt&lt;/a&gt; para procesar adecuadamente la línea de
 comandos de un programa cualquiera.&lt;/p&gt;
@@ -465,12 +465,12 @@ reducir las diferencias entre las distintas distribuciones de Linux, limitando
 así los costes derivados de portar las aplicaciones de unas distribuciones a otras.&amp;#160;&lt;a class="footnote-backref" href="#fnref:5" rev="footnote" title="Jump back to footnote 5 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="demonio"></category><category term="servicio"></category><category term="init"></category><category term="syslog"></category><category term="FHS"></category><category term="getopt"></category><category term="daemon"></category><category term="umask"></category><category term="Qxt"></category><category term="setsid"></category><category term="LSB"></category><category term="runlevel"></category><category term="nivel de ejecución"></category><category term="/etc/init.d"></category><category term="/var/run"></category></entry><entry><title>Crea tu propia distro de Linux con Yocto</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/crea-tu-propia-distro-de-linux-con-yocto.html" rel="alternate"></link><updated>2013-01-22T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-22:crea-tu-propia-distro-de-linux-con-yocto.html</id><summary type="html">&lt;p&gt;El objetivo de este artículo es explicar paso a paso como se puede utilizar
-el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; para crear nuestra propia distribución de Linux. Primero
+&lt;/div&gt;</summary><category term="demonio"></category><category term="servicio"></category><category term="init"></category><category term="syslog"></category><category term="FHS"></category><category term="getopt"></category><category term="daemon"></category><category term="umask"></category><category term="Qxt"></category><category term="setsid"></category><category term="LSB"></category><category term="runlevel"></category><category term="nivel de ejecución"></category><category term="/etc/init.d"></category><category term="/var/run"></category></entry><entry><title>Crea tu propia distro de Linux con Yocto</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/crea-tu-propia-distro-de-linux-con-yocto.html" rel="alternate"></link><updated>2013-01-22T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-22:crea-tu-propia-distro-de-linux-con-yocto.html</id><summary type="html">&lt;p&gt;El objetivo de este artículo es explicar paso a paso como se puede utilizar
+el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; para crear nuestra propia distribución de Linux. Primero
 construiremos una para ejecutarla en &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt; y después otra para nuestra
 Raspberry Pi.&lt;/p&gt;
 &lt;h2&gt;Inicio rápido&lt;/h2&gt;
-&lt;p&gt;El inicio rápido con el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; está perfectamente documentado en
+&lt;p&gt;El inicio rápido con el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; está perfectamente documentado en
 &lt;a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html" title="Yocto Project Quick Start"&gt;Yocto Project Quick Start&lt;/a&gt;. En cualquier caso aquí resumiremos los pasos
 deteniéndonos en los de mayor importancia.&lt;/p&gt;
 &lt;h3&gt;Requisitos&lt;/h3&gt;
@@ -491,7 +491,7 @@ libglu1-mesa-dev mercurial autoconf automake groff
 
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Una versión del proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt;.&lt;/strong&gt; Las distintas versiones pueden
+&lt;p&gt;&lt;strong&gt;Una versión del proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt;.&lt;/strong&gt; Las distintas versiones pueden
 descargarse desde la dirección:&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://downloads.yoctoproject.org/releases/yocto/"&gt;http://downloads.yoctoproject.org/releases/yocto/&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
@@ -501,8 +501,8 @@ descargarse desde la dirección:&lt;/p&gt;
 incluyendo las herramienta de desarrollo para la misma:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Descargar el sistema de construcción &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; de la última versión del
-proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; y descomprimirla:&lt;/p&gt;
+&lt;p&gt;Descargar el sistema de construcción &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; de la última versión del
+proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; y descomprimirla:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2
 &lt;span class="nv"&gt;$ &lt;/span&gt;tar jxf poky-danny-8.0.tar.bz2
 &lt;/pre&gt;&lt;/div&gt;
@@ -547,7 +547,7 @@ debería ser 9:&lt;/p&gt;
 
 
 &lt;h2&gt;Crear una distribución para Raspberry Pi&lt;/h2&gt;
-&lt;p&gt;El ejemplo estándar del proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; se construye por defecto para la arquitectura
+&lt;p&gt;El ejemplo estándar del proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; se construye por defecto para la arquitectura
 &lt;strong&gt;qemux86&lt;/strong&gt;. En el caso de querer compilar para otro sistema sólo es necesario añadir
 una capa que incorpore los archivos de configuración necesarios.&lt;/p&gt;
 &lt;p&gt;En nuestro caso dicha capa es &lt;strong&gt;meta-raspberrypi&lt;/strong&gt;, una capa &lt;a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package"&gt;BSP&lt;/a&gt; que agrupa todos los
@@ -564,7 +564,7 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Cambiar a la rama &lt;strong&gt;danny&lt;/strong&gt; que es la de la versión de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; que estamos usando:&lt;/p&gt;
+&lt;p&gt;Cambiar a la rama &lt;strong&gt;danny&lt;/strong&gt; que es la de la versión de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; que estamos usando:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;meta-raspberrypi
 &lt;span class="nv"&gt;$ &lt;/span&gt;git checkout danny
 &lt;/pre&gt;&lt;/div&gt;

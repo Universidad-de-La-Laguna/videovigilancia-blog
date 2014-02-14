@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Visi%C3%B3n.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-02-19T00:00:00+00:00</updated><entry><title>Detección de movimiento</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/deteccion-de-movimiento.html" rel="alternate"></link><updated>2013-02-19T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-19:deteccion-de-movimiento.html</id><summary type="html">&lt;p&gt;Detectar movimiento en una secuencia de vídeo es una tarea relativamente simple
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Visi%C3%B3n.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</id><updated>2013-02-19T00:00:00+00:00</updated><entry><title>Detección de movimiento</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/deteccion-de-movimiento.html" rel="alternate"></link><updated>2013-02-19T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-02-19:deteccion-de-movimiento.html</id><summary type="html">&lt;p&gt;Detectar movimiento en una secuencia de vídeo es una tarea relativamente simple
 que puede abordarse en unos pocos pasos:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -55,11 +55,11 @@ algoritmos y del rendimiento, lo que puede dificultar el desarrollo. Por eso
 suele ser preferible utilizar una librería madura en lugar de hacer nuestra
 propia implementación.&lt;/p&gt;
 &lt;h2&gt;OpenCV y Qt&lt;/h2&gt;
-&lt;p&gt;Si estamos desarrollando una aplicación gráfica en &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; debemos tomar una serie
+&lt;p&gt;Si estamos desarrollando una aplicación gráfica en &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; debemos tomar una serie
 de medidas para poder emplear la librería &lt;a href="http://opencv.willowgarage.com/wiki/" title="OpenCV"&gt;OpenCV&lt;/a&gt; desde ella:&lt;/p&gt;
 &lt;h3&gt;Conversión de QImage en cv::Mat&lt;/h3&gt;
 &lt;p&gt;Las imágenes de las que haremos uso son instancias de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;, propia
-del &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. Sin embargo las funciones, clases y métodos de &lt;a href="http://opencv.willowgarage.com/wiki/" title="OpenCV"&gt;OpenCV&lt;/a&gt;
+del &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. Sin embargo las funciones, clases y métodos de &lt;a href="http://opencv.willowgarage.com/wiki/" title="OpenCV"&gt;OpenCV&lt;/a&gt;
 esperan objetos &lt;code&gt;cv::Mat&lt;/code&gt;. Para convertir entre un formato y otro podemos emplear
 el proyecto &lt;a href="https://github.com/dbzhang800/QtOpenCV" title="QtOpenCV"&gt;QtOpenCV&lt;/a&gt; de &lt;a href="https://github.com/dbzhang800"&gt;Debao Zhang&lt;/a&gt; (licencia
 &lt;a href="http://es.wikipedia.org/wiki/MIT_License"&gt;MIT&lt;/a&gt;)&lt;/p&gt;
@@ -287,7 +287,7 @@ la imagen antes de mostrársela al usuario.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li id="fn:1"&gt;
 &lt;p&gt;Más detalles en el mensaje &lt;a href="http://lists.trolltech.com/qt-interest/2008-11/thread00534-0.html"&gt;QPixmap: It is not safe to use pixmaps outside the GUI thread&lt;/a&gt;
-de las listas de correo de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+de las listas de correo de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</summary><category term="visión"></category><category term="imágenes"></category><category term="opencv"></category><category term="qt"></category><category term="qimage"></category></entry></feed>

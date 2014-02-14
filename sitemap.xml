@@ -4,939 +4,939 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/index.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/index.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/archives.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/archives.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tags.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tags.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/categories.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/categories.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/pages/acerca-de.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/pages/acerca-de.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>yearly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/pages/seminarios.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/pages/seminarios.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>yearly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/capturando-secuencias-de-video-con-qt.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/capturando-secuencias-de-video-con-qt.html</loc>
 <lastmod>2014-02-11T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/almacenar-datos-en-sqlite.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/almacenar-datos-en-sqlite.html</loc>
 <lastmod>2013-09-11T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/servicios-y-demonios-en-linux.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/servicios-y-demonios-en-linux.html</loc>
 <lastmod>2013-05-18T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/resource-interchange-file-format.html</loc>
 <lastmod>2013-05-12T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/conversion-de-tipos-en-c.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/conversion-de-tipos-en-c.html</loc>
 <lastmod>2013-05-05T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/make-install-con-qmake.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/make-install-con-qmake.html</loc>
 <lastmod>2013-04-22T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/aplicaciones-de-consola-con-qt.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/aplicaciones-de-consola-con-qt.html</loc>
 <lastmod>2013-04-11T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/paralelismo-y-concurrencia.html</loc>
 <lastmod>2013-04-07T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html</loc>
 <lastmod>2013-04-06T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/uso-de-la-memoria-como-un-dispositivo-de-es.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/uso-de-la-memoria-como-un-dispositivo-de-es.html</loc>
 <lastmod>2013-03-13T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/implementando-un-protocolo-con-protocol-buffers.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/implementando-un-protocolo-con-protocol-buffers.html</loc>
 <lastmod>2013-03-05T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/qt-network.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/qt-network.html</loc>
 <lastmod>2013-03-04T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/bsd-sockets.html</loc>
 <lastmod>2013-03-02T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html</loc>
 <lastmod>2013-03-02T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/deteccion-de-movimiento.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/deteccion-de-movimiento.html</loc>
 <lastmod>2013-02-19T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html</loc>
 <lastmod>2013-02-18T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html</loc>
 <lastmod>2013-02-16T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html</loc>
 <lastmod>2013-02-15T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/como-usar-qmovie-en-qt.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/como-usar-qmovie-en-qt.html</loc>
 <lastmod>2013-02-13T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html</loc>
 <lastmod>2013-01-29T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/crea-tu-propia-distro-de-linux-con-yocto.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/crea-tu-propia-distro-de-linux-con-yocto.html</loc>
 <lastmod>2013-01-22T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/camara-cf7670c-v2.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/camara-cf7670c-v2.html</loc>
 <lastmod>2013-01-13T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/lcd-18-spi-st7735.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/lcd-18-spi-st7735.html</loc>
 <lastmod>2013-01-13T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/raspberry-pi.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/raspberry-pi.html</loc>
 <lastmod>2013-01-13T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html</loc>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html</loc>
 <lastmod>2013-01-10T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/category/comunicaciones.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/category/comunicaciones.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/category/desarrollo.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/category/desarrollo.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/category/hardware.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/category/hardware.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/category/linux.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/category/linux.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/category/overviews.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/category/overviews.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/category/qt.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/category/qt.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/category/vision.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/category/vision.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/yocto.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/yocto.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/bitbake.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/bitbake.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/openembedded.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/openembedded.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/dynamic_cast.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/dynamic_cast.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/consola.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/consola.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/videocore.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/videocore.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qcamera.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qcamera.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/umask.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/umask.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/terminal.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/terminal.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/opencv.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/opencv.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/init.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/init.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/raspberry-pi.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/raspberry-pi.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/runlevel.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/runlevel.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/mutex.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/mutex.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qsqlquery.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qsqlquery.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/callbacks.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/callbacks.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/lcd.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/lcd.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qxt.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qxt.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/etcinitd.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/etcinitd.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/daemon.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/daemon.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qt.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qt.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/gui.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/gui.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/c.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/c.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qcoreapplication.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qcoreapplication.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/sql.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/sql.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/poky.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/poky.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/signal.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/signal.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/multiproceso.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/multiproceso.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/syslog.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/syslog.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/layouts.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/layouts.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/gpio.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/gpio.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/al422.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/al422.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/arm.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/arm.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/servicio.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/servicio.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/lsb.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/lsb.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/typecast.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/typecast.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/installs.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/installs.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/multimedia.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/multimedia.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/setsid.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/setsid.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/volatile.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/volatile.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/defines.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/defines.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/condicion-de-espera.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/condicion-de-espera.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/empotrado.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/empotrado.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/cf7670c.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/cf7670c.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/productor-consumidor.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/productor-consumidor.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/sigaction.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/sigaction.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/hilos.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/hilos.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/vision.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/vision.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/ov7670.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/ov7670.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/varrun.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/varrun.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/avi.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/avi.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/nivel-de-ejecucion.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/nivel-de-ejecucion.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qimagewriter.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qimagewriter.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/demonio.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/demonio.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/concurrencia.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/concurrencia.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/bucle-de-mensajes.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/bucle-de-mensajes.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qmake.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qmake.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/linux.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/linux.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/rpi.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/rpi.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/slots.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/slots.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/sockets.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/sockets.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/st7735.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/st7735.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/const_cast.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/const_cast.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/multihilo.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/multihilo.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/paralelismo.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/paralelismo.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/static_cast.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/static_cast.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/broadcom.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/broadcom.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/senales.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/senales.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/riff.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/riff.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qbuffer.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qbuffer.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/posix.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/posix.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/buffer-finito.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/buffer-finito.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/wav.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/wav.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/rifftree.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/rifftree.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/reinterpret_cast.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/reinterpret_cast.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qimage.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qimage.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/imagenes.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/imagenes.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/variables-de-condicion.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/variables-de-condicion.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/sqlite.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/sqlite.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qimagereader.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qimagereader.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/spi.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/spi.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qiodevice.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qiodevice.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/fhs.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/fhs.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/comunicaciones.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/comunicaciones.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/make.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/make.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/distribucion.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/distribucion.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qthreadpool.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qthreadpool.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/getopt.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/getopt.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/protobuf.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/protobuf.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qsocketnotifier.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qsocketnotifier.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qsqldatabase.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qsqldatabase.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/serializacion.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/serializacion.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/qmovie.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/qmovie.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/cpp.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/cpp.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/tag/i2c.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/tag/i2c.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/author/jesus-torres.html</loc>
-<lastmod>2014-02-14T14:37:41-00:00</lastmod>
+<loc>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/author/jesus-torres.html</loc>
+<lastmod>2014-02-14T14:44:10-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>

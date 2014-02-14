@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Overviews.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2013-05-12T00:00:00+01:00</updated><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-05-12T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-12:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Overviews.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</id><updated>2013-05-12T00:00:00+01:00</updated><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-05-12T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-05-12:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
 de fragmentos etiquetados o &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt;. Siendo usado en la actualidad como formato
 contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
 indudable que resulta especialmente útil para almacenar contenidos multimedia,
@@ -84,7 +84,7 @@ programa &lt;a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.h
 &lt;h1&gt;Mi rifftree&lt;/h1&gt;
 &lt;p&gt;Para ilustrar lo comentado sobre los archivos RIFF, he publicado en GitHub &lt;a href="http://github.com/aplatanado/rifftree"&gt;mi
 propia versión de rifftree&lt;/a&gt;. Está
-desarrollada con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y hace uso del mapeo de archivos en memoria para
+desarrollada con &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y hace uso del mapeo de archivos en memoria para
 simplificar el acceso al archivo RIFF.&lt;/p&gt;
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
@@ -102,7 +102,7 @@ en ese orden, hay que tener en cuenta que al interpretarlo como &lt;code&gt;uint
 una máquina &lt;em&gt;little-endian&lt;/em&gt; no veremos el número 0x52494646 sino 0x46464952.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="RIFF"></category><category term="AVI"></category><category term="WAV"></category><category term="rifftree"></category></entry><entry><title>Paralelismo y concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html" rel="alternate"></link><updated>2013-04-07T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-07:paralelismo-y-concurrencia.html</id><summary type="html">&lt;p&gt;El paralelismo no debe confundirse con la &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;,
+&lt;/div&gt;</summary><category term="RIFF"></category><category term="AVI"></category><category term="WAV"></category><category term="rifftree"></category></entry><entry><title>Paralelismo y concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/paralelismo-y-concurrencia.html" rel="alternate"></link><updated>2013-04-07T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-04-07:paralelismo-y-concurrencia.html</id><summary type="html">&lt;p&gt;El paralelismo no debe confundirse con la &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;,
 aunque es común que así ocurra. El paralelismo se preocupa de analizar como
 superponer operaciones con el objeto de mejorar el rendimiento al realizar una
 tarea concreta.&lt;/p&gt;
@@ -125,12 +125,12 @@ Así un programa con dos hilos concurrentes que se ejecute en un sistema
 monoprocesador sin múltiples núcleos ni físicos ni lógicos (&lt;a href="http://en.wikipedia.org/wiki/Simultaneous_multithreading" title="Simultaneous Multithreading"&gt;SMT&lt;/a&gt;) puede ser
 concurrente pero no paralelo. Obviamente el paralelismo sólo es posible en
 sistemas multinúcleo, multiprocesador o distribuidos.&lt;/p&gt;
-&lt;p&gt;A continuación complementaremos lo hablado anteriormente sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
+&lt;p&gt;A continuación complementaremos lo hablado anteriormente sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
 considerando que ahora el contexto es el de programas donde pretendemos
 descomponer y paralelizar tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt;.&lt;/p&gt;
 &lt;h2&gt;Multihilo&lt;/h2&gt;
 &lt;p&gt;El uso de múltiples hilos dentro de un programa paralelo es un enfoque muy
-común. Sin embargo, a diferencia de lo que ocurre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;en los casos de los que
+común. Sin embargo, a diferencia de lo que ocurre &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html"&gt;en los casos de los que
 hemos hablado anteriormente&lt;/a&gt;, por lo
 general se crean tantos hilos como núcleos diferentes dispone el sistema y
 se divide entre ellos la tarea que deseamos realizar.&lt;/p&gt;
@@ -144,7 +144,7 @@ donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
 ser distribuida al público y por lo tanto será utilizada en ordenadores con
 características diversas.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://commons.wikimedia.org/wiki/File:Thread_pool.svg"&gt;&lt;img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" alt="Sencillo esquema de un agrupamiento de hilos" class="right-float"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;El patrón &lt;em&gt;agrupamiento de hilos&lt;/em&gt; comentado en el artículo sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
+&lt;p&gt;El patrón &lt;em&gt;agrupamiento de hilos&lt;/em&gt; comentado en el artículo sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
 nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
 las tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt; tanto como queramos. Y que estas sean
 ejecutadas sobre un agrupamiento configurado con el mismo número de hilos que
@@ -154,14 +154,14 @@ subyacente, aprovechando de forma sencilla las ventajas de los sistemas
 multinúcleo.&lt;/p&gt;
 &lt;p&gt;Como ya hemos comentado, las plataformas Java y .NET incorporan una
 implementación de este patrón. Mientras que para C/C++ existen diversas librerías,
-entre las que no sólo está &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y su clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;, si no que fundamentalmente
+entre las que no sólo está &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y su clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;, si no que fundamentalmente
 tenemos que destacar la &lt;a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks"&gt;Threading Building Blocks&lt;/a&gt; de Intel (TBB).&lt;/p&gt;
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://blog.golang.org/2013/01/concurrency-is-not-parallelism.html"&gt;Concurrence is no parallelism&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Concurrency_pattern"&gt;Concurrency pattern&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;Thread pool pattern&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="paralelismo"></category><category term="hilos"></category><category term="multihilo"></category><category term="qthreadpool"></category></entry><entry><title>Concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html" rel="alternate"></link><updated>2013-04-06T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-06:concurrencia.html</id><summary type="html">&lt;p&gt;La concurrencia tiene que ver con manejar múltiples eventos que se superponen
+&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="paralelismo"></category><category term="hilos"></category><category term="multihilo"></category><category term="qthreadpool"></category></entry><entry><title>Concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html" rel="alternate"></link><updated>2013-04-06T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-04-06:concurrencia.html</id><summary type="html">&lt;p&gt;La concurrencia tiene que ver con manejar múltiples eventos que se superponen
 en el tiempo fuera del control del programa. Por lo tanto debe preocuparse de
 manejar la creciente complejidad que surge de la necesidad de un control de
 flujo no determinista. Los programas concurrentes vienen con frecuencia
@@ -175,7 +175,7 @@ correspondientes peticiones.&lt;/p&gt;
 &lt;p&gt;En general existen aplicaciones que son fundamentalmente concurrentes, como
 los servidores web, los de archivos, los de base de datos y otros programas
 similares que deben manejar al mismo tiempo la conexión con diversos clientes.
-También son concurrentes las &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;aplicaciones paralelas&lt;/a&gt;,
+También son concurrentes las &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;aplicaciones paralelas&lt;/a&gt;,
 donde una tarea se descompone en otras más pequeñas que se ejecutan al mismo
 tiempo para obtener el máximo rendimiento, porque en muchas ocasiones no se sabe
 de antemano cuando van a terminar estas subtareas o van a intentar acceder a las
@@ -215,7 +215,7 @@ concurrencia. Sin embargo, por lo general, este tipo de tareas están
 pueden ser más o menos convenientes según el tipo de problemas a resolver.
 Nosotros nos centraremos por el momento en el primer tipo, dejando los detalles
 relacionados con la &lt;strong&gt;programación paralela&lt;/strong&gt; para un
-&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;artículo posterior&lt;/a&gt;.&lt;/p&gt;
+&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;artículo posterior&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Multihilo&lt;/h2&gt;
 &lt;p&gt;El uso de múltiples hilos dentro de un mismo programa es uno de los enfoques
 más comunes cuando se plantea resolver un problema de concurrencia. En las
@@ -250,12 +250,12 @@ la compartición de recursos, se ha extendido el uso de modelos basados en paso
 de mensajes para resolver problemas concurrentes complejos.&lt;/p&gt;
 &lt;p&gt;En estos modelos los hilos no acceden directamente a los datos sino que se los
 transfieren entre si por medio de mensajes. Así se evita compartir recursos y,
-por tanto, el uso de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y variables de condición&lt;/a&gt;.
+por tanto, el uso de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y variables de condición&lt;/a&gt;.
 Lamentablemente así se pierde sencillez.&lt;/p&gt;
 &lt;p&gt;Para estos lenguajes como Scala o Erlang implementan el modelo &lt;a href="http://en.wikipedia.org/wiki/Actor_model" title="Actor model"&gt;Actor&lt;/a&gt;, mientras
 que Go se basa en en el modelo &lt;a href="http://en.wikipedia.org/wiki/Communicating_sequential_processes" title="Communicating sequential processes"&gt;CSP&lt;/a&gt;. Ambos casos, pese a &lt;a href="http://www.informit.com/articles/article.aspx?p=1768317"&gt;sus diferencias&lt;/a&gt;,
 fundamentalmente operan tal y como hemos descrito. También entraría dentro de
-este tipo de modelos el &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;mecanismo de comunicación entre hilos&lt;/a&gt; que implementa &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; a través del uso de señales y &lt;em&gt;slots&lt;/em&gt;.&lt;/p&gt;
+este tipo de modelos el &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;mecanismo de comunicación entre hilos&lt;/a&gt; que implementa &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; a través del uso de señales y &lt;em&gt;slots&lt;/em&gt;.&lt;/p&gt;
 &lt;h2&gt;Multiproceso&lt;/h2&gt;
 &lt;p&gt;En los sistemas operativos que implementan una llamada al sistema tipo
 &lt;a href=""&gt;fork&lt;/a&gt; se pueden crear de forma sencilla múltiples procesos, en lugar de
@@ -330,7 +330,7 @@ paralela.&lt;/p&gt;
 OS X bajo el nombre de &lt;a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch"&gt;Grand Central Dispatch&lt;/a&gt; (GCD).
 En el caso de C++ existen múltiples librerías, como por ejemplo Intel &lt;a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks"&gt;TBB&lt;/a&gt;, diseñada
 específicamente para facilitar que los programas aprovechen las ventajas de
-los sistemas multinúcleo, o &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, que incorpora su propia implementación del
+los sistemas multinúcleo, o &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, que incorpora su propia implementación del
 patrón a través de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;HelloWorldTask&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QRunnable&lt;/span&gt;
  &lt;span class="p"&gt;{&lt;/span&gt;
@@ -375,7 +375,7 @@ respuesta a dichos eventos.&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://docs.google.com/drawings/d/1vr_1x_UQAW905hjxALQE0hGB6ii55dIiKOsqFD9lw_M/pub?w=809&amp;amp;h=367" alt="Ejecución basada en eventos" class="centered"&gt;&lt;/p&gt;
 &lt;p&gt;Estas rutinas de &lt;em&gt;callback&lt;/em&gt; pueden tener nombres predefinidos, como es el caso
-del sistema de señales de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, o especificarse a través de un argumento
+del sistema de señales de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, o especificarse a través de un argumento
 adicional indicado cuando se solicitó la E/S.&lt;/p&gt;
 &lt;p&gt;Por lo general los programas que gestionan la concurrencia de esta manera
 tiene muchos menos requerimientos de memoria que los que usan múltiples hilos
@@ -420,7 +420,7 @@ librería &lt;a href="http://www.boost.org/doc/libs/1_53_0/libs/coroutine/doc/ht
 &lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;Thread pool pattern&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/"&gt;Understanding the node.js event loop&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Coroutine"&gt;Coroutine&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="hilos"></category><category term="bucle de mensajes"></category><category term="multiproceso"></category><category term="multihilo"></category><category term="callbacks"></category><category term="qthreadpool"></category></entry><entry><title>BSD sockets</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-02:bsd-sockets.html</id><summary type="html">&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
+&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="hilos"></category><category term="bucle de mensajes"></category><category term="multiproceso"></category><category term="multihilo"></category><category term="callbacks"></category><category term="qthreadpool"></category></entry><entry><title>BSD sockets</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/bsd-sockets.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-03-02:bsd-sockets.html</id><summary type="html">&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
 (Application Programming Interface) para la comunicación entre procesos,
 fundamentalmente entre equipos conectados a través de Internet
 (&lt;em&gt;socket&lt;/em&gt; de Internet), aunque también soporta la conexión local entre procesos
@@ -534,7 +534,7 @@ de los sistemas UNIX, para asegurar la compatibilidad entre las distintas
 variantes de UNIX y otros sistemas operativos.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="sockets"></category><category term="POSIX"></category><category term="comunicaciones"></category></entry><entry><title>Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-02:protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format"&gt;Protocol Buffers&lt;/a&gt; es una herramienta para la serialización&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; de estructuras de
+&lt;/div&gt;</summary><category term="sockets"></category><category term="POSIX"></category><category term="comunicaciones"></category></entry><entry><title>Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-03-02:protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format"&gt;Protocol Buffers&lt;/a&gt; es una herramienta para la serialización&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; de estructuras de
 datos.&lt;/p&gt;
 &lt;p&gt;Básicamente provee una manera sencilla de definir la estructura de los datos,
 pudieron entonces generar código capaz de leer y escribir dichos datos de
@@ -576,7 +576,7 @@ del objeto tras la serialización puede ser usada para crear un nuevo objeto,
 idéntico al original, tras aplicar el proceso inverso de deserialización.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="protobuf"></category><category term="serialización"></category></entry><entry><title>Proyecto Qt. Framework de desarrollo de aplicaciones</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" rel="alternate"></link><updated>2013-01-29T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-29:proyecto-qt-framework-de-desarrollo-de-aplicaciones.html</id><summary type="html">&lt;p&gt;&lt;a href="http://qt-project.org/" title="Qt Proyect"&gt;Qt&lt;/a&gt; es una &lt;em&gt;framework&lt;/em&gt; multiplataforma en C++ de desarrollo de aplicaciones. Se
+&lt;/div&gt;</summary><category term="protobuf"></category><category term="serialización"></category></entry><entry><title>Proyecto Qt. Framework de desarrollo de aplicaciones</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" rel="alternate"></link><updated>2013-01-29T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-29:proyecto-qt-framework-de-desarrollo-de-aplicaciones.html</id><summary type="html">&lt;p&gt;&lt;a href="http://qt-project.org/" title="Qt Proyect"&gt;Qt&lt;/a&gt; es una &lt;em&gt;framework&lt;/em&gt; multiplataforma en C++ de desarrollo de aplicaciones. Se
 utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
 gracias al conjunto de controles independientes de la plataforma que ofrece,
 aunque también es usado para crear herramientas de linea de comando o consolas
@@ -602,7 +602,7 @@ Python, Java, Ruby, Ada, Pascal, Perl, PHP, Haskell, Lua, D, .NET, etc.&lt;/p&gt
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/"&gt;Qt Proyect&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Qt_(framework)"&gt;Wikipedia&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="qt"></category><category term="gui"></category></entry><entry><title>Yocto, Poky y BitBake</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" rel="alternate"></link><updated>2013-01-10T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-10:yocto-poky-y-bitbake.html</id><summary type="html">&lt;p&gt;El proyecto &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; proporciona a los desarrolladores de sistemas empotrados
+&lt;/ol&gt;</summary><category term="qt"></category><category term="gui"></category></entry><entry><title>Yocto, Poky y BitBake</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" rel="alternate"></link><updated>2013-01-10T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-10:yocto-poky-y-bitbake.html</id><summary type="html">&lt;p&gt;El proyecto &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; proporciona a los desarrolladores de sistemas empotrados
 Linux un punto de partida para generar distribuciones personalizadas para
 sus productos. Una de las piezas clave del proyecto es el sistema de
 construcción &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt;, que a su vez se apoya en &lt;a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake"&gt;BitBake&lt;/a&gt;, una herramienta de

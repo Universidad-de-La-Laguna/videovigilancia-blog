@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/all.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/</id><updated>2014-02-11T00:00:00+00:00</updated><entry><title>Capturando secuencias de vídeo con Qt</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/capturando-secuencias-de-video-con-qt.html" rel="alternate"></link><updated>2014-02-11T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2014-02-11:capturando-secuencias-de-video-con-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incluye el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt; para facilitar la manipulación de
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/all.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</id><updated>2014-02-11T00:00:00+00:00</updated><entry><title>Capturando secuencias de vídeo con Qt</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/capturando-secuencias-de-video-con-qt.html" rel="alternate"></link><updated>2014-02-11T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2014-02-11:capturando-secuencias-de-video-con-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incluye el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt; para facilitar la manipulación de
 contenidos multimedia. Entre otras cosas permite reproducir audio y vídeo y
 capturar desde dispositivos de adquisición soportados por el sistema operativo.&lt;/p&gt;
 &lt;p&gt;Como por defecto no viene activado, es necesaro abrir el archivo &lt;code&gt;.pro&lt;/code&gt; del
@@ -17,7 +17,7 @@ la captura mediante el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtmu
 
 
 &lt;p&gt;Por lo general suele ser interesante incorporar un visor en el que mostrar
-al usuario lo que la cámara está capturando. Para simplifcar esta tarea, &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;
+al usuario lo que la cámara está capturando. Para simplifcar esta tarea, &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;
 nos ofrece el control &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcameraviewfinder.html" title="QCameraViewfinder"&gt;QCameraViewfinder&lt;/a&gt; que hereda del más generico &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideowidget.html" title="QVideoWidget"&gt;QVideoWidget&lt;/a&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;camera&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QCamera&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;viewfinder&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QCameraViewfinder&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -186,7 +186,7 @@ mientras se esté haciendo uso del objeto. Por eso se invoca al método
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt; Class Reference.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; Class Reference.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/videooverview.html"&gt;Video Overview&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="qt"></category><category term="multimedia"></category><category term="qcamera"></category></entry><entry><title>Almacenar datos en SQLite</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/almacenar-datos-en-sqlite.html" rel="alternate"></link><updated>2013-09-11T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-09-11:almacenar-datos-en-sqlite.html</id><summary type="html">&lt;p&gt;Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
+&lt;/ol&gt;</summary><category term="qt"></category><category term="multimedia"></category><category term="qcamera"></category></entry><entry><title>Almacenar datos en SQLite</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/almacenar-datos-en-sqlite.html" rel="alternate"></link><updated>2013-09-11T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-09-11:almacenar-datos-en-sqlite.html</id><summary type="html">&lt;p&gt;Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
 son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
 Es decir, que están compuestos por un programa servidor —que es quien tiene
 acceso local a los datos— de forma que uno o más programas cliente pueden
@@ -220,7 +220,7 @@ y se incluye por defecto en cualquier dispositivo Android, permitiendo que las
 aplicaciones creen sus propias bases de datos sin necesitar ningún tipo de
 configuración.&lt;/p&gt;
 &lt;h1&gt;Acceso a bases de datos mediante Qt SQL&lt;/h1&gt;
-&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; integra el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL"&gt;Qt SQL&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que provee acceso a diferentes gestores
+&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; integra el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL"&gt;Qt SQL&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que provee acceso a diferentes gestores
 de bases de datos SQL, entre los que podemos destacar MySQL, PostgreSQL, Oracle, gestores
 compatibles con &lt;a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC"&gt;ODBC&lt;/a&gt; y &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Para todos estos casos lo primero es instanciar un objeto de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase"&gt;QSqlDatabase&lt;/a&gt;
@@ -344,7 +344,7 @@ formado por diversos módulos —como Qt Core, Qt GUI y Qt Network— y hemos ha
 de alguno de ellos.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="qt"></category><category term="sqlite"></category><category term="qsqldatabase"></category><category term="qsqlquery"></category><category term="SQL"></category></entry><entry><title>Servicios y demonios en Linux</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/servicios-y-demonios-en-linux.html" rel="alternate"></link><updated>2013-05-18T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</id><summary type="html">&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
+&lt;/div&gt;</summary><category term="qt"></category><category term="sqlite"></category><category term="qsqldatabase"></category><category term="qsqlquery"></category><category term="SQL"></category></entry><entry><title>Servicios y demonios en Linux</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/servicios-y-demonios-en-linux.html" rel="alternate"></link><updated>2013-05-18T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</id><summary type="html">&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
 fuera del control interactivo de los usuarios del sistema ya que carecen de
 interfaz con estos.&lt;/p&gt;
 &lt;p&gt;El sistema generalmente inicia los demonios durante el arranque, siendo las
@@ -460,10 +460,10 @@ recurso y el nivel de severidad. Por ejemplo pueden ser escritos a un archivo
 concreto en disco, mostrados por una consola, enviados por red a registro de
 eventos centralizados o filtrados.&lt;/p&gt;
 &lt;h3&gt;Registro de eventos en aplicaciones Qt&lt;/h3&gt;
-&lt;p&gt;Cuando se desarrolla con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; puede ser interesante echar un vistazo a las
+&lt;p&gt;Cuando se desarrolla con &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; puede ser interesante echar un vistazo a las
 funcionalidades de la librería &lt;a href="http://libqxt.org" title="LibQxt"&gt;LibQxt&lt;/a&gt;. Este proyecto proporciona un conjunto
 de clases que añaden funcionalidades multiplataforma que no están disponibles
-en el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
+en el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Entre dichas funcionalidades adicionales está la clase &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt;, que facilita
 que el demonio registre los eventos en sus propios archivos de sucesos
 &lt;a href="http://libqxt.bitbucket.org/doc/tip/qxtlogger.html" title="QxtLogger"&gt;QxtLogger&lt;/a&gt; —por ejemplo &lt;code&gt;/var/log/midemonio/info.log&lt;/code&gt;,
@@ -622,8 +622,8 @@ mecanismo muy potente para comunicarnos con él:&lt;/p&gt;
 &lt;li&gt;Es muy común que intercepte la señal &lt;code&gt;SIGHUP&lt;/code&gt; ya que así se le suele indicar
  que recargue los archivos de configuración sin tener que reiniciarlo.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Si estamos desarrollando nuestra aplicación con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, lo más conveniente es
-echar un vistazo al final del artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/aplicaciones-de-consola-con-qt.html"&gt;Aplicaciones de consola con
+&lt;p&gt;Si estamos desarrollando nuestra aplicación con &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, lo más conveniente es
+echar un vistazo al final del artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/aplicaciones-de-consola-con-qt.html"&gt;Aplicaciones de consola con
 Qt&lt;/a&gt; ya que allí se explican las
 particularidades del uso de señales POSIX en este tipo de aplicaciones.&lt;/p&gt;
 &lt;h1&gt;Arranque del servicio&lt;/h1&gt;
@@ -764,7 +764,7 @@ especificada en la línea de comandos una opción del estilo de &lt;code&gt;-d&l
 Esto es así, por ejemplo, porque es más sencillo depurar el programa y comprobar
 su funcionamiento cuando éste no se ejecuta en segundo plano.&lt;/p&gt;
 &lt;p&gt;En el código del proyecto &lt;a href="http://github.com/aplatanado/rifftree"&gt;rifftree&lt;/a&gt;,
-que ya comentamos en el artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html"&gt;Resource Interchange File
+que ya comentamos en el artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/resource-interchange-file-format.html"&gt;Resource Interchange File
 Format&lt;/a&gt;, se puede observar como se utiliza la
 familia de funciones &lt;a href="http://linux.die.net/man/3/getopt" title="getopt(3)"&gt;getopt&lt;/a&gt; para procesar adecuadamente la línea de
 comandos de un programa cualquiera.&lt;/p&gt;
@@ -810,7 +810,7 @@ reducir las diferencias entre las distintas distribuciones de Linux, limitando
 así los costes derivados de portar las aplicaciones de unas distribuciones a otras.&amp;#160;&lt;a class="footnote-backref" href="#fnref:5" rev="footnote" title="Jump back to footnote 5 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="demonio"></category><category term="servicio"></category><category term="init"></category><category term="syslog"></category><category term="FHS"></category><category term="getopt"></category><category term="daemon"></category><category term="umask"></category><category term="Qxt"></category><category term="setsid"></category><category term="LSB"></category><category term="runlevel"></category><category term="nivel de ejecución"></category><category term="/etc/init.d"></category><category term="/var/run"></category></entry><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-05-12T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-12:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
+&lt;/div&gt;</summary><category term="demonio"></category><category term="servicio"></category><category term="init"></category><category term="syslog"></category><category term="FHS"></category><category term="getopt"></category><category term="daemon"></category><category term="umask"></category><category term="Qxt"></category><category term="setsid"></category><category term="LSB"></category><category term="runlevel"></category><category term="nivel de ejecución"></category><category term="/etc/init.d"></category><category term="/var/run"></category></entry><entry><title>Resource Interchange File Format</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/resource-interchange-file-format.html" rel="alternate"></link><updated>2013-05-12T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-05-12:resource-interchange-file-format.html</id><summary type="html">&lt;p&gt;El &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format"&gt;Resource Interchange File Format&lt;/a&gt; o &lt;a href="http://en.wikipedia.org/wiki/Resource_Interchange_File_Format" title="Resource Interchange File Format"&gt;RIFF&lt;/a&gt; es un formato contenedor genérico diseñado para almacenar datos en forma
 de fragmentos etiquetados o &lt;a href="http://en.wikipedia.org/wiki/Chunk_(information)" title="Chunk (information)"&gt;chunks&lt;/a&gt;. Siendo usado en la actualidad como formato
 contenedor de los conocidos formatos de archivo AVI, ANI y WAV de Microsoft, es
 indudable que resulta especialmente útil para almacenar contenidos multimedia,
@@ -895,7 +895,7 @@ programa &lt;a href="http://manpages.ubuntu.com/manpages/lucid/man1/rifftree.1.h
 &lt;h1&gt;Mi rifftree&lt;/h1&gt;
 &lt;p&gt;Para ilustrar lo comentado sobre los archivos RIFF, he publicado en GitHub &lt;a href="http://github.com/aplatanado/rifftree"&gt;mi
 propia versión de rifftree&lt;/a&gt;. Está
-desarrollada con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y hace uso del mapeo de archivos en memoria para
+desarrollada con &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y hace uso del mapeo de archivos en memoria para
 simplificar el acceso al archivo RIFF.&lt;/p&gt;
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
@@ -913,7 +913,7 @@ en ese orden, hay que tener en cuenta que al interpretarlo como &lt;code&gt;uint
 una máquina &lt;em&gt;little-endian&lt;/em&gt; no veremos el número 0x52494646 sino 0x46464952.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="RIFF"></category><category term="AVI"></category><category term="WAV"></category><category term="rifftree"></category></entry><entry><title>Conversión de tipos en C++</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/conversion-de-tipos-en-c.html" rel="alternate"></link><updated>2013-05-05T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-05-05:conversion-de-tipos-en-c.html</id><summary type="html">&lt;p&gt;En C, cuando una conversión entre dos tipos no es realizada por el compilador de
+&lt;/div&gt;</summary><category term="RIFF"></category><category term="AVI"></category><category term="WAV"></category><category term="rifftree"></category></entry><entry><title>Conversión de tipos en C++</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/conversion-de-tipos-en-c.html" rel="alternate"></link><updated>2013-05-05T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-05-05:conversion-de-tipos-en-c.html</id><summary type="html">&lt;p&gt;En C, cuando una conversión entre dos tipos no es realizada por el compilador de
 forma automática —esto sólo ocurre cuando la conversión es segura, como ir de
 &lt;code&gt;char&lt;/code&gt; a &lt;code&gt;int&lt;/code&gt; o de éste a &lt;code&gt;float&lt;/code&gt;— se puede forzar utilizando una expresión de
 &lt;em&gt;typecast&lt;/em&gt; de la forma &lt;code&gt;(type)object&lt;/code&gt; —o &lt;code&gt;type(object)&lt;/code&gt;— para convertir el
@@ -1018,7 +1018,7 @@ operaciones que con las otras no se puede. Diversos ejemplos de esto se pueden e
 declarada directamente en el o heredada de una clase base.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="typecast"></category><category term="c++"></category><category term="cpp"></category><category term="static_cast"></category><category term="dynamic_cast"></category><category term="const_cast"></category><category term="reinterpret_cast"></category></entry><entry><title>Make install con qmake</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/make-install-con-qmake.html" rel="alternate"></link><updated>2013-04-22T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-22:make-install-con-qmake.html</id><summary type="html">&lt;p&gt;Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios
+&lt;/div&gt;</summary><category term="typecast"></category><category term="c++"></category><category term="cpp"></category><category term="static_cast"></category><category term="dynamic_cast"></category><category term="const_cast"></category><category term="reinterpret_cast"></category></entry><entry><title>Make install con qmake</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/make-install-con-qmake.html" rel="alternate"></link><updated>2013-04-22T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-04-22:make-install-con-qmake.html</id><summary type="html">&lt;p&gt;Cada entorno de desarrollo y/o lenguaje de programación maneja por sus propios
 medios la manera de definir un proyecto de software y el proceso de construcción
 del mismo. Sin embargo &lt;a href="&amp;quot;http://es.wikipedia.org/wiki/Make&amp;quot;" title="make"&gt;make&lt;/a&gt; sigue siendo ámpliamente utilizado para este
 propósito, especialmente en los sistemas UNIX y derivados.&lt;/p&gt;
@@ -1057,8 +1057,8 @@ desde la descarga del código fuente hasta la generación del archivo &lt;code&g
 pasando por invocar a &lt;code&gt;make&lt;/code&gt; para compilar y a &lt;code&gt;make install&lt;/code&gt; para que los
 productos de dicha construcción se instalen en su ubicación definitiva&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;, de
 donde son tomados para conformar el contenido del paquete del proyecto. De forma
-muy similar funciona &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Bitbake&lt;/a&gt;, la herramienta de construcción que utiliza el
-proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; para generar distribuciones de Linux para sistemas empotrados,
+muy similar funciona &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Bitbake&lt;/a&gt;, la herramienta de construcción que utiliza el
+proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; para generar distribuciones de Linux para sistemas empotrados,
 y así una larga lista de herramientas similares. Para todas ellas el poder
 automatizar la construcción de proyectos de software es fundamental, siendo éste
 un campo donde la solución orientada a línea de comandos de &lt;a href="&amp;quot;http://es.wikipedia.org/wiki/Make&amp;quot;" title="make"&gt;make&lt;/a&gt; se muestra
@@ -1081,7 +1081,7 @@ funcionalidades del sistema y generar un archivo &lt;code&gt;Makefile&lt;/code&g
 concreto donde se va a compilar.&lt;/p&gt;
 &lt;p&gt;Herramientas de este tipo existen muchas. Por ejemplo Autotools&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt;, CMake,
 SCons y &lt;a href="http://en.wikipedia.org/wiki/Qmake" title="qmake"&gt;qmake&lt;/a&gt;. Siendo esta última la que se usa preferentemente con las
-aplicaciones desarrolladas en &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, ya que sabe manejar perfectamente las
+aplicaciones desarrolladas en &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, ya que sabe manejar perfectamente las
 singularidades de este &lt;em&gt;framework&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Con &lt;a href="http://en.wikipedia.org/wiki/Qmake" title="qmake"&gt;qmake&lt;/a&gt; las información requerida para construir un proyecto se define en un
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html" title="qmake Project Files"&gt;archivo de proyecto&lt;/a&gt; que generalmente tienen extensión &lt;code&gt;.pro&lt;/code&gt;. Al ejecutar
@@ -1250,7 +1250,7 @@ por el &lt;a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" t
 C/C++ mediante la directiva &lt;code&gt;#define&lt;/code&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="qt"></category><category term="make"></category><category term="qmake"></category><category term="INSTALLS"></category><category term="DEFINES"></category></entry><entry><title>Aplicaciones de consola con Qt</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/aplicaciones-de-consola-con-qt.html" rel="alternate"></link><updated>2013-04-11T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-11:aplicaciones-de-consola-con-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; es un &lt;em&gt;framework&lt;/em&gt; utilizado fundamentalmente para desarrollar aplicaciones
+&lt;/div&gt;</summary><category term="qt"></category><category term="make"></category><category term="qmake"></category><category term="INSTALLS"></category><category term="DEFINES"></category></entry><entry><title>Aplicaciones de consola con Qt</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/aplicaciones-de-consola-con-qt.html" rel="alternate"></link><updated>2013-04-11T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-04-11:aplicaciones-de-consola-con-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; es un &lt;em&gt;framework&lt;/em&gt; utilizado fundamentalmente para desarrollar aplicaciones
 con interfaz gráfica. Sin embargo nada impide que también sea utilizado para crear
 aplicaciones de linea de comandos.&lt;/p&gt;
 &lt;h1&gt;QCoreApplication&lt;/h1&gt;
@@ -1274,8 +1274,8 @@ El bucle de mensajes es iniciado con la invocación del método
 Por ejemplo cuando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication"&gt;QCoreApplication&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html#quit" title="QApplication::quit"&gt;quit&lt;/a&gt;() es llamado.&lt;/p&gt;
 &lt;p&gt;Si la aplicación no necesita de un bucle de mensajes, no es necesario instanciar
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qcoreapplication.html" title="QCoreApplication"&gt;QCoreApplication&lt;/a&gt;, pudiendo desarrollarla como cualquier programa convencional
-en C++, sólo que beneficiándonos de las facilidades ofrecidas por las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; que requieren disponer de un bucle de mensajes son:&lt;/p&gt;
+en C++, sólo que beneficiándonos de las facilidades ofrecidas por las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; que requieren disponer de un bucle de mensajes son:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Controles, ventanas y en general todas las relacionadas con el GUI&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Temporizadores&lt;/strong&gt;.&lt;/li&gt;
@@ -1293,7 +1293,7 @@ estándar de C++:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;como los flujos de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;como los flujos de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QTextStream&lt;/span&gt; &lt;span class="nf"&gt;qtin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;QString&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;qtin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;readLine&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1304,9 +1304,9 @@ se puede bloquear durante la lectura (hasta que hayan datos que leer) lo que
 impediría la ejecución del bucle de mensajes.&lt;/p&gt;
 &lt;p&gt;Para evitarlo se puede delegar la lectura de la &lt;em&gt;entrada estándar&lt;/em&gt; a otro hilo,
 que se comunicaría con el principal para informar de las acciones del usuario
-a través del mecanismo de señales y &lt;em&gt;slots&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. El procedimiento sería muy
+a través del mecanismo de señales y &lt;em&gt;slots&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. El procedimiento sería muy
 similar al que comentamos en
-&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;una entrada anterior&lt;/a&gt;, sólo que
+&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;una entrada anterior&lt;/a&gt;, sólo que
 para leer la &lt;em&gt;entrada estándar&lt;/em&gt; en lugar de para ordenar un vector de enteros.&lt;/p&gt;
 &lt;h1&gt;Manejo de señales&lt;/h1&gt;
 &lt;p&gt;Los sistemas operativos compatibles POSIX implementan un tipo de interrupción
@@ -1416,21 +1416,21 @@ concurrencia.&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;En programas multihilo cualquier hilo en el que no se haya bloqueado una
 señal puede ser utilizado para atenderla. Eso introduce problemas adicionales
-de concurrencia que obligan al uso de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y otros elementos
+de concurrencia que obligan al uso de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y otros elementos
 de sincronización&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Obviamente no hay seguridad de que las funciones del API de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; cumplan con
+&lt;p&gt;Obviamente no hay seguridad de que las funciones del API de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; cumplan con
 los requisitos comentados anteriormente, por lo que no podemos invocarlas
 directamente desde los &lt;em&gt;manejadores de señal&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Además &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; no integra ninguna solución que encapsule y simplifique la gestión
+&lt;p&gt;Además &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; no integra ninguna solución que encapsule y simplifique la gestión
 de &lt;em&gt;señales POSIX&lt;/em&gt;, puesto que éstas no están disponibles en sistemas operativos
 que no soporten dicha especificación.&lt;/p&gt;
 &lt;h2&gt;Usando manejadores de señales POSIX con Qt&lt;/h2&gt;
-&lt;p&gt;Aun así en la documentación de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; se describe una forma de usar manejadores de
+&lt;p&gt;Aun así en la documentación de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; se describe una forma de usar manejadores de
 señales POSIX. Realmente basta con que el &lt;em&gt;manejador de señal&lt;/em&gt; haga algo
-que provoque que &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; emita una señal y después retorne. Al volver a la
-secuencia normal de ejecución del programa, se emitiría la señal de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;
+que provoque que &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; emita una señal y después retorne. Al volver a la
+secuencia normal de ejecución del programa, se emitiría la señal de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;
 invocando el &lt;em&gt;slot&lt;/em&gt; al que está conectada, desde donde se ejecutarían de forma
 segura las operaciones que fueran necesarias.&lt;/p&gt;
 &lt;p&gt;Concretamente en el artículo
@@ -1614,7 +1614,7 @@ llama a otras funciones que no sean reentrantes.&amp;#160;&lt;a class="footnote-
 en la función el programa las bloquea, desbloqueándolas antes de salir.&amp;#160;&lt;a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="qt"></category><category term="qcoreapplication"></category><category term="consola"></category><category term="terminal"></category><category term="señales"></category><category term="hilos"></category><category term="signal"></category><category term="sigaction"></category><category term="qsocketnotifier"></category><category term="volatile"></category></entry><entry><title>Paralelismo y concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html" rel="alternate"></link><updated>2013-04-07T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-07:paralelismo-y-concurrencia.html</id><summary type="html">&lt;p&gt;El paralelismo no debe confundirse con la &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;,
+&lt;/div&gt;</summary><category term="qt"></category><category term="qcoreapplication"></category><category term="consola"></category><category term="terminal"></category><category term="señales"></category><category term="hilos"></category><category term="signal"></category><category term="sigaction"></category><category term="qsocketnotifier"></category><category term="volatile"></category></entry><entry><title>Paralelismo y concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/paralelismo-y-concurrencia.html" rel="alternate"></link><updated>2013-04-07T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-04-07:paralelismo-y-concurrencia.html</id><summary type="html">&lt;p&gt;El paralelismo no debe confundirse con la &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;,
 aunque es común que así ocurra. El paralelismo se preocupa de analizar como
 superponer operaciones con el objeto de mejorar el rendimiento al realizar una
 tarea concreta.&lt;/p&gt;
@@ -1637,12 +1637,12 @@ Así un programa con dos hilos concurrentes que se ejecute en un sistema
 monoprocesador sin múltiples núcleos ni físicos ni lógicos (&lt;a href="http://en.wikipedia.org/wiki/Simultaneous_multithreading" title="Simultaneous Multithreading"&gt;SMT&lt;/a&gt;) puede ser
 concurrente pero no paralelo. Obviamente el paralelismo sólo es posible en
 sistemas multinúcleo, multiprocesador o distribuidos.&lt;/p&gt;
-&lt;p&gt;A continuación complementaremos lo hablado anteriormente sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
+&lt;p&gt;A continuación complementaremos lo hablado anteriormente sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
 considerando que ahora el contexto es el de programas donde pretendemos
 descomponer y paralelizar tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt;.&lt;/p&gt;
 &lt;h2&gt;Multihilo&lt;/h2&gt;
 &lt;p&gt;El uso de múltiples hilos dentro de un programa paralelo es un enfoque muy
-común. Sin embargo, a diferencia de lo que ocurre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;en los casos de los que
+común. Sin embargo, a diferencia de lo que ocurre &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html"&gt;en los casos de los que
 hemos hablado anteriormente&lt;/a&gt;, por lo
 general se crean tantos hilos como núcleos diferentes dispone el sistema y
 se divide entre ellos la tarea que deseamos realizar.&lt;/p&gt;
@@ -1656,7 +1656,7 @@ donde el programa se va a ejecutar. Esto no es sencillo si la aplicación va a
 ser distribuida al público y por lo tanto será utilizada en ordenadores con
 características diversas.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://commons.wikimedia.org/wiki/File:Thread_pool.svg"&gt;&lt;img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Thread_pool.svg/500px-Thread_pool.svg.png" alt="Sencillo esquema de un agrupamiento de hilos" class="right-float"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;El patrón &lt;em&gt;agrupamiento de hilos&lt;/em&gt; comentado en el artículo sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
+&lt;p&gt;El patrón &lt;em&gt;agrupamiento de hilos&lt;/em&gt; comentado en el artículo sobre &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html"&gt;concurrencia&lt;/a&gt;
 nos puede ayudar a enfrentar este problema. Básicamente nos permite dividir
 las tareas &lt;em&gt;limitadas por la CPU&lt;/em&gt; tanto como queramos. Y que estas sean
 ejecutadas sobre un agrupamiento configurado con el mismo número de hilos que
@@ -1666,14 +1666,14 @@ subyacente, aprovechando de forma sencilla las ventajas de los sistemas
 multinúcleo.&lt;/p&gt;
 &lt;p&gt;Como ya hemos comentado, las plataformas Java y .NET incorporan una
 implementación de este patrón. Mientras que para C/C++ existen diversas librerías,
-entre las que no sólo está &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y su clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;, si no que fundamentalmente
+entre las que no sólo está &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; y su clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;, si no que fundamentalmente
 tenemos que destacar la &lt;a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks"&gt;Threading Building Blocks&lt;/a&gt; de Intel (TBB).&lt;/p&gt;
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://blog.golang.org/2013/01/concurrency-is-not-parallelism.html"&gt;Concurrence is no parallelism&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Concurrency_pattern"&gt;Concurrency pattern&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;Thread pool pattern&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="paralelismo"></category><category term="hilos"></category><category term="multihilo"></category><category term="qthreadpool"></category></entry><entry><title>Concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/concurrencia.html" rel="alternate"></link><updated>2013-04-06T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-04-06:concurrencia.html</id><summary type="html">&lt;p&gt;La concurrencia tiene que ver con manejar múltiples eventos que se superponen
+&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="paralelismo"></category><category term="hilos"></category><category term="multihilo"></category><category term="qthreadpool"></category></entry><entry><title>Concurrencia</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/concurrencia.html" rel="alternate"></link><updated>2013-04-06T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-04-06:concurrencia.html</id><summary type="html">&lt;p&gt;La concurrencia tiene que ver con manejar múltiples eventos que se superponen
 en el tiempo fuera del control del programa. Por lo tanto debe preocuparse de
 manejar la creciente complejidad que surge de la necesidad de un control de
 flujo no determinista. Los programas concurrentes vienen con frecuencia
@@ -1687,7 +1687,7 @@ correspondientes peticiones.&lt;/p&gt;
 &lt;p&gt;En general existen aplicaciones que son fundamentalmente concurrentes, como
 los servidores web, los de archivos, los de base de datos y otros programas
 similares que deben manejar al mismo tiempo la conexión con diversos clientes.
-También son concurrentes las &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;aplicaciones paralelas&lt;/a&gt;,
+También son concurrentes las &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;aplicaciones paralelas&lt;/a&gt;,
 donde una tarea se descompone en otras más pequeñas que se ejecutan al mismo
 tiempo para obtener el máximo rendimiento, porque en muchas ocasiones no se sabe
 de antemano cuando van a terminar estas subtareas o van a intentar acceder a las
@@ -1727,7 +1727,7 @@ concurrencia. Sin embargo, por lo general, este tipo de tareas están
 pueden ser más o menos convenientes según el tipo de problemas a resolver.
 Nosotros nos centraremos por el momento en el primer tipo, dejando los detalles
 relacionados con la &lt;strong&gt;programación paralela&lt;/strong&gt; para un
-&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;artículo posterior&lt;/a&gt;.&lt;/p&gt;
+&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/paralelismo-y-concurrencia.html"&gt;artículo posterior&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Multihilo&lt;/h2&gt;
 &lt;p&gt;El uso de múltiples hilos dentro de un mismo programa es uno de los enfoques
 más comunes cuando se plantea resolver un problema de concurrencia. En las
@@ -1762,12 +1762,12 @@ la compartición de recursos, se ha extendido el uso de modelos basados en paso
 de mensajes para resolver problemas concurrentes complejos.&lt;/p&gt;
 &lt;p&gt;En estos modelos los hilos no acceden directamente a los datos sino que se los
 transfieren entre si por medio de mensajes. Así se evita compartir recursos y,
-por tanto, el uso de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y variables de condición&lt;/a&gt;.
+por tanto, el uso de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;cerrojos, semáforos y variables de condición&lt;/a&gt;.
 Lamentablemente así se pierde sencillez.&lt;/p&gt;
 &lt;p&gt;Para estos lenguajes como Scala o Erlang implementan el modelo &lt;a href="http://en.wikipedia.org/wiki/Actor_model" title="Actor model"&gt;Actor&lt;/a&gt;, mientras
 que Go se basa en en el modelo &lt;a href="http://en.wikipedia.org/wiki/Communicating_sequential_processes" title="Communicating sequential processes"&gt;CSP&lt;/a&gt;. Ambos casos, pese a &lt;a href="http://www.informit.com/articles/article.aspx?p=1768317"&gt;sus diferencias&lt;/a&gt;,
 fundamentalmente operan tal y como hemos descrito. También entraría dentro de
-este tipo de modelos el &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;mecanismo de comunicación entre hilos&lt;/a&gt; que implementa &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; a través del uso de señales y &lt;em&gt;slots&lt;/em&gt;.&lt;/p&gt;
+este tipo de modelos el &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;mecanismo de comunicación entre hilos&lt;/a&gt; que implementa &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; a través del uso de señales y &lt;em&gt;slots&lt;/em&gt;.&lt;/p&gt;
 &lt;h2&gt;Multiproceso&lt;/h2&gt;
 &lt;p&gt;En los sistemas operativos que implementan una llamada al sistema tipo
 &lt;a href=""&gt;fork&lt;/a&gt; se pueden crear de forma sencilla múltiples procesos, en lugar de
@@ -1842,7 +1842,7 @@ paralela.&lt;/p&gt;
 OS X bajo el nombre de &lt;a href="http://en.wikipedia.org/wiki/Grand_Central_Dispatch"&gt;Grand Central Dispatch&lt;/a&gt; (GCD).
 En el caso de C++ existen múltiples librerías, como por ejemplo Intel &lt;a href="http://es.wikipedia.org/wiki/Intel_Threading_Building_Blocks" title="Intel Threading Building Blocks"&gt;TBB&lt;/a&gt;, diseñada
 específicamente para facilitar que los programas aprovechen las ventajas de
-los sistemas multinúcleo, o &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, que incorpora su propia implementación del
+los sistemas multinúcleo, o &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, que incorpora su propia implementación del
 patrón a través de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthreadpool.html" title="QThreadPool"&gt;QThreadPool&lt;/a&gt;:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;HelloWorldTask&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QRunnable&lt;/span&gt;
  &lt;span class="p"&gt;{&lt;/span&gt;
@@ -1887,7 +1887,7 @@ respuesta a dichos eventos.&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://docs.google.com/drawings/d/1vr_1x_UQAW905hjxALQE0hGB6ii55dIiKOsqFD9lw_M/pub?w=809&amp;amp;h=367" alt="Ejecución basada en eventos" class="centered"&gt;&lt;/p&gt;
 &lt;p&gt;Estas rutinas de &lt;em&gt;callback&lt;/em&gt; pueden tener nombres predefinidos, como es el caso
-del sistema de señales de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, o especificarse a través de un argumento
+del sistema de señales de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, o especificarse a través de un argumento
 adicional indicado cuando se solicitó la E/S.&lt;/p&gt;
 &lt;p&gt;Por lo general los programas que gestionan la concurrencia de esta manera
 tiene muchos menos requerimientos de memoria que los que usan múltiples hilos
@@ -1932,7 +1932,7 @@ librería &lt;a href="http://www.boost.org/doc/libs/1_53_0/libs/coroutine/doc/ht
 &lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Thread_pool_pattern"&gt;Thread pool pattern&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/"&gt;Understanding the node.js event loop&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Coroutine"&gt;Coroutine&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="hilos"></category><category term="bucle de mensajes"></category><category term="multiproceso"></category><category term="multihilo"></category><category term="callbacks"></category><category term="qthreadpool"></category></entry><entry><title>Uso de la memoria como un dispositivo de E/S</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/uso-de-la-memoria-como-un-dispositivo-de-es.html" rel="alternate"></link><updated>2013-03-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-13:uso-de-la-memoria-como-un-dispositivo-de-es.html</id><summary type="html">&lt;p&gt;Algunas libreras se diseñan específicamente para leer y/o escribir datos en
+&lt;/ol&gt;</summary><category term="concurrencia"></category><category term="hilos"></category><category term="bucle de mensajes"></category><category term="multiproceso"></category><category term="multihilo"></category><category term="callbacks"></category><category term="qthreadpool"></category></entry><entry><title>Uso de la memoria como un dispositivo de E/S</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/uso-de-la-memoria-como-un-dispositivo-de-es.html" rel="alternate"></link><updated>2013-03-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-03-13:uso-de-la-memoria-como-un-dispositivo-de-es.html</id><summary type="html">&lt;p&gt;Algunas libreras se diseñan específicamente para leer y/o escribir datos en
 dispositivos de entrada/salida. Por ejemplo, una librería desarrollada en C++ para
 codificar y decodificar archivos MP3 recibiría objetos &lt;a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream"&gt;std::istream&lt;/a&gt; o
 &lt;a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream"&gt;std::ostream&lt;/a&gt; para indicar el flujo del que leer o en el que escribir los datos
@@ -1982,7 +1982,7 @@ y escribir en un objeto &lt;code&gt;std::string&lt;/code&gt;.&lt;/dd&gt;
 los datos codificados en MP3, lo que facilitaría cuaĺquier tarea que quisiéramos
 realizar con ellos posteriormente.&lt;/p&gt;
 &lt;h2&gt;QIODevice&lt;/h2&gt;
-&lt;p&gt;En el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; ocurre algo muy parecido. Todas las clases diseñadas
+&lt;p&gt;En el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; ocurre algo muy parecido. Todas las clases diseñadas
 para acceder a dispositivos de entrada/salida reciben un objeto de la clase
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice"&gt;QIODevice&lt;/a&gt;. Por ejemplo:&lt;/p&gt;
 &lt;dl&gt;
@@ -1998,13 +1998,13 @@ imágenes desde un dispositivo &lt;a href="http://qt-project.org/doc/qt-5.0/qtco
 &lt;dt&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter"&gt;QImageWriter&lt;/a&gt;&lt;/dt&gt;
 &lt;dd&gt;Proporciona una interfaz independiente del formato para escribir archivos de
 imágenes desde un dispositivo &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice"&gt;QIODevice&lt;/a&gt;.&lt;/dd&gt;
-&lt;dt&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/como-usar-qmovie-en-qt.html" title="QMovie"&gt;QMovie&lt;/a&gt;&lt;/dt&gt;
+&lt;dt&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/como-usar-qmovie-en-qt.html" title="QMovie"&gt;QMovie&lt;/a&gt;&lt;/dt&gt;
 &lt;dd&gt;Es una clase diseñada para reproducir películas leidas con &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader"&gt;QImageReader&lt;/a&gt;
 desde un &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice"&gt;QIODevice&lt;/a&gt;.&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;p&gt;La clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice"&gt;QIODevice&lt;/a&gt; no se instancia directamente para crear objetos, sino que
 su función es definir una interfaz genérica válida para todo tipo de
-dispositivos de entrada/salida. En el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; diversas clases
+dispositivos de entrada/salida. En el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; diversas clases
 heredan de esta, implementando la interfaz &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.html" title="QIODevice"&gt;QIODevice&lt;/a&gt; para un dispositivo
 concreto:&lt;/p&gt;
 &lt;dl&gt;
@@ -2093,21 +2093,21 @@ datos a un objeto &lt;code&gt;QBuffer&lt;/code&gt; y leer desde el:&lt;/p&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader"&gt;QImageReader&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagewriter.html" title="QImageWriter"&gt;QImageWriter&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="qt"></category><category term="qbuffer"></category><category term="qiodevice"></category><category term="qimagewriter"></category><category term="qimagereader"></category></entry><entry><title>Implementando un protocolo con Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/implementando-un-protocolo-con-protocol-buffers.html" rel="alternate"></link><updated>2013-03-05T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-05:implementando-un-protocolo-con-protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; es un mecanismo sencillo para serializar estructuras de
+&lt;/ol&gt;</summary><category term="qt"></category><category term="qbuffer"></category><category term="qiodevice"></category><category term="qimagewriter"></category><category term="qimagereader"></category></entry><entry><title>Implementando un protocolo con Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/implementando-un-protocolo-con-protocol-buffers.html" rel="alternate"></link><updated>2013-03-05T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-03-05:implementando-un-protocolo-con-protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; es un mecanismo sencillo para serializar estructuras de
 datos, de tal forma que los datos así codificados pueden ser almacenados
 o enviados a través de una red de comunicaciones. Esto nos ofrece una forma
 sencilla de crear nuestro propio protocolo de comunicaciones, adaptado a las
 necesidades de un problema concreto.  &lt;/p&gt;
-&lt;p&gt;Los pasos concretos para usar &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; son lo siguientes:&lt;/p&gt;
+&lt;p&gt;Los pasos concretos para usar &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; son lo siguientes:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Especificar la estructura de datos del mensaje del nuevo protocolo en un
  archivo &lt;code&gt;.proto&lt;/code&gt;. Estos archivos se escriben utilizando un &lt;a href="https://developers.google.com/protocol-buffers/docs/proto"&gt;lenguaje de
  descripción de interfaz&lt;/a&gt;
- que es propio de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;.&lt;/p&gt;
+ que es propio de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ejecutar el compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;, para el lenguaje de la
+&lt;p&gt;Ejecutar el compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt;, para el lenguaje de la
  aplicación, sobre el archivo &lt;code&gt;.proto&lt;/code&gt; con el objeto de generar las clases
  de acceso a los datos. Estas proporcionan &lt;em&gt;accesores&lt;/em&gt; para cada campo, así
  como métodos para serializar y deserializar los mensajes a y desde
@@ -2155,11 +2155,11 @@ con los datos de los mismos a un servidor.&lt;/p&gt;
 sencillo. Solamente hay que indicar el nombre y el tipo de cada campo,
 así como si es opcional (&lt;em&gt;optional&lt;/em&gt;), requerido (&lt;em&gt;required&lt;/em&gt;) o se repite
 (&lt;em&gt;repeated&lt;/em&gt;).&lt;/p&gt;
-&lt;p&gt;En &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; los campos se etiquetan de manera única con un entero
+&lt;p&gt;En &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; los campos se etiquetan de manera única con un entero
 que después es utilizado en la codificación binaria para identificarlos.&lt;/p&gt;
 &lt;h2&gt;Clases de acceso a los datos&lt;/h2&gt;
 &lt;p&gt;Una vez tenemos la definición de la estructura del mensaje, podemos invocar
-al compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso a los
+al compilador de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso a los
 datos.&lt;/p&gt;
 &lt;h3&gt;Desde línea de comandos&lt;/h3&gt;
 &lt;p&gt;Desde línea de comandos generar las clases es tan sencillo como:&lt;/p&gt;
@@ -2189,7 +2189,7 @@ directorio actual.&lt;/p&gt;
 &lt;h3&gt;Con qmake&lt;/h3&gt;
 &lt;p&gt;Si estamos usando &lt;code&gt;qmake&lt;/code&gt; para construir nuestro proyecto (como es el caso cuando
 desarrollamos con el IDE Qt Creator) lo más cómodo es que este se encargue de
-invocar al compilador &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso
+invocar al compilador &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; para generar las clases de acceso
 de forma automática.&lt;/p&gt;
 &lt;p&gt;En este sentido el archivo &lt;code&gt;protobuf.pri&lt;/code&gt; del proyecto &lt;a href="http://code.google.com/p/ostinato"&gt;ostinato&lt;/a&gt;
 puede ser de gran ayuda con algunos cambios:&lt;/p&gt;
@@ -2354,7 +2354,7 @@ clase &lt;code&gt;std::string&lt;/code&gt; se usa como un mero contenedor.&lt;/d
 &lt;dd&gt;Deserializa un mensaje leido del flujo &lt;code&gt;istream&lt;/code&gt; indicado.&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;h2&gt;Almacenamiento y transmisión por red de múltiples mensajes&lt;/h2&gt;
-&lt;p&gt;El formato de codificación de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; no está auto-limitado. Es decir,
+&lt;p&gt;El formato de codificación de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" title="Protocol Buffers"&gt;Protocol Buffers&lt;/a&gt; no está auto-limitado. Es decir,
 no incluye marcas que permitan identificar el principio y fin de los mensajes.
 Esto es un problema si se quieren almacenar o enviar varios mensajes en un mismo
 flujo de datos.&lt;/p&gt;
@@ -2422,20 +2422,20 @@ reads to a certain number of bytes.&lt;/p&gt;
 &lt;li&gt;&lt;a href="http://stackoverflow.com/questions/11640864/length-prefix-for-protobuf-messages-in-c"&gt;Stackoverflow - Length prefix for protobuf messages in C++&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ol&gt;</summary><category term="protobuf"></category><category term="serialización"></category></entry><entry><title>Qt Network</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/qt-network.html" rel="alternate"></link><updated>2013-03-04T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-04:qt-network.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona un conjunto de API de comunicaciones a través del módulo
+&lt;/ol&gt;</summary><category term="protobuf"></category><category term="serialización"></category></entry><entry><title>Qt Network</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/qt-network.html" rel="alternate"></link><updated>2013-03-04T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-03-04:qt-network.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona un conjunto de API de comunicaciones a través del módulo
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;. Este ofrece tanto clases de bajo nivel para comunicación
 mediante protocolos de transporte, como TCP y UDP, como clases de alto nivel que
 implementan operaciones usando los protocolos de nivel de aplicación más
 communes, como HTTP o FTP.&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incorpora este módulo por dos motivos fundamentales:&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incorpora este módulo por dos motivos fundamentales:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Aunque la mayor parte de los sistemas operativos modernos proporcionan un
- API de acceso a red basado en &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html"&gt;BSD sockets&lt;/a&gt;,
+ API de acceso a red basado en &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/bsd-sockets.html"&gt;BSD sockets&lt;/a&gt;,
  algunos introducen funcionalidades adicionales para adaptarlo al modelo
  de programación preferente en el sistema en cuestión. Este, por ejemplo,
- es el caso de Windows y la librería &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html"&gt;Winsock&lt;/a&gt;
- que incorpora. Por tanto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, gracias a su módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;, nos
+ es el caso de Windows y la librería &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/bsd-sockets.html"&gt;Winsock&lt;/a&gt;
+ que incorpora. Por tanto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, gracias a su módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;, nos
  proporciona una forma portable de acceder a los servicios de red de los
  sistemas operativos soportados sin tener que preocuparnos por las
  particularidades de cada uno.&lt;/p&gt;
@@ -2443,7 +2443,7 @@ communes, como HTTP o FTP.&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Las operaciones de red suelen requerir mucho tiempo antes de completarse,
  por lo que usarlas en un &lt;em&gt;slot&lt;/em&gt; del hilo principal implica el bloqueo del bucle
- de mensajes de la aplicación. Por fortuna el API &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html"&gt;BSD sockets&lt;/a&gt;
+ de mensajes de la aplicación. Por fortuna el API &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/bsd-sockets.html"&gt;BSD sockets&lt;/a&gt;
  permite tanto el uso síncrono como asíncrono de la interfaz. Esta última
  forma de utilizarla evita el bloqueo del bucle de mensajes al impedir que las
  llamadas a la interfaz se bloqueen hasta que las operaciones de red son
@@ -2451,7 +2451,7 @@ communes, como HTTP o FTP.&lt;/p&gt;
  para el desarrollador.&lt;/p&gt;
 &lt;p&gt;El API de bajo nivel de &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt; es asíncrono por diseño,
  ocultando toda esa complejidad detrás del bucle de mensajes y del mecanismo
- de señales y &lt;em&gt;slots&lt;/em&gt; común a todo el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. Aunque el API de bajo
+ de señales y &lt;em&gt;slots&lt;/em&gt; común a todo el &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. Aunque el API de bajo
  nivel ofrece métodos para comunicación síncrona (los métodos &lt;code&gt;waitFor*&lt;/code&gt;),
  en cuyo caso no necesitamos bucle de mensajes, su uso no está recomendado
  si no es en un hilo diferente al hilo principal. Además las clases del API
@@ -2459,7 +2459,7 @@ communes, como HTTP o FTP.&lt;/p&gt;
  obligatorio disponer de un bucle de mensajes.&lt;/p&gt;
 &lt;p&gt;Debemos tener en cuenta que las API del módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt; se pueden usar
  desde hilos diferentes al hilo principal ya que cada hilo gestionado por la
- clase &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;QThread&lt;/a&gt;
+ clase &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html"&gt;QThread&lt;/a&gt;
  tiene su propio bucle de mensajes, que se inicia automáticamente en el método
  &lt;code&gt;QThread::run()&lt;/code&gt; por defecto.&lt;/p&gt;
 &lt;/li&gt;
@@ -2575,7 +2575,7 @@ muestran como desarrollar aplicaciones que hagan uso de la
 &lt;h2&gt;Referencias&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtnetwork/" title="Qt Network"&gt;Qt Network&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="qt"></category><category term="comunicaciones"></category><category term="sockets"></category></entry><entry><title>BSD sockets</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/bsd-sockets.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-02:bsd-sockets.html</id><summary type="html">&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
+&lt;/ol&gt;</summary><category term="qt"></category><category term="comunicaciones"></category><category term="sockets"></category></entry><entry><title>BSD sockets</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/bsd-sockets.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-03-02:bsd-sockets.html</id><summary type="html">&lt;p&gt;&lt;em&gt;POSIX sockets&lt;/em&gt; es una parte de la especificación POSIX&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que define un API
 (Application Programming Interface) para la comunicación entre procesos,
 fundamentalmente entre equipos conectados a través de Internet
 (&lt;em&gt;socket&lt;/em&gt; de Internet), aunque también soporta la conexión local entre procesos
@@ -2689,7 +2689,7 @@ de los sistemas UNIX, para asegurar la compatibilidad entre las distintas
 variantes de UNIX y otros sistemas operativos.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="sockets"></category><category term="POSIX"></category><category term="comunicaciones"></category></entry><entry><title>Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/protocol-buffers.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-03-02:protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format"&gt;Protocol Buffers&lt;/a&gt; es una herramienta para la serialización&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; de estructuras de
+&lt;/div&gt;</summary><category term="sockets"></category><category term="POSIX"></category><category term="comunicaciones"></category></entry><entry><title>Protocol Buffers</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/protocol-buffers.html" rel="alternate"></link><updated>2013-03-02T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-03-02:protocol-buffers.html</id><summary type="html">&lt;p&gt;&lt;a href="http://code.google.com/p/protobuf/" title="Protocol buffers - Google's data interchange format"&gt;Protocol Buffers&lt;/a&gt; es una herramienta para la serialización&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; de estructuras de
 datos.&lt;/p&gt;
 &lt;p&gt;Básicamente provee una manera sencilla de definir la estructura de los datos,
 pudieron entonces generar código capaz de leer y escribir dichos datos de
@@ -2731,7 +2731,7 @@ del objeto tras la serialización puede ser usada para crear un nuevo objeto,
 idéntico al original, tras aplicar el proceso inverso de deserialización.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="protobuf"></category><category term="serialización"></category></entry><entry><title>Detección de movimiento</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/deteccion-de-movimiento.html" rel="alternate"></link><updated>2013-02-19T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-19:deteccion-de-movimiento.html</id><summary type="html">&lt;p&gt;Detectar movimiento en una secuencia de vídeo es una tarea relativamente simple
+&lt;/div&gt;</summary><category term="protobuf"></category><category term="serialización"></category></entry><entry><title>Detección de movimiento</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/deteccion-de-movimiento.html" rel="alternate"></link><updated>2013-02-19T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-02-19:deteccion-de-movimiento.html</id><summary type="html">&lt;p&gt;Detectar movimiento en una secuencia de vídeo es una tarea relativamente simple
 que puede abordarse en unos pocos pasos:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -2787,11 +2787,11 @@ algoritmos y del rendimiento, lo que puede dificultar el desarrollo. Por eso
 suele ser preferible utilizar una librería madura en lugar de hacer nuestra
 propia implementación.&lt;/p&gt;
 &lt;h2&gt;OpenCV y Qt&lt;/h2&gt;
-&lt;p&gt;Si estamos desarrollando una aplicación gráfica en &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; debemos tomar una serie
+&lt;p&gt;Si estamos desarrollando una aplicación gráfica en &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; debemos tomar una serie
 de medidas para poder emplear la librería &lt;a href="http://opencv.willowgarage.com/wiki/" title="OpenCV"&gt;OpenCV&lt;/a&gt; desde ella:&lt;/p&gt;
 &lt;h3&gt;Conversión de QImage en cv::Mat&lt;/h3&gt;
 &lt;p&gt;Las imágenes de las que haremos uso son instancias de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimage.html" title="QImage"&gt;QImage&lt;/a&gt;, propia
-del &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. Sin embargo las funciones, clases y métodos de &lt;a href="http://opencv.willowgarage.com/wiki/" title="OpenCV"&gt;OpenCV&lt;/a&gt;
+del &lt;em&gt;framework&lt;/em&gt; &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;. Sin embargo las funciones, clases y métodos de &lt;a href="http://opencv.willowgarage.com/wiki/" title="OpenCV"&gt;OpenCV&lt;/a&gt;
 esperan objetos &lt;code&gt;cv::Mat&lt;/code&gt;. Para convertir entre un formato y otro podemos emplear
 el proyecto &lt;a href="https://github.com/dbzhang800/QtOpenCV" title="QtOpenCV"&gt;QtOpenCV&lt;/a&gt; de &lt;a href="https://github.com/dbzhang800"&gt;Debao Zhang&lt;/a&gt; (licencia
 &lt;a href="http://es.wikipedia.org/wiki/MIT_License"&gt;MIT&lt;/a&gt;)&lt;/p&gt;
@@ -3019,14 +3019,14 @@ la imagen antes de mostrársela al usuario.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li id="fn:1"&gt;
 &lt;p&gt;Más detalles en el mensaje &lt;a href="http://lists.trolltech.com/qt-interest/2008-11/thread00534-0.html"&gt;QPixmap: It is not safe to use pixmaps outside the GUI thread&lt;/a&gt;
-de las listas de correo de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+de las listas de correo de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="visión"></category><category term="imágenes"></category><category term="opencv"></category><category term="qt"></category><category term="qimage"></category></entry><entry><title>Hilos de trabajo usando señales y slots</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html" rel="alternate"></link><updated>2013-02-18T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-18:hilos-de-trabajo-usando-senales-y-slots.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona clases para hilos y mecanismos de sincronización que facilitan
+&lt;/div&gt;</summary><category term="visión"></category><category term="imágenes"></category><category term="opencv"></category><category term="qt"></category><category term="qimage"></category></entry><entry><title>Hilos de trabajo usando señales y slots</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/hilos-de-trabajo-usando-senales-y-slots.html" rel="alternate"></link><updated>2013-02-18T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-02-18:hilos-de-trabajo-usando-senales-y-slots.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporciona clases para hilos y mecanismos de sincronización que facilitan
 sacar las tareas de larga duración del hilo principal de la aplicación, lo que
 de lo contrario bloquearía la interfaz de usuario.&lt;/p&gt;
-&lt;p&gt;Una forma práctica de hacerlo la hemos visto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;anteriormente&lt;/a&gt;
-utilizando un &lt;em&gt;buffer&lt;/em&gt; compartido. Sin embargo &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; provee a cada hilo de una
+&lt;p&gt;Una forma práctica de hacerlo la hemos visto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;anteriormente&lt;/a&gt;
+utilizando un &lt;em&gt;buffer&lt;/em&gt; compartido. Sin embargo &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; provee a cada hilo de una
 cola de mensajes, lo que permite enviar señales a &lt;em&gt;slots&lt;/em&gt; en otros hilos. Esto
 nos proporciona una forma sencilla de pasar datos entre los hilos de la
 aplicación.&lt;/p&gt;
@@ -3036,7 +3036,7 @@ se invoca el &lt;em&gt;slot&lt;/em&gt; como si de un método convencional se tra
 si el emisor y el receptor residen en hilos diferentes, la señal es insertada
 en la cola de mensajes del hilo del objeto de destino. Así el &lt;em&gt;slot&lt;/em&gt;
 correspondiente será invocado en el hilo receptor desde su bucle de mensajes.&lt;/p&gt;
-&lt;p&gt;En la actualidad esta es la forma recomendada de usar hilos en &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; ya que
+&lt;p&gt;En la actualidad esta es la forma recomendada de usar hilos en &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; ya que
 permite evitar el uso de de mecanismos de sincronización como &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex"&gt;QMutex&lt;/a&gt;,
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition"&gt;QWaitCondition&lt;/a&gt;, etc.&lt;/p&gt;
 &lt;h2&gt;El ejemplo. Ordenar números enteros&lt;/h2&gt;
@@ -3044,14 +3044,14 @@ permite evitar el uso de de mecanismos de sincronización como &lt;a href="http:
 un vector de enteros en un hilo de trabajo distinto al hilo principal.&lt;/p&gt;
 &lt;p&gt;Como se puede observar en la figura utilizaremos dos objetos, uno vinculado
 al hilo principal (clase &lt;code&gt;Sorter&lt;/code&gt;) y otro al hilo de trabajo
-(clase &lt;code&gt;SorterWorker&lt;/code&gt;). En una aplicación gráfica convencional con &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; la
+(clase &lt;code&gt;SorterWorker&lt;/code&gt;). En una aplicación gráfica convencional con &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; la
 clase &lt;code&gt;Sorter&lt;/code&gt; podría ser una ventana o cualquier otro control que
 quiera ceder una tarea al hilo de trabajo. Aquí no lo haremos así para
 que el ejemplo sea lo más sencillo posible.&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://docs.google.com/drawings/d/1tZ0CMTNJoLsbHx3TjgecQuRXGEM5hf3pYwm9_s1R8bI/pub?w=960&amp;amp;h=720" alt="Ejemplo de comunicación entre hilos en Qt" class="centered"&gt;&lt;/p&gt;
-&lt;p&gt;En &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; un objeto se dice que vive en el hilo en el que es creado. Esto se
+&lt;p&gt;En &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; un objeto se dice que vive en el hilo en el que es creado. Esto se
 puede cambiar utilizando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()"&gt;moveToThread&lt;/a&gt;() que tienen todas las
-clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 &lt;h2&gt;La clase Sorter&lt;/h2&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Sorter&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -3084,7 +3084,7 @@ clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigil
 &lt;p&gt;La propia clase &lt;code&gt;Sorter&lt;/code&gt; se hará cargo de crear el hilo de trabajo, que por
 defecto lo único que hace es iterar en su propio bucle de mensajes. Todos
 los detalles acerca de la creación de hilos ya los vimos
-&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;anteriormente&lt;/a&gt;&lt;/p&gt;
+&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;anteriormente&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;La clase &lt;code&gt;Sorter&lt;/code&gt; provee un método &lt;code&gt;sortAsync()&lt;/code&gt; que podrá ser llamado por
 los clientes para ordenar un vector de números enteros. Puesto que la operación
 es asíncrona, necesitamos definir un &lt;em&gt;slot&lt;/em&gt; &lt;code&gt;vectorSorted()&lt;/code&gt; para ser
@@ -3138,7 +3138,7 @@ notificados cuando el ordenamiento haya finalizado con éxito.&lt;/p&gt;
 &lt;p&gt;Como se puede observar, en el constructor de &lt;code&gt;Sorter&lt;/code&gt; se usa el método
 &lt;code&gt;qRegisterMetaType()&lt;/code&gt;, antes de conectar las señales, para registrar el tipo
 &lt;code&gt;QVector&amp;lt;int&amp;gt;&lt;/code&gt;. Esto debe hacerse porque cuando una señal es encolada sus
-parámetros deben ser de tipos conocidos para &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, de forma que pueda
+parámetros deben ser de tipos conocidos para &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, de forma que pueda
 almacenar los argumentos en la cola.&lt;/p&gt;
 &lt;p&gt;Por otro lado en el destructor de &lt;code&gt;Sorter&lt;/code&gt; tenemos cuidado de detener
 el hilo de trabajo en condiciones seguras cuando ya no va a ser necesario.
@@ -3184,18 +3184,18 @@ llamar a su método &lt;code&gt;sortAsync()&lt;/code&gt; para pedir que ordene e
 
 &lt;h2&gt;Referencias&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;Introducción al uso de hilos en Qt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html"&gt;Introducción al uso de hilos en Qt&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://cdumez.blogspot.com.es/2011/03/worker-thread-in-qt-using-signals-slots.html"&gt;Worker Thread in Qt using Signals &amp;amp; Slots&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class="footnote"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
 &lt;li id="fn:1"&gt;
-&lt;p&gt;Todas las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; tienen como clase base &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject"&gt;QObject&lt;/a&gt; donde se
+&lt;p&gt;Todas las clases de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; tienen como clase base &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject"&gt;QObject&lt;/a&gt; donde se
 implementan algunos métodos comunes como &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html" title="QObject"&gt;QObject&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qobject.html#moveToThread" title="QObject::moveToThread()"&gt;moveToThread&lt;/a&gt;()&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="qt"></category><category term="hilos"></category><category term="señales"></category><category term="slots"></category></entry><entry><title>Introducción al uso de hilos en Qt</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html" rel="alternate"></link><updated>2013-02-16T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-16:introduccion-al-uso-de-hilos-en-qt.html</id><summary type="html">&lt;p&gt;Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
+&lt;/div&gt;</summary><category term="qt"></category><category term="hilos"></category><category term="señales"></category><category term="slots"></category></entry><entry><title>Introducción al uso de hilos en Qt</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/introduccion-al-uso-de-hilos-en-qt.html" rel="alternate"></link><updated>2013-02-16T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-02-16:introduccion-al-uso-de-hilos-en-qt.html</id><summary type="html">&lt;p&gt;Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
 larga duración en los &lt;em&gt;slots&lt;/em&gt;. Si lo hiciéramos la ejecución tardaría en
 volver al bucle de mensajes, retrasando el momento en el que la aplicación puede
 procesar nuevos eventos de los usuarios.&lt;/p&gt;
@@ -3203,7 +3203,7 @@ procesar nuevos eventos de los usuarios.&lt;/p&gt;
 trabajo —o &lt;em&gt;worker thread&lt;/em&gt;— de tal manera que se ejecuten mientras el hilo
 principal sigue procesando los eventos que llegen a la aplicación.&lt;/p&gt;
 &lt;h2&gt;Crear hilos&lt;/h2&gt;
-&lt;p&gt;Para usar hilos en &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; se utiliza la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread"&gt;QThread&lt;/a&gt;, donde cada instancia de
+&lt;p&gt;Para usar hilos en &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; se utiliza la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread"&gt;QThread&lt;/a&gt;, donde cada instancia de
 dicha clase representa a un hilo de la aplicación.&lt;/p&gt;
 &lt;p&gt;Crear un hilo es tan sencillo como heredar la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html" title="QThread"&gt;QThread&lt;/a&gt; y reimplementar
 el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#run" title="QThread::run()"&gt;run&lt;/a&gt;() insertando el código que queremos que ejecute el hilo.
@@ -3433,11 +3433,11 @@ consumidor.&lt;/p&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/threads-starting.html"&gt;Starting Threads with QThread&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-4.8/threads-waitconditions.html"&gt;Wait Conditions Example&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Producer-consumer_problem"&gt;Producer-consumer problem&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="qt"></category><category term="hilos"></category><category term="mutex"></category><category term="condición de espera"></category><category term="variables de condición"></category><category term="productor-consumidor"></category><category term="buffer finito"></category></entry><entry><title>Layouts en Qt. Organización de controles</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html" rel="alternate"></link><updated>2013-02-15T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-15:layouts-en-qt-organizacion-de-controles.html</id><summary type="html">&lt;p&gt;El sistema de &lt;em&gt;layouts&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporcionar una manera sencilla de organizar
+&lt;/ol&gt;</summary><category term="qt"></category><category term="hilos"></category><category term="mutex"></category><category term="condición de espera"></category><category term="variables de condición"></category><category term="productor-consumidor"></category><category term="buffer finito"></category></entry><entry><title>Layouts en Qt. Organización de controles</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html" rel="alternate"></link><updated>2013-02-15T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-02-15:layouts-en-qt-organizacion-de-controles.html</id><summary type="html">&lt;p&gt;El sistema de &lt;em&gt;layouts&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporcionar una manera sencilla de organizar
 los controles dentro de otros controles o ventanas, asegurando el mejor
 aprovechamiento del espacio disponible.&lt;/p&gt;
 &lt;p&gt;La idea es describir como deben organizarse los controles, dejando que después
-sean posicionados automáticamente por &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; en función del espacio disponible,
+sean posicionados automáticamente por &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; en función del espacio disponible,
 incluso cuando este cambia por el redimensionado de la ventana o control que
 los contiene.&lt;/p&gt;
 &lt;h2&gt;Introducción&lt;/h2&gt;
@@ -3445,7 +3445,7 @@ los contiene.&lt;/p&gt;
 principales y cuadros de diálogo, se puede seleccionar la organización de los
 controles que contiene mediante la opción &lt;em&gt;Lay Out&lt;/em&gt; del menú contexual que
 se despliega al pulsar con el botón derecho del ratón.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Menú Lay Out en Qt Creator" src="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/static/images/menu-lay-out.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Menú Lay Out en Qt Creator" src="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/static/images/menu-lay-out.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Las opciones disponibles permiten organizar los controles en disposiciones tales
 como:&lt;/p&gt;
 &lt;ul&gt;
@@ -3457,7 +3457,7 @@ celdas.&lt;/li&gt;
 etiquetas descriptivas de los campos de la derecha.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Todas están comentadas en la documentación del proyecto sobre el
-&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management"&gt;Layout Management&lt;/a&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, donde además se muestran algunos ejemplos.&lt;/p&gt;
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/layout.html" title="Layout Management"&gt;Layout Management&lt;/a&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt;, donde además se muestran algunos ejemplos.&lt;/p&gt;
 &lt;h2&gt;Anidamiento de layouts&lt;/h2&gt;
 &lt;p&gt;Una organización de controles se puede anidar dentro de otra. Para eso existen
 unos controles especiales (uno por cada uno de los tipos de organización comentados
@@ -3551,7 +3551,7 @@ el espacio recomendado que debe ocupar.&amp;#160;&lt;a class="footnote-backref" 
 propiedad &lt;code&gt;QWidget::sizePolicy()&lt;/code&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="qt"></category><category term="gui"></category><category term="layouts"></category></entry><entry><title>Como usar QMovie en Qt</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/como-usar-qmovie-en-qt.html" rel="alternate"></link><updated>2013-02-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-02-13:como-usar-qmovie-en-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; trae una clase denominada &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; que facilita mostrar pequeñas
+&lt;/div&gt;</summary><category term="qt"></category><category term="gui"></category><category term="layouts"></category></entry><entry><title>Como usar QMovie en Qt</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/como-usar-qmovie-en-qt.html" rel="alternate"></link><updated>2013-02-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-02-13:como-usar-qmovie-en-qt.html</id><summary type="html">&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; trae una clase denominada &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; que facilita mostrar pequeñas
 animaciones sin mucho esfuerzo.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; está diseñada para ser independiente del formato de archivo pero como
 internamente depende de &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qimagereader.html" title="QImageReader"&gt;QImageReader&lt;/a&gt;, sólo puede utilizarse con los que esta
@@ -3632,7 +3632,7 @@ la instancia de &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" 
 &lt;p&gt;En el ejemplo anterior se puede observar como el &lt;em&gt;slot&lt;/em&gt; &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()"&gt;start&lt;/a&gt;()
 es invocado exactamente de la misma manera que un método convencional para
 iniciar la reproducción de la animación. Sin embargo el hecho de que los
-desarrolladores de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; lo hayan declarado como un &lt;em&gt;slot&lt;/em&gt; y no como un
+desarrolladores de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; lo hayan declarado como un &lt;em&gt;slot&lt;/em&gt; y no como un
 método nos permitiría conectarlo a una señal emitida desde otro control.&lt;/p&gt;
 &lt;p&gt;Por ejemplo, si tuvieramos un botón de &lt;em&gt;play&lt;/em&gt; podríamos conectar su señal
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtwidgets/qabstractbutton.html#clicked" title="QAbstractButton::clicked"&gt;clicked&lt;/a&gt;() al slot &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html#start" title="QMovie::start()"&gt;start&lt;/a&gt;() de la siguiente manera:&lt;/p&gt;
@@ -3663,7 +3663,7 @@ de mensajes hasta que la reproducción no hubiera terminado.&lt;/p&gt;
 
 
 &lt;p&gt;Debido a los efectos desastrosos que este tipo de esperas tienen en las aplicaciones
-dirigidas por eventos, &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; no incluye funciones del tipo de &lt;code&gt;sleep()&lt;/code&gt;, &lt;code&gt;delay()&lt;/code&gt;,
+dirigidas por eventos, &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; no incluye funciones del tipo de &lt;code&gt;sleep()&lt;/code&gt;, &lt;code&gt;delay()&lt;/code&gt;,
 &lt;code&gt;usleep()&lt;/code&gt; y &lt;code&gt;nanosleep()&lt;/code&gt;, que muchos sistemas operativos sí soportan.&lt;/p&gt;
 &lt;h2&gt;Procesando la imagen frame a frame&lt;/h2&gt;
 &lt;p&gt;Aunque &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; se hace cargo de mostrar la animación sin que tengamos que intervenir
@@ -3738,7 +3738,7 @@ dispositivo. De &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qiodevice.ht
 proporcionan implementaciones concretas para cada tipo de dispositivo en particular.&amp;#160;&lt;a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="qt"></category><category term="gui"></category><category term="qmovie"></category></entry><entry><title>Proyecto Qt. Framework de desarrollo de aplicaciones</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" rel="alternate"></link><updated>2013-01-29T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-29:proyecto-qt-framework-de-desarrollo-de-aplicaciones.html</id><summary type="html">&lt;p&gt;&lt;a href="http://qt-project.org/" title="Qt Proyect"&gt;Qt&lt;/a&gt; es una &lt;em&gt;framework&lt;/em&gt; multiplataforma en C++ de desarrollo de aplicaciones. Se
+&lt;/div&gt;</summary><category term="qt"></category><category term="gui"></category><category term="qmovie"></category></entry><entry><title>Proyecto Qt. Framework de desarrollo de aplicaciones</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" rel="alternate"></link><updated>2013-01-29T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-29:proyecto-qt-framework-de-desarrollo-de-aplicaciones.html</id><summary type="html">&lt;p&gt;&lt;a href="http://qt-project.org/" title="Qt Proyect"&gt;Qt&lt;/a&gt; es una &lt;em&gt;framework&lt;/em&gt; multiplataforma en C++ de desarrollo de aplicaciones. Se
 utiliza fundamentalmente para desarrollar aplicaciones con interfaz gráfica,
 gracias al conjunto de controles independientes de la plataforma que ofrece,
 aunque también es usado para crear herramientas de linea de comando o consolas
@@ -3764,12 +3764,12 @@ Python, Java, Ruby, Ada, Pascal, Perl, PHP, Haskell, Lua, D, .NET, etc.&lt;/p&gt
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/"&gt;Qt Proyect&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Qt_(framework)"&gt;Wikipedia&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="qt"></category><category term="gui"></category></entry><entry><title>Crea tu propia distro de Linux con Yocto</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/crea-tu-propia-distro-de-linux-con-yocto.html" rel="alternate"></link><updated>2013-01-22T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-22:crea-tu-propia-distro-de-linux-con-yocto.html</id><summary type="html">&lt;p&gt;El objetivo de este artículo es explicar paso a paso como se puede utilizar
-el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; para crear nuestra propia distribución de Linux. Primero
+&lt;/ol&gt;</summary><category term="qt"></category><category term="gui"></category></entry><entry><title>Crea tu propia distro de Linux con Yocto</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/crea-tu-propia-distro-de-linux-con-yocto.html" rel="alternate"></link><updated>2013-01-22T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-22:crea-tu-propia-distro-de-linux-con-yocto.html</id><summary type="html">&lt;p&gt;El objetivo de este artículo es explicar paso a paso como se puede utilizar
+el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; para crear nuestra propia distribución de Linux. Primero
 construiremos una para ejecutarla en &lt;a href="http://wiki.qemu.org/" title="QEMU"&gt;QEMU&lt;/a&gt; y después otra para nuestra
 Raspberry Pi.&lt;/p&gt;
 &lt;h2&gt;Inicio rápido&lt;/h2&gt;
-&lt;p&gt;El inicio rápido con el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; está perfectamente documentado en
+&lt;p&gt;El inicio rápido con el proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; está perfectamente documentado en
 &lt;a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html" title="Yocto Project Quick Start"&gt;Yocto Project Quick Start&lt;/a&gt;. En cualquier caso aquí resumiremos los pasos
 deteniéndonos en los de mayor importancia.&lt;/p&gt;
 &lt;h3&gt;Requisitos&lt;/h3&gt;
@@ -3790,7 +3790,7 @@ libglu1-mesa-dev mercurial autoconf automake groff
 
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Una versión del proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt;.&lt;/strong&gt; Las distintas versiones pueden
+&lt;p&gt;&lt;strong&gt;Una versión del proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt;.&lt;/strong&gt; Las distintas versiones pueden
 descargarse desde la dirección:&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://downloads.yoctoproject.org/releases/yocto/"&gt;http://downloads.yoctoproject.org/releases/yocto/&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
@@ -3800,8 +3800,8 @@ descargarse desde la dirección:&lt;/p&gt;
 incluyendo las herramienta de desarrollo para la misma:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Descargar el sistema de construcción &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; de la última versión del
-proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; y descomprimirla:&lt;/p&gt;
+&lt;p&gt;Descargar el sistema de construcción &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; de la última versión del
+proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; y descomprimirla:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2
 &lt;span class="nv"&gt;$ &lt;/span&gt;tar jxf poky-danny-8.0.tar.bz2
 &lt;/pre&gt;&lt;/div&gt;
@@ -3846,7 +3846,7 @@ debería ser 9:&lt;/p&gt;
 
 
 &lt;h2&gt;Crear una distribución para Raspberry Pi&lt;/h2&gt;
-&lt;p&gt;El ejemplo estándar del proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; se construye por defecto para la arquitectura
+&lt;p&gt;El ejemplo estándar del proyecto &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Yocto&lt;/a&gt; se construye por defecto para la arquitectura
 &lt;strong&gt;qemux86&lt;/strong&gt;. En el caso de querer compilar para otro sistema sólo es necesario añadir
 una capa que incorpore los archivos de configuración necesarios.&lt;/p&gt;
 &lt;p&gt;En nuestro caso dicha capa es &lt;strong&gt;meta-raspberrypi&lt;/strong&gt;, una capa &lt;a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package"&gt;BSP&lt;/a&gt; que agrupa todos los
@@ -3863,7 +3863,7 @@ contiene configuraciones para el núcleo y opciones para la arquitectura.&lt;/p&
 
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Cambiar a la rama &lt;strong&gt;danny&lt;/strong&gt; que es la de la versión de &lt;a href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; que estamos usando:&lt;/p&gt;
+&lt;p&gt;Cambiar a la rama &lt;strong&gt;danny&lt;/strong&gt; que es la de la versión de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake"&gt;Poky&lt;/a&gt; que estamos usando:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;meta-raspberrypi
 &lt;span class="nv"&gt;$ &lt;/span&gt;git checkout danny
 &lt;/pre&gt;&lt;/div&gt;
@@ -3916,7 +3916,7 @@ Mientras que la imagen alternativa &lt;code&gt;rpi-hwup-image&lt;/code&gt; no co
 &lt;li&gt;&lt;a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html"&gt;Yocto Project Quick Start&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://pokylinux.org/doc/poky-handbook.html"&gt;Poky HandBook&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.pimpmypi.com/blog/blogPost.php?blogPostID=7"&gt;Build a Custom Raspberry Pi Distro with OpenEmbedded &amp;amp; Yocto&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="yocto"></category><category term="poky"></category><category term="distribución"></category></entry><entry><title>Cámara CF7670C-V2</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/camara-cf7670c-v2.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:camara-cf7670c-v2.html</id><summary type="html">&lt;p&gt;Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt;
+&lt;/ol&gt;</summary><category term="yocto"></category><category term="poky"></category><category term="distribución"></category></entry><entry><title>Cámara CF7670C-V2</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/camara-cf7670c-v2.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-13:camara-cf7670c-v2.html</id><summary type="html">&lt;p&gt;Los módulos de cámara CF7670C y CF7670C-V2 combinan el sensor CMOS &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fanZqcWUyVUQxaTg/edit" title="Sensor CMOS OmniVision OV7670"&gt;OmniVision OV7670&lt;/a&gt;
 con una memoria FIFO &lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fV3gyQ3dfTkRETDg/edit" title="FIFO Averlogic AL422"&gt;Averlogic AL422&lt;/a&gt; de 3Mb.&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fS20tR1lnYmFHZVk" width="300" alt="Cámara CF7670C-V2" class="right-float"&gt;&lt;/p&gt;
 &lt;p&gt;La idea es que las imágenes capturadas por el sensor se almacenen en la memoria FIFO,
@@ -3951,7 +3951,7 @@ son  accesibles desde el conector del módulo.&lt;/p&gt;
 &lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9fNzFIbml0dHNXaTQ/edit"&gt;Pines del módulo CF7670C-V2&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://drive.google.com/uc?export=download&amp;amp;confirm=&amp;amp;id=0B4Cklvu_Zw9fS3c4VTRTNHJvMEU"&gt;Controlador de ejemplo para el módulo CF7670C-V2&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://docs.google.com/a/isaatc.ull.es/file/d/0B4Cklvu_Zw9feEVCU3BzZHY4SEk/edit"&gt;OV7670 Implementation Guide&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="cf7670c"></category><category term="i2c"></category><category term="ov7670"></category><category term="al422"></category></entry><entry><title>LCD 1.8" SPI (ST7735)</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/lcd-18-spi-st7735.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:lcd-18-spi-st7735.html</id><summary type="html">&lt;p&gt;El módulo en cuestión tiene las siguientes características:&lt;/p&gt;
+&lt;/ol&gt;</summary><category term="cf7670c"></category><category term="i2c"></category><category term="ov7670"></category><category term="al422"></category></entry><entry><title>LCD 1.8" SPI (ST7735)</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/lcd-18-spi-st7735.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-13:lcd-18-spi-st7735.html</id><summary type="html">&lt;p&gt;El módulo en cuestión tiene las siguientes características:&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://drive.google.com/uc?export=download&amp;confirm=&amp;id=0B4Cklvu_Zw9fUmF1d0YzNzMwNG8" alt="Pantalla LCD" class="right-float"&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Resolución de 128x160 pixels.&lt;/li&gt;
@@ -3975,7 +3975,7 @@ como si de una tarjeta gráfica convencional se trata, ignorando la interfaz &lt
 &lt;li&gt;&lt;a href="https://docs.google.com/file/d/0B4Cklvu_Zw9fMmM3U0I2NU53Y3c/edit"&gt;Hoja de datos Sitronix ST7735 262K Color Single-Chip TFT Controller/Driver&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://drive.google.com/uc?export=download&amp;amp;confirm=&amp;amp;id=0B4Cklvu_Zw9fT2hjVmpIQ2x0NVU"&gt;Librería para Arduino y programas de ejemplo&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/ohporter/linux-am33x/blob/st7735fb/drivers/video/st7735fb.c"&gt;FB driver for ST7735 LCD controller&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="lcd"></category><category term="spi"></category><category term="st7735"></category></entry><entry><title>Raspberry Pi</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/raspberry-pi.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-13:raspberry-pi.html</id><summary type="html">&lt;p&gt;Una Raspberry Pi es una placa computadora (&lt;a href="http://en.wikipedia.org/wiki/Single-board_computer" title="Single-board Computer"&gt;SBC&lt;/a&gt;) de bajo coste que incluye:&lt;/p&gt;
+&lt;/ol&gt;</summary><category term="lcd"></category><category term="spi"></category><category term="st7735"></category></entry><entry><title>Raspberry Pi</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/raspberry-pi.html" rel="alternate"></link><updated>2013-01-13T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-13:raspberry-pi.html</id><summary type="html">&lt;p&gt;Una Raspberry Pi es una placa computadora (&lt;a href="http://en.wikipedia.org/wiki/Single-board_computer" title="Single-board Computer"&gt;SBC&lt;/a&gt;) de bajo coste que incluye:&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://commons.wikimedia.org/wiki/File:RaspberryPi.jpg"&gt;&lt;img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/RaspberryPi.jpg/320px-RaspberryPi.jpg" alt="Raspberry Pi" class="right-float"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Un &lt;a href="http://es.wikipedia.org/wiki/System_on_a_chip" title="System on a Chip"&gt;SOC&lt;/a&gt; Broadcom BCM2835, que contiene una CPU &lt;a href="http://en.wikipedia.org/wiki/ARM11" title="ARM11"&gt;ARM11&lt;/a&gt;76JZF-S a 700 MHz y
@@ -4019,7 +4019,7 @@ basado en web para crear fácilmente aplicaciones en &lt;a href="http://es.wikip
 &lt;li&gt;&lt;a href="http://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf"&gt;BCM2835 ARM Peripherals&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0301h/DDI0301H_arm1176jzfs_r0p7_trm.pdf"&gt;ARM1176JZF-S Technical Reference Manual&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.raspberrypi.org/wp-content/uploads/2012/10/Raspberry-Pi-R2.0-Schematics-Issue2.2_027.pdf"&gt;Raspberry Pi 2.0 Schematics&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="rpi"></category><category term="raspberry pi"></category><category term="arm"></category><category term="gpio"></category><category term="videocore"></category><category term="broadcom"></category></entry><entry><title>Yocto, Poky y BitBake</title><link href="http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog/yocto-poky-y-bitbake.html" rel="alternate"></link><updated>2013-01-10T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.com/videovigilancia-blog,2013-01-10:yocto-poky-y-bitbake.html</id><summary type="html">&lt;p&gt;El proyecto &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; proporciona a los desarrolladores de sistemas empotrados
+&lt;/ol&gt;</summary><category term="rpi"></category><category term="raspberry pi"></category><category term="arm"></category><category term="gpio"></category><category term="videocore"></category><category term="broadcom"></category></entry><entry><title>Yocto, Poky y BitBake</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/yocto-poky-y-bitbake.html" rel="alternate"></link><updated>2013-01-10T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-01-10:yocto-poky-y-bitbake.html</id><summary type="html">&lt;p&gt;El proyecto &lt;a href="https://www.yoctoproject.org/" title="Yocto Project"&gt;Yocto&lt;/a&gt; proporciona a los desarrolladores de sistemas empotrados
 Linux un punto de partida para generar distribuciones personalizadas para
 sus productos. Una de las piezas clave del proyecto es el sistema de
 construcción &lt;a href="http://www.pokylinux.org/" title="Poky Plataform Builder"&gt;Poky&lt;/a&gt;, que a su vez se apoya en &lt;a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake"&gt;BitBake&lt;/a&gt;, una herramienta de
