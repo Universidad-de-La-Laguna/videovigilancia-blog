@@ -5,7 +5,7 @@ import sys
 sys.path.append('.')
 from pelicanconf import *
 
-SITEURL = 'http://ull-etsii-sistemas-operativos.github.com/videovigilancia-blog'
+SITEURL = 'http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog'
 
 DELETE_OUTPUT_DIRECTORY = True
 

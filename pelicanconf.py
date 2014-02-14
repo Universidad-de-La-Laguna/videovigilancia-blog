@@ -17,6 +17,24 @@ SUMMARY_MAX_LENGTH = 50
 GOOGLE_CUSTOM_SEARCH_SIDEBAR = '013894742475483232300:q2-5a1zlira'
 DISQUS_SITENAME = 'sistema-de-videovigilancia-from-scratch'
 
+# Plugins
+PLUGINS = ['plugins.sitemap']
+
+# Sitemap
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 0.8,
+        'indexes': 0.5,
+        'pages': 0.5
+    },
+    'changefreqs': {
+        'articles': 'weekly',
+        'indexes': 'weekly',
+        'pages': 'yearly'
+    }
+}
+
 # Feeds
 FEED_DOMAIN = SITEURL
 FEED_ATOM='feeds/atom.xml'
