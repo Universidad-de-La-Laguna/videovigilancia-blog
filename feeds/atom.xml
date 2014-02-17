@@ -3245,7 +3245,7 @@ comparten la memoria del proceso, esto no debe ser un problema, pero realmente
 entraña ciertas dificultades relacionadas con la concurrencia.&lt;/p&gt;
 &lt;p&gt;Para ilustrarlo supongamos que hemos abierto un archivo de vídeo para procesarlo
 y que un &lt;em&gt;slot&lt;/em&gt; de la clase de la ventana es invocado cada vez que se dispone
-de un nuevo &lt;em&gt;frame&lt;/em&gt;. La función del &lt;em&gt;slot&lt;/em&gt; sería la de transferir al hilo
+de un nuevo &lt;em&gt;frame&lt;/em&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;. La función del &lt;em&gt;slot&lt;/em&gt; sería la de transferir al hilo
 el &lt;em&gt;frame&lt;/em&gt; para que se haga cargo de su procesamiento. Teniendo esto en cuenta,
 el problema al que nos enfrentamos podría ser descrito de la siguiente manera:&lt;/p&gt;
 &lt;ol&gt;
@@ -3293,54 +3293,93 @@ elementos de sincronización que ayuden a ambos hilos a coordinarse:&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Teniendo todo esto presente, a continuación desarrollamos un posible solución.&lt;/p&gt;
-&lt;h3&gt;Variables globales&lt;/h3&gt;
-&lt;p&gt;Como ya hemos comentado, ambos hilos deben compartir la cola, el contador y
-una serie de elementos de sincronización:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;BufferSize&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;       &lt;span class="c1"&gt;// Tamaño de la cola&lt;/span&gt;
-&lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;BufferSize&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;       &lt;span class="c1"&gt;// Cola de frames como array de C&lt;/span&gt;
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;numUsedBufferItems&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// Contador de frames en la cola&lt;/span&gt;
+&lt;h3&gt;La clase FiniteBuffer&lt;/h3&gt;
+&lt;p&gt;Vamos a encapsular el &lt;em&gt;buffer&lt;/em&gt; compartido dentro de una clase propia, de tal
+forma que el acceso al mismo sólo pueda realizarse usando los métodos seguros
+que implementaremos.&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;code&gt;void insertFrame(const QImage&amp;amp; frame)&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Insertar la imagen &lt;code&gt;frame&lt;/code&gt; en el buffer de &lt;em&gt;frames&lt;/em&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;QImage extractFrame()&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Extraer el &lt;em&gt;frame&lt;/em&gt; más antiguo del &lt;em&gt;buffer&lt;/em&gt;.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;Como ya hemos comentado, los hilos deben compartir: la cola, el contador de
+elementos y una serie de objetos de sincronización:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;FiniteBuffer&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QObject&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
-&lt;span class="n"&gt;QWaitCondition&lt;/span&gt; &lt;span class="n"&gt;bufferNotEmpty&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;QWaitCondition&lt;/span&gt; &lt;span class="n"&gt;bufferNotFull&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;QMutex&lt;/span&gt; &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;public:&lt;/span&gt;
+        &lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Métodos de inserción y extracción para el productor y el&lt;/span&gt;
+        &lt;span class="c1"&gt;// consumidor, respectivamente&lt;/span&gt;
+        &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;insertFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QImage&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="nf"&gt;extractFrame&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="nl"&gt;private:&lt;/span&gt;
+        &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;bufferSize_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="c1"&gt;// Tamaño de la cola&lt;/span&gt;
+        &lt;span class="n"&gt;QImage&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;buffer_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="c1"&gt;// Cola de frames como array de C&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;numUsedBufferItems_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// Contador de frames en la cola&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Objetos de sincronización&lt;/span&gt;
+        &lt;span class="n"&gt;QWaitCondition&lt;/span&gt; &lt;span class="n"&gt;bufferNotEmpty_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;QWaitCondition&lt;/span&gt; &lt;span class="n"&gt;bufferNotFull_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;QMutex&lt;/span&gt; &lt;span class="n"&gt;mutex_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;El productor&lt;/h3&gt;
-&lt;p&gt;El código del &lt;em&gt;productor&lt;/em&gt; en el &lt;em&gt;slot&lt;/em&gt; podría tener el siguiente aspecto:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;on_video_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;p&gt;que debemos inicializar adecuadamente en el constructor de nuestra nueva clase:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;bufferSize_&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;buffer_&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QImage&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;]),&lt;/span&gt;
+      &lt;span class="n"&gt;numUsedBufferItems_&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{}&lt;/span&gt;
+
+&lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="o"&gt;::~&lt;/span&gt;&lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="c1"&gt;// Posición último frame insertado&lt;/span&gt;
-
-    &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;                &lt;span class="c1"&gt;// Bloquear el cerrojo&lt;/span&gt;
-    &lt;span class="c1"&gt;// El código del productor a partir de este punto y hasta&lt;/span&gt;
-    &lt;span class="c1"&gt;// el unlock() no se ejecutará si el consumidor ha bloqueado el&lt;/span&gt;
-    &lt;span class="c1"&gt;// cerrojo primero.&lt;/span&gt;
-
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numUsedBufferItems&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;BufferSize&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;// ¿Cola llena?&lt;/span&gt;
-        &lt;span class="n"&gt;bufferNotFull&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;// Dormir hasta que haya sitio&lt;/span&gt;
-                                        &lt;span class="c1"&gt;// en la cola.&lt;/span&gt;
-
-    &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unlock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;              &lt;span class="c1"&gt;// Liberar el cerrojo&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// Insertar el frame en la cola&lt;/span&gt;
-    &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;BufferSize&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;currentImage&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-
-    &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;                &lt;span class="c1"&gt;// Bloquear el cerrojo&lt;/span&gt;
-    &lt;span class="c1"&gt;// El código del productor a partir de este punto y hasta&lt;/span&gt;
-    &lt;span class="c1"&gt;// el unlock() no se ejecutará si el consumidor ha bloqueado el&lt;/span&gt;
-    &lt;span class="c1"&gt;// cerrojo primero.&lt;/span&gt;
-
-    &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;numUsedBufferItems&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;bufferNotEmpty&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wakeAll&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;     &lt;span class="c1"&gt;// Despertar al consumidor si&lt;/span&gt;
-                                    &lt;span class="c1"&gt;// esperaba por más frames.&lt;/span&gt;
-
-    &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unlock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;               &lt;span class="c1"&gt;// Liberar el cerrojo&lt;/span&gt;
+    &lt;span class="k"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;buffer_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Donde la instancia &lt;code&gt;mutex&lt;/code&gt; de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex"&gt;QMutex&lt;/a&gt; sirve para evitar que el
+&lt;h3&gt;El productor&lt;/h3&gt;
+&lt;p&gt;El código en el &lt;em&gt;slot&lt;/em&gt; de la ventana principal llamado cada vez que se dispone
+de un nuevo frame podría tener el siguiente aspecto:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;MyWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;on_video_updated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QRect&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;finiteBuffer_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;insertFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;movie_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;currentImage&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;siendo el método &lt;code&gt;FiniteBuffer::insertFrame()&lt;/code&gt; el siguiente:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;insertFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;QImage&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="c1"&gt;// Posición último frame insertado&lt;/span&gt;
+
+    &lt;span class="n"&gt;mutex_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;               &lt;span class="c1"&gt;// Bloquear el cerrojo&lt;/span&gt;
+    &lt;span class="c1"&gt;// El código del productor a partir de este punto y hasta&lt;/span&gt;
+    &lt;span class="c1"&gt;// el unlock() no se ejecutará si el consumidor ha bloqueado el&lt;/span&gt;
+    &lt;span class="c1"&gt;// cerrojo primero.&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numUsedBufferItems_&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;bufferSize_&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// ¿Cola llena?&lt;/span&gt;
+        &lt;span class="n"&gt;bufferNotFull_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  &lt;span class="c1"&gt;// Dormir hasta que haya sitio&lt;/span&gt;
+                                        &lt;span class="c1"&gt;// en la cola.&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Insertar el frame en la cola&lt;/span&gt;
+    &lt;span class="n"&gt;buffer_&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;bufferSize_&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;numUsedBufferItems_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;bufferNotEmpty_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wakeAll&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;      &lt;span class="c1"&gt;// Despertar al consumidor si&lt;/span&gt;
+                                    &lt;span class="c1"&gt;// esperaba por más frames.&lt;/span&gt;
+
+    &lt;span class="n"&gt;mutex_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unlock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;                &lt;span class="c1"&gt;// Liberar el cerrojo&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Donde la instancia &lt;code&gt;mutex_&lt;/code&gt; de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qmutex.html" title="QMutex"&gt;QMutex&lt;/a&gt; sirve para evitar que el
 &lt;em&gt;productor&lt;/em&gt; y el &lt;em&gt;consumidor&lt;/em&gt; accedan al contador compartido al mismo tiempo.
 Concretamente:&lt;/p&gt;
 &lt;ul&gt;
@@ -3358,82 +3397,103 @@ el cerrojo.&lt;/p&gt;
 &lt;p&gt;Por otro lado las instancias de condiciones de espera &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition"&gt;QWaitCondition&lt;/a&gt; permiten
 dormir un hilo hasta que se de una condición determinada. En nuestro ejemplo el
 &lt;em&gt;productor&lt;/em&gt; utiliza el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition"&gt;QWaitCondition&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html#wait" title="QWaitCondition::wait()"&gt;wait&lt;/a&gt;() para dormir si la
-cola está llena. Antes de hacerlo libera temporalmente el cerrojo &lt;code&gt;mutex&lt;/code&gt;,
+cola está llena. Antes de hacerlo libera temporalmente el cerrojo &lt;code&gt;mutex_&lt;/code&gt;,
 permitiendo que el &lt;em&gt;consumidor&lt;/em&gt; se pueda ejecutar en el código que protege.&lt;/p&gt;
 &lt;p&gt;Como se verá a continuación, el &lt;em&gt;consumidor&lt;/em&gt; utiliza el método
 &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition"&gt;QWaitCondition&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html#weakAll" title="QWaitCondition::weakAll()"&gt;weakAll&lt;/a&gt;() después de extraer un elemento con el objeto
-de despertar al productor. Obviamente este deberá bloquear el cerrojo &lt;code&gt;mutex&lt;/code&gt;
+de despertar al productor. Obviamente este deberá bloquear el cerrojo &lt;code&gt;mutex_&lt;/code&gt;
 antes de volver del método &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html" title="QWaitCondition"&gt;QWaitCondition&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html#wait" title="QWaitCondition::wait()"&gt;wait&lt;/a&gt;().&lt;/p&gt;
 &lt;h3&gt;El consumidor&lt;/h3&gt;
-&lt;p&gt;El código del consumidor podría tener el siguiente aspecto, que es muy similar
-al del productor:&lt;/p&gt;
+&lt;p&gt;El código del hilo consumidor podría tener el siguiente aspecto:&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;FrameProcessingThread&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;Q_OBJECT&lt;/span&gt;
 
     &lt;span class="nl"&gt;public:&lt;/span&gt;
 
-        &lt;span class="n"&gt;FrameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-            &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;FrameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                              &lt;span class="n"&gt;QObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;QThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;buffer_&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
         &lt;span class="p"&gt;{}&lt;/span&gt;
 
         &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
         &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="c1"&gt;// Posición último frame extraido&lt;/span&gt;
+            &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;buffer_&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;extractFrame&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
-            &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;          &lt;span class="c1"&gt;// Bloqueamos el cerrojo&lt;/span&gt;
-            &lt;span class="c1"&gt;// El código del consumidor a partir de este punto y&lt;/span&gt;
-            &lt;span class="c1"&gt;// hasta el unlock() no se ejecutará si el productor ha&lt;/span&gt;
-            &lt;span class="c1"&gt;// bloqueado el cerrojo primero.&lt;/span&gt;
-
-            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numUsedBufferItems&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;     &lt;span class="c1"&gt;// ¿Cola vacía?...&lt;/span&gt;
-                &lt;span class="n"&gt;bufferNotEmpty&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// Dormir si es así&lt;/span&gt;
-
-            &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unlock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;        &lt;span class="c1"&gt;// Liberar el cerrojo&lt;/span&gt;
-
-            &lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;BufferSize&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-
-            &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;                    &lt;span class="c1"&gt;// Bloquear el cerrojo&lt;/span&gt;
-            &lt;span class="c1"&gt;// El código del consumidor a partir de este punto y&lt;/span&gt;
-            &lt;span class="c1"&gt;// hasta el unlock() no se ejecutará si el productor ha&lt;/span&gt;
-            &lt;span class="c1"&gt;// bloqueado el cerrojo primero.&lt;/span&gt;
-
-            &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;numUsedBufferItems&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="n"&gt;bufferNotFull&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wakeAll&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;  &lt;span class="c1"&gt;// Despertar al productor si&lt;/span&gt;
-                                        &lt;span class="c1"&gt;// esperaba por un hueco.&lt;/span&gt;
-
-            &lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unlock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;        &lt;span class="c1"&gt;// Liberar el cerrojo&lt;/span&gt;
-
-            &lt;span class="c1"&gt;// Aquí va el código para procesar el frame...&lt;/span&gt;
+                &lt;span class="c1"&gt;//&lt;/span&gt;
+                &lt;span class="c1"&gt;// Aquí va el código para procesar cada frame...&lt;/span&gt;
+                &lt;span class="c1"&gt;//&lt;/span&gt;
+                &lt;span class="c1"&gt;// ...&lt;/span&gt;
+                &lt;span class="c1"&gt;//&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
         &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="nl"&gt;private:&lt;/span&gt;
+        &lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;buffer_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;La función principal&lt;/h3&gt;
-&lt;p&gt;Finalmente es en la función principal del programa &lt;code&gt;main()&lt;/code&gt; donde debe crearse
-el hilo encargado del procesamiento de los &lt;em&gt;frames&lt;/em&gt;. Es decir, nuestro
-consumidor.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
+&lt;p&gt;donde el código del método &lt;code&gt;FiniteBuffer::removeFrame()&lt;/code&gt; es muy similar al de
+inserción:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;extractFrame&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;QApplication&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;FrameProcessingThread&lt;/span&gt; &lt;span class="n"&gt;frameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// Posición último frame extraido&lt;/span&gt;
+
+    &lt;span class="n"&gt;mutex_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;          &lt;span class="c1"&gt;// Bloqueamos el cerrojo&lt;/span&gt;
+    &lt;span class="c1"&gt;// El código del consumidor a partir de este punto y&lt;/span&gt;
+    &lt;span class="c1"&gt;// hasta el unlock() no se ejecutará si el productor ha&lt;/span&gt;
+    &lt;span class="c1"&gt;// bloqueado el cerrojo primero.&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numUsedBufferItems_&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;   &lt;span class="c1"&gt;// ¿Cola vacía?...&lt;/span&gt;
+    &lt;span class="n"&gt;bufferNotEmpty_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;mutex&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   &lt;span class="c1"&gt;// Dormir si es así&lt;/span&gt;
+
+    &lt;span class="n"&gt;QImage&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;buffer_&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;bufferSize_&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+    &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;numUsedBufferItems_&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;bufferNotFull_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wakeAll&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;   &lt;span class="c1"&gt;// Despertar al productor si&lt;/span&gt;
+                                &lt;span class="c1"&gt;// esperaba por un hueco.&lt;/span&gt;
+
+    &lt;span class="n"&gt;mutex_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unlock&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;        &lt;span class="c1"&gt;// Liberar el cerrojo&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;El constructor de la ventana principal&lt;/h3&gt;
+&lt;p&gt;Finalmente es en constructor de ventana principal del programa &lt;code&gt;MyWindow&lt;/code&gt; donde
+debe crearse el buffer &lt;code&gt;FiniteBuffer&lt;/code&gt; y el hilo encargado del procesamiento de
+los &lt;em&gt;frames&lt;/em&gt;. Es decir, nuestro consumidor.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MyWindow&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;MyWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;QWidget&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+
+    &lt;span class="n"&gt;finiteBuffer_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;FiniteBuffer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;FrameProcessingThread&lt;/span&gt; &lt;span class="nf"&gt;frameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;finiteBuffer_&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="n"&gt;frameProcessingThread&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
-    &lt;span class="n"&gt;MyWindow&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h1&gt;Referencias&lt;/h1&gt;
 &lt;ol&gt;
+&lt;li&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/como-usar-qmovie-en-qt.html"&gt;Como usar QMovie en Qt&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/threads-starting.html"&gt;Starting Threads with QThread&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-4.8/threads-waitconditions.html"&gt;Wait Conditions Example&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Producer-consumer_problem"&gt;Producer-consumer problem&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="qt"></category><category term="hilos"></category><category term="mutex"></category><category term="condición de espera"></category><category term="variables de condición"></category><category term="productor-consumidor"></category><category term="buffer finito"></category></entry><entry><title>Layouts en Qt. Organización de controles</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html" rel="alternate"></link><updated>2013-02-15T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-02-15:layouts-en-qt-organizacion-de-controles.html</id><summary type="html">&lt;p&gt;El sistema de &lt;em&gt;layouts&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporcionar una manera sencilla de organizar
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;Un ejemplo de cómo usar de esta manera &lt;a href="http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html" title="QMovie"&gt;QMovie&lt;/a&gt; se trató en el artículo &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/como-usar-qmovie-en-qt.html"&gt;Como usar QMovie en Qt&lt;/a&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</summary><category term="qt"></category><category term="hilos"></category><category term="mutex"></category><category term="condición de espera"></category><category term="variables de condición"></category><category term="productor-consumidor"></category><category term="buffer finito"></category><category term="monitor"></category></entry><entry><title>Layouts en Qt. Organización de controles</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/layouts-en-qt-organizacion-de-controles.html" rel="alternate"></link><updated>2013-02-15T00:00:00+00:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-02-15:layouts-en-qt-organizacion-de-controles.html</id><summary type="html">&lt;p&gt;El sistema de &lt;em&gt;layouts&lt;/em&gt; de &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; proporcionar una manera sencilla de organizar
 los controles dentro de otros controles o ventanas, asegurando el mejor
 aprovechamiento del espacio disponible.&lt;/p&gt;
 &lt;p&gt;La idea es describir como deben organizarse los controles, dejando que después
