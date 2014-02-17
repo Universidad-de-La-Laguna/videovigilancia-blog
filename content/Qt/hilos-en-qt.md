@@ -1,5 +1,5 @@
 Title: Introducción al uso de hilos en Qt
-Tags: qt, hilos, mutex, condición de espera, variables de condición, productor-consumidor, buffer finito
+Tags: qt, hilos, mutex, condición de espera, variables de condición, productor-consumidor, buffer finito, monitor
 Date: 2013-02-16
 
 Debido a la existencia del bucle de mensajes, no se pueden ejecutar tareas de
@@ -63,7 +63,7 @@ entraña ciertas dificultades relacionadas con la concurrencia.
 
 Para ilustrarlo supongamos que hemos abierto un archivo de vídeo para procesarlo
 y que un _slot_ de la clase de la ventana es invocado cada vez que se dispone
-de un nuevo _frame_. La función del _slot_ sería la de transferir al hilo
+de un nuevo _frame_[^1]. La función del _slot_ sería la de transferir al hilo
 el _frame_ para que se haga cargo de su procesamiento. Teniendo esto en cuenta,
 el problema al que nos enfrentamos podría ser descrito de la siguiente manera:
 
@@ -103,58 +103,100 @@ elementos de sincronización que ayuden a ambos hilos a coordinarse:
 
 Teniendo todo esto presente, a continuación desarrollamos un posible solución.
 
-### Variables globales
+### La clase FiniteBuffer
 
-Como ya hemos comentado, ambos hilos deben compartir la cola, el contador y
-una serie de elementos de sincronización:
+Vamos a encapsular el _buffer_ compartido dentro de una clase propia, de tal
+forma que el acceso al mismo sólo pueda realizarse usando los métodos seguros
+que implementaremos.
+
+`void insertFrame(const QImage& frame)`
+: Insertar la imagen `frame` en el buffer de _frames_.
+
+`QImage extractFrame()`
+: Extraer el _frame_ más antiguo del _buffer_.
+
+Como ya hemos comentado, los hilos deben compartir: la cola, el contador de
+elementos y una serie de objetos de sincronización:
 
 ~~~~.cpp
-const int BufferSize = 20;       // Tamaño de la cola
-QImage buffer[BufferSize];       // Cola de frames como array de C
-int numUsedBufferItems = 0;      // Contador de frames en la cola
+class FiniteBuffer : public QObject
+{
+    Q_OBJECT
 
-QWaitCondition bufferNotEmpty;
-QWaitCondition bufferNotFull;
-QMutex mutex;
+    public:
+        FiniteBuffer(int size);
+        ~FiniteBuffer();
+
+        // Métodos de inserción y extracción para el productor y el
+        // consumidor, respectivamente
+        void insertFrame(const QImage& frame);
+        QImage extractFrame();
+        
+    private:
+        const int bufferSize_;     // Tamaño de la cola
+        QImage* buffer_;           // Cola de frames como array de C
+        int numUsedBufferItems_;   // Contador de frames en la cola
+
+        // Objetos de sincronización
+        QWaitCondition bufferNotEmpty_;
+        QWaitCondition bufferNotFull_;
+        QMutex mutex_;
+~~~~
+
+que debemos inicializar adecuadamente en el constructor de nuestra nueva clase:
+
+~~~~.cpp
+FiniteBuffer::FiniteBuffer(int size)
+    : bufferSize_(size), buffer_(new QImage[size]),
+      numUsedBufferItems_(0)
+{}
+
+FiniteBuffer::~FiniteBuffer()
+{
+    delete[] buffer_;
+}
 ~~~~
 
 ### El productor
 
-El código del _productor_ en el _slot_ podría tener el siguiente aspecto:
+El código en el _slot_ de la ventana principal llamado cada vez que se dispone
+de un nuevo frame podría tener el siguiente aspecto:
 
 ~~~~.cpp
 void MyWindow::on_video_updated(const QRect& rect)
 {
-    static int i = -1;           // Posición último frame insertado
-
-    mutex.lock();                // Bloquear el cerrojo
-    // El código del productor a partir de este punto y hasta
-    // el unlock() no se ejecutará si el consumidor ha bloqueado el
-    // cerrojo primero.
-
-    if (numUsedBufferItems == BufferSize)  // ¿Cola llena?
-        bufferNotFull.wait(&mutex);   // Dormir hasta que haya sitio
-                                        // en la cola.
-
-    mutex.unlock();              // Liberar el cerrojo
-
-    // Insertar el frame en la cola
-    buffer[++i % BufferSize] = movie_->currentImage();
-
-    mutex.lock();                // Bloquear el cerrojo
-    // El código del productor a partir de este punto y hasta
-    // el unlock() no se ejecutará si el consumidor ha bloqueado el
-    // cerrojo primero.
-
-    ++numUsedBufferItems;
-    bufferNotEmpty.wakeAll();     // Despertar al consumidor si
-                                    // esperaba por más frames.
-
-    mutex.unlock();               // Liberar el cerrojo
+    finiteBuffer_->insertFrame(movie_->currentImage());
 }
 ~~~~
 
-Donde la instancia `mutex` de la clase [QMutex] sirve para evitar que el
+siendo el método `FiniteBuffer::insertFrame()` el siguiente:
+
+~~~~.cpp
+void FiniteBuffer::insertFrame(const QImage& frame)
+{
+    static int i = -1;           // Posición último frame insertado
+
+    mutex_.lock();               // Bloquear el cerrojo
+    // El código del productor a partir de este punto y hasta
+    // el unlock() no se ejecutará si el consumidor ha bloqueado el
+    // cerrojo primero.
+
+    if (numUsedBufferItems_ == bufferSize_) // ¿Cola llena?
+        bufferNotFull_.wait(&mutex);  // Dormir hasta que haya sitio
+                                        // en la cola.
+
+    // Insertar el frame en la cola
+    buffer_[++i % bufferSize_] = frame;
+
+    ++numUsedBufferItems_;
+    bufferNotEmpty_.wakeAll();      // Despertar al consumidor si
+                                    // esperaba por más frames.
+
+    mutex_.unlock();                // Liberar el cerrojo
+}
+~~~~
+
+Donde la instancia `mutex_` de la clase [QMutex] sirve para evitar que el
 _productor_ y el _consumidor_ accedan al contador compartido al mismo tiempo.
 Concretamente:
 
@@ -169,18 +211,17 @@ el cerrojo.
 Por otro lado las instancias de condiciones de espera [QWaitCondition] permiten
 dormir un hilo hasta que se de una condición determinada. En nuestro ejemplo el
 _productor_ utiliza el método [QWaitCondition]::[wait][]() para dormir si la
-cola está llena. Antes de hacerlo libera temporalmente el cerrojo `mutex`,
+cola está llena. Antes de hacerlo libera temporalmente el cerrojo `mutex_`,
 permitiendo que el _consumidor_ se pueda ejecutar en el código que protege.
 
 Como se verá a continuación, el _consumidor_ utiliza el método
 [QWaitCondition]::[weakAll][]() después de extraer un elemento con el objeto
-de despertar al productor. Obviamente este deberá bloquear el cerrojo `mutex`
+de despertar al productor. Obviamente este deberá bloquear el cerrojo `mutex_`
 antes de volver del método [QWaitCondition]::[wait][]().
 
 ### El consumidor
 
-El código del consumidor podría tener el siguiente aspecto, que es muy similar
-al del productor:
+El código del hilo consumidor podría tener el siguiente aspecto:
 
 ~~~~.cpp
 class FrameProcessingThread : public QThread
@@ -189,69 +230,85 @@ class FrameProcessingThread : public QThread
 
     public:
 
-        FrameProcessingThread(QObject *parent = NULL)
-            : QThread(parent)
+        FrameProcessingThread(FiniteBuffer* buffer,
+                              QObject *parent = 0)
+            : QThread(parent), buffer_(buffer)
         {}
 
         void run()
         {
-            static int i = -1;     // Posición último frame extraido
+            while(true) {
+                QImage image = buffer_->extractFrame();
 
-            mutex.lock();          // Bloqueamos el cerrojo
-            // El código del consumidor a partir de este punto y
-            // hasta el unlock() no se ejecutará si el productor ha
-            // bloqueado el cerrojo primero.
-
-            if (numUsedBufferItems == 0)     // ¿Cola vacía?...
-                bufferNotEmpty.wait(&mutex); // Dormir si es así
-
-            mutex.unlock();        // Liberar el cerrojo
-
-            QImage image = buffer[++i % BufferSize];
-
-            mutex.lock();                    // Bloquear el cerrojo
-            // El código del consumidor a partir de este punto y
-            // hasta el unlock() no se ejecutará si el productor ha
-            // bloqueado el cerrojo primero.
-
-            --numUsedBufferItems;
-            bufferNotFull.wakeAll();  // Despertar al productor si
-                                        // esperaba por un hueco.
-
-            mutex.unlock();        // Liberar el cerrojo
-
-            // Aquí va el código para procesar el frame...
+                //
+                // Aquí va el código para procesar cada frame...
+                //
+                // ...
+                //
+            }
         }
+
+    private:
+        FiniteBuffer* buffer_;
 };
 ~~~~
 
-### La función principal
-
-Finalmente es en la función principal del programa `main()` donde debe crearse
-el hilo encargado del procesamiento de los _frames_. Es decir, nuestro
-consumidor.
+donde el código del método `FiniteBuffer::removeFrame()` es muy similar al de
+inserción:
 
 ~~~~.cpp
-int main(int argc, char *argv[])
+QImage FiniteBuffer::extractFrame()
 {
-    QApplication a(argc, argv);
-    FrameProcessingThread frameProcessingThread;
+    static int i = -1;      // Posición último frame extraido
+
+    mutex_.lock();          // Bloqueamos el cerrojo
+    // El código del consumidor a partir de este punto y
+    // hasta el unlock() no se ejecutará si el productor ha
+    // bloqueado el cerrojo primero.
+
+    if (numUsedBufferItems_ == 0)   // ¿Cola vacía?...
+    bufferNotEmpty_.wait(&mutex);   // Dormir si es así
+
+    QImage image = buffer_[++i % bufferSize_];
+
+    --numUsedBufferItems_;
+    bufferNotFull_.wakeAll();   // Despertar al productor si
+                                // esperaba por un hueco.
+
+    mutex_.unlock();        // Liberar el cerrojo
+
+    return image;
+}
+~~~~
+
+### El constructor de la ventana principal
+
+Finalmente es en constructor de ventana principal del programa `MyWindow` donde
+debe crearse el buffer `FiniteBuffer` y el hilo encargado del procesamiento de
+los _frames_. Es decir, nuestro consumidor.
+
+~~~~.cpp
+MyWindow::MyWindow(QWidget *parent)
+{
+    // ...
+
+    finiteBuffer_ = new FiniteBuffer(20);
+    FrameProcessingThread frameProcessingThread(finiteBuffer_);
     frameProcessingThread.start();
 
-    MyWindow w;
-    w.show();
-
-    return a.exec();
+    // ...
 }
 ~~~~       
 
 # Referencias
 
+ 4. [Como usar QMovie en Qt](|filename|/Qt/qmovie.md)
  1. [Starting Threads with QThread](http://qt-project.org/doc/qt-5.0/qtcore/threads-starting.html)
  2. [Wait Conditions Example](http://qt-project.org/doc/qt-4.8/threads-waitconditions.html)
  3. Wikipedia - [Producer-consumer problem](http://en.wikipedia.org/wiki/Producer-consumer_problem)
 
 [Qt]: |filename|/Overviews/proyecto-qt.md "Proyecto Qt"
+[QMovie]: http://qt-project.org/doc/qt-5.0/qtgui/qmovie.html "QMovie"
 [QThread]: http://qt-project.org/doc/qt-5.0/qtcore/qthread.html "QThread"
 [run]: http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#run "QThread::run()"
 [start]: http://qt-project.org/doc/qt-5.0/qtcore/qthread.html#start "QThread::start()"
@@ -263,3 +320,5 @@ int main(int argc, char *argv[])
 [QWaitCondition]: http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html "QWaitCondition"
 [wait]: http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html#wait "QWaitCondition::wait()"
 [weakAll]: http://qt-project.org/doc/qt-5.0/qtcore/qwaitcondition.html#weakAll "QWaitCondition::weakAll()"
+
+[^1]: Un ejemplo de cómo usar de esta manera [QMovie] se trató en el artículo [Como usar QMovie en Qt](|filename|/Qt/qmovie.md).
