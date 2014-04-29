@@ -7,6 +7,7 @@ Title: Seminarios
  * [Lección 3. Patrones de diseño concurrentes](https://docs.google.com/presentation/d/1-sZOzG0pR5wCGF6ATaaKJPIel5Q3qwc7NbwcozPrYsg/pub?start=false&loop=false&delayms=3000)
  * [Lección 4. Dentro de Qt Network](https://docs.google.com/presentation/d/1XublesOw5vuFm3ixJ-6JzwF3DExkrnIPJTW_ob4CFdQ/pub?start=false&loop=false&delayms=3000)
  * [Lección 5. Serialización, almacenamiento de datos y diseño de protocolos](https://docs.google.com/presentation/d/1-JepMWPXW6mby-_zpwfS6s2rVUZyGnFZFm46WthxjUg/pub?start=false&loop=false&delayms=3000)
+ * [Seminario 6. Introducción a Scrum](https://docs.google.com/presentation/d/1TMXg_Y4aMQn-mHsGAI-GfN8GHFFQPTqyc5QNFD3_auM/pub?start=false&loop=false&delayms=3000)
 
 # Git
 
