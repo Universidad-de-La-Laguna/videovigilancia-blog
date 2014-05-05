@@ -148,6 +148,11 @@ división por cero.</dd>
 quiere interrumpirlo. Generalmente esta señal es motivada por la pulsación de
 la combinación de teclas <code>Ctrl-C</code> en la terminal desde la que se controla el
 proceso.</dd>
+<dt><strong>SIGHUP</strong></dt>
+<dd>Notificación de que se ha cerrado la terminal a través de la que se controla
+el proceso, por lo que dicho proceso debe terminar. Al recibir esta señal
+muchos demonios releen los archivos de configuración y reabren los de registro,
+sin terminar el proceso.</dd>
 </dl>
 <p>Todas éstas sólo son una pequeña muestra de una <a href="http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">lista</a>
 mucho más larga.</p>
@@ -266,22 +271,23 @@ otros elementos que comentaremos a continuación.</p>
         <span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
         <span class="o">~</span><span class="n">MyDaemon</span><span class="p">();</span>
 
-        <span class="c1">// Manejadores de señal POSIX</span>
-        <span class="k">static</span> <span class="kt">void</span> <span class="nf">hupSignalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">unused</span><span class="p">);</span>
+        <span class="c1">// Manejador de la señal SIGTERM</span>
+        <span class="c1">// Debe ser static para poder pasar el método como</span>
+        <span class="c1">// manejador al invocar signal()</span>
         <span class="k">static</span> <span class="kt">void</span> <span class="nf">termSignalHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">unused</span><span class="p">);</span>
 
     <span class="n">public</span> <span class="n">slots</span><span class="o">:</span>
-        <span class="c1">// Slots Qt donde atender las señales POSIX</span>
-        <span class="kt">void</span> <span class="n">handleSigHup</span><span class="p">();</span>
-        <span class="kt">void</span> <span class="nf">handleSigTerm</span><span class="p">();</span>
+        <span class="c1">// Slot donde atender la señal POSIX SIGTERM cuando la</span>
+        <span class="c1">// convirtamos en una señal de Qt</span>
+        <span class="kt">void</span> <span class="n">handleSigTerm</span><span class="p">();</span>
 
     <span class="nl">private:</span>
-        <span class="c1">// Pares de sockets. Un par por señal a manejar</span>
-        <span class="k">static</span> <span class="kt">int</span> <span class="n">sigHupSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+        <span class="c1">// Pareja de sockets. Un par por señal a manejar.</span>
+        <span class="c1">// En este caso es para la señal SIGTERM</span>
         <span class="k">static</span> <span class="kt">int</span> <span class="n">sigTermSd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-        <span class="c1">// Objetos para monitorizar los pares de sockets</span>
-        <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigHupNotifier</span><span class="p">;</span>
+        <span class="c1">// Objeto para monitorizar la pareja de sockets</span>
+        <span class="c1">// sigTermSd[2]</span>
         <span class="n">QSocketNotifier</span> <span class="o">*</span><span class="n">sigTermNotifier</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
@@ -289,35 +295,29 @@ otros elementos que comentaremos a continuación.</p>
 
 </li>
 <li>
-<p>En el constructor, para cada señal que se quiere manejar, se usa la llamada
-al sistema <a href="http://linux.die.net/man/2/socketpair" title="socketpair(2)">socketpair</a>() para crear una pareja de
+<p>En el constructor de la clase anterior, para cada señal que se quiere
+manejar, se usa la llamada al sistema <a href="http://linux.die.net/man/2/socketpair" title="socketpair(2)">socketpair</a>() para crear una pareja de
 <a href="http://es.wikipedia.org/wiki/Socket_Unix">sockets de dominio UNIX</a> anónimos
 conectados entre sí. Al estar conectados desde el principio, lo que se escribe
 en uno de los <em>sockets</em> de la pareja se puede leer en el otro. Además se crea un
-objeto <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a> para uno de los sockets de cada pareja, con el objeto de
-monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso envía
-la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>().</p>
+objeto <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a> con uno de los sockets de la pareja, con el objeto de
+monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso
+<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a> envía la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>().</p>
 <div class="codehilite"><pre><span class="n">MyDaemon</span><span class="o">::</span><span class="n">MyDaemon</span><span class="p">(</span><span class="n">QObject</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span> <span class="o">:</span> <span class="n">QObject</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="c1">// Crear las parejas de sockets UNIX</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigHupSd</span><span class="p">))</span>
-        <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create HUP socketpair&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigTermSd</span><span class="p">))</span>
+    <span class="c1">// Crear la pareja de sockets de UNIX</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">socketpair</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sigTermSd</span><span class="p">))</span>
         <span class="n">qFatal</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t create TERM socketpair&quot;</span><span class="p">);</span>
 
-    <span class="c1">// Crear los objetos para monitorizar uno de los socket</span>
-    <span class="c1">// de cada pareja.</span>
-    <span class="n">sigHupNotifier</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigHupFd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="n">QSocketNotifier</span><span class="o">::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
+    <span class="c1">// Crear el objeto para monitorizar uno de los sockets</span>
+    <span class="c1">// de la pareja.</span>
     <span class="n">sigTermNotifier</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QSocketNotifier</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
         <span class="n">QSocketNotifier</span><span class="o">::</span><span class="n">Read</span><span class="p">,</span> <span class="n">this</span><span class="p">);</span>
 
-    <span class="c1">// Conectar la señal activated() de cada objeto</span>
-    <span class="c1">// QSocketNotifier con el slot correspondiente. Esta señal</span>
-    <span class="c1">// será emitida cuando hayan datos para ser leidos en el</span>
-    <span class="c1">// socket monitorizado.</span>
-    <span class="n">connect</span><span class="p">(</span><span class="n">sigHupNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
-        <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigHup</span><span class="p">()));</span>
+    <span class="c1">// Conectar la señal activated() del objeto QSocketNotifier</span>
+    <span class="c1">// con el slot handleSigTerm() para manejar la señal. Esta</span>
+    <span class="c1">// señal será emitida cuando hayan datos para ser leidos en</span>
+    <span class="c1">// el socket monitorizado.</span>
     <span class="n">connect</span><span class="p">(</span><span class="n">sigTermNotifier</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">activated</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span> <span class="n">this</span><span class="p">,</span>
         <span class="n">SLOT</span><span class="p">(</span><span class="n">handleSigTerm</span><span class="p">()));</span>
 
@@ -328,82 +328,75 @@ la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html"
 
 </li>
 <li>
-<p>Entonces los manejadores de señal lo único que tienen que hacer cuando son
-invocados es escribir <em>algo</em> en el <em>socket</em> correspondiente. Nótese que los
-métodos de los manejadores se declaran como <code>static</code> para que puedan ser pasados
-como un puntero de función de C a la llamada al sistema <a href="http://linux.die.net/man/2/sigaction" title="sigaction(2)">sigaction</a>(), cuando
-va a ser establecido el manejador de cada señal concreta:</p>
+<p>Entonces los manejadores de señal POSIX lo único que tienen que hacer cuando
+son invocados es escribir <em>algo</em> en el otro <em>socket</em>.</p>
 <div class="codehilite"><pre><span class="c1">//</span>
-<span class="c1">// Manejador de la señal SIGHUP</span>
-<span class="c1">//</span>
-<span class="k">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">hupSignalHandler</span><span class="p">(</span><span class="k">int</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="c1">//</span>
-<span class="c1">// Manejador de la señal SIGTERM</span>
+<span class="c1">// Manejador de la señal POSIX SIGTERM</span>
 <span class="c1">//</span>
 <span class="k">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">(</span><span class="k">int</span><span class="p">)</span>
 <span class="p">{</span>
-
     <span class="n">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="c1">//</span>
-<span class="c1">// Configurar los manejadores de señal</span>
-<span class="c1">//</span>
-<span class="k">int</span> <span class="n">setupUnixSignalHandlers</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">struct</span> <span class="o">::</span><span class="n">sigaction</span> <span class="n">hup</span><span class="p">,</span> <span class="n">term</span><span class="p">;</span>
-
-    <span class="n">hup</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">hupSignalHandler</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hup</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
-    <span class="n">hup</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
-
-    <span class="c1">// Establecer manejador de la señal SIGHUP</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGHUP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hup</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mh">1</span><span class="p">;</span>
-
-    <span class="n">term</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">term</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
-    <span class="n">term</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
-
-    <span class="c1">// Establecer manejador de la señal SIGTERM</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">::</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGTERM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">term</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mh">2</span><span class="p">;</span>
-
-    <span class="k">return</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="n">write</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 
 
 </li>
 <li>
-<p>Finalmente en los <em>slots</em> a los que conectamos la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>()
+<p>Podemos añadir una función para a asignar cada señal POSIX un manejador
+de la clase <code>MyDaemon</code>. Nótese que los métodos de los manejadores se declaran
+como <code>static</code> para que puedan ser pasados como un puntero de función de C a
+la llamada al sistema <a href="http://linux.die.net/man/2/sigaction" title="sigaction(2)">sigaction</a>(), cuando va a ser establecido el manejador
+de cada señal POSIX concreta:</p>
+<div class="codehilite"><pre><span class="c1">//</span>
+<span class="c1">// Configurar los manejadores de señal</span>
+<span class="c1">//</span>
+<span class="n">bool</span> <span class="n">setupUnixSignalHandlers</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="o">::</span><span class="n">sigaction</span> <span class="n">term</span><span class="p">;</span>
+
+    <span class="n">term</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MyDaemon</span><span class="o">::</span><span class="n">termSignalHandler</span><span class="p">;</span>
+
+    <span class="c1">// Vaciamos la máscara para indicar que no queremos bloquear</span>
+    <span class="c1">// la llegada de ninguna señal POSIX.</span>
+    <span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">term</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+
+    <span class="c1">// SA_RESTART indica que si la señal interrumpe alguna</span>
+    <span class="c1">// llamada al sistema lanzada desde otro punto del programa,</span>
+    <span class="c1">// al volver del manejador la llamada al sistema debe</span>
+    <span class="c1">// continuar. En caso contrario dicha llamada retornará</span>
+    <span class="c1">// indicando un error.</span>
+    <span class="n">term</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="no">SA_RESTART</span><span class="p">;</span>
+
+    <span class="c1">// Establecer manejador de la señal SIGTERM</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sigaction</span><span class="p">(</span><span class="no">SIGTERM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">term</span><span class="p">,</span> <span class="mh">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mh">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">false</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="n">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Finalmente en el <em>slot</em> al que conectamos la señal <a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html" title="QSocketNotifier">QSocketNotifier</a>::<a href="http://qt-project.org/doc/qt-5.0/qtcore/qsocketnotifier.html#activated" title="QSocketNotifier::activated()">activated</a>()
 se lee <em>lo escrito</em> desde el <em>manejador de señal</em>, para después hacer todo
 aquello que no se puede hacer desde dicho manejador de señal POSIX.</p>
-<div class="codehilite"><pre><span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigHup</span><span class="p">()</span>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigTerm</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="n">tmp</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">sigHupSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
-
-    <span class="c1">// ...tu código aquí...</span>
-
-    <span class="n">hupNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">MyDaemon</span><span class="o">::</span><span class="n">handleSigTerm</span><span class="p">()</span>
-<span class="p">{</span>
+    <span class="c1">// Desactivar la monitorización para que por el momento no</span>
+    <span class="c1">// lleguen más señales de Qt</span>
     <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+
+    <span class="c1">// Leer y desechar el byte enviado</span>
     <span class="kt">char</span> <span class="n">tmp</span><span class="p">;</span>
-    <span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+    <span class="n">read</span><span class="p">(</span><span class="n">sigTermSd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
 
     <span class="c1">// ...tu código aquí...</span>
+    <span class="c1">// P. ej. qApp-&gt;quit() para detener la aplicación.</span>
 
+    <span class="c1">// Activar la monitorización para que vuelvan a llegar</span>
+    <span class="c1">// señales de Qt</span>
     <span class="n">termNotifier</span><span class="o">-&gt;</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
