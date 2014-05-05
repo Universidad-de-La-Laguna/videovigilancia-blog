@@ -99,6 +99,12 @@ quiere interrumpirlo. Generalmente esta señal es motivada por la pulsación de
 la combinación de teclas `Ctrl-C` en la terminal desde la que se controla el
 proceso.
 
+**SIGHUP**
+: Notificación de que se ha cerrado la terminal a través de la que se controla
+el proceso, por lo que dicho proceso debe terminar. Al recibir esta señal
+muchos demonios releen los archivos de configuración y reabren los de registro,
+sin terminar el proceso.
+
 Todas éstas sólo son una pequeña muestra de una [lista](http://en.wikipedia.org/wiki/Unix_signal#POSIX_signals)
 mucho más larga.
 
@@ -220,135 +226,120 @@ otros elementos que comentaremos a continuación.
                 MyDaemon(QObject *parent = 0);
                 ~MyDaemon();
 
-                // Manejadores de señal POSIX
-                static void hupSignalHandler(int unused);
+                // Manejador de la señal SIGTERM
+                // Debe ser static para poder pasar el método como
+                // manejador al invocar signal()
                 static void termSignalHandler(int unused);
 
             public slots:
-                // Slots Qt donde atender las señales POSIX
-                void handleSigHup();
+                // Slot donde atender la señal POSIX SIGTERM cuando la
+                // convirtamos en una señal de Qt
                 void handleSigTerm();
 
             private:
-                // Pares de sockets. Un par por señal a manejar
-                static int sigHupSd[2];
+                // Pareja de sockets. Un par por señal a manejar.
+                // En este caso es para la señal SIGTERM
                 static int sigTermSd[2];
 
-                // Objetos para monitorizar los pares de sockets
-                QSocketNotifier *sigHupNotifier;
+                // Objeto para monitorizar la pareja de sockets
+                // sigTermSd[2]
                 QSocketNotifier *sigTermNotifier;
         };
 
- 2. En el constructor, para cada señal que se quiere manejar, se usa la llamada
-al sistema [socketpair][]() para crear una pareja de
+ 2. En el constructor de la clase anterior, para cada señal que se quiere
+manejar, se usa la llamada al sistema [socketpair][]() para crear una pareja de
 [sockets de dominio UNIX](http://es.wikipedia.org/wiki/Socket_Unix) anónimos
 conectados entre sí. Al estar conectados desde el principio, lo que se escribe
 en uno de los _sockets_ de la pareja se puede leer en el otro. Además se crea un
-objeto [QSocketNotifier] para uno de los sockets de cada pareja, con el objeto de
-monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso envía
-la señal [QSocketNotifier]::[activated][]().
+objeto [QSocketNotifier] con uno de los sockets de la pareja, con el objeto de
+monitorizar cuando hay datos disponibles para ser leidos, en cuyo caso
+[QSocketNotifier] envía la señal [QSocketNotifier]::[activated][]().
 
         MyDaemon::MyDaemon(QObject *parent) : QObject(parent)
         {
-            // Crear las parejas de sockets UNIX
-            if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sigHupSd))
-                qFatal("Couldn't create HUP socketpair");
-            if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sigTermSd))
+            // Crear la pareja de sockets de UNIX
+            if (socketpair(AF_UNIX, SOCK_STREAM, 0, sigTermSd))
                 qFatal("Couldn't create TERM socketpair");
 
-            // Crear los objetos para monitorizar uno de los socket
-            // de cada pareja.
-            sigHupNotifier = new QSocketNotifier(sigHupFd[1],
-                QSocketNotifier::Read, this);
+            // Crear el objeto para monitorizar uno de los sockets
+            // de la pareja.
             sigTermNotifier = new QSocketNotifier(sigTermSd[1],
                 QSocketNotifier::Read, this);
 
-            // Conectar la señal activated() de cada objeto
-            // QSocketNotifier con el slot correspondiente. Esta señal
-            // será emitida cuando hayan datos para ser leidos en el
-            // socket monitorizado.
-            connect(sigHupNotifier, SIGNAL(activated(int)), this,
-                SLOT(handleSigHup()));
+            // Conectar la señal activated() del objeto QSocketNotifier
+            // con el slot handleSigTerm() para manejar la señal. Esta
+            // señal será emitida cuando hayan datos para ser leidos en
+            // el socket monitorizado.
             connect(sigTermNotifier, SIGNAL(activated(int)), this,
                 SLOT(handleSigTerm()));
 
             ...
         }
 
- 3. Entonces los manejadores de señal lo único que tienen que hacer cuando son
-invocados es escribir _algo_ en el _socket_ correspondiente. Nótese que los
-métodos de los manejadores se declaran como `static` para que puedan ser pasados
-como un puntero de función de C a la llamada al sistema [sigaction][](), cuando
-va a ser establecido el manejador de cada señal concreta:
+ 3. Entonces los manejadores de señal POSIX lo único que tienen que hacer cuando
+son invocados es escribir _algo_ en el otro _socket_.
 
         //
-        // Manejador de la señal SIGHUP
-        //
-        void MyDaemon::hupSignalHandler(int)
-        {
-            char a = 1;
-            ::write(sigHupSd[0], &a, sizeof(a));
-        }
-
-        //
-        // Manejador de la señal SIGTERM
+        // Manejador de la señal POSIX SIGTERM
         //
         void MyDaemon::termSignalHandler(int)
         {
-
             char a = 1;
-            ::write(sigTermSd[0], &a, sizeof(a));
+            write(sigTermSd[0], &a, sizeof(a));
         }
+
+ 4. Podemos añadir una función para a asignar cada señal POSIX un manejador
+de la clase `MyDaemon`. Nótese que los métodos de los manejadores se declaran
+como `static` para que puedan ser pasados como un puntero de función de C a
+la llamada al sistema [sigaction][](), cuando va a ser establecido el manejador
+de cada señal POSIX concreta:
 
         //
         // Configurar los manejadores de señal
         //
-        int setupUnixSignalHandlers()
+        bool setupUnixSignalHandlers()
         {
-            struct ::sigaction hup, term;
-
-            hup.sa_handler = &MyDaemon::hupSignalHandler;
-            ::sigemptyset(&hup.sa_mask);
-            hup.sa_flags = SA_RESTART;
-
-            // Establecer manejador de la señal SIGHUP
-            if (::sigaction(SIGHUP, &hup, 0) > 0)
-            return 1;
+            struct ::sigaction term;
 
             term.sa_handler = &MyDaemon::termSignalHandler;
-            ::sigemptyset(&term.sa_mask);
+
+            // Vaciamos la máscara para indicar que no queremos bloquear
+            // la llegada de ninguna señal POSIX.
+            sigemptyset(&term.sa_mask);
+
+            // SA_RESTART indica que si la señal interrumpe alguna
+            // llamada al sistema lanzada desde otro punto del programa,
+            // al volver del manejador la llamada al sistema debe
+            // continuar. En caso contrario dicha llamada retornará
+            // indicando un error.
             term.sa_flags = SA_RESTART;
 
             // Establecer manejador de la señal SIGTERM
-            if (::sigaction(SIGTERM, &term, 0) > 0)
-            return 2;
+            if (sigaction(SIGTERM, &term, 0) > 0)
+            return false;
 
-            return 0;
+            return true;
         }
 
- 4. Finalmente en los _slots_ a los que conectamos la señal [QSocketNotifier]::[activated][]()
+ 5. Finalmente en el _slot_ al que conectamos la señal [QSocketNotifier]::[activated][]()
 se lee _lo escrito_ desde el _manejador de señal_, para después hacer todo
 aquello que no se puede hacer desde dicho manejador de señal POSIX.
 
-        void MyDaemon::handleSigHup()
-        {
-            hupNotifier->setEnabled(false);
-            char tmp;
-            ::read(sigHupSd[1], &tmp, sizeof(tmp));
-
-            // ...tu código aquí...
-
-            hupNotifier->setEnabled(true);
-        }
-
         void MyDaemon::handleSigTerm()
         {
+            // Desactivar la monitorización para que por el momento no
+            // lleguen más señales de Qt
             termNotifier->setEnabled(false);
+
+            // Leer y desechar el byte enviado
             char tmp;
-            ::read(sigTermSd[1], &tmp, sizeof(tmp));
+            read(sigTermSd[1], &tmp, sizeof(tmp));
 
             // ...tu código aquí...
+            // P. ej. qApp->quit() para detener la aplicación.
 
+            // Activar la monitorización para que vuelvan a llegar
+            // señales de Qt
             termNotifier->setEnabled(true);
         }
 
