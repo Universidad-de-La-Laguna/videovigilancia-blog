@@ -1,6 +1,6 @@
 Title: Almacenar datos en SQLite
 Tags: qt, sqlite, qsqldatabase, qsqlquery, SQL
-Date: 2013-09-11
+Date: 2014-05-22
 
 Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
 son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
@@ -177,10 +177,36 @@ query.bindValue(1, "Torres");
 query.exec();
 ~~~
 
-Finalmente el método [QSqlQuery]::[numRowsAffected][]() puede utilizarse
+En cualquier caso, el método [QSqlQuery]::[numRowsAffected][]() puede utilizarse
 para conocer cuantas filas se han visto afectadas por una sentencia no `SELECT`.
 Mientras que para sentencias `SELECT` se puede determinar cuantas filas han sido
 recuperadas utilizando el método [QSqlQuery]::[size][]().
+
+Finalmente, el método [QSqlQuery]::[lastInsertId][]() hace posible conocer el
+identificador de la uĺtima fila insertada, lo que es especialmente interesante
+cuando se usan tablas con [claves foráneas](https://es.wikipedia.org/wiki/Clave_for%C3%A1nea).
+
+~~~.cpp
+QSqlQuery query;
+
+// Insertar un nuevo contacto
+query.prepare("INSERT INTO contactos (nombre, apellido) "
+              "VALUES (:nombre, :apellido)");
+query.bindValue(":nombre", "Jesús");
+query.bindValue(":apellido", "Torres");
+query.exec();
+
+// Obtener el identificador de la fila del nuevo contacto
+int contactoId = query.lastInsertId().toInt();
+
+// Añadir una dirección de correo profesional vinculada al nuevo contacto
+query.prepare("INSERT INTO emails (contacto_id, tipo, email) "
+              "VALUES (:contacto_id, :tipo, :email)");
+query.bindValue(":contacto_id", contactoId);
+query.bindValue(":tipo", "Profesional");
+query.bindValue(":email", "jmtorres@ull.es");
+query.exec();
+~~~
 
 # Referencias
 
@@ -208,3 +234,4 @@ de alguno de ellos.
 [numRowsAffected]: http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#numRowsAffected "QSqlQuery::numRowsAffected()"
 [size]: http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#size "QSqlQuery::size()"
 [Sqliteman]: http://sqliteman.com/ "Sqliteman - Sqlite Databases Made Easy"
+[lastInsertId]: http://qt-project.org/doc/qt-5/qsqlquery.html#lastInsertId "QSqlQuery::lastInsertId()"
