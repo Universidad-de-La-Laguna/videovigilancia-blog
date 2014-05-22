@@ -22,6 +22,14 @@ las aplicaciones que la utilizan pueden acceder a los archivos y manipular los
 datos por si mismas, mediante consultas SQL, si necesitar la intermediación de
 un programa servidor.
 
+Además de con la librería, [SQLite] viene acompañado de una sencilla utilidad
+de línea de comandos[^1] que permite realizar tareas tales como: manipular el
+archivo de base de datos, examinar su contenido, hacer consultas SQL, etc.
+Además también existen herramientas gráficas, como [Sqliteman], que se pueden
+usar con el mismo fin, pero que pueden resultar un poco más sencillas. En
+cualquier caso, ambas herramientas nos permiten examinar la base de datos con
+el objeto de comprobar si nuestro programa funciona como esperamos.
+
 # Casos de uso de SQLite
 
 [SQLite] es usada por muchos _frameworks_ —por ejemplo Django o
@@ -44,7 +52,7 @@ configuración.
 
 # Acceso a bases de datos mediante Qt SQL
 
-[Qt] integra el módulo [Qt SQL][^1] que provee acceso a diferentes gestores
+[Qt] integra el módulo [Qt SQL][^2] que provee acceso a diferentes gestores
 de bases de datos SQL, entre los que podemos destacar MySQL, PostgreSQL, Oracle, gestores
 compatibles con [ODBC] y [SQLite].
 
@@ -180,7 +188,9 @@ recuperadas utilizando el método [QSqlQuery]::[size][]().
  1. [QSqlDatabase].
  1. [QSqlQuery].
 
-[^1]: Ya hemos comentado en diversas ocasiones en otros artículos que Qt está
+[^1]: En la actualidad, en sistemas Debian y derivados, esta herramienta de
+línea de comandos viene en su propio paquete, bajo el nombre de `sqlite3`.
+[^2]: Ya hemos comentado en diversas ocasiones en otros artículos que Qt está
 formado por diversos módulos —como Qt Core, Qt GUI y Qt Network— y hemos hablado
 de alguno de ellos.
 
@@ -197,3 +207,4 @@ de alguno de ellos.
 [QVariant]: http://qt-project.org/doc/qt-5.0/qtcore/qvariant.html "QVariant"
 [numRowsAffected]: http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#numRowsAffected "QSqlQuery::numRowsAffected()"
 [size]: http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#size "QSqlQuery::size()"
+[Sqliteman]: http://sqliteman.com/ "Sqliteman - Sqlite Databases Made Easy"
