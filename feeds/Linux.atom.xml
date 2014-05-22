@@ -387,6 +387,7 @@ para:&lt;/p&gt;
 &lt;li&gt;Apagar el sistema (generalmente el 0).&lt;/li&gt;
 &lt;li&gt;Reiniciar el sistema (generalmente el 6).&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2&gt;Script de inicio&lt;/h2&gt;
 &lt;p&gt;Para iniciar o detener los demonios según el nivel de ejecución, estos suelen
 ir acompañados de un &lt;em&gt;script&lt;/em&gt; de inicio que por lo general se almacena en el
 directorio &lt;code&gt;/etc/init.d&lt;/code&gt;. En aquellas distribuciones de Linux que siguen el
@@ -500,6 +501,34 @@ procesos del demonio.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Las funciones anteriores considerarán que el demonio está en ejecución si
 existen procesos con esos PID y enviarán las señales que correspondan.&lt;/p&gt;
+&lt;h2&gt;Automatización del inicio y parada del servicio&lt;/h2&gt;
+&lt;p&gt;Al sistema hay que indicarle en qué &lt;em&gt;niveles de ejecución&lt;/em&gt; se debe iniciar el
+servicio y en cuales debe ser detenido. De esta forma automatizamos el inicio
+y parada del demonio durante el arranque del sistema.&lt;/p&gt;
+&lt;p&gt;Para hacerlo lo más sencillo es utilizar el comando &lt;a href="http://manpages.ubuntu.com/manpages/hardy/es/man8/update-rc.d.8.html" title="update-rc.d"&gt;update-rc.d&lt;/a&gt; de la
+siguiente manera:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;update-rc.d midemonio defaults
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Al usar la opción &lt;em&gt;defaults&lt;/em&gt;, &lt;a href="http://manpages.ubuntu.com/manpages/hardy/es/man8/update-rc.d.8.html" title="update-rc.d"&gt;update-rc.d&lt;/a&gt; configurará que el arranque del
+servicio sea en los &lt;em&gt;niveles de ejecución&lt;/em&gt; 2345 y la parada en los niveles 016.&lt;/p&gt;
+&lt;p&gt;El orden en el que se inician los servicios viene prestablecido por un código
+de secuencia, de tal forma que primero se inician los servicios con menor valor.
+Al usar la opción &lt;em&gt;defaults&lt;/em&gt; este código es 20, por lo que primero se iniciarán
+los servicios con código menor de 20 y después los que tengan un valor mayor.&lt;/p&gt;
+&lt;p&gt;A efectos prácticos el comando:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;update-rc.d midemonio defaults
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;es equivalente a:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;update-rc.d midemonio start 20 2 3 4 5 . stop 20 0 1 6 .
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;donde se puede apreciar como se indica el código de secuencia y los &lt;em&gt;niveles de
+ejecución&lt;/em&gt; para el inicio —&lt;em&gt;start&lt;/em&gt;— y parada —&lt;em&gt;stop&lt;/em&gt;— del servicio &lt;code&gt;midemonio&lt;/code&gt;.&lt;/p&gt;
 &lt;h1&gt;Opciones de línea de comandos&lt;/h1&gt;
 &lt;p&gt;Los demonios, igual que cualquier otro programa, pueden recibir opciones de
 línea de comandos para configurarlos o alterar su comportamiento. Por ejemplo

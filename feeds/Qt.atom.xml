@@ -164,7 +164,8 @@ cuando se usan tablas con &lt;a href="https://es.wikipedia.org/wiki/Clave_for%C3
 &lt;span class="c1"&gt;// Obtener el identificador de la fila del nuevo contacto&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;contactoId&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lastInsertId&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;toInt&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
-&lt;span class="c1"&gt;// Añadir una dirección de correo profesional vinculada al nuevo contacto&lt;/span&gt;
+&lt;span class="c1"&gt;// Añadir una dirección de correo profesional vinculada&lt;/span&gt;
+&lt;span class="c1"&gt;// al nuevo contacto&lt;/span&gt;
 &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;prepare&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;INSERT INTO emails (contacto_id, tipo, email) &amp;quot;&lt;/span&gt;
               &lt;span class="s"&gt;&amp;quot;VALUES (:contacto_id, :tipo, :email)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:contacto_id&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;contactoId&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;

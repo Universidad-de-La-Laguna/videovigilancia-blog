@@ -227,7 +227,8 @@ cuando se usan tablas con <a href="https://es.wikipedia.org/wiki/Clave_for%C3%A1
 <span class="c1">// Obtener el identificador de la fila del nuevo contacto</span>
 <span class="kt">int</span> <span class="n">contactoId</span> <span class="o">=</span> <span class="n">query</span><span class="p">.</span><span class="n">lastInsertId</span><span class="p">().</span><span class="n">toInt</span><span class="p">();</span>
 
-<span class="c1">// Añadir una dirección de correo profesional vinculada al nuevo contacto</span>
+<span class="c1">// Añadir una dirección de correo profesional vinculada</span>
+<span class="c1">// al nuevo contacto</span>
 <span class="n">query</span><span class="p">.</span><span class="n">prepare</span><span class="p">(</span><span class="s">&quot;INSERT INTO emails (contacto_id, tipo, email) &quot;</span>
               <span class="s">&quot;VALUES (:contacto_id, :tipo, :email)&quot;</span><span class="p">);</span>
 <span class="n">query</span><span class="p">.</span><span class="n">bindValue</span><span class="p">(</span><span class="s">&quot;:contacto_id&quot;</span><span class="p">,</span> <span class="n">contactoId</span><span class="p">);</span>
