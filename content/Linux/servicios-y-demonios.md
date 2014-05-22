@@ -340,6 +340,8 @@ para:
  * Apagar el sistema (generalmente el 0).
  * Reiniciar el sistema (generalmente el 6).
 
+## Script de inicio
+
 Para iniciar o detener los demonios según el nivel de ejecución, estos suelen
 ir acompañados de un _script_ de inicio que por lo general se almacena en el
 directorio `/etc/init.d`. En aquellas distribuciones de Linux que siguen el
@@ -457,6 +459,42 @@ procesos del demonio.
 
 Las funciones anteriores considerarán que el demonio está en ejecución si
 existen procesos con esos PID y enviarán las señales que correspondan.
+
+## Automatización del inicio y parada del servicio
+
+Al sistema hay que indicarle en qué _niveles de ejecución_ se debe iniciar el
+servicio y en cuales debe ser detenido. De esta forma automatizamos el inicio
+y parada del demonio durante el arranque del sistema.
+
+Para hacerlo lo más sencillo es utilizar el comando [update-rc.d] de la
+siguiente manera:
+
+~~~~.sh
+$ update-rc.d midemonio defaults
+~~~~
+
+Al usar la opción _defaults_, [update-rc.d] configurará que el arranque del
+servicio sea en los _niveles de ejecución_ 2345 y la parada en los niveles 016.
+
+El orden en el que se inician los servicios viene prestablecido por un código
+de secuencia, de tal forma que primero se inician los servicios con menor valor.
+Al usar la opción _defaults_ este código es 20, por lo que primero se iniciarán
+los servicios con código menor de 20 y después los que tengan un valor mayor.
+
+A efectos prácticos el comando:
+
+~~~~.sh
+$ update-rc.d midemonio defaults
+~~~~
+
+es equivalente a:
+
+~~~~.sh
+$ update-rc.d midemonio start 20 2 3 4 5 . stop 20 0 1 6 .
+~~~~
+
+donde se puede apreciar como se indica el código de secuencia y los _niveles de
+ejecución_ para el inicio —_start_— y parada —_stop_— del servicio `midemonio`.
  
 # Opciones de línea de comandos
 
@@ -500,6 +538,7 @@ comandos de un programa cualquiera.
 [QsLog]: http://bitbucket.org/razvanpetru/qt-components/wiki/QsLog "QsLog"
 [setsid]: http://linux.die.net/man/2/setsid "setsid(2)"
 [getopt]: http://linux.die.net/man/3/getopt "getopt(3)"
+[update-rc.d]: http://manpages.ubuntu.com/manpages/hardy/es/man8/update-rc.d.8.html "update-rc.d"
 
 [^1]: El término [demonio] se usa fundamentalmente en sistemas UNIX y basados
 en UNIX, como GNU/Linux o Mac OS X. En Windows y otros sistemas operativos se
