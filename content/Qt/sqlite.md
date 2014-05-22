@@ -199,7 +199,8 @@ query.exec();
 // Obtener el identificador de la fila del nuevo contacto
 int contactoId = query.lastInsertId().toInt();
 
-// Añadir una dirección de correo profesional vinculada al nuevo contacto
+// Añadir una dirección de correo profesional vinculada
+// al nuevo contacto
 query.prepare("INSERT INTO emails (contacto_id, tipo, email) "
               "VALUES (:contacto_id, :tipo, :email)");
 query.bindValue(":contacto_id", contactoId);
