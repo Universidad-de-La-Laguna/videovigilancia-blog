@@ -1,5 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Linux.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</id><updated>2013-05-18T00:00:00+01:00</updated><entry><title>Servicios y demonios en Linux</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/servicios-y-demonios-en-linux.html" rel="alternate"></link><updated>2013-05-18T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</id><summary type="html">&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sistema de Videovigilancia from Scratch</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/" rel="alternate"></link><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/Linux.atom.xml" rel="self"></link><id>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</id><updated>2014-05-06T00:00:00+01:00</updated><entry><title>Crear paquetes de Debian con checkinstall</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/crear-paquetes-de-debian-con-checkinstall.html" rel="alternate"></link><updated>2014-05-06T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2014-05-06:crear-paquetes-de-debian-con-checkinstall.html</id><summary type="html">&lt;p&gt;Ya hablamos de como modificar nuestro archivo de proyecto &lt;code&gt;.pro&lt;/code&gt; para preparar
+las reglas para &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/make-install-con-qmake.html" title="Make install con qmake"&gt;make install&lt;/a&gt;. De tal forma que si lo hemos hecho bien podemos
+compilar e instalar nuestra aplicación en el sistema simplemente ejecutando
+los siguientes comandos:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;qmake
+&lt;span class="nv"&gt;$ &lt;/span&gt;make
+&lt;span class="nv"&gt;$ &lt;/span&gt;make install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Sistemas de gestión de paquetes&lt;/h1&gt;
+&lt;p&gt;Sin embargo esta no es la forma más conveniente de distribuir software destinado
+a sistemas Linux. &lt;/p&gt;
+&lt;p&gt;Por lo general las distribuciones de Linux usan algún &lt;a href="http://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_paquetes"&gt;sistema de gestión de
+paquetes&lt;/a&gt;.
+Estos están formados por una colección de herramientas diseñadas para
+automatizar la instalación, actualización, configuración y deinstalación de
+paquetes de software de forma consistente. Por lo general estos paquetes contiene
+programas, librerías y datos, además de algunos metadatos relevalentes para
+el funcionamiento del sistema de gestión de paquetes, como: nombre, descripción
+fabricante, suma de comprobación, versión y una lista de depedencias necesarias
+para que el software funcione convenientemente.&lt;/p&gt;
+&lt;p&gt;En sistemas &lt;a href="https://www.debian.org" title="Debian - the universal operating system"&gt;Debian&lt;/a&gt; y derivados &lt;a href="http://en.wikipedia.org/wiki/Deb_(file_format)" title="Wikipedia - deb (file format)"&gt;deb&lt;/a&gt; es la extensión de los paquetes de
+software. Mientras que &lt;code&gt;dpkg&lt;/code&gt; es el programa diseñado para manejarlos,
+generalmente a través de otros programas como &lt;code&gt;apt&lt;/code&gt;/&lt;code&gt;aptitude&lt;/code&gt;, Ubuntu Software
+Center, Synaptic o Gdebi.&lt;/p&gt;
+&lt;p&gt;Estos paquetes Debian pueden convertirse en otros formatos de paquete usando
+&lt;code&gt;alien&lt;/code&gt; y creados apartir del proyecto de código fuente usando &lt;a href="http://en.wikipedia.org/wiki/CheckInstall" title="Wikipedia - CheckInstall"&gt;CheckInstall&lt;/a&gt; o
+Debian Package Maker.&lt;/p&gt;
+&lt;h1&gt;CheckInstall&lt;/h1&gt;
+&lt;p&gt;&lt;a href="http://en.wikipedia.org/wiki/CheckInstall" title="Wikipedia - CheckInstall"&gt;CheckInstall&lt;/a&gt; es uno de esos programas que permiten crear paquetes &lt;code&gt;rpm&lt;/code&gt; o
+&lt;a href="http://en.wikipedia.org/wiki/Deb_(file_format)" title="Wikipedia - deb (file format)"&gt;deb&lt;/a&gt; a partir del código fuente.&lt;/p&gt;
+&lt;p&gt;Para usarlo empezamos generando el archivo &lt;code&gt;Makefile&lt;/code&gt; en el directorio del
+proyecto para después compilar el programa:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;qmake
+&lt;span class="nv"&gt;$ &lt;/span&gt;make
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;y ahora sólo tenemos que invocar el programa &lt;a href="http://en.wikipedia.org/wiki/CheckInstall" title="Wikipedia - CheckInstall"&gt;CheckInstall&lt;/a&gt; desde el mismo
+directorio:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo checkinstall
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Un ejemplo, por ejemplo si quieres compilar el codigo fuente de wine 1.3 los pasos serian.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Nos descargamos el codigo fuente de wine 1.3 desde el siguiente enlace. Ojo, puede que si lees este post mas tarde de Agosto 2010 la version de wine haya cambiado, tendras que buscar en la web oficial el enlace al codigo fuente correspondiente.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Despues añadimos las siguientes instrucciones, solo son necesarias para compilar wine:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;sudo apt-get build-dep wine
+sudo apt-get install fakeroot&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Descomprimimos el codigo, nos metermos al directorio y ejecutamos: (Ojo, la compilacion de wine a mi me llevo mas de 15 minutos).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;./configure
+make
+sudo checkinstall&lt;/p&gt;
+&lt;p&gt;En principio podemos pulsar intro en las preguntas que nos hace checkinstall, o cambia la respuesta si quieres modificar algun parametro.&lt;/p&gt;
+&lt;p&gt;checkinstall 1.6.1, Copyright 2002 Felipe Eduardo Sanchez Diaz Duran
+Este software es distribuído de acuerdo a la GNU GPL&lt;/p&gt;
+&lt;p&gt;The package documentation directory ./doc-pak does not exist.
+Should I create a default set of package docs? [y]: n&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;* Debian package creation selected &lt;/em&gt;&lt;/strong&gt;
+&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;*&lt;/strong&gt;*&lt;/p&gt;
+&lt;p&gt;Este paquete será creado de acuerdo a estos valores:&lt;/p&gt;
+&lt;p&gt;0 - Maintainer: [ root@soledad ]
+1 - Summary: [ Wine 1.3 ]
+2 - Name: [ wine ]
+3 - Version: [ 1.3.0 ]
+4 - Release: [ 1 ]
+5 - License: [ GPL ]
+6 - Group: [ checkinstall ]
+7 - Architecture: [ i386 ]
+8 - Source location: [ wine-1.3.0 ]
+9 - Alternate source location: [ ]
+10 - Requires: [ ]
+11 - Provides: [ wine ]&lt;/p&gt;
+&lt;p&gt;Introduce un número para cambiar algún dato u oprime ENTER para continuar:&lt;/p&gt;
+&lt;p&gt;Al finalizar, tendremos un .deb de wine 1.3 en el directorio. Pues bien, el proceso para cualquier otra aplicacion que compiles mediante (./configure/make/sudo make install) seria similar.&lt;/p&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/make-install-con-qmake.html"&gt;Make install con qmake&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_paquetes"&gt;Sistema de gestión de paquetes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Deb_(file_format)"&gt;deb (file format)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/CheckInstall"&gt;CheckInstall&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="checkinstall"></category><category term=".deb"></category><category term="debian"></category><category term="paquetes"></category></entry><entry><title>Servicios y demonios en Linux</title><link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/servicios-y-demonios-en-linux.html" rel="alternate"></link><updated>2013-05-18T00:00:00+01:00</updated><author><name>Jesús Torres</name></author><id>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-05-18:servicios-y-demonios-en-linux.html</id><summary type="html">&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
 fuera del control interactivo de los usuarios del sistema ya que carecen de
 interfaz con estos.&lt;/p&gt;
 &lt;p&gt;El sistema generalmente inicia los demonios durante el arranque, siendo las

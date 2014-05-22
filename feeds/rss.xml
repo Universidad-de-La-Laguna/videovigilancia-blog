@@ -1,5 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 11 Feb 2014 00:00:00 +0000</lastBuildDate><item><title>Capturando secuencias de vídeo con Qt</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/capturando-secuencias-de-video-con-qt.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incluye el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt; para facilitar la manipulación de
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sistema de Videovigilancia from Scratch</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/</link><description></description><atom:link href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 22 May 2014 00:00:00 +0100</lastBuildDate><item><title>Almacenar datos en SQLite</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/almacenar-datos-en-sqlite.html</link><description>&lt;p&gt;Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
+son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
+Es decir, que están compuestos por un programa servidor —que es quien tiene
+acceso local a los datos— de forma que uno o más programas cliente pueden
+solicitarle operaciones sobre dichos datos —generalmente mediante lenguaje SQL—.&lt;/p&gt;
+&lt;p&gt;Esta arquitectura puede no ser la adecuada en cierto tipo de aplicaciones. Por
+ejemplo, si desarrollamos un software de agenda de contactos para sistemas de
+escritorio, el uso de bases de datos relacionales para almacenar la información
+puede resultar natural, pero distribuir nuestra aplicación junto a un sistema de
+gestión de bases de datos tradicional —como MySQL— seguramente sea un tanto
+excesivo.&lt;/p&gt;
+&lt;p&gt;Para estos casos existen otros gestores que no hacen uso de este tipo de
+arquitectura. Por ejemplo &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt;, que es una sencilla librería que contiene
+en si misma un completo sistema de gestión de bases de datos; de tal forma que
+las aplicaciones que la utilizan pueden acceder a los archivos y manipular los
+datos por si mismas, mediante consultas SQL, si necesitar la intermediación de
+un programa servidor.&lt;/p&gt;
+&lt;p&gt;Además de con la librería, &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt; viene acompañado de una sencilla utilidad
+de línea de comandos&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que permite realizar tareas tales como: manipular el
+archivo de base de datos, examinar su contenido, hacer consultas SQL, etc.
+Además también existen herramientas gráficas, como &lt;a href="http://sqliteman.com/" title="Sqliteman - Sqlite Databases Made Easy"&gt;Sqliteman&lt;/a&gt;, que se pueden
+usar con el mismo fin, pero que pueden resultar un poco más sencillas. En
+cualquier caso, ambas herramientas nos permiten examinar la base de datos con
+el objeto de comprobar si nuestro programa funciona como esperamos.&lt;/p&gt;
+&lt;h1&gt;Casos de uso de SQLite&lt;/h1&gt;
+&lt;p&gt;&lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt; es usada por muchos &lt;em&gt;frameworks&lt;/em&gt; —por ejemplo Django o
+Ruby On Rails— como base de datos por defecto durante el desarrollo de nuevos
+proyectos. La ventaja de esto es que así se puede trabajar desde el primero
+momento con bases de datos relacionales, sin tener que preocuparnos por
+configurar adecuadamente ningún sistema gestor tradicional.&lt;/p&gt;
+&lt;p&gt;Como estos &lt;em&gt;frameworks&lt;/em&gt; suelen proveer soporte para diversos gestores
+en el momento de desplegar la aplicación se puede cambiar, prácticamentre sin
+cambios en el código, a otro sistema gestor, si las necesidades de la aplicación
+así lo indican.&lt;/p&gt;
+&lt;p&gt;Además &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt; se adapta perfectamente a las necesidades de muchas aplicaciones
+de escritorio y de dispositivos móviles. Por ese motivo es utilizada ámpliamente
+en los archivos de datos de apliaciones como Mozilla Firefox o Google Chrome
+y se incluye por defecto en cualquier dispositivo Android, permitiendo que las
+aplicaciones creen sus propias bases de datos sin necesitar ningún tipo de
+configuración.&lt;/p&gt;
+&lt;h1&gt;Acceso a bases de datos mediante Qt SQL&lt;/h1&gt;
+&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; integra el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL"&gt;Qt SQL&lt;/a&gt;&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt; que provee acceso a diferentes gestores
+de bases de datos SQL, entre los que podemos destacar MySQL, PostgreSQL, Oracle, gestores
+compatibles con &lt;a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC"&gt;ODBC&lt;/a&gt; y &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Para todos estos casos lo primero es instanciar un objeto de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase"&gt;QSqlDatabase&lt;/a&gt;
+indicando el gestor al que nos queremos conectar:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlDatabase&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QSqlDatabase&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;QSQLITE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;para después indicar el nombre de la base de datos que nos interesa:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setDatabaseName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;data.sqlite&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;El formato del nombre de la base de datos depende del controlador del gestor que
+hayamos escogido. Por ejemplo, para el driver &lt;code&gt;QODBC&lt;/code&gt; el nombre puede ser un
+&lt;a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name"&gt;DSN&lt;/a&gt;, un archivo &lt;a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name"&gt;DSN&lt;/a&gt; (en cuyo caso su nombre debe terminar en extensión &lt;code&gt;.dsn&lt;/code&gt;)
+o una cadena de conexión &lt;a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC"&gt;ODBC&lt;/a&gt;. Mientras que para &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt; el nombre de la base
+de datos es directamente el del archivo que la contiene —&lt;code&gt;data.sqlite&lt;/code&gt; en nuestro ejemplo—.&lt;/p&gt;
+&lt;p&gt;Finalmente es necesario abrir la conexión a la base de datos usando el método
+&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase"&gt;QSqlDatabase&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html#open" title="QSqlDatabase::open()"&gt;open&lt;/a&gt;(), del que es conveniente comprobar el valor de retorno
+para determinar si hemos tenido éxito.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;QMessageBox&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;critical&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;No se pudo acceder a los datos.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Haciendo consultas SQL&lt;/h1&gt;
+&lt;p&gt;La conexión creada de la manera que hemos descrito anteriormente se configura
+automáticamente como la conexión a base de datos por defecto de nuestra aplicación.
+Así que hacer una consulta es tan sencillo como instanciar la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; y
+proporcionarle la sentencia SQL a dicho objeto a través del método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#exec" title="QSqlQuery::exec()"&gt;exec&lt;/a&gt;():&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlQuery&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;SELECT * FROM TABLE contactos);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;De esta forma &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; puede utilizarse tanto para ejecutar sentencias de
+manipulación —como &lt;code&gt;SELECT&lt;/code&gt;, &lt;code&gt;INSERT&lt;/code&gt;, &lt;code&gt;UPDATE&lt;/code&gt; y &lt;code&gt;DELETE&lt;/code&gt;— como de definición
+—por ejemplo &lt;code&gt;CREATE TABLE&lt;/code&gt; y similares—.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;CREATE TABLE IF NOT EXISTS contactos &amp;quot;&lt;/span&gt;
+            &lt;span class="s"&gt;&amp;quot;(id INTEGER PRIMARY KEY AUTOINCREMENT,&amp;quot;&lt;/span&gt;
+            &lt;span class="s"&gt;&amp;quot; nombre VARCHAR(50))&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Además también pueden ejectuarse comandos específicos del gestor de base de
+datos que no formen parte del estándar SQL.&lt;/p&gt;
+&lt;h2&gt;SELECT&lt;/h2&gt;
+&lt;p&gt;Al hacer una consulta que devuelve datos —como es el caso de los &lt;code&gt;SELECT&lt;/code&gt;— se
+pueden usar los siguientes métodos sobre el mismo objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; para posicionar
+la consulta en las distintas filas de resultados:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;&lt;code&gt;bool next()&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Recupera la siguiente fila en la lista de resultados y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;bool previous()&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Recupera la fila previa en la lista de resultados y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;bool first()&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Recupera la primera fila de la lista de resultados y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;bool last()&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Recupera la última fila de la lista de resultados y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;code&gt;seek(int index, bool relative = false)&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;Recupera la fila en la posición &lt;code&gt;index&lt;/code&gt; y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;. La primera fila es la 0.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;Una vez el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; ha sido posicionado en la fila que nos interesa,
+podemos recuperar el dato en la columna &lt;code&gt;index&lt;/code&gt; empleando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#value" title="QSqlQuery::value()"&gt;value&lt;/a&gt;(index).&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;SELECT nombre FROM contactos&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;QString&lt;/span&gt; &lt;span class="n"&gt;nombre&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;toString&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;doSomething&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nombre&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Todos los datos recuperados de esta manera se devuelven usando instancias de
+la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qvariant.html" title="QVariant"&gt;QVariant&lt;/a&gt;, por lo que se pueden convertir al tipo que nos interese
+usando los métodos &lt;code&gt;QVariant::to*&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;INPUT y UPDATE&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; permite preparar la ejecución de la consulta para después sustituir
+parámetros en ciertos marcadores de posición antes de ejecutarla finalmente.
+Esto es especialmente útil cuando se pretenden hacer inserciones y
+actualizaciones en la base de datos.&lt;/p&gt;
+&lt;p&gt;La sustitución puede indicarse tanto mediante nombres:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlQuery&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;prepare&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;INSERT INTO contactos (nombre, apellido) &amp;quot;&lt;/span&gt;
+              &lt;span class="s"&gt;&amp;quot;VALUES (:nombre, :apellido)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:nombre&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Jesús&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:apellido&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Torres&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;como usando posiciones:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlQuery&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;prepare&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;INSERT INTO contactos (nombre, apellido) &amp;quot;&lt;/span&gt;
+              &lt;span class="s"&gt;&amp;quot;VALUES (?, ?)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Jesús&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Torres&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;En cualquier caso, el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#numRowsAffected" title="QSqlQuery::numRowsAffected()"&gt;numRowsAffected&lt;/a&gt;() puede utilizarse
+para conocer cuantas filas se han visto afectadas por una sentencia no &lt;code&gt;SELECT&lt;/code&gt;.
+Mientras que para sentencias &lt;code&gt;SELECT&lt;/code&gt; se puede determinar cuantas filas han sido
+recuperadas utilizando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#size" title="QSqlQuery::size()"&gt;size&lt;/a&gt;().&lt;/p&gt;
+&lt;p&gt;Finalmente, el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5/qsqlquery.html#lastInsertId" title="QSqlQuery::lastInsertId()"&gt;lastInsertId&lt;/a&gt;() hace posible conocer el
+identificador de la uĺtima fila insertada, lo que es especialmente interesante
+cuando se usan tablas con &lt;a href="https://es.wikipedia.org/wiki/Clave_for%C3%A1nea"&gt;claves foráneas&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlQuery&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Insertar un nuevo contacto&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;prepare&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;INSERT INTO contactos (nombre, apellido) &amp;quot;&lt;/span&gt;
+              &lt;span class="s"&gt;&amp;quot;VALUES (:nombre, :apellido)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:nombre&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Jesús&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:apellido&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Torres&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Obtener el identificador de la fila del nuevo contacto&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;contactoId&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lastInsertId&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;toInt&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Añadir una dirección de correo profesional vinculada al nuevo contacto&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;prepare&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;INSERT INTO emails (contacto_id, tipo, email) &amp;quot;&lt;/span&gt;
+              &lt;span class="s"&gt;&amp;quot;VALUES (:contacto_id, :tipo, :email)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:contacto_id&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;contactoId&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:tipo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Profesional&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:email&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;jmtorres@ull.es&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL"&gt;Qt SQL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase"&gt;QSqlDatabase&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;En la actualidad, en sistemas Debian y derivados, esta herramienta de
+línea de comandos viene en su propio paquete, bajo el nombre de &lt;code&gt;sqlite3&lt;/code&gt;.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:2"&gt;
+&lt;p&gt;Ya hemos comentado en diversas ocasiones en otros artículos que Qt está
+formado por diversos módulos —como Qt Core, Qt GUI y Qt Network— y hemos hablado
+de alguno de ellos.&amp;#160;&lt;a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Thu, 22 May 2014 00:00:00 +0100</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2014-05-22:almacenar-datos-en-sqlite.html</guid><category>qt</category><category>sqlite</category><category>qsqldatabase</category><category>qsqlquery</category><category>SQL</category></item><item><title>Crear paquetes de Debian con checkinstall</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/crear-paquetes-de-debian-con-checkinstall.html</link><description>&lt;p&gt;Ya hablamos de como modificar nuestro archivo de proyecto &lt;code&gt;.pro&lt;/code&gt; para preparar
+las reglas para &lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/make-install-con-qmake.html" title="Make install con qmake"&gt;make install&lt;/a&gt;. De tal forma que si lo hemos hecho bien podemos
+compilar e instalar nuestra aplicación en el sistema simplemente ejecutando
+los siguientes comandos:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;qmake
+&lt;span class="nv"&gt;$ &lt;/span&gt;make
+&lt;span class="nv"&gt;$ &lt;/span&gt;make install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Sistemas de gestión de paquetes&lt;/h1&gt;
+&lt;p&gt;Sin embargo esta no es la forma más conveniente de distribuir software destinado
+a sistemas Linux. &lt;/p&gt;
+&lt;p&gt;Por lo general las distribuciones de Linux usan algún &lt;a href="http://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_paquetes"&gt;sistema de gestión de
+paquetes&lt;/a&gt;.
+Estos están formados por una colección de herramientas diseñadas para
+automatizar la instalación, actualización, configuración y deinstalación de
+paquetes de software de forma consistente. Por lo general estos paquetes contiene
+programas, librerías y datos, además de algunos metadatos relevalentes para
+el funcionamiento del sistema de gestión de paquetes, como: nombre, descripción
+fabricante, suma de comprobación, versión y una lista de depedencias necesarias
+para que el software funcione convenientemente.&lt;/p&gt;
+&lt;p&gt;En sistemas &lt;a href="https://www.debian.org" title="Debian - the universal operating system"&gt;Debian&lt;/a&gt; y derivados &lt;a href="http://en.wikipedia.org/wiki/Deb_(file_format)" title="Wikipedia - deb (file format)"&gt;deb&lt;/a&gt; es la extensión de los paquetes de
+software. Mientras que &lt;code&gt;dpkg&lt;/code&gt; es el programa diseñado para manejarlos,
+generalmente a través de otros programas como &lt;code&gt;apt&lt;/code&gt;/&lt;code&gt;aptitude&lt;/code&gt;, Ubuntu Software
+Center, Synaptic o Gdebi.&lt;/p&gt;
+&lt;p&gt;Estos paquetes Debian pueden convertirse en otros formatos de paquete usando
+&lt;code&gt;alien&lt;/code&gt; y creados apartir del proyecto de código fuente usando &lt;a href="http://en.wikipedia.org/wiki/CheckInstall" title="Wikipedia - CheckInstall"&gt;CheckInstall&lt;/a&gt; o
+Debian Package Maker.&lt;/p&gt;
+&lt;h1&gt;CheckInstall&lt;/h1&gt;
+&lt;p&gt;&lt;a href="http://en.wikipedia.org/wiki/CheckInstall" title="Wikipedia - CheckInstall"&gt;CheckInstall&lt;/a&gt; es uno de esos programas que permiten crear paquetes &lt;code&gt;rpm&lt;/code&gt; o
+&lt;a href="http://en.wikipedia.org/wiki/Deb_(file_format)" title="Wikipedia - deb (file format)"&gt;deb&lt;/a&gt; a partir del código fuente.&lt;/p&gt;
+&lt;p&gt;Para usarlo empezamos generando el archivo &lt;code&gt;Makefile&lt;/code&gt; en el directorio del
+proyecto para después compilar el programa:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;qmake
+&lt;span class="nv"&gt;$ &lt;/span&gt;make
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;y ahora sólo tenemos que invocar el programa &lt;a href="http://en.wikipedia.org/wiki/CheckInstall" title="Wikipedia - CheckInstall"&gt;CheckInstall&lt;/a&gt; desde el mismo
+directorio:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo checkinstall
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Un ejemplo, por ejemplo si quieres compilar el codigo fuente de wine 1.3 los pasos serian.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Nos descargamos el codigo fuente de wine 1.3 desde el siguiente enlace. Ojo, puede que si lees este post mas tarde de Agosto 2010 la version de wine haya cambiado, tendras que buscar en la web oficial el enlace al codigo fuente correspondiente.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Despues añadimos las siguientes instrucciones, solo son necesarias para compilar wine:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;sudo apt-get build-dep wine
+sudo apt-get install fakeroot&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Descomprimimos el codigo, nos metermos al directorio y ejecutamos: (Ojo, la compilacion de wine a mi me llevo mas de 15 minutos).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;./configure
+make
+sudo checkinstall&lt;/p&gt;
+&lt;p&gt;En principio podemos pulsar intro en las preguntas que nos hace checkinstall, o cambia la respuesta si quieres modificar algun parametro.&lt;/p&gt;
+&lt;p&gt;checkinstall 1.6.1, Copyright 2002 Felipe Eduardo Sanchez Diaz Duran
+Este software es distribuído de acuerdo a la GNU GPL&lt;/p&gt;
+&lt;p&gt;The package documentation directory ./doc-pak does not exist.
+Should I create a default set of package docs? [y]: n&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;* Debian package creation selected &lt;/em&gt;&lt;/strong&gt;
+&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;*&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;*&lt;/strong&gt;*&lt;/p&gt;
+&lt;p&gt;Este paquete será creado de acuerdo a estos valores:&lt;/p&gt;
+&lt;p&gt;0 - Maintainer: [ root@soledad ]
+1 - Summary: [ Wine 1.3 ]
+2 - Name: [ wine ]
+3 - Version: [ 1.3.0 ]
+4 - Release: [ 1 ]
+5 - License: [ GPL ]
+6 - Group: [ checkinstall ]
+7 - Architecture: [ i386 ]
+8 - Source location: [ wine-1.3.0 ]
+9 - Alternate source location: [ ]
+10 - Requires: [ ]
+11 - Provides: [ wine ]&lt;/p&gt;
+&lt;p&gt;Introduce un número para cambiar algún dato u oprime ENTER para continuar:&lt;/p&gt;
+&lt;p&gt;Al finalizar, tendremos un .deb de wine 1.3 en el directorio. Pues bien, el proceso para cualquier otra aplicacion que compiles mediante (./configure/make/sudo make install) seria similar.&lt;/p&gt;
+&lt;h1&gt;Referencias&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/make-install-con-qmake.html"&gt;Make install con qmake&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_paquetes"&gt;Sistema de gestión de paquetes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/Deb_(file_format)"&gt;deb (file format)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia - &lt;a href="http://en.wikipedia.org/wiki/CheckInstall"&gt;CheckInstall&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Tue, 06 May 2014 00:00:00 +0100</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2014-05-06:crear-paquetes-de-debian-con-checkinstall.html</guid><category>checkinstall</category><category>.deb</category><category>debian</category><category>paquetes</category></item><item><title>Capturando secuencias de vídeo con Qt</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/capturando-secuencias-de-video-con-qt.html</link><description>&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; incluye el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qtmultimedia-index.html" title="Qt Multimedia"&gt;Qt Multimedia&lt;/a&gt; para facilitar la manipulación de
 contenidos multimedia. Entre otras cosas permite reproducir audio y vídeo y
 capturar desde dispositivos de adquisición soportados por el sistema operativo.&lt;/p&gt;
 &lt;p&gt;Como por defecto no viene activado, es necesaro abrir el archivo &lt;code&gt;.pro&lt;/code&gt; del
@@ -186,165 +471,7 @@ mientras se esté haciendo uso del objeto. Por eso se invoca al método
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qcamera.html" title="QCamera"&gt;QCamera&lt;/a&gt; Class Reference.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/qvideoframe.html" title="QVideoFrame"&gt;QVideoFrame&lt;/a&gt; Class Reference.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtmultimedia/videooverview.html"&gt;Video Overview&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Tue, 11 Feb 2014 00:00:00 +0000</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2014-02-11:capturando-secuencias-de-video-con-qt.html</guid><category>qt</category><category>multimedia</category><category>qcamera</category></item><item><title>Almacenar datos en SQLite</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/almacenar-datos-en-sqlite.html</link><description>&lt;p&gt;Muchos de los sistemas de gestión de bases de datos relacionales más conocidos
-son de arquitectura cliente-servidor —por ejemplo MySQL, PostgreSQL u Oracle—.
-Es decir, que están compuestos por un programa servidor —que es quien tiene
-acceso local a los datos— de forma que uno o más programas cliente pueden
-solicitarle operaciones sobre dichos datos —generalmente mediante lenguaje SQL—.&lt;/p&gt;
-&lt;p&gt;Esta arquitectura puede no ser la adecuada en cierto tipo de aplicaciones. Por
-ejemplo, si desarrollamos un software de agenda de contactos para sistemas de
-escritorio, el uso de bases de datos relacionales para almacenar la información
-puede resultar natural, pero distribuir nuestra aplicación junto a un sistema de
-gestión de bases de datos tradicional —como MySQL— seguramente sea un tanto
-excesivo.&lt;/p&gt;
-&lt;p&gt;Para estos casos existen otros gestores que no hacen uso de este tipo de
-arquitectura. Por ejemplo &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt;, que es una sencilla librería que contiene
-en si misma un completo sistema de gestión de bases de datos; de tal forma que
-las aplicaciones que la utilizan pueden acceder a los archivos y manipular los
-datos por si mismas, mediante consultas SQL, si necesitar la intermediación de
-un programa servidor.&lt;/p&gt;
-&lt;h1&gt;Casos de uso de SQLite&lt;/h1&gt;
-&lt;p&gt;&lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt; es usada por muchos &lt;em&gt;frameworks&lt;/em&gt; —por ejemplo Django o
-Ruby On Rails— como base de datos por defecto durante el desarrollo de nuevos
-proyectos. La ventaja de esto es que así se puede trabajar desde el primero
-momento con bases de datos relacionales, sin tener que preocuparnos por
-configurar adecuadamente ningún sistema gestor tradicional.&lt;/p&gt;
-&lt;p&gt;Como estos &lt;em&gt;frameworks&lt;/em&gt; suelen proveer soporte para diversos gestores
-en el momento de desplegar la aplicación se puede cambiar, prácticamentre sin
-cambios en el código, a otro sistema gestor, si las necesidades de la aplicación
-así lo indican.&lt;/p&gt;
-&lt;p&gt;Además &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt; se adapta perfectamente a las necesidades de muchas aplicaciones
-de escritorio y de dispositivos móviles. Por ese motivo es utilizada ámpliamente
-en los archivos de datos de apliaciones como Mozilla Firefox o Google Chrome
-y se incluye por defecto en cualquier dispositivo Android, permitiendo que las
-aplicaciones creen sus propias bases de datos sin necesitar ningún tipo de
-configuración.&lt;/p&gt;
-&lt;h1&gt;Acceso a bases de datos mediante Qt SQL&lt;/h1&gt;
-&lt;p&gt;&lt;a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt"&gt;Qt&lt;/a&gt; integra el módulo &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL"&gt;Qt SQL&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; que provee acceso a diferentes gestores
-de bases de datos SQL, entre los que podemos destacar MySQL, PostgreSQL, Oracle, gestores
-compatibles con &lt;a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC"&gt;ODBC&lt;/a&gt; y &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Para todos estos casos lo primero es instanciar un objeto de la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase"&gt;QSqlDatabase&lt;/a&gt;
-indicando el gestor al que nos queremos conectar:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlDatabase&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;QSqlDatabase&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;QSQLITE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;para después indicar el nombre de la base de datos que nos interesa:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;setDatabaseName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;data.sqlite&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;El formato del nombre de la base de datos depende del controlador del gestor que
-hayamos escogido. Por ejemplo, para el driver &lt;code&gt;QODBC&lt;/code&gt; el nombre puede ser un
-&lt;a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name"&gt;DSN&lt;/a&gt;, un archivo &lt;a href="http://es.wikipedia.org/wiki/Data_Source_Name" title="Data Source Name"&gt;DSN&lt;/a&gt; (en cuyo caso su nombre debe terminar en extensión &lt;code&gt;.dsn&lt;/code&gt;)
-o una cadena de conexión &lt;a href="http://es.wikipedia.org/wiki/Open_Database_Connectivity" title="ODBC"&gt;ODBC&lt;/a&gt;. Mientras que para &lt;a href="http://www.sqlite.org/" title="SQLite"&gt;SQLite&lt;/a&gt; el nombre de la base
-de datos es directamente el del archivo que la contiene —&lt;code&gt;data.sqlite&lt;/code&gt; en nuestro ejemplo—.&lt;/p&gt;
-&lt;p&gt;Finalmente es necesario abrir la conexión a la base de datos usando el método
-&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase"&gt;QSqlDatabase&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html#open" title="QSqlDatabase::open()"&gt;open&lt;/a&gt;(), del que es conveniente comprobar el valor de retorno
-para determinar si hemos tenido éxito.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;QMessageBox&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;critical&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-        &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;No se pudo acceder a los datos.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h1&gt;Haciendo consultas SQL&lt;/h1&gt;
-&lt;p&gt;La conexión creada de la manera que hemos descrito anteriormente se configura
-automáticamente como la conexión a base de datos por defecto de nuestra aplicación.
-Así que hacer una consulta es tan sencillo como instanciar la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; y
-proporcionarle la sentencia SQL a dicho objeto a través del método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#exec" title="QSqlQuery::exec()"&gt;exec&lt;/a&gt;():&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlQuery&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;SELECT * FROM TABLE contactos);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;De esta forma &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; puede utilizarse tanto para ejecutar sentencias de
-manipulación —como &lt;code&gt;SELECT&lt;/code&gt;, &lt;code&gt;INSERT&lt;/code&gt;, &lt;code&gt;UPDATE&lt;/code&gt; y &lt;code&gt;DELETE&lt;/code&gt;— como de definición
-—por ejemplo &lt;code&gt;CREATE TABLE&lt;/code&gt; y similares—.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;CREATE TABLE IF NOT EXISTS contactos &amp;quot;&lt;/span&gt;
-            &lt;span class="s"&gt;&amp;quot;(id INTEGER PRIMARY KEY AUTOINCREMENT,&amp;quot;&lt;/span&gt;
-            &lt;span class="s"&gt;&amp;quot; nombre VARCHAR(50))&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Además también pueden ejectuarse comandos específicos del gestor de base de
-datos que no formen parte del estándar SQL.&lt;/p&gt;
-&lt;h2&gt;SELECT&lt;/h2&gt;
-&lt;p&gt;Al hacer una consulta que devuelve datos —como es el caso de los &lt;code&gt;SELECT&lt;/code&gt;— se
-pueden usar los siguientes métodos sobre el mismo objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; para posicionar
-la consulta en las distintas filas de resultados:&lt;/p&gt;
-&lt;dl&gt;
-&lt;dt&gt;&lt;code&gt;bool next()&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;Recupera la siguiente fila en la lista de resultados y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/dd&gt;
-&lt;dt&gt;&lt;code&gt;bool previous()&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;Recupera la fila previa en la lista de resultados y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/dd&gt;
-&lt;dt&gt;&lt;code&gt;bool first()&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;Recupera la primera fila de la lista de resultados y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/dd&gt;
-&lt;dt&gt;&lt;code&gt;bool last()&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;Recupera la última fila de la lista de resultados y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/dd&gt;
-&lt;dt&gt;&lt;code&gt;seek(int index, bool relative = false)&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;Recupera la fila en la posición &lt;code&gt;index&lt;/code&gt; y posiciona allí el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;. La primera fila es la 0.&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;p&gt;Una vez el objeto &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; ha sido posicionado en la fila que nos interesa,
-podemos recuperar el dato en la columna &lt;code&gt;index&lt;/code&gt; empleando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#value" title="QSqlQuery::value()"&gt;value&lt;/a&gt;(index).&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;SELECT nombre FROM contactos&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;QString&lt;/span&gt; &lt;span class="n"&gt;nombre&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;toString&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-    &lt;span class="n"&gt;doSomething&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nombre&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Todos los datos recuperados de esta manera se devuelven usando instancias de
-la clase &lt;a href="http://qt-project.org/doc/qt-5.0/qtcore/qvariant.html" title="QVariant"&gt;QVariant&lt;/a&gt;, por lo que se pueden convertir al tipo que nos interese
-usando los métodos &lt;code&gt;QVariant::to*&lt;/code&gt;.&lt;/p&gt;
-&lt;h2&gt;INPUT y UPDATE&lt;/h2&gt;
-&lt;p&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt; permite preparar la ejecución de la consulta para después sustituir
-parámetros en ciertos marcadores de posición antes de ejecutarla finalmente.
-Esto es especialmente útil cuando se pretenden hacer inserciones y
-actualizaciones en la base de datos.&lt;/p&gt;
-&lt;p&gt;La sustitución puede indicarse tanto mediante nombres:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlQuery&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;prepare&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;INSERT INTO contactos (nombre, apellido) &amp;quot;&lt;/span&gt;
-              &lt;span class="s"&gt;&amp;quot;VALUES (:nombre, :apellido)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:nombre&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Jesús&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;:apellido&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Torres&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;como usando posiciones:&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;QSqlQuery&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;prepare&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;INSERT INTO contactos (nombre, apellido) &amp;quot;&lt;/span&gt;
-              &lt;span class="s"&gt;&amp;quot;VALUES (?, ?)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Jesús&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bindValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Torres&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exec&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Finalmente el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#numRowsAffected" title="QSqlQuery::numRowsAffected()"&gt;numRowsAffected&lt;/a&gt;() puede utilizarse
-para conocer cuantas filas se han visto afectadas por una sentencia no &lt;code&gt;SELECT&lt;/code&gt;.
-Mientras que para sentencias &lt;code&gt;SELECT&lt;/code&gt; se puede determinar cuantas filas han sido
-recuperadas utilizando el método &lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;::&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html#size" title="QSqlQuery::size()"&gt;size&lt;/a&gt;().&lt;/p&gt;
-&lt;h1&gt;Referencias&lt;/h1&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qtsql-index.html" title="Qt SQL"&gt;Qt SQL&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqldatabase.html" title="QSqlDatabase"&gt;QSqlDatabase&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://qt-project.org/doc/qt-5.0/qtsql/qsqlquery.html" title="QSqlQuery"&gt;QSqlQuery&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="footnote"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn:1"&gt;
-&lt;p&gt;Ya hemos comentado en diversas ocasiones en otros artículos que Qt está
-formado por diversos módulos —como Qt Core, Qt GUI y Qt Network— y hemos hablado
-de alguno de ellos.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Wed, 11 Sep 2013 00:00:00 +0100</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2013-09-11:almacenar-datos-en-sqlite.html</guid><category>qt</category><category>sqlite</category><category>qsqldatabase</category><category>qsqlquery</category><category>SQL</category></item><item><title>Servicios y demonios en Linux</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/servicios-y-demonios-en-linux.html</link><description>&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
+&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jesús Torres</dc:creator><pubDate>Tue, 11 Feb 2014 00:00:00 +0000</pubDate><guid>tag:ull-etsii-sistemas-operativos.github.io/videovigilancia-blog,2014-02-11:capturando-secuencias-de-video-con-qt.html</guid><category>qt</category><category>multimedia</category><category>qcamera</category></item><item><title>Servicios y demonios en Linux</title><link>http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/servicios-y-demonios-en-linux.html</link><description>&lt;p&gt;Un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt; o servicio es un programa que se ejecuta en segundo plano,
 fuera del control interactivo de los usuarios del sistema ya que carecen de
 interfaz con estos.&lt;/p&gt;
 &lt;p&gt;El sistema generalmente inicia los demonios durante el arranque, siendo las
@@ -1134,7 +1261,7 @@ del &lt;a href="http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html"
 
     ## Crear directorio de archivos variables
     vardir.path = $$VARDIR
-    vardir.commands = :
+    vardir.commands = true
 }
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1204,7 +1331,7 @@ pasadas al compilador.&lt;/p&gt;
 
     ## Crear directorio de archivos variables
     vardir.path = $$VARDIR
-    vardir.commands = :
+    vardir.commands = true
 }
 &lt;/pre&gt;&lt;/div&gt;
 
