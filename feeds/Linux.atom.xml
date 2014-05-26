@@ -304,6 +304,7 @@ directorio raiz, ya que podemos estar seguros de que siempre existirá:&lt;/p&gt
 &lt;p&gt;Otra opción es cambiar el directorio de trabajo a donde se almacenan los datos
 de nuestra aplicación o a algún otro directorio similar, siempre según el
 &lt;a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard"&gt;Filesystem Hierarchy Standard&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Filesystem Hierarchy Standard" src="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/static/images/fhs.png" /&gt;&lt;/p&gt;
 &lt;h2&gt;Reabrir los descriptores estándar&lt;/h2&gt;
 &lt;p&gt;Como ya hemos comentado, un &lt;a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)"&gt;demonio&lt;/a&gt; no interactúa directamente con los
 usuarios, por lo que no necesita usar la E/S estándar, así que podemos cerrar

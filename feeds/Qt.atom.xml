@@ -513,6 +513,9 @@ representa al icono de la aplicación en el escritorio. Asignando un valor a
 &lt;code&gt;icon32.path&lt;/code&gt; estamos diciendo donde queremos que sea instalado, mientras que el
 valor del atributo &lt;code&gt;icon32.files&lt;/code&gt; indica donde podemos encontrar el archivo o
 archivos del icono respecto al directorio del proyecto.&lt;/p&gt;
+&lt;p&gt;En teoría podemos especificar cualquier ubicación como destino de nuestros
+archivos, aunque es muy recomendable seguir el &lt;a href="http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard"&gt;Filesystem Hierarchy Standard&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Filesystem Hierarchy Standard" src="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/static/images/fhs.png" /&gt;&lt;/p&gt;
 &lt;h1&gt;Definición de macros del preprocesador&lt;/h1&gt;
 &lt;p&gt;Las variables que hemos definido dentro del &lt;a href="http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html" title="qmake Project Files"&gt;archivo de proyecto&lt;/a&gt; establecen la
 ubicación de los recursos del programa tras su instalación. Sería más complicado
