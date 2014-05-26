@@ -134,7 +134,7 @@ unix {          # Esta configuración específica de Linux y UNIX
 
     ## Crear directorio de archivos variables
     vardir.path = $$VARDIR
-    vardir.commands = :
+    vardir.commands = true
 }
 ~~~~
 
@@ -150,6 +150,11 @@ representa al icono de la aplicación en el escritorio. Asignando un valor a
 `icon32.path` estamos diciendo donde queremos que sea instalado, mientras que el
 valor del atributo `icon32.files` indica donde podemos encontrar el archivo o
 archivos del icono respecto al directorio del proyecto.
+
+En teoría podemos especificar cualquier ubicación como destino de nuestros
+archivos, aunque es muy recomendable seguir el [Filesystem Hierarchy Standard].
+
+![Filesystem Hierarchy Standard](|filename|/images/fhs.png)
 
 # Definición de macros del preprocesador
 
@@ -210,7 +215,7 @@ unix {          # Esta configuración específica de Linux y UNIX
 
     ## Crear directorio de archivos variables
     vardir.path = $$VARDIR
-    vardir.commands = :
+    vardir.commands = true
 }
 ~~~~
 
@@ -237,6 +242,7 @@ Files](http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html)
 [Filesystem Hierarchy Standard]: http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard "Filesystem Hierarchy Standard"
 [archivo de proyecto]: http://qt-project.org/doc/qt-5.0/qtdoc/qmake-project-files.html "qmake Project Files"
 [QSettings]: http://qt-project.org/doc/qt-5.0/qtcore/qsettings.html "QSettings"
+[Filesystem Hierarchy Standard]: http://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard "Filesystem Hierarchy Standard"
 
 [^1]: Durante el proceso de construcción de un paquete `.deb` el proyecto, una
 vez compilado, se instala, pero no en la raíz del sistema donde está teniendo

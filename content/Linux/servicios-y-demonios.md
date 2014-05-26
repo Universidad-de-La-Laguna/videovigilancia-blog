@@ -245,6 +245,8 @@ Otra opción es cambiar el directorio de trabajo a donde se almacenan los datos
 de nuestra aplicación o a algún otro directorio similar, siempre según el
 [Filesystem Hierarchy Standard].
 
+![Filesystem Hierarchy Standard](|filename|/images/fhs.png)
+
 ## Reabrir los descriptores estándar
 
 Como ya hemos comentado, un [demonio] no interactúa directamente con los
