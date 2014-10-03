@@ -1,7 +1,6 @@
 Title: Incorporar funcionalidad a Yocto mediante capas. Un ejemplo con Qt
 Tags: yocto, poky, distribución, qt, gui, capas
 Date: 2013-01-30
-Status: draft
 
 Una vez hemos [construido nuestra distribución](|filename|/Linux/crear-una-distro-linux-con-yocto.md) podemos incorporarle nuevas funcionalidades a través de **capas**.
 
