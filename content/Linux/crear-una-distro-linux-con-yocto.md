@@ -42,14 +42,14 @@ incluyendo las herramienta de desarrollo para la misma:
 proyecto [Yocto] y descomprimirla:
 
         :::sh
-        $ wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2
-        $ tar jxf poky-danny-8.0.tar.bz2
+        $ wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.6.1/poky-daisy-11.0.1.tar.bz2
+        $ tar jxf poky-daisy-11.0.1.tar.bz2
 
  2. Crear el directorio `raspberry-pi-build` donde construir la imagen y
 configurar las variables de entorno necesarias:
 
         :::sh
-        $ source poky-danny-8.0/oe-init-build-env raspberry-pi-build
+        $ source poky-daisy-11.0.1/oe-init-build-env raspberry-pi-build
 
      Como las variables de entorno configuradas por este comando se pierden al
      cerrar la shell, en caso de que eso ocurra o de abandonar la sesión sería
@@ -80,15 +80,44 @@ debería ser 9:
     BB_NUMBER_THREADS = "9"
     PARALLEL_MAKE = "-j 9"
 
-## Crear una distribución para Raspberry Pi
+Mientras que para ahorrar espacio en disco se puede incluir la siguiente
+sentencia:
+
+    INHERIT += "rm_work"
+
+Al hacerlo nos aseguramos de que el directorio donde se hace cada paquete es
+eliminado cuando se termina de hacer.
+
+## Crear una distribución para ARM
 
 El ejemplo estándar del proyecto [Yocto] se construye por defecto para la arquitectura
-**qemux86**. En el caso de querer compilar para otro sistema sólo es necesario añadir
-una capa que incorpore los archivos de configuración necesarios.
+**qemux86**. Es decir, para un sistema x86 que va a ejecutarse emulado sobre [QEMU].
 
-En nuestro caso dicha capa es **meta-raspberrypi**, una capa [BSP] que agrupa todos los
-metadatos necesarios para construir para dispositivos Raspberry Pi. Fundamentalmente
-contiene configuraciones para el núcleo y opciones para la arquitectura.
+En caso de querer compilar para otra arquitectura sólo es necesario indicarlo
+en la configuración. Para eso, por ejemplo, buscamos la variable `MACHINE` en
+`raspberry-pi-build/conf/local.conf` e indicamos que la máquina de destino de
+la imagen es `qemuarm`:
+
+    MACHINE ?= "qemuarm"
+
+Así estaríamos diciendo que queremos un sistema ARM que también va a ser
+ejecutado sobre [QEMU]. Para probarlo sólo nos quedaría construir la nueva
+imagen y ejecutarla en el emulador:
+
+    :::sh
+    $ bitbake core-image-minimal
+    $ runqemu qemux86
+
+## Crear una distribución para Raspberry Pi
+
+[Yocto] incluye de serie soporte para diversas arquitecturas. En caso de
+querer construir una imagen para alguna que no esté incluida sólo es necesario
+añadir una capa que incorpore los archivos de configuración necesarios.
+
+Para Raspberry Pi dicha capa es **meta-raspberrypi**, una capa [BSP] que
+agrupa todos los metadatos necesarios para construir imágenes para estos
+dispositivos. Fundamentalmente contiene configuraciones para el núcleo y
+opciones para la arquitectura.
 
 Estos son los pasos para incorporarla a nuestro proyecto:
 
@@ -129,7 +158,7 @@ la máquina de destino de la imagen es `raspberrypi`
     Esta imagen incluye un servidor **SSH** y un _splash_ de Raspberry Pi durante el arranque.
 Mientras que la imagen alternativa `rpi-hwup-image` no contiene ninguna de las dos cosas.
     
- 6. Transferir la imagen construida a la tarjeta SD.
+ 6. Transferir la imagen construida a la tarjeta SD:
 
         :::sh
         $ sudo dd if=tmp/deploy/images/rpi-basic-image-raspberrypi.rpi-sdimg of=/ruta/a/la/sd
