@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Jesús Torres - Sistema de Videovigilancia from Scratch</title>
+    <title>capas - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,80 +55,91 @@
 
         
 
- 
 
     <div class='article'>
-        <a href="../servicios-y-demonios-en-linux.html"><h2>Servicios y demonios en Linux</h2></a>
-        <div class= "well small"> sáb 18 mayo 2013
+        <div class="content-title">
+            <a href="../incorporar-funcionalidad-a-yocto-mediante-capas-un-ejemplo-con-qt.html"><h1>Incorporar funcionalidad a Yocto mediante capas. Un ejemplo con Qt</h1></a>
+            mié 30 enero 2013
 
 by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- </div>
-        <div class="summary"><p>Un <a href="http://es.wikipedia.org/wiki/Demonio_(inform%C3%A1tica)" title="Demonio (informática)">demonio</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> o servicio es un programa que se ejecuta en segundo plano,
-fuera del control interactivo de los usuarios del sistema ya que carecen de
-interfaz con estos.</p>
-<p>El sistema generalmente inicia los demonios durante el arranque, siendo las
-funciones más comunes de estos las de ofrecer servicios ...</p> <a class="btn btn-info xsmall" href="../servicios-y-demonios-en-linux.html">leer más</a></div>
-    </div>	
-				
-    
  
+        </div>
         
-
- 
-
-    <div class='article'>
-        <a href="../uso-de-la-memoria-como-un-dispositivo-de-es.html"><h2>Uso de la memoria como un dispositivo de E/S</h2></a>
-        <div class= "well small"> mié 13 marzo 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>Algunas libreras se diseñan específicamente para leer y/o escribir datos en
-dispositivos de entrada/salida. Por ejemplo, una librería desarrollada en C++ para
-codificar y decodificar archivos MP3 recibiría objetos <a href="http://www.cplusplus.com/reference/istream/istream/" title="std::istream">std::istream</a> o
-<a href="http://www.cplusplus.com/reference/ostream/ostream/" title="std::ostream">std::ostream</a> para indicar el flujo del que leer o en el que escribir los datos ...</p> <a class="btn btn-info xsmall" href="../uso-de-la-memoria-como-un-dispositivo-de-es.html">leer más</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../yocto-poky-y-bitbake.html"><h2>Yocto, Poky y BitBake</h2></a>
-        <div class= "well small"> jue 10 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
+        <div><p>Una vez hemos <a href="../crea-tu-propia-distro-de-linux-con-yocto.html">construido nuestra distribución</a> podemos incorporarle nuevas funcionalidades a través de <strong>capas</strong>.</p>
+<p>Las capas no son más que grupos de recetas, cada una de las cuales contiene
+información sobre como construir un componente de software concreto, de manera
+que trabajando juntos se incorpora la funcionalidad deseada. Para nuestro ejemplo
+añadiremos a nuestra distribución el <em>framework</em> de desarrollo de aplicaciones <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html">Qt</a>.</p>
+<p>La versión actual del proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> ya provee de la capa <strong>meta-qt</strong> que
+permite incluir <a href="http://doc.qt.digia.com/main-snapshot/qt-embedded-linux.html">Qt 4.8 Embedded for Linux</a> en nuestra distribución.</p>
+<p>Sin embargo en la versión 5 se actualiza y reemplaza <em><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> for Embedded Linux</em> con un
+nuevo componente denominado <a href="http://qt-project.org/wiki/Qt-Platform-Abstraction" title="Qt Platform Abstraction">QPA</a> o <em>Qt Platform Abstraction</em>. La nueva arquitectura
+es más simple, facilita la integración de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> con cualquier sistema de ventanas
+—suprime el gestor de ventanas QWS incluido en <em><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> for Embedded Linux</em>— y la
+inclusión de contenidos basados en <a href="http://es.wikipedia.org/wiki/OpenGL" title="OpenGL">OpenGL</a>. Por eso la 5 será la versión que
+utilizaremos en nuestro proyecto.</p>
+<p>En <a href="http://qt-project.org/videos/watch/qpa-the-qt-platform-abstraction">una charla de Thomas Senyk</a>
+se desarrollan mucho mejor todas estas diferencias y se justifican las ventajas
+de QPA respecto a su predecesor.</p>
+<h2>Incorporar Qt</h2>
+<p>Incorporar <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> es muy similar a hacerlo para <a href="../crea-tu-propia-distro-de-linux-con-yocto.html">el soporte de Raspberry Pi</a> a nuestra distribución:</p>
+<ol>
+<li>
+<p>Clonar localmente el repositorio <strong>meta-qt5</strong> fuera del directorio <code>raspberry-pi-build</code>.</p>
+<div class="codehilite"><pre><span class="nv">$ </span>git clone https://github.com/meta-qt5/meta-qt5.git
+</pre></div>
 
 
- </div>
-        <div class="summary"><p>El proyecto <a href="https://www.yoctoproject.org/" title="Yocto Project">Yocto</a> proporciona a los desarrolladores de sistemas empotrados
-Linux un punto de partida para generar distribuciones personalizadas para
-sus productos. Una de las piezas clave del proyecto es el sistema de
-construcción <a href="http://www.pokylinux.org/" title="Poky Plataform Builder">Poky</a>, que a su vez se apoya en <a href="http://en.wikipedia.org/wiki/BitBake" title="BitBake">BitBake</a>, una herramienta de
-construcción de paquetes al ...</p> <a class="btn btn-info xsmall" href="../yocto-poky-y-bitbake.html">leer más</a></div>
-    </div>	
-				
+</li>
+<li>
+<p>Buscar la variable <code>BBLAYERS</code> en <code>raspberry-pi-build/conf/bblayers.conf</code> y añadir
+al final la ruta hasta el repositorio de la capa <strong>meta-qt5</strong> para incluirla
+en el proceso de construcción. Por ejemplo:</p>
+<div class="codehilite"><pre><span class="n">BBLAYERS</span> <span class="o">?=</span> <span class="s">&quot; \</span>
+<span class="s">  /home/usuario/poky-danny-8.0/meta \</span>
+<span class="s">  /home/usuario/poky-danny-8.0/meta-yocto \</span>
+<span class="s">  /home/usuario/poky-danny-8.0/meta-yocto-bsp \</span>
+<span class="s">  /home/usuario/meta-raspberry-pi \</span>
+<span class="s">  /home/usuario/meta-qt5 \</span>
+<span class="s">&quot;</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Construir la imagen del sistema:</p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>raspberry-pi-build
+<span class="nv">$ </span>bitbake rpi-basic-image
+</pre></div>
+
+
+<p>Recuerda que esta imagen incluye un servidor <strong>SSH</strong> y un <em>splash</em> de Raspberry Pi durante el arranque.
+Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ninguna de las dos cosas.</p>
+</li>
+<li>
+<p>Transferir la imagen construida a la tarjeta SD:</p>
+<div class="codehilite"><pre><span class="nv">$ </span>sudo dd <span class="k">if</span><span class="o">=</span>tmp/deploy/images/rpi-basic-image-raspberrypi.rpi-sdimg <span class="nv">of</span><span class="o">=</span>/ruta/a/la/sd
+</pre></div>
+
+
+<p>y probarla en el dispositivo.</p>
+</li>
+</ol>
+<h2>Referencias</h2>
+<ol>
+<li><a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html">Yocto Project Quick Start</a>.</li>
+</ol></div>
+        <hr />
+    </div>
+		
             <div class="pagination">
 <ul>
-    <li class="prev"><a href="../author/jesus-torres8.html">&larr; Previous</a></li>
+    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
 
-    <li class=""><a href="../author/jesus-torres.html">1</a></li>
-    <li class=""><a href="../author/jesus-torres2.html">2</a></li>
-    <li class=""><a href="../author/jesus-torres3.html">3</a></li>
-    <li class=""><a href="../author/jesus-torres4.html">4</a></li>
-    <li class=""><a href="../author/jesus-torres5.html">5</a></li>
-    <li class=""><a href="../author/jesus-torres6.html">6</a></li>
-    <li class=""><a href="../author/jesus-torres7.html">7</a></li>
-    <li class=""><a href="../author/jesus-torres8.html">8</a></li>
-    <li class="active"><a href="../author/jesus-torres9.html">9</a></li>
+    <li class="active"><a href="../tag/capas.html">1</a></li>
 
     <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
 
@@ -140,19 +151,7 @@ construcción de paquetes al ...</p> <a class="btn btn-info xsmall" href="../yoc
         
         <div class="span3">
 
-                <div class="social">
-    <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
-    <ul class="nav nav-list">
-        <li class="nav-header">
-        Jesús Torres
-        </li>
-
-                    <li><a href="http://plus.google.com/u/0/113130190517682041034" rel="me">jmtorres</a></li>
-                    <li><a href="http://twitter.com/susotorres" rel="me">@susotorres</a></li>
-            </ul>
-    </div>
-    </div>
-
+            
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 

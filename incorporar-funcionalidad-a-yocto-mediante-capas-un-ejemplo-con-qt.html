@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>distribución - Sistema de Videovigilancia from Scratch</title>
+    <title>Incorporar funcionalidad a Yocto mediante capas. Un ejemplo con Qt - Sistema de Videovigilancia from Scratch</title>
     <meta name="description" content="">
     <meta name="author" content="Jesús Torres">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="../theme/html5.js"></script>
+    <script src="./theme/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../theme/bootstrap.min.css" rel="stylesheet">
-    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
-    <link href="../theme/local.css" rel="stylesheet">
-    <link href="../theme/pygments.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.css" rel="stylesheet">
+    <link href="./theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="./theme/local.css" rel="stylesheet">
+    <link href="./theme/pygments.css" rel="stylesheet">
 
 </head>
 
@@ -32,13 +32,13 @@
              <span class="icon-bar"></span>
          </a>
 
-        <a class="brand" href="..">Sistema de Videovigilancia from Scratch</a>
+        <a class="brand" href=".">Sistema de Videovigilancia from Scratch</a>
 
         <div class="nav-collapse">
         <ul class="nav">
                     
-                            <li><a href="../pages/acerca-de.html">Acerca de...</a></li>
-                    <li><a href="../pages/seminarios.html">Seminarios</a></li>
+                            <li><a href="./pages/acerca-de.html">Acerca de...</a></li>
+                    <li><a href="./pages/seminarios.html">Seminarios</a></li>
                         </ul>
         </div>
         
@@ -51,41 +51,35 @@
     <div class="row">
 
         <div class="span9">
-                
-
-        
-
-
-    <div class='article'>
+            <div class='article'>
         <div class="content-title">
-            <a href="../incorporar-funcionalidad-a-yocto-mediante-capas-un-ejemplo-con-qt.html"><h1>Incorporar funcionalidad a Yocto mediante capas. Un ejemplo con Qt</h1></a>
+            <h1>Incorporar funcionalidad a Yocto mediante capas. Un ejemplo con Qt</h1>
             mié 30 enero 2013
 
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
+by <a class="url fn" href="./author/jesus-torres.html" rel="author">Jesús Torres</a>
  
 
 
- 
         </div>
-        
-        <div><p>Una vez hemos <a href="../crea-tu-propia-distro-de-linux-con-yocto.html">construido nuestra distribución</a> podemos incorporarle nuevas funcionalidades a través de <strong>capas</strong>.</p>
+	
+        <div><p>Una vez hemos <a href="./crea-tu-propia-distro-de-linux-con-yocto.html">construido nuestra distribución</a> podemos incorporarle nuevas funcionalidades a través de <strong>capas</strong>.</p>
 <p>Las capas no son más que grupos de recetas, cada una de las cuales contiene
 información sobre como construir un componente de software concreto, de manera
 que trabajando juntos se incorpora la funcionalidad deseada. Para nuestro ejemplo
-añadiremos a nuestra distribución el <em>framework</em> de desarrollo de aplicaciones <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html">Qt</a>.</p>
-<p>La versión actual del proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> ya provee de la capa <strong>meta-qt</strong> que
+añadiremos a nuestra distribución el <em>framework</em> de desarrollo de aplicaciones <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html">Qt</a>.</p>
+<p>La versión actual del proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> ya provee de la capa <strong>meta-qt</strong> que
 permite incluir <a href="http://doc.qt.digia.com/main-snapshot/qt-embedded-linux.html">Qt 4.8 Embedded for Linux</a> en nuestra distribución.</p>
-<p>Sin embargo en la versión 5 se actualiza y reemplaza <em><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> for Embedded Linux</em> con un
+<p>Sin embargo en la versión 5 se actualiza y reemplaza <em><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> for Embedded Linux</em> con un
 nuevo componente denominado <a href="http://qt-project.org/wiki/Qt-Platform-Abstraction" title="Qt Platform Abstraction">QPA</a> o <em>Qt Platform Abstraction</em>. La nueva arquitectura
-es más simple, facilita la integración de <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> con cualquier sistema de ventanas
-—suprime el gestor de ventanas QWS incluido en <em><a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> for Embedded Linux</em>— y la
+es más simple, facilita la integración de <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> con cualquier sistema de ventanas
+—suprime el gestor de ventanas QWS incluido en <em><a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> for Embedded Linux</em>— y la
 inclusión de contenidos basados en <a href="http://es.wikipedia.org/wiki/OpenGL" title="OpenGL">OpenGL</a>. Por eso la 5 será la versión que
 utilizaremos en nuestro proyecto.</p>
 <p>En <a href="http://qt-project.org/videos/watch/qpa-the-qt-platform-abstraction">una charla de Thomas Senyk</a>
 se desarrollan mucho mejor todas estas diferencias y se justifican las ventajas
 de QPA respecto a su predecesor.</p>
 <h2>Incorporar Qt</h2>
-<p>Incorporar <a href="../proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> es muy similar a hacerlo para <a href="../crea-tu-propia-distro-de-linux-con-yocto.html">el soporte de Raspberry Pi</a> a nuestra distribución:</p>
+<p>Incorporar <a href="./proyecto-qt-framework-de-desarrollo-de-aplicaciones.html" title="Proyecto Qt. Framework de desarrollo de aplicaciones">Qt</a> es muy similar a hacerlo para <a href="./crea-tu-propia-distro-de-linux-con-yocto.html">el soporte de Raspberry Pi</a> a nuestra distribución:</p>
 <ol>
 <li>
 <p>Clonar localmente el repositorio <strong>meta-qt5</strong> fuera del directorio <code>raspberry-pi-build</code>.</p>
@@ -132,44 +126,22 @@ Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ningu
 <ol>
 <li><a href="http://www.yoctoproject.org/docs/1.0/yocto-quick-start/yocto-project-qs.html">Yocto Project Quick Start</a>.</li>
 </ol></div>
-        <hr />
+	
+        <hr>
+    	   
+        <h2>Comentarios</h2>
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'sistema-de-videovigilancia-from-scratch'; 
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
-		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="../crea-tu-propia-distro-de-linux-con-yocto.html"><h2>Crea tu propia distro de Linux con Yocto</h2></a>
-        <div class= "well small"> mar 22 enero 2013
-
-by <a class="url fn" href="../author/jesus-torres.html" rel="author">Jesús Torres</a>
- 
-
-
- </div>
-        <div class="summary"><p>El objetivo de este artículo es explicar paso a paso como se puede utilizar
-el proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> para crear nuestra propia distribución de Linux. Primero
-construiremos una para ejecutarla en <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a> y después otra para nuestra
-Raspberry Pi.</p>
-<h2>Inicio rápido</h2>
-<p>El inicio rápido con el proyecto <a href="../yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> está perfectamente documentado ...</p> <a class="btn btn-info xsmall" href="../crea-tu-propia-distro-de-linux-con-yocto.html">leer más</a></div>
-    </div>	
-				
-            <div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Anterior</a></li>
-
-    <li class="active"><a href="../tag/distribucion.html">1</a></li>
-
-    <li class="next disabled"><a href="#">&rarr; Siguiente</a></li>
-
-</ul>
-</div>    
- 
-  
         </div>
         
         <div class="span3">
@@ -181,8 +153,8 @@ Raspberry Pi.</p>
                 Sitio
                 </li>
             
-                <li><a href="../archives.html">Archivos</a>
-                <li><a href="../tags.html">Etiquetas</a>
+                <li><a href="./archives.html">Archivos</a>
+                <li><a href="./tags.html">Etiquetas</a>
                 <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/atom.xml" rel="alternate">Fuente Atom</a></li>
                                 <li><a href="http://ull-etsii-sistemas-operativos.github.io/videovigilancia-blog/feeds/rss.xml" rel="alternate">Fuente RSS</a></li>
                             </ul>
@@ -195,13 +167,13 @@ Raspberry Pi.</p>
                 Categorias
                 </li>
                 
-                                <li><a href="../category/comunicaciones.html">Comunicaciones</a></li>
-                                <li><a href="../category/desarrollo.html">Desarrollo</a></li>
-                                <li><a href="../category/hardware.html">Hardware</a></li>
-                                <li><a href="../category/linux.html">Linux</a></li>
-                                <li><a href="../category/overviews.html">Overviews</a></li>
-                                <li><a href="../category/qt.html">Qt</a></li>
-                                <li><a href="../category/vision.html">Visión</a></li>
+                                <li><a href="./category/comunicaciones.html">Comunicaciones</a></li>
+                                <li><a href="./category/desarrollo.html">Desarrollo</a></li>
+                                <li><a href="./category/hardware.html">Hardware</a></li>
+                                <li><a href="./category/linux.html">Linux</a></li>
+                                <li><a href="./category/overviews.html">Overviews</a></li>
+                                <li><a href="./category/qt.html">Qt</a></li>
+                                <li><a href="./category/vision.html">Visión</a></li>
                                    
             </ul>
             </div>

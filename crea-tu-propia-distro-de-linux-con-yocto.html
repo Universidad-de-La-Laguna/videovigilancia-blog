@@ -100,8 +100,8 @@ incluyendo las herramienta de desarrollo para la misma:</p>
 <li>
 <p>Descargar el sistema de construcción <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Poky</a> de la última versión del
 proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> y descomprimirla:</p>
-<div class="codehilite"><pre><span class="nv">$ </span>wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.3/poky-danny-8.0.tar.bz2
-<span class="nv">$ </span>tar jxf poky-danny-8.0.tar.bz2
+<div class="codehilite"><pre><span class="nv">$ </span>wget http://downloads.yoctoproject.org/releases/yocto/yocto-1.6.1/poky-daisy-11.0.1.tar.bz2
+<span class="nv">$ </span>tar jxf poky-daisy-11.0.1.tar.bz2
 </pre></div>
 
 
@@ -109,7 +109,7 @@ proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yoc
 <li>
 <p>Crear el directorio <code>raspberry-pi-build</code> donde construir la imagen y
 configurar las variables de entorno necesarias:</p>
-<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">source </span>poky-danny-8.0/oe-init-build-env raspberry-pi-build
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">source </span>poky-daisy-11.0.1/oe-init-build-env raspberry-pi-build
 </pre></div>
 
 
@@ -143,13 +143,41 @@ debería ser 9:</p>
 </pre></div>
 
 
-<h2>Crear una distribución para Raspberry Pi</h2>
+<p>Mientras que para ahorrar espacio en disco se puede incluir la siguiente
+sentencia:</p>
+<div class="codehilite"><pre><span class="n">INHERIT</span> <span class="o">+=</span> <span class="s">&quot;rm_work&quot;</span>
+</pre></div>
+
+
+<p>Al hacerlo nos aseguramos de que el directorio donde se hace cada paquete es
+eliminado cuando se termina de hacer.</p>
+<h2>Crear una distribución para ARM</h2>
 <p>El ejemplo estándar del proyecto <a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> se construye por defecto para la arquitectura
-<strong>qemux86</strong>. En el caso de querer compilar para otro sistema sólo es necesario añadir
-una capa que incorpore los archivos de configuración necesarios.</p>
-<p>En nuestro caso dicha capa es <strong>meta-raspberrypi</strong>, una capa <a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package">BSP</a> que agrupa todos los
-metadatos necesarios para construir para dispositivos Raspberry Pi. Fundamentalmente
-contiene configuraciones para el núcleo y opciones para la arquitectura.</p>
+<strong>qemux86</strong>. Es decir, para un sistema x86 que va a ejecutarse emulado sobre <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a>.</p>
+<p>En caso de querer compilar para otra arquitectura sólo es necesario indicarlo
+en la configuración. Para eso, por ejemplo, buscamos la variable <code>MACHINE</code> en
+<code>raspberry-pi-build/conf/local.conf</code> e indicamos que la máquina de destino de
+la imagen es <code>qemuarm</code>:</p>
+<div class="codehilite"><pre><span class="n">MACHINE</span> <span class="o">?=</span> <span class="s">&quot;qemuarm&quot;</span>
+</pre></div>
+
+
+<p>Así estaríamos diciendo que queremos un sistema ARM que también va a ser
+ejecutado sobre <a href="http://wiki.qemu.org/" title="QEMU">QEMU</a>. Para probarlo sólo nos quedaría construir la nueva
+imagen y ejecutarla en el emulador:</p>
+<div class="codehilite"><pre><span class="nv">$ </span>bitbake core-image-minimal
+<span class="nv">$ </span>runqemu qemux86
+</pre></div>
+
+
+<h2>Crear una distribución para Raspberry Pi</h2>
+<p><a href="./yocto-poky-y-bitbake.html" title="Yocto, Poky y BitBake">Yocto</a> incluye de serie soporte para diversas arquitecturas. En caso de
+querer construir una imagen para alguna que no esté incluida sólo es necesario
+añadir una capa que incorpore los archivos de configuración necesarios.</p>
+<p>Para Raspberry Pi dicha capa es <strong>meta-raspberrypi</strong>, una capa <a href="http://en.wikipedia.org/wiki/Board_support_package" title="Board Support Package">BSP</a> que
+agrupa todos los metadatos necesarios para construir imágenes para estos
+dispositivos. Fundamentalmente contiene configuraciones para el núcleo y
+opciones para la arquitectura.</p>
 <p>Estos son los pasos para incorporarla a nuestro proyecto:</p>
 <ol>
 <li>
@@ -201,7 +229,7 @@ la máquina de destino de la imagen es <code>raspberrypi</code></p>
 Mientras que la imagen alternativa <code>rpi-hwup-image</code> no contiene ninguna de las dos cosas.</p>
 </li>
 <li>
-<p>Transferir la imagen construida a la tarjeta SD.</p>
+<p>Transferir la imagen construida a la tarjeta SD:</p>
 <div class="codehilite"><pre><span class="nv">$ </span>sudo dd <span class="k">if</span><span class="o">=</span>tmp/deploy/images/rpi-basic-image-raspberrypi.rpi-sdimg <span class="nv">of</span><span class="o">=</span>/ruta/a/la/sd
 </pre></div>
 
